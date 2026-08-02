@@ -97,27 +97,30 @@ html, body {
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   border-bottom: 1px solid var(--border);
-  padding: 10px 20px;
+  padding: 8px 16px;
   transition: background 0.35s ease;
 }
 
 .header-inner {
-  max-width: 900px;
+  max-width: 960px;
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
-  flex-wrap: wrap;
+  gap: 8px;
+  flex-wrap: nowrap;
+  overflow: hidden;
 }
 
 /* 타이틀 */
 .game-title {
-  font-size: 2rem;
+  font-size: clamp(1.2rem, 3vw, 2rem);
   font-weight: 900;
   letter-spacing: 2px;
   line-height: 1;
   user-select: none;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .title-s { color: #e05fff; text-shadow: 0 0 14px rgba(224,95,255,0.7); }
@@ -135,18 +138,19 @@ html, body {
 .btn-theme {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
   background: var(--bg-card2);
   border: 1.5px solid var(--border);
   border-radius: 30px;
   color: var(--text-primary);
   font-family: 'Outfit', sans-serif;
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   font-weight: 600;
-  padding: 7px 16px;
+  padding: 5px 12px;
   cursor: pointer;
   transition: all 0.25s ease;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .btn-theme:hover {
@@ -158,19 +162,22 @@ html, body {
 /* 통계 카드 행 */
 .stats-row {
   display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
+  gap: 6px;
+  flex-wrap: nowrap;
+  flex-shrink: 1;
+  min-width: 0;
 }
 
 .stat-card {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
   background: var(--bg-card2);
   border: 1px solid var(--border);
   border-radius: var(--radius-stat);
-  padding: 8px 16px;
-  min-width: 130px;
+  padding: 6px 10px;
+  min-width: 0;
+  white-space: nowrap;
   transition: box-shadow 0.3s;
 }
 
@@ -178,16 +185,16 @@ html, body {
   box-shadow: 0 0 16px rgba(91,141,238,0.2);
 }
 
-.stat-icon  { font-size: 1.1rem; }
-.stat-label { font-size: 0.72rem; color: var(--text-muted); white-space: nowrap; }
+.stat-icon  { font-size: 1rem; flex-shrink: 0; }
+.stat-label { font-size: 0.68rem; color: var(--text-muted); white-space: nowrap; }
 .stat-value {
-  font-size: 1.4rem;
+  font-size: clamp(1rem, 2vw, 1.4rem);
   font-weight: 700;
   color: var(--accent-gold);
-  margin-left: 4px;
+  margin-left: 2px;
   transition: color 0.3s, transform 0.2s;
 }
-.stat-unit { font-size: 0.72rem; color: var(--text-muted); }
+.stat-unit { font-size: 0.68rem; color: var(--text-muted); }
 
 /* 타이머 위험 상태 */
 #statTimer.danger .stat-value {
@@ -207,17 +214,18 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding: 16px 16px 100px;
-  min-height: calc(100vh - 90px);
+  padding: 12px 16px 90px;
+  min-height: calc(100vh - 70px);
 }
 
 /* 3×3 카드 그리드 */
 .card-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+  gap: clamp(6px, 1.5vmin, 10px);
   width: 100%;
-  max-width: 420px;
+  /* 화면 크기에 따라 탄력적으로 조정 */
+  max-width: min(420px, calc(100vw - 32px));
 }
 
 /* ---------- 카드 ---------- */
@@ -470,27 +478,28 @@ html, body {
 }
 
 /* ---------- 반응형 ---------- */
-@media (max-width: 600px) {
-  .header-inner {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
+@media (max-width: 700px) {
+  .game-header { padding: 6px 12px; }
 
-  .stats-row { gap: 8px; }
+  .header-inner { gap: 6px; }
 
-  .stat-card {
-    min-width: 100px;
-    padding: 6px 12px;
-  }
+  .game-title { font-size: clamp(1rem, 5vw, 1.5rem); letter-spacing: 1px; }
+  .title-sub  { display: none; }
 
-  .stat-value { font-size: 1.1rem; }
+  .btn-theme  { font-size: 0.72rem; padding: 4px 10px; }
 
-  .card-grid {
-    gap: 10px;
-  }
+  .stats-row  { gap: 4px; }
+  .stat-card  { padding: 4px 8px; gap: 3px; }
+  .stat-icon  { font-size: 0.85rem; }
+  .stat-label { font-size: 0.6rem; }
+  .stat-value { font-size: 0.95rem; }
+  .stat-unit  { font-size: 0.6rem; }
 
-  .overlay-box {
-    padding: 32px 24px;
-  }
+  .card-grid  { gap: clamp(4px, 1vmin, 8px); }
+
+  .overlay-box { padding: 32px 24px; }
+
+  .selection-bar { font-size: 0.82rem; padding: 9px 20px; }
 }
+
+

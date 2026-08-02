@@ -47,24 +47,8 @@ const bgParticles   = document.getElementById('bgParticles');
 // 4. 파티클 배경 생성
 // ──────────────────────────────────────────────
 function createParticles() {
-  bgParticles.innerHTML = '';
-  const colors = ['#5b8dee', '#e05fff', '#3de8a0', '#f5c842', '#ff4d6d'];
-  for (let i = 0; i < 28; i++) {
-    const p = document.createElement('div');
-    p.classList.add('particle');
-    const size = Math.random() * 80 + 20;
-    p.style.cssText = `
-      width: ${size}px;
-      height: ${size}px;
-      left: ${Math.random() * 100}vw;
-      top: ${Math.random() * 100}vh;
-      background: ${colors[Math.floor(Math.random() * colors.length)]};
-      animation-duration: ${Math.random() * 20 + 15}s;
-      animation-delay: ${Math.random() * -20}s;
-      filter: blur(${size * 0.3}px);
-    `;
-    bgParticles.appendChild(p);
-  }
+  // 파티클 배경 비활성화
+  bgParticles.style.display = 'none';
 }
 
 // ──────────────────────────────────────────────
@@ -352,8 +336,9 @@ function onCardClick(idx) {
     return;
   }
 
-  // 3장 완성 → SET 판별
-  evaluateSelection();
+  // 3장 완성 → 선택 모션이 보이도록 짧은 딜레이 후 SET 판별
+  updateSelectionBar('active', '3장 선택됨');
+  setTimeout(() => evaluateSelection(), 200);
 }
 
 // ──────────────────────────────────────────────
