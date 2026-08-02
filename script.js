@@ -11,14 +11,15 @@ const IMAGE_BASE   = 'image01/';
 const SHAPES       = ['diamond', 'oval', 'squiggle'];
 const COLORS       = ['green',   'purple', 'red'];
 const FILLS        = ['outline', 'striped', 'solid'];
-const TOTAL_TIME   = 120;   // 초
+const TOTAL_TIME   = 120;   // 카운트다운 초
 const GRID_SIZE    = 9;     // 3×3
+const TARGET_SETS  = 10;    // 10 SET 타임어택 목표
 
 // ──────────────────────────────────────────────
 // 2. 게임 상태
 // ──────────────────────────────────────────────
 let gameMode    = 'countdown';  // 'countdown' | 'deckExhaust'
-let deck        = [];   // 덱 소진 모드에서만 사용
+let deck        = [];   // (현재 미사용, 향후 확장용)
 let board       = [];   // 현재 화면에 있는 카드 (9장, null 포함)
 let selected    = [];   // 선택된 카드 인덱스(board 기준)
 let score       = 0;
@@ -137,33 +138,19 @@ function countSets(cards) {
  */
 function initBoard() {
   const MAX_TRIES = 500;
-  if (gameMode === 'deckExhaust') {
-    // 유한 27장 덱: 9장 보드 + 18장 덱
-    for (let attempt = 0; attempt < MAX_TRIES; attempt++) {
-      const full = shuffle(buildFullDeck());
-      const candidate = full.slice(0, GRID_SIZE);
-      if (hasAnySet(candidate)) {
-        board = candidate;
-        deck  = full.slice(GRID_SIZE);
-        return;
-      }
+  // 두 모드 모두 무한 풀 방식 (deckExhaust는 10 SET 타임어택)
+  for (let attempt = 0; attempt < MAX_TRIES; attempt++) {
+    const full = shuffle(buildFullDeck());
+    const candidate = full.slice(0, GRID_SIZE);
+    if (hasAnySet(candidate)) {
+      board = candidate;
+      deck  = [];
+      return;
     }
-    const all = shuffle(buildFullDeck());
-    board = forcedSetBoard(all);
-    deck  = all.filter(c => !board.includes(c));
-  } else {
-    // 카운트다운 모드: 덱 없이 매번 27장 전체에서 9장 추출
-    for (let attempt = 0; attempt < MAX_TRIES; attempt++) {
-      const full = shuffle(buildFullDeck());
-      const candidate = full.slice(0, GRID_SIZE);
-      if (hasAnySet(candidate)) {
-        board = candidate;
-        return;
-      }
-    }
-    const all = shuffle(buildFullDeck());
-    board = forcedSetBoard(all);
   }
+  const all = shuffle(buildFullDeck());
+  board = forcedSetBoard(all);
+  deck  = [];
 }
 
 /**
@@ -292,72 +279,7 @@ function getCombinations(arr, k) {
  *   3순위: hasAnySet (최소한 SET 존재)
  */
 function replaceCards(boardIndices) {
-  if (gameMode === 'deckExhaust') {
-    for (const idx of boardIndices) { board[idx] = null; }
-
-    if (deck.length >= 3) {
-      const remaining = board.filter(Boolean);
-      const cardKey = c => `${c.shape}_${c.color}_${c.fill}`;
-
-      // 조합 생성: deck 크기에 따라 전수탐색 or 랜덤 시도
-      let combos;
-      if (deck.length <= 9) {
-        combos = getCombinations(deck, 3);
-        shuffle(combos);
-      } else {
-        combos = [];
-        for (let t = 0; t < 400; t++) {
-          const d = [...deck]; shuffle(d);
-          combos.push(d.slice(0, 3));
-        }
-      }
-
-      const applyTrio = (trio) => {
-        for (let i = 0; i < 3; i++) board[boardIndices[i]] = trio[i];
-        const used = new Set(trio.map(cardKey));
-        deck = deck.filter(c => !used.has(cardKey(c)));
-      };
-
-      // ── 1순위: 강한 소진 보장 ──
-      for (const trio of combos) {
-        if (isSet(trio[0], trio[1], trio[2])) continue;
-        const nine = [...remaining, ...trio];
-
-        let ok;
-        if (deck.length === 6) {
-          // 5번째 보충: 마지막 3장으로도 강하게 소진 가능한지 미리 검증
-          const last3 = deck.filter(c => !new Set(trio.map(cardKey)).has(cardKey(c)));
-          ok = allSETsLeadToStrongly(nine, last3);
-        } else {
-          ok = stronglyExhaustible(nine);
-        }
-
-        if (ok) { applyTrio(trio); return; }
-      }
-
-      // ── 2순위: 약한 소진 보장 (fallback) ──
-      for (const trio of combos) {
-        if (isSet(trio[0], trio[1], trio[2])) continue;
-        if (canExhaustAll([...remaining, ...trio])) { applyTrio(trio); return; }
-      }
-
-      // ── 3순위: SET 존재 보장 ──
-      for (const trio of combos) {
-        if (isSet(trio[0], trio[1], trio[2])) continue;
-        const temp = [...board];
-        for (let i = 0; i < 3; i++) temp[boardIndices[i]] = trio[i];
-        if (hasAnySet(temp.filter(Boolean))) { applyTrio(trio); return; }
-      }
-
-      // 최후 안전망 (극히 드문 엣지케이스)
-      shuffle(deck);
-      const nc = deck.splice(0, 3);
-      for (let i = 0; i < 3; i++) board[boardIndices[i]] = nc[i];
-    }
-    return;
-  }
-
-  // countdown 모드: 무한 풀
+  // 두 모드 모두 무한 풀 방식으로 통일
   for (const idx of boardIndices) { board[idx] = null; }
   const MAX_TRIES = 500;
   for (let t = 0; t < MAX_TRIES; t++) {
@@ -497,20 +419,6 @@ function evaluateSelection() {
   const elems = selected.map(idx => document.getElementById(`card-${idx}`));
 
   if (valid) {
-    // ── 덱 소진 모드 & 덱 완전 소진 후: 이 선택이 나머지 완성을 막는지 검사 ──
-    // canExhaustAll이 false가 되는 선택은 차단 → '덱 소진 실패' 원천 봉쇄
-    if (gameMode === 'deckExhaust' && deck.length === 0) {
-      const remaining = board.filter((c, idx) => c !== null && !selected.includes(idx));
-      if (remaining.length > 0 && !canExhaustAll(remaining)) {
-        elems.forEach(el => el.classList.remove('selected'));
-        selected = [];
-        updateSelectionBar('fail', 'SET이지만 나머지 카드를 완성할 수 없게 됩니다.');
-        setTimeout(() => updateSelectionBar(null, '다른 SET를 찾아보세요'), 2000);
-        animLock = false;
-        return;
-      }
-    }
-
     elems.forEach(el => el.classList.remove('selected'));
     score++;
     scoreDisplay.textContent = score;
@@ -521,14 +429,11 @@ function evaluateSelection() {
     indices.forEach(idx => renderCardAt(idx));
     updateHint();
 
-    // 덱 소진 모드: 모든 카드 클리어 시에만 종료 (실패 경로 없음)
-    if (gameMode === 'deckExhaust') {
-      const remaining = board.filter(Boolean);
-      if (remaining.length === 0) {
-        animLock = false;
-        setTimeout(() => endGame(), 300);
-        return;
-      }
+    // 10 SET 타임어택: 목표 달성 시 종료
+    if (gameMode === 'deckExhaust' && score >= TARGET_SETS) {
+      animLock = false;
+      setTimeout(() => endGame(), 300);
+      return;
     }
 
     updateSelectionBar('success', '정답입니다.');
@@ -608,11 +513,11 @@ function endGame() {
        score >= 3 ? '좋은 성적이에요! 계속 도전해보세요.' :
                    '연습하면 분명 더 잘할 수 있어요! 💪');
   } else {
-    // deckExhaust: 항상 클리어 완료 (실패 경로는 evaluateSelection 가드로 차단됨)
-    overlayEmoji.textContent = '🎉';
-    overlayTitle.textContent = '축하합니다!';
+    // 10 SET 타임어택 클리어
+    overlayEmoji.textContent = '🏅';
+    overlayTitle.textContent = `${TARGET_SETS} SET 달성!`;
     overlayDesc.innerHTML =
-      `27장의 카드를 모두 소진했습니다!<br>` +
+      `10개의 SET를 모두 찾았습니다!<br>` +
       `기록: <strong style="color:#f5c842">${formatTime(elapsedTime)}</strong>`;
   }
 
