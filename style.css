@@ -105,8 +105,8 @@ html, body {
   max-width: 960px;
   margin: 0 auto;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  align-items: stretch;
+  justify-content: flex-end;
   gap: 8px;
   flex-wrap: nowrap;
   overflow: hidden;
@@ -134,24 +134,24 @@ html, body {
   letter-spacing: 0;
 }
 
-/* 테마 토글 버튼 */
+/* 테마 토글 버튼: stat-card와 동일한 구조 및 패딩 */
 .btn-theme {
   display: flex;
   align-items: center;
   gap: 4px;
   background: var(--bg-card2);
-  border: 1.5px solid var(--border);
+  border: 1px solid var(--border);
   border-radius: var(--radius-stat);
   color: var(--text-primary);
   font-family: 'Outfit', sans-serif;
-  font-size: 0.78rem;
+  font-size: 0.68rem;
   font-weight: 600;
   padding: 6px 10px;
   cursor: pointer;
   transition: all 0.25s ease;
   white-space: nowrap;
   flex-shrink: 0;
-  height: 100%;
+  line-height: 1;
   align-self: stretch;
 }
 
@@ -278,19 +278,10 @@ html, body {
   pointer-events: none;
 }
 
-/* 선택 상태 */
+/* 선택 상태: 테두리만 파란색 */
 .card.selected {
   border-color: #5b8dee;
   box-shadow: var(--sel-glow);
-  background: rgba(91,141,238,0.12);
-}
-
-/* 오답: 선택 해제 시 페이드 아웃 */
-.card.deselecting {
-  transition: opacity 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-  opacity: 0.4;
-  border-color: var(--border);
-  box-shadow: var(--shadow-card);
 }
 
 /* 비활성(게임 종료) */
