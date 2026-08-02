@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SET 게임</title>
+  <meta name="description" content="27장의 커스텀 카드로 즐기는 웹 기반 SET 게임. 120초 안에 최대한 많은 SET를 찾아보세요!" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- 배경 파티클 -->
+  <div class="bg-particles" id="bgParticles"></div>
+
+  <!-- 헤더 -->
+  <header class="game-header">
+    <div class="header-inner">
+      <h1 class="game-title">
+        <span class="title-s">S</span><span class="title-e">E</span><span class="title-t">T</span>
+        <span class="title-sub">게임</span>
+      </h1>
+      <div class="stats-row">
+        <div class="stat-card" id="statTimer">
+          <span class="stat-icon">⏱</span>
+          <span class="stat-label">남은 시간</span>
+          <span class="stat-value" id="timerDisplay">120</span>
+          <span class="stat-unit">초</span>
+        </div>
+        <div class="stat-card" id="statScore">
+          <span class="stat-icon">🏆</span>
+          <span class="stat-label">찾은 SET</span>
+          <span class="stat-value" id="scoreDisplay">0</span>
+          <span class="stat-unit">개</span>
+        </div>
+        <div class="stat-card" id="statHint">
+          <span class="stat-icon">💡</span>
+          <span class="stat-label">가능한 SET</span>
+          <span class="stat-value" id="hintDisplay">-</span>
+          <span class="stat-unit">개</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 메인 게임 영역 -->
+  <main class="game-main">
+    <div class="card-grid" id="cardGrid"></div>
+  </main>
+
+  <!-- 선택 안내 바 -->
+  <div class="selection-bar" id="selectionBar">
+    <span id="selectionText">카드를 3장 선택하세요</span>
+  </div>
+
+  <!-- 게임 오버 오버레이 -->
+  <div class="overlay" id="gameOverlay" hidden>
+    <div class="overlay-box">
+      <div class="overlay-emoji" id="overlayEmoji">🎉</div>
+      <h2 class="overlay-title" id="overlayTitle">시간 종료!</h2>
+      <p class="overlay-desc" id="overlayDesc"></p>
+      <button class="btn-restart" id="btnRestart">다시 시작</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
