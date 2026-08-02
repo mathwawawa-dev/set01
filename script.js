@@ -198,11 +198,11 @@ function findThirdCard(a, b) {
  */
 function replaceCards(boardIndices) {
   if (deck.length < 3) {
-    // 덱 소진 시 그냥 제거만
+    // 덱 소진 시: 해당 인덱스를 null로 만 설정
+    // board 배열을 압축하지 않아 인덱스 일관성 유지
     for (const idx of boardIndices) {
       board[idx] = null;
     }
-    board = board.filter(c => c !== null);
     return;
   }
 
@@ -248,6 +248,11 @@ function renderBoard() {
   board.forEach((card, idx) => {
     if (!card) return;
     const el = createCardElement(card, idx);
+    // 명시적 grid 위치 설정 (renderCardAt와 동일한 방식)
+    const col = (idx % 3) + 1;
+    const row = Math.floor(idx / 3) + 1;
+    el.style.gridColumn = col;
+    el.style.gridRow    = row;
     cardGrid.appendChild(el);
   });
   updateHint();
