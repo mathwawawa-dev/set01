@@ -368,7 +368,9 @@ function evaluateSelection() {
       const indices = [...selected];
       selected = [];
       replaceCards(indices);
-      renderBoard();
+      // 새로 등장하는 3장만 개별 렌더링 (전체 재렌더링 방지)
+      indices.forEach(idx => renderCardAt(idx));
+      updateHint();
 
       updateSelectionBar(null, '카드를 3장 선택하세요');
       animLock = false;
