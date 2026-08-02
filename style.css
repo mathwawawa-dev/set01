@@ -66,6 +66,112 @@ html, body {
   transition: background 0.35s ease, color 0.35s ease;
 }
 
+/* ---------- 모드 선택 화면 ---------- */
+.mode-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-base);
+  transition: background 0.35s ease;
+}
+
+.mode-screen[hidden] { display: none; }
+
+.mode-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 32px 24px;
+  width: 100%;
+  max-width: 600px;
+}
+
+.mode-logo {
+  font-size: clamp(4rem, 15vw, 7rem);
+  font-weight: 900;
+  letter-spacing: -2px;
+  line-height: 1;
+  user-select: none;
+}
+
+.mode-subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.mode-cards {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.mode-card {
+  flex: 1;
+  min-width: 200px;
+  max-width: 260px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 28px 20px 22px;
+  background: var(--bg-card);
+  border: 2px solid var(--border);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+  box-shadow: var(--shadow-card);
+  font-family: 'Outfit', sans-serif;
+  color: var(--text-primary);
+}
+
+.mode-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 36px rgba(0,0,0,0.18);
+  border-color: var(--accent-blue);
+}
+
+.mode-card-icon {
+  font-size: 2.4rem;
+  line-height: 1;
+}
+
+.mode-card-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-top: 4px;
+}
+
+.mode-card-desc {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.55;
+}
+
+.mode-card-tag {
+  font-size: 0.72rem;
+  color: var(--accent-blue);
+  font-weight: 600;
+  margin-top: 4px;
+  letter-spacing: 0.02em;
+}
+
+.mode-version {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  opacity: 0.6;
+  margin-top: 8px;
+  font-variant-numeric: tabular-nums;
+}
+
+
 /* ---------- 배경 파티클 ---------- */
 .bg-particles {
   position: fixed;
@@ -198,10 +304,10 @@ html, body {
   animation: pulse 0.8s ease-in-out infinite;
 }
 
-/* 타이머 숫자 너비 고정 (숫자가 바뀌어도 레이아웃 흔들림 최소화) */
+/* 타이머 숫자 너비 고정 (염, 분:초 포맷 모두 수용) */
 #timerDisplay {
   font-variant-numeric: tabular-nums;
-  min-width: 1.8ch;
+  min-width: 7ch;
   display: inline-block;
   text-align: center;
 }

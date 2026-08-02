@@ -17,10 +17,13 @@ const GRID_SIZE    = 9;     // 3×3
 // ──────────────────────────────────────────────
 // 2. 게임 상태
 // ──────────────────────────────────────────────
+let gameMode    = 'countdown';  // 'countdown' | 'deckExhaust'
+let deck        = [];   // 덱 소진 모드에서만 사용
 let board       = [];   // 현재 화면에 있는 카드 (9장, null 포함)
 let selected    = [];   // 선택된 카드 인덱스(board 기준)
 let score       = 0;
 let timeLeft    = TOTAL_TIME;
+let elapsedTime = 0;    // 덱 소진 모드 진행 시간(초)
 let timerID     = null;
 let gameOver    = false;
 let animLock    = false; // 애니메이션 중 입력 방지
@@ -33,6 +36,8 @@ const timerDisplay  = document.getElementById('timerDisplay');
 const scoreDisplay  = document.getElementById('scoreDisplay');
 const hintText      = document.getElementById('hintText');
 const statTimer     = document.getElementById('statTimer');
+const statTimerLabel = statTimer.querySelector('.stat-label');
+const statTimerUnit  = statTimer.querySelector('.stat-unit');
 const selectionBar  = document.getElementById('selectionBar');
 const selectionText = document.getElementById('selectionText');
 const gameOverlay   = document.getElementById('gameOverlay');
@@ -41,6 +46,7 @@ const overlayTitle  = document.getElementById('overlayTitle');
 const overlayDesc   = document.getElementById('overlayDesc');
 const btnRestart    = document.getElementById('btnRestart');
 const bgParticles   = document.getElementById('bgParticles');
+const modeScreen    = document.getElementById('modeScreen');
 
 // ──────────────────────────────────────────────
 // 4. 파티클 배경 생성
@@ -127,21 +133,37 @@ function countSets(cards) {
 
 /**
  * SET가 최소 1개 이상 보장된 9장을 보드에 설정.
- * deck 없이 매번 27장 전체에서 무작위 9장 추출.
+ * 모드에 따라 deck 사용 여부 분기.
  */
 function initBoard() {
   const MAX_TRIES = 500;
-  for (let attempt = 0; attempt < MAX_TRIES; attempt++) {
-    const full = shuffle(buildFullDeck());
-    const candidate = full.slice(0, GRID_SIZE);
-    if (hasAnySet(candidate)) {
-      board = candidate;
-      return;
+  if (gameMode === 'deckExhaust') {
+    // 유한 27장 덱: 9장 보드 + 18장 덱
+    for (let attempt = 0; attempt < MAX_TRIES; attempt++) {
+      const full = shuffle(buildFullDeck());
+      const candidate = full.slice(0, GRID_SIZE);
+      if (hasAnySet(candidate)) {
+        board = candidate;
+        deck  = full.slice(GRID_SIZE);
+        return;
+      }
     }
+    const all = shuffle(buildFullDeck());
+    board = forcedSetBoard(all);
+    deck  = all.filter(c => !board.includes(c));
+  } else {
+    // 카운트다운 모드: 덱 없이 매번 27장 전체에서 9장 추출
+    for (let attempt = 0; attempt < MAX_TRIES; attempt++) {
+      const full = shuffle(buildFullDeck());
+      const candidate = full.slice(0, GRID_SIZE);
+      if (hasAnySet(candidate)) {
+        board = candidate;
+        return;
+      }
+    }
+    const all = shuffle(buildFullDeck());
+    board = forcedSetBoard(all);
   }
-  // 안전망
-  const all = shuffle(buildFullDeck());
-  board = forcedSetBoard(all);
 }
 
 /**
@@ -202,40 +224,48 @@ function findThirdCard(a, b) {
  * 제거된 카드는 자동으로 풀에 귀환(영구 소멸 없음).
  */
 function replaceCards(boardIndices) {
-  // 1. 제거: 해당 슬롯을 null로 설정 (board 배열 인덱스 불변 유지)
-  for (const idx of boardIndices) {
-    board[idx] = null;
+  if (gameMode === 'deckExhaust') {
+    // 영구 제거
+    for (const idx of boardIndices) { board[idx] = null; }
+
+    if (deck.length >= 3) {
+      const MAX_TRIES = 300;
+      for (let t = 0; t < MAX_TRIES; t++) {
+        shuffle(deck);
+        const newCards = deck.slice(0, 3);
+        const tempBoard = [...board];
+        for (let i = 0; i < 3; i++) tempBoard[boardIndices[i]] = newCards[i];
+        if (hasAnySet(tempBoard.filter(Boolean))) {
+          for (let i = 0; i < 3; i++) board[boardIndices[i]] = newCards[i];
+          deck.splice(0, 3);
+          return;
+        }
+      }
+      // 강제 보충
+      const nc = deck.splice(0, 3);
+      for (let i = 0; i < 3; i++) board[boardIndices[i]] = nc[i];
+    }
+    // deck < 3: 빈칸 그대로 (null)
+    return;
   }
 
-  // 2. 풀 = 27장 전체 - 현재 보드에 남은 6장
-  //    (방금 null 처리된 3장은 자동으로 풀에 포함됨)
+  // countdown 모드: 무한 풀
+  for (const idx of boardIndices) { board[idx] = null; }
   const MAX_TRIES = 500;
   for (let t = 0; t < MAX_TRIES; t++) {
-    const pool = getPool();   // 매 시도마다 최신 보드 기준으로 계산
+    const pool = getPool();
     shuffle(pool);
     const newCards = pool.slice(0, 3);
-
-    // 임시 보드에 적용해서 SET 존재 여부 확인
     const tempBoard = [...board];
-    for (let i = 0; i < 3; i++) {
-      tempBoard[boardIndices[i]] = newCards[i];
-    }
-
+    for (let i = 0; i < 3; i++) tempBoard[boardIndices[i]] = newCards[i];
     if (hasAnySet(tempBoard.filter(Boolean))) {
-      // 확정 적용
-      for (let i = 0; i < 3; i++) {
-        board[boardIndices[i]] = newCards[i];
-      }
+      for (let i = 0; i < 3; i++) board[boardIndices[i]] = newCards[i];
       return;
     }
   }
-
-  // 500회 시도 후에도 실패 시 강제 보충 (극히 드문 엣지케이스)
   const pool = getPool();
   shuffle(pool);
-  for (let i = 0; i < 3; i++) {
-    board[boardIndices[i]] = pool[i];
-  }
+  for (let i = 0; i < 3; i++) board[boardIndices[i]] = pool[i];
 }
 
 // ──────────────────────────────────────────────
@@ -359,9 +389,7 @@ function evaluateSelection() {
   const elems = selected.map(idx => document.getElementById(`card-${idx}`));
 
   if (valid) {
-    // 정답: 카드 교체 후 메시지 표시
     elems.forEach(el => el.classList.remove('selected'));
-
     score++;
     scoreDisplay.textContent = score;
 
@@ -371,6 +399,17 @@ function evaluateSelection() {
     indices.forEach(idx => renderCardAt(idx));
     updateHint();
 
+    // 덕 소진 모드: 종료 조건 체크
+    if (gameMode === 'deckExhaust') {
+      const remaining = board.filter(Boolean);
+      if (remaining.length === 0 ||
+          (deck.length === 0 && !hasAnySet(remaining))) {
+        animLock = false;
+        setTimeout(() => endGame(), 300);
+        return;
+      }
+    }
+
     updateSelectionBar('success', '정답입니다.');
     setTimeout(() => {
       updateSelectionBar(null, '카드를 3장 선택하세요');
@@ -378,7 +417,6 @@ function evaluateSelection() {
     animLock = false;
 
   } else {
-    // 오답: 선택 즉시 해제 + 일시적 메시지
     elems.forEach(el => el.classList.remove('selected'));
     selected = [];
     updateSelectionBar('fail', 'SET가 아닙니다.');
@@ -392,24 +430,40 @@ function evaluateSelection() {
 
 
 // ──────────────────────────────────────────────
-// 15. 타이머
+// 15. 타이머 (카운트다운 / 카운트업)
 // ──────────────────────────────────────────────
+function formatTime(sec) {
+  const h = Math.floor(sec / 3600);
+  const m = Math.floor((sec % 3600) / 60);
+  const s = sec % 60;
+  return `${h}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+}
+
 function startTimer() {
   clearInterval(timerID);
-  timeLeft = TOTAL_TIME;
-  timerDisplay.textContent = timeLeft;
   statTimer.classList.remove('danger');
 
-  timerID = setInterval(() => {
-    timeLeft--;
+  if (gameMode === 'countdown') {
+    timeLeft = TOTAL_TIME;
     timerDisplay.textContent = timeLeft;
-
-    if (timeLeft <= 20) statTimer.classList.add('danger');
-    if (timeLeft <= 0) {
-      clearInterval(timerID);
-      endGame();
-    }
-  }, 1000);
+    statTimerLabel.textContent = '남은 시간';
+    statTimerUnit.textContent = '초';
+    timerID = setInterval(() => {
+      timeLeft--;
+      timerDisplay.textContent = timeLeft;
+      if (timeLeft <= 20) statTimer.classList.add('danger');
+      if (timeLeft <= 0) { clearInterval(timerID); endGame(); }
+    }, 1000);
+  } else {
+    elapsedTime = 0;
+    timerDisplay.textContent = '0:00:00';
+    statTimerLabel.textContent = '진행 시간';
+    statTimerUnit.textContent = '';
+    timerID = setInterval(() => {
+      elapsedTime++;
+      timerDisplay.textContent = formatTime(elapsedTime);
+    }, 1000);
+  }
 }
 
 // ──────────────────────────────────────────────
@@ -418,17 +472,34 @@ function startTimer() {
 function endGame() {
   gameOver = true;
   animLock = true;
+  clearInterval(timerID);
 
-  // 모든 카드 비활성화
   document.querySelectorAll('.card').forEach(el => el.classList.add('disabled'));
 
-  overlayEmoji.textContent = score >= 5 ? '🏆' : score >= 3 ? '🎉' : '😅';
-  overlayTitle.textContent = '시간 종료!';
-  overlayDesc.innerHTML =
-    `총 <strong style="color:#f5c842">${score}</strong>개의 SET를 찾았어요!<br>` +
-    (score >= 5 ? '훌륭한 실력입니다! 👏' :
-     score >= 3 ? '좋은 성적이에요! 계속 도전해보세요.' :
-                  '연습하면 분명 더 잘할 수 있어요! 💪');
+  if (gameMode === 'countdown') {
+    overlayEmoji.textContent = score >= 5 ? '🏆' : score >= 3 ? '🎉' : '😅';
+    overlayTitle.textContent = '시간 종료!';
+    overlayDesc.innerHTML =
+      `총 <strong style="color:#f5c842">${score}</strong>개의 SET를 찾았어요!<br>` +
+      (score >= 5 ? '훌륭한 실력입니다! 👏' :
+       score >= 3 ? '좋은 성적이에요! 계속 도전해보세요.' :
+                   '연습하면 분명 더 잘할 수 있어요! 💪');
+  } else {
+    const allCleared = board.filter(Boolean).length === 0;
+    if (allCleared) {
+      overlayEmoji.textContent = '🎉';
+      overlayTitle.textContent = '축하합니다!';
+      overlayDesc.innerHTML =
+        `27장의 카드를 모두 소진했습니다!<br>` +
+        `기록: <strong style="color:#f5c842">${formatTime(elapsedTime)}</strong>`;
+    } else {
+      overlayEmoji.textContent = '😔';
+      overlayTitle.textContent = '덱 소진 실패';
+      overlayDesc.innerHTML =
+        `남은 카드로 SET를 만들 수 없습니다.<br>` +
+        `${score}개의 SET를 찾았어요. 재도전해보세요!`;
+    }
+  }
 
   gameOverlay.hidden = false;
 }
@@ -437,10 +508,12 @@ function endGame() {
 // 17. 게임 시작
 // ──────────────────────────────────────────────
 function startGame() {
-  gameOver   = false;
-  animLock   = false;
-  score      = 0;
-  selected   = [];
+  gameOver    = false;
+  animLock    = false;
+  score       = 0;
+  selected    = [];
+  deck        = [];
+  elapsedTime = 0;
 
   scoreDisplay.textContent = '0';
   hintText.textContent = '';
@@ -456,7 +529,24 @@ function startGame() {
 // ──────────────────────────────────────────────
 // 18. 이벤트 바인딩
 // ──────────────────────────────────────────────
-btnRestart.addEventListener('click', startGame);
+
+// 다시 시작 → 모드 선택 화면으로
+btnRestart.addEventListener('click', () => {
+  gameOverlay.hidden = true;
+  modeScreen.hidden = false;
+});
+
+// 모드 선택
+document.getElementById('btnModeCountdown').addEventListener('click', () => {
+  gameMode = 'countdown';
+  modeScreen.hidden = true;
+  startGame();
+});
+document.getElementById('btnModeDeck').addEventListener('click', () => {
+  gameMode = 'deckExhaust';
+  modeScreen.hidden = true;
+  startGame();
+});
 
 // ──────────────────────────────────────────────
 // 19. 키보드 단축키
@@ -502,7 +592,8 @@ btnTheme.addEventListener('click', () => {
 });
 
 // ──────────────────────────────────────────────
-// 19. 초기화
+// 20. 초기화 — 모드 선택 화면 표시
 // ──────────────────────────────────────────────
 createParticles();
-startGame();
+// 게임 자동 시작 없이 대문(모드 선택) 화면 표시
+modeScreen.hidden = false;
