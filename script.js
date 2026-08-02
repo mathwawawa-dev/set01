@@ -217,23 +217,57 @@ function findThirdCard(a, b) {
 // 8. SET 제거 후 카드 보충 로직
 // ──────────────────────────────────────────────
 
+/** cards 안의 모든 SET 인덱스 삼중쌍 반환 */
+function getAllSets(cards) {
+  const sets = [];
+  for (let i = 0; i < cards.length - 2; i++)
+    for (let j = i + 1; j < cards.length - 1; j++)
+      for (let k = j + 1; k < cards.length; k++)
+        if (isSet(cards[i], cards[j], cards[k])) sets.push([i, j, k]);
+  return sets;
+}
+
 /**
- * 카드 배열을 SET들로 완전 소진 가능한지 백트래킹으로 검사.
- * 덱 소진 모드에서 "막힘" 방지의 핵심 함수.
+ * [약한] 어떤 경로 하나라도 완전 소진 가능하면 true.
  */
 function canExhaustAll(cards) {
   if (cards.length === 0) return true;
-  for (let i = 0; i < cards.length - 2; i++) {
-    for (let j = i + 1; j < cards.length - 1; j++) {
-      for (let k = j + 1; k < cards.length; k++) {
+  for (let i = 0; i < cards.length - 2; i++)
+    for (let j = i + 1; j < cards.length - 1; j++)
+      for (let k = j + 1; k < cards.length; k++)
         if (isSet(cards[i], cards[j], cards[k])) {
           const rest = cards.filter((_, x) => x !== i && x !== j && x !== k);
           if (canExhaustAll(rest)) return true;
         }
-      }
-    }
-  }
   return false;
+}
+
+/**
+ * [강한] 사용자가 어떤 SET를 선택해도 완전 소진 가능하면 true.
+ * 모든 SET 선택이 재귀적으로 강하게 소진 가능해야 함.
+ */
+function stronglyExhaustible(cards) {
+  if (cards.length === 0) return true;
+  const sets = getAllSets(cards);
+  if (sets.length === 0) return false;
+  return sets.every(([i, j, k]) => {
+    const rest = cards.filter((_, x) => x !== i && x !== j && x !== k);
+    return stronglyExhaustible(rest);
+  });
+}
+
+/**
+ * nine(9장)에서 사용자가 어떤 SET를 선택해도,
+ * 남은 6장 + deck3(마지막 덱 3장)이 stronglyExhaustible이면 true.
+ * deck=6일 때 5번째 보충에서 6번째(최종) 보충 결과를 미리 보장.
+ */
+function allSETsLeadToStrongly(nine, deck3) {
+  const sets = getAllSets(nine);
+  if (sets.length === 0) return false;
+  return sets.every(([i, j, k]) => {
+    const rest = nine.filter((_, x) => x !== i && x !== j && x !== k);
+    return stronglyExhaustible([...rest, ...deck3]);
+  });
 }
 
 /** arr에서 k개 뽑는 모든 조합 반환 */
@@ -251,57 +285,71 @@ function getCombinations(arr, k) {
 }
 
 /**
- * SET로 확인된 3장(boardIndices)을 제거하고 보충.
- * - countdown: 무한 풀 방식
- * - deckExhaust: canExhaustAll을 만족하는 3장 선택 → 덱 소진 실패 원천 차단
+ * SET로 확인된 3장을 영구 제거하고 보충.
+ * deckExhaust: 3단계 기준으로 소진 실패 원천 차단
+ *   1순위: stronglyExhaustible (사용자의 모든 선택이 안전)
+ *   2순위: canExhaustAll (어떤 경로 하나라도 소진 가능)
+ *   3순위: hasAnySet (최소한 SET 존재)
  */
 function replaceCards(boardIndices) {
   if (gameMode === 'deckExhaust') {
     for (const idx of boardIndices) { board[idx] = null; }
 
     if (deck.length >= 3) {
-      const remaining = board.filter(Boolean); // 6장
+      const remaining = board.filter(Boolean);
+      const cardKey = c => `${c.shape}_${c.color}_${c.fill}`;
 
-      // deck이 작을 때는 전수 탐색, 클 때는 랜덤 시도
+      // 조합 생성: deck 크기에 따라 전수탐색 or 랜덤 시도
       let combos;
       if (deck.length <= 9) {
         combos = getCombinations(deck, 3);
         shuffle(combos);
       } else {
         combos = [];
-        for (let t = 0; t < 300; t++) {
+        for (let t = 0; t < 400; t++) {
           const d = [...deck]; shuffle(d);
           combos.push(d.slice(0, 3));
         }
       }
 
+      const applyTrio = (trio) => {
+        for (let i = 0; i < 3; i++) board[boardIndices[i]] = trio[i];
+        const used = new Set(trio.map(cardKey));
+        deck = deck.filter(c => !used.has(cardKey(c)));
+      };
+
+      // ── 1순위: 강한 소진 보장 ──
       for (const trio of combos) {
-        // 새로 등장하는 3장 자체가 SET이면 건너뜀
         if (isSet(trio[0], trio[1], trio[2])) continue;
-        if (canExhaustAll([...remaining, ...trio])) {
-          for (let i = 0; i < 3; i++) board[boardIndices[i]] = trio[i];
-          const key = c => `${c.shape}_${c.color}_${c.fill}`;
-          const used = new Set(trio.map(key));
-          deck = deck.filter(c => !used.has(key(c)));
-          return;
+        const nine = [...remaining, ...trio];
+
+        let ok;
+        if (deck.length === 6) {
+          // 5번째 보충: 마지막 3장으로도 강하게 소진 가능한지 미리 검증
+          const last3 = deck.filter(c => !new Set(trio.map(cardKey)).has(cardKey(c)));
+          ok = allSETsLeadToStrongly(nine, last3);
+        } else {
+          ok = stronglyExhaustible(nine);
         }
+
+        if (ok) { applyTrio(trio); return; }
       }
 
-      // 안전망: canExhaustAll 불가 시 hasAnySet 기준 (trio 자체 SET 제외)
+      // ── 2순위: 약한 소진 보장 (fallback) ──
+      for (const trio of combos) {
+        if (isSet(trio[0], trio[1], trio[2])) continue;
+        if (canExhaustAll([...remaining, ...trio])) { applyTrio(trio); return; }
+      }
+
+      // ── 3순위: SET 존재 보장 ──
       for (const trio of combos) {
         if (isSet(trio[0], trio[1], trio[2])) continue;
         const temp = [...board];
         for (let i = 0; i < 3; i++) temp[boardIndices[i]] = trio[i];
-        if (hasAnySet(temp.filter(Boolean))) {
-          for (let i = 0; i < 3; i++) board[boardIndices[i]] = trio[i];
-          const key = c => `${c.shape}_${c.color}_${c.fill}`;
-          const used = new Set(trio.map(key));
-          deck = deck.filter(c => !used.has(key(c)));
-          return;
-        }
+        if (hasAnySet(temp.filter(Boolean))) { applyTrio(trio); return; }
       }
 
-      // 최후 안전망
+      // 최후 안전망 (극히 드문 엣지케이스)
       shuffle(deck);
       const nc = deck.splice(0, 3);
       for (let i = 0; i < 3; i++) board[boardIndices[i]] = nc[i];
@@ -318,6 +366,7 @@ function replaceCards(boardIndices) {
     const tempBoard = [...board];
     for (let i = 0; i < 3; i++) tempBoard[boardIndices[i]] = newCards[i];
     if (hasAnySet(tempBoard.filter(Boolean))) {
+
       for (let i = 0; i < 3; i++) board[boardIndices[i]] = newCards[i];
       return;
     }
