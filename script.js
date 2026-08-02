@@ -487,6 +487,19 @@ function startGame() {
 btnRestart.addEventListener('click', startGame);
 
 // ──────────────────────────────────────────────
+// 19. 다크/라이트 모드 토글
+// ──────────────────────────────────────────────
+const btnTheme   = document.getElementById('btnTheme');
+const themeIcon  = document.getElementById('themeIcon');
+const themeLabel = document.getElementById('themeLabel');
+
+btnTheme.addEventListener('click', () => {
+  const isDark = document.body.classList.toggle('dark');
+  themeIcon.textContent  = isDark ? '☀️' : '🌙';
+  themeLabel.textContent = isDark ? '라이트 모드' : '다크 모드';
+});
+
+// ──────────────────────────────────────────────
 // 19. 초기화
 // ──────────────────────────────────────────────
 createParticles();
