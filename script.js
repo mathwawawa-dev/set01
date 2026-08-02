@@ -12,13 +12,15 @@ const SHAPES       = ['diamond', 'oval', 'squiggle'];
 const COLORS       = ['green',   'purple', 'red'];
 const FILLS        = ['outline', 'striped', 'solid'];
 const TOTAL_TIME   = 120;   // 카운트다운 초
-const GRID_SIZE    = 9;     // 3×3
+const GRID_SIZE    = 9;     // 27장 모드 3×3
 const TARGET_SETS  = 20;    // 20 SET 타임어택 목표
+const COUNTS       = [1, 2, 3];   // 정시 모드 4번째 속성
+const OFFICIAL_GRID = 12;  // 81장 모드 4×3
 
 // ──────────────────────────────────────────────
 // 2. 게임 상태
 // ──────────────────────────────────────────────
-let gameMode    = 'countdown';  // 'countdown' | 'deckExhaust'
+let gameMode    = 'countdown';  // 'countdown' | 'deckExhaust' | 'official'
 let deck        = [];   // (현재 미사용, 향후 확장용)
 let board       = [];   // 현재 화면에 있는 카드 (9장, null 포함)
 let selected    = [];   // 선택된 카드 인덱스(board 기준)
@@ -86,13 +88,21 @@ function createParticles() {
 /** 27장 전체 덱을 생성 */
 function buildFullDeck() {
   const cards = [];
-  for (const shape of SHAPES) {
-    for (const color of COLORS) {
-      for (const fill of FILLS) {
+  for (const shape of SHAPES)
+    for (const color of COLORS)
+      for (const fill of FILLS)
         cards.push({ shape, color, fill });
-      }
-    }
-  }
+  return cards;
+}
+
+/** 81장 전체 덱을 생성 (4속성: 모양·색상·솨치기·개수) */
+function buildOfficialDeck() {
+  const cards = [];
+  for (const shape of SHAPES)
+    for (const color of COLORS)
+      for (const fill of FILLS)
+        for (const count of COUNTS)
+          cards.push({ shape, color, fill, count });
   return cards;
 }
 
@@ -114,39 +124,49 @@ function imgPath(card) {
 // 6. SET 판별 로직
 // ──────────────────────────────────────────────
 
-/** 세 카드가 유효한 SET인지 판별 */
+/** 27장 모드: 3속성 SET 판별 */
 function isSet(a, b, c) {
   const props = ['shape', 'color', 'fill'];
   for (const prop of props) {
     const vals = new Set([a[prop], b[prop], c[prop]]);
-    // 3개가 모두 같거나(size=1) 모두 달라야(size=3) 함
     if (vals.size === 2) return false;
   }
   return true;
 }
 
+/** 81장 정시 모드: 4속성 SET 판별 */
+function isSetOfficial(a, b, c) {
+  const props = ['shape', 'color', 'fill', 'count'];
+  for (const prop of props) {
+    const vals = new Set([a[prop], b[prop], c[prop]]);
+    if (vals.size === 2) return false;
+  }
+  return true;
+}
+
+/** 현재 모드에 맞는 isSet 함수 반환 */
+function getIsSet() {
+  return gameMode === 'official' ? isSetOfficial : isSet;
+}
+
 /** 배열에서 SET가 존재하는지 여부 반환 */
 function hasAnySet(cards) {
-  for (let i = 0; i < cards.length - 2; i++) {
-    for (let j = i + 1; j < cards.length - 1; j++) {
-      for (let k = j + 1; k < cards.length; k++) {
-        if (isSet(cards[i], cards[j], cards[k])) return true;
-      }
-    }
-  }
+  const fn = getIsSet();
+  for (let i = 0; i < cards.length - 2; i++)
+    for (let j = i + 1; j < cards.length - 1; j++)
+      for (let k = j + 1; k < cards.length; k++)
+        if (fn(cards[i], cards[j], cards[k])) return true;
   return false;
 }
 
 /** 배열에서 유효한 SET 개수 반환 */
 function countSets(cards) {
+  const fn = getIsSet();
   let count = 0;
-  for (let i = 0; i < cards.length - 2; i++) {
-    for (let j = i + 1; j < cards.length - 1; j++) {
-      for (let k = j + 1; k < cards.length; k++) {
-        if (isSet(cards[i], cards[j], cards[k])) count++;
-      }
-    }
-  }
+  for (let i = 0; i < cards.length - 2; i++)
+    for (let j = i + 1; j < cards.length - 1; j++)
+      for (let k = j + 1; k < cards.length; k++)
+        if (fn(cards[i], cards[j], cards[k])) count++;
   return count;
 }
 
@@ -156,11 +176,11 @@ function countSets(cards) {
 
 /**
  * SET가 최소 1개 이상 보장된 9장을 보드에 설정.
- * 모드에 따라 deck 사용 여부 분기.
+ * 정시 모드는 initOfficialBoard() 로 분기.
  */
 function initBoard() {
+  if (gameMode === 'official') { initOfficialBoard(); return; }
   const MAX_TRIES = 500;
-  // 두 모드 모두 무한 풀 방식 (deckExhaust는 10 SET 타임어택)
   for (let attempt = 0; attempt < MAX_TRIES; attempt++) {
     const full = shuffle(buildFullDeck());
     const candidate = full.slice(0, GRID_SIZE);
@@ -173,6 +193,24 @@ function initBoard() {
   const all = shuffle(buildFullDeck());
   board = forcedSetBoard(all);
   deck  = [];
+}
+
+/** 81장 정시 모드 보드 초기화 (12장 + 69장 덱) */
+function initOfficialBoard() {
+  const MAX_TRIES = 1000;
+  for (let attempt = 0; attempt < MAX_TRIES; attempt++) {
+    const full = shuffle(buildOfficialDeck());
+    const candidate = full.slice(0, OFFICIAL_GRID);
+    if (hasAnySet(candidate)) {
+      board = candidate;
+      deck  = full.slice(OFFICIAL_GRID);
+      return;
+    }
+  }
+  // 안전망: 조건 미충족 시 강제 배치
+  const all = shuffle(buildOfficialDeck());
+  board = all.slice(0, OFFICIAL_GRID);
+  deck  = all.slice(OFFICIAL_GRID);
 }
 
 /**
@@ -301,7 +339,9 @@ function getCombinations(arr, k) {
  *   3순위: hasAnySet (최소한 SET 존재)
  */
 function replaceCards(boardIndices) {
-  // 두 모드 모두 무한 풀 방식으로 통일
+  if (gameMode === 'official') { replaceOfficialCards(boardIndices); return; }
+
+  // 27장 븴로: 두 모드 모두 무한 풀 방식으로 통일
   for (const idx of boardIndices) { board[idx] = null; }
   const MAX_TRIES = 500;
   for (let t = 0; t < MAX_TRIES; t++) {
@@ -335,6 +375,34 @@ function replaceCards(boardIndices) {
   for (let i = 0; i < 3; i++) board[boardIndices[i]] = pool[i];
 }
 
+/** 81장 정시 모드 컨드 보충 (덱에서 3장) */
+function replaceOfficialCards(boardIndices) {
+  for (const idx of boardIndices) board[idx] = null;
+
+  if (deck.length < 3) return;  // 덱 소진 후 보충 불가
+
+  const MAX_TRIES = 500;
+  for (let t = 0; t < MAX_TRIES; t++) {
+    const shuffledDeck = [...deck];
+    shuffle(shuffledDeck);
+    const newCards = shuffledDeck.slice(0, 3);
+
+    if (isSetOfficial(newCards[0], newCards[1], newCards[2])) continue;
+
+    const tempBoard = [...board];
+    for (let i = 0; i < 3; i++) tempBoard[boardIndices[i]] = newCards[i];
+    if (hasAnySet(tempBoard.filter(Boolean))) {
+      const key = c => `${c.shape}_${c.color}_${c.fill}_${c.count}`;
+      const usedKeys = new Set(newCards.map(key));
+      for (let i = 0; i < 3; i++) board[boardIndices[i]] = newCards[i];
+      deck = deck.filter(c => !usedKeys.has(key(c)));
+      return;
+    }
+  }
+  // 안전망: 덱 앞에서 3장 그냥 배치
+  for (let i = 0; i < 3; i++) board[boardIndices[i]] = deck.shift();
+}
+
 
 
 // ──────────────────────────────────────────────
@@ -344,12 +412,18 @@ function replaceCards(boardIndices) {
 /** 카드 그리드 전체 렌더링 */
 function renderBoard() {
   cardGrid.innerHTML = '';
+  // 정시 모드일 때 4행 그리드 적용
+  if (gameMode === 'official') {
+    cardGrid.classList.add('official');
+  } else {
+    cardGrid.classList.remove('official');
+  }
+  const cols = 3;
   board.forEach((card, idx) => {
     if (!card) return;
     const el = createCardElement(card, idx);
-    // 명시적 grid 위치 설정 (renderCardAt와 동일한 방식)
-    const col = (idx % 3) + 1;
-    const row = Math.floor(idx / 3) + 1;
+    const col = (idx % cols) + 1;
+    const row = Math.floor(idx / cols) + 1;
     el.style.gridColumn = col;
     el.style.gridRow    = row;
     cardGrid.appendChild(el);
@@ -364,12 +438,28 @@ function createCardElement(card, idx) {
   el.dataset.idx = idx;
   el.id = `card-${idx}`;
 
-  const img = document.createElement('img');
-  img.src = imgPath(card);
-  img.alt = `${card.shape} ${card.color} ${card.fill}`;
-  img.draggable = false;
+  if (card.count !== undefined) {
+    // 81장 정시 모드: count만큼 이미지 반복
+    const inner = document.createElement('div');
+    inner.className = `card-symbols count-${card.count}`;
+    for (let i = 0; i < card.count; i++) {
+      const img = document.createElement('img');
+      img.src = imgPath(card);
+      img.alt = `${card.shape} ${card.color} ${card.fill} ${card.count}`;
+      img.className = 'card-symbol';
+      img.draggable = false;
+      inner.appendChild(img);
+    }
+    el.appendChild(inner);
+  } else {
+    // 27장 모드: 단일 이미지
+    const img = document.createElement('img');
+    img.src = imgPath(card);
+    img.alt = `${card.shape} ${card.color} ${card.fill}`;
+    img.draggable = false;
+    el.appendChild(img);
+  }
 
-  el.appendChild(img);
   el.addEventListener('click', () => onCardClick(idx));
   return el;
 }
@@ -453,7 +543,7 @@ function evaluateSelection() {
 
   const [i, j, k] = selected;
   const a = board[i], b = board[j], c = board[k];
-  const valid = isSet(a, b, c);
+  const valid = (gameMode === 'official') ? isSetOfficial(a, b, c) : isSet(a, b, c);
 
   const elems = selected.map(idx => document.getElementById(`card-${idx}`));
 
@@ -468,11 +558,21 @@ function evaluateSelection() {
     indices.forEach(idx => renderCardAt(idx));
     updateHint();
 
-    // 10 SET 타임어택: 목표 달성 시 종료
+    // 20 SET 타임어택: 목표 달성 시 종료
     if (gameMode === 'deckExhaust' && score >= TARGET_SETS) {
       animLock = false;
       setTimeout(() => endGame(), 300);
       return;
+    }
+
+    // 정시 모드: 덱 소진 또는 보드 전체 클리어 시 종료
+    if (gameMode === 'official') {
+      const remaining = board.filter(Boolean);
+      if (remaining.length === 0 || (deck.length === 0 && !hasAnySet(remaining))) {
+        animLock = false;
+        setTimeout(() => endGame(), 300);
+        return;
+      }
     }
 
     updateSelectionBar('success', '정답입니다.');
@@ -551,13 +651,21 @@ function endGame() {
       (score >= 5 ? '훌륭한 실력입니다! 👏' :
        score >= 3 ? '좋은 성적이에요! 계속 도전해보세요.' :
                    '연습하면 분명 더 잘할 수 있어요! 💪');
-  } else {
-    // 10 SET 타임어택 클리어
+  } else if (gameMode === 'deckExhaust') {
+    // 20 SET 타임어택 클리어
     overlayEmoji.textContent = '🏅';
     overlayTitle.textContent = `${TARGET_SETS} SET 달성!`;
     overlayDesc.innerHTML =
       `20개의 SET를 모두 찾았습니다!<br>` +
       `기록: <strong style="color:#f5c842">${formatTime(elapsedTime)}</strong>`;
+  } else {
+    // 81장 정시 모드 종료
+    const allCleared = board.filter(Boolean).length === 0 && deck.length === 0;
+    overlayEmoji.textContent = allCleared ? '🌟' : '🎉';
+    overlayTitle.textContent = allCleared ? '완주 달성!' : '정시 SET 종료';
+    overlayDesc.innerHTML = allCleared
+      ? `81장 완주! 모든 SET를 찾았습니다!<br>기록: <strong style="color:#f5c842">${formatTime(elapsedTime)}</strong>`
+      : `엔드! 총 <strong style="color:#f5c842">${score}</strong>개의 SET를 찾았습니다.<br>기록: <strong style="color:#f5c842">${formatTime(elapsedTime)}</strong>`;
   }
 
   gameOverlay.hidden = false;
@@ -604,6 +712,11 @@ document.getElementById('btnModeCountdown').addEventListener('click', () => {
 });
 document.getElementById('btnModeDeck').addEventListener('click', () => {
   gameMode = 'deckExhaust';
+  modeScreen.hidden = true;
+  startGame();
+});
+document.getElementById('btnModeOfficial').addEventListener('click', () => {
+  gameMode = 'official';
   modeScreen.hidden = true;
   startGame();
 });
