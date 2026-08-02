@@ -370,7 +370,7 @@ html, body {
   background: var(--bg-card);
   border: 1.5px solid var(--border);
   border-radius: var(--radius-card);
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 4 / 3;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -413,21 +413,18 @@ html, body {
   gap: 4%;
   width: 100%;
   height: 100%;
-  padding: 10% 6%;
+  padding: 8% 5%;
   box-sizing: border-box;
 }
 
+/* 모든 count에서 동일한 이미지 크기 */
 .card-symbol {
-  height: auto;
+  height: 68%;
+  width: auto;
   flex: 0 0 auto;
   object-fit: contain;
   pointer-events: none;
 }
-
-/* count별 이미지 너비 */
-.card-symbols.count-1 .card-symbol { width: 62%; }
-.card-symbols.count-2 .card-symbol { width: 42%; }
-.card-symbols.count-3 .card-symbol { width: 28%; }
 
 /* 선택 상태: 테두리만 파란색 */
 .card.selected {
