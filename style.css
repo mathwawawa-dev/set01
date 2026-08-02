@@ -106,7 +106,7 @@ html, body {
   margin: 0 auto;
   display: flex;
   align-items: stretch;
-  justify-content: flex-end;
+  justify-content: space-between;
   gap: 8px;
   flex-wrap: nowrap;
   overflow: hidden;
@@ -223,10 +223,21 @@ html, body {
   position: relative;
   z-index: 1;
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  flex-direction: column;
+  align-items: center;
   padding: 12px 16px 90px;
   min-height: calc(100vh - 70px);
+}
+
+/* 힙트 텍스트 (상단바와 카드 사이) */
+.hint-text {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+  min-height: 1.4em;
+  text-align: center;
+  font-weight: 400;
+  letter-spacing: 0.01em;
 }
 
 /* 3×3 카드 그리드 */
@@ -429,18 +440,7 @@ html, body {
   transform: scale(0.97);
 }
 
-/* ---------- 점수 범프 이펙트 ---------- */
-@keyframes scoreBump {
-  0%   { transform: scale(1);    color: var(--accent-gold); }
-  25%  { transform: scale(1.6);  color: var(--accent-green); filter: drop-shadow(0 0 8px var(--accent-green)); }
-  55%  { transform: scale(0.88); color: var(--accent-green); }
-  80%  { transform: scale(1.15); }
-  100% { transform: scale(1);    color: var(--accent-gold); filter: none; }
-}
 
-.stat-value.score-bump {
-  animation: scoreBump 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-}
 
 /* ---------- 반응형 ---------- */
 @media (max-width: 700px) {
