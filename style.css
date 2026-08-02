@@ -105,9 +105,9 @@ html, body {
   max-width: 960px;
   margin: 0 auto;
   display: flex;
-  align-items: stretch;
-  justify-content: space-between;
-  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
   flex-wrap: nowrap;
   overflow: hidden;
 }
@@ -134,69 +134,64 @@ html, body {
   letter-spacing: 0;
 }
 
-/* 테마 토글 버튼: stat-card와 동일한 구조 및 패딩 */
+/* 테마 토글 버튼 */
 .btn-theme {
   display: flex;
   align-items: center;
-  gap: 4px;
-  background: var(--bg-card2);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-stat);
+  gap: 6px;
+  background: none;
+  border: none;
   color: var(--text-primary);
   font-family: 'Outfit', sans-serif;
-  font-size: 0.68rem;
-  font-weight: 600;
-  padding: 6px 10px;
+  font-size: 0.9rem;
+  font-weight: 400;
+  padding: 4px 8px;
   cursor: pointer;
-  transition: all 0.25s ease;
+  transition: opacity 0.2s;
   white-space: nowrap;
   flex-shrink: 0;
-  line-height: 1;
-  align-self: stretch;
 }
 
 .btn-theme:hover {
-  border-color: var(--accent-blue);
-  box-shadow: 0 0 12px rgba(58,111,216,0.25);
-  transform: translateY(-1px);
+  opacity: 0.7;
 }
 
-/* 통계 카드 행 */
+/* 통계 행 */
 .stats-row {
   display: flex;
-  gap: 6px;
+  gap: 20px;
   flex-wrap: nowrap;
-  flex-shrink: 1;
-  min-width: 0;
+  align-items: center;
 }
 
 .stat-card {
   display: flex;
   align-items: center;
-  gap: 4px;
-  background: var(--bg-card2);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-stat);
-  padding: 6px 10px;
-  min-width: 0;
+  gap: 5px;
+  background: none;
+  border: none;
+  padding: 0;
   white-space: nowrap;
-  transition: box-shadow 0.3s;
 }
 
-.stat-card:hover {
-  box-shadow: 0 0 16px rgba(91,141,238,0.2);
+.stat-icon  { display: none; }
+.stat-label {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  white-space: nowrap;
 }
-
-.stat-icon  { font-size: 1rem; flex-shrink: 0; }
-.stat-label { font-size: 0.68rem; color: var(--text-muted); white-space: nowrap; }
 .stat-value {
-  font-size: clamp(1rem, 2vw, 1.4rem);
-  font-weight: 700;
-  color: var(--accent-gold);
-  margin-left: 2px;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--text-primary);
   transition: color 0.3s, transform 0.2s;
 }
-.stat-unit { font-size: 0.68rem; color: var(--text-muted); }
+.stat-unit {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--text-primary);
+}
 
 /* 타이머 위험 상태 */
 #statTimer.danger .stat-value {
