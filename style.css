@@ -364,13 +364,18 @@ html, body {
   max-width: min(380px, calc(100vw - 32px));
 }
 
+/* 정식 모드에서만 카드 가로형 */
+.card-grid.official .card {
+  aspect-ratio: 4 / 3;
+}
+
 /* ---------- 카드 ---------- */
 .card {
   position: relative;
   background: var(--bg-card);
   border: 1.5px solid var(--border);
   border-radius: var(--radius-card);
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 3 / 4;
   cursor: pointer;
   display: flex;
   align-items: center;
