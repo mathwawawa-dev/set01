@@ -497,6 +497,20 @@ function evaluateSelection() {
   const elems = selected.map(idx => document.getElementById(`card-${idx}`));
 
   if (valid) {
+    // ── 덱 소진 모드 & 덱 완전 소진 후: 이 선택이 나머지 완성을 막는지 검사 ──
+    // canExhaustAll이 false가 되는 선택은 차단 → '덱 소진 실패' 원천 봉쇄
+    if (gameMode === 'deckExhaust' && deck.length === 0) {
+      const remaining = board.filter((c, idx) => c !== null && !selected.includes(idx));
+      if (remaining.length > 0 && !canExhaustAll(remaining)) {
+        elems.forEach(el => el.classList.remove('selected'));
+        selected = [];
+        updateSelectionBar('fail', 'SET이지만 나머지 카드를 완성할 수 없게 됩니다.');
+        setTimeout(() => updateSelectionBar(null, '다른 SET를 찾아보세요'), 2000);
+        animLock = false;
+        return;
+      }
+    }
+
     elems.forEach(el => el.classList.remove('selected'));
     score++;
     scoreDisplay.textContent = score;
@@ -507,11 +521,10 @@ function evaluateSelection() {
     indices.forEach(idx => renderCardAt(idx));
     updateHint();
 
-    // 덕 소진 모드: 종료 조건 체크
+    // 덱 소진 모드: 모든 카드 클리어 시에만 종료 (실패 경로 없음)
     if (gameMode === 'deckExhaust') {
       const remaining = board.filter(Boolean);
-      if (remaining.length === 0 ||
-          (deck.length === 0 && !hasAnySet(remaining))) {
+      if (remaining.length === 0) {
         animLock = false;
         setTimeout(() => endGame(), 300);
         return;
@@ -595,20 +608,12 @@ function endGame() {
        score >= 3 ? '좋은 성적이에요! 계속 도전해보세요.' :
                    '연습하면 분명 더 잘할 수 있어요! 💪');
   } else {
-    const allCleared = board.filter(Boolean).length === 0;
-    if (allCleared) {
-      overlayEmoji.textContent = '🎉';
-      overlayTitle.textContent = '축하합니다!';
-      overlayDesc.innerHTML =
-        `27장의 카드를 모두 소진했습니다!<br>` +
-        `기록: <strong style="color:#f5c842">${formatTime(elapsedTime)}</strong>`;
-    } else {
-      overlayEmoji.textContent = '😔';
-      overlayTitle.textContent = '덱 소진 실패';
-      overlayDesc.innerHTML =
-        `남은 카드로 SET를 만들 수 없습니다.<br>` +
-        `${score}개의 SET를 찾았어요. 재도전해보세요!`;
-    }
+    // deckExhaust: 항상 클리어 완료 (실패 경로는 evaluateSelection 가드로 차단됨)
+    overlayEmoji.textContent = '🎉';
+    overlayTitle.textContent = '축하합니다!';
+    overlayDesc.innerHTML =
+      `27장의 카드를 모두 소진했습니다!<br>` +
+      `기록: <strong style="color:#f5c842">${formatTime(elapsedTime)}</strong>`;
   }
 
   gameOverlay.hidden = false;
