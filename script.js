@@ -218,34 +218,91 @@ function findThirdCard(a, b) {
 // ──────────────────────────────────────────────
 
 /**
- * SET로 확인된 3장(boardIndices)을 보드에서 제거하고
- * 27장 전체 중 현재 보드에 없는 18장 풀에서 3장을 무작위 보충.
- * 보충 후 SET가 없으면 조건 만족 시까지 재시도.
- * 제거된 카드는 자동으로 풀에 귀환(영구 소멸 없음).
+ * 카드 배열을 SET들로 완전 소진 가능한지 백트래킹으로 검사.
+ * 덱 소진 모드에서 "막힘" 방지의 핵심 함수.
+ */
+function canExhaustAll(cards) {
+  if (cards.length === 0) return true;
+  for (let i = 0; i < cards.length - 2; i++) {
+    for (let j = i + 1; j < cards.length - 1; j++) {
+      for (let k = j + 1; k < cards.length; k++) {
+        if (isSet(cards[i], cards[j], cards[k])) {
+          const rest = cards.filter((_, x) => x !== i && x !== j && x !== k);
+          if (canExhaustAll(rest)) return true;
+        }
+      }
+    }
+  }
+  return false;
+}
+
+/** arr에서 k개 뽑는 모든 조합 반환 */
+function getCombinations(arr, k) {
+  const result = [];
+  (function pick(start, cur) {
+    if (cur.length === k) { result.push([...cur]); return; }
+    for (let i = start; i < arr.length; i++) {
+      cur.push(arr[i]);
+      pick(i + 1, cur);
+      cur.pop();
+    }
+  })(0, []);
+  return result;
+}
+
+/**
+ * SET로 확인된 3장(boardIndices)을 제거하고 보충.
+ * - countdown: 무한 풀 방식
+ * - deckExhaust: canExhaustAll을 만족하는 3장 선택 → 덱 소진 실패 원천 차단
  */
 function replaceCards(boardIndices) {
   if (gameMode === 'deckExhaust') {
-    // 영구 제거
     for (const idx of boardIndices) { board[idx] = null; }
 
     if (deck.length >= 3) {
-      const MAX_TRIES = 300;
-      for (let t = 0; t < MAX_TRIES; t++) {
-        shuffle(deck);
-        const newCards = deck.slice(0, 3);
-        const tempBoard = [...board];
-        for (let i = 0; i < 3; i++) tempBoard[boardIndices[i]] = newCards[i];
-        if (hasAnySet(tempBoard.filter(Boolean))) {
-          for (let i = 0; i < 3; i++) board[boardIndices[i]] = newCards[i];
-          deck.splice(0, 3);
+      const remaining = board.filter(Boolean); // 6장
+
+      // deck이 작을 때는 전수 탐색, 클 때는 랜덤 시도
+      let combos;
+      if (deck.length <= 9) {
+        combos = getCombinations(deck, 3);
+        shuffle(combos);
+      } else {
+        combos = [];
+        for (let t = 0; t < 300; t++) {
+          const d = [...deck]; shuffle(d);
+          combos.push(d.slice(0, 3));
+        }
+      }
+
+      for (const trio of combos) {
+        if (canExhaustAll([...remaining, ...trio])) {
+          for (let i = 0; i < 3; i++) board[boardIndices[i]] = trio[i];
+          const key = c => `${c.shape}_${c.color}_${c.fill}`;
+          const used = new Set(trio.map(key));
+          deck = deck.filter(c => !used.has(key(c)));
           return;
         }
       }
-      // 강제 보충
+
+      // 안전망: canExhaustAll 불가 시 hasAnySet 기준으로 강제 보충
+      for (const trio of combos) {
+        const temp = [...board];
+        for (let i = 0; i < 3; i++) temp[boardIndices[i]] = trio[i];
+        if (hasAnySet(temp.filter(Boolean))) {
+          for (let i = 0; i < 3; i++) board[boardIndices[i]] = trio[i];
+          const key = c => `${c.shape}_${c.color}_${c.fill}`;
+          const used = new Set(trio.map(key));
+          deck = deck.filter(c => !used.has(key(c)));
+          return;
+        }
+      }
+
+      // 최후 안전망
+      shuffle(deck);
       const nc = deck.splice(0, 3);
       for (let i = 0; i < 3; i++) board[boardIndices[i]] = nc[i];
     }
-    // deck < 3: 빈칸 그대로 (null)
     return;
   }
 
@@ -253,8 +310,7 @@ function replaceCards(boardIndices) {
   for (const idx of boardIndices) { board[idx] = null; }
   const MAX_TRIES = 500;
   for (let t = 0; t < MAX_TRIES; t++) {
-    const pool = getPool();
-    shuffle(pool);
+    const pool = getPool(); shuffle(pool);
     const newCards = pool.slice(0, 3);
     const tempBoard = [...board];
     for (let i = 0; i < 3; i++) tempBoard[boardIndices[i]] = newCards[i];
@@ -263,10 +319,10 @@ function replaceCards(boardIndices) {
       return;
     }
   }
-  const pool = getPool();
-  shuffle(pool);
+  const pool = getPool(); shuffle(pool);
   for (let i = 0; i < 3; i++) board[boardIndices[i]] = pool[i];
 }
+
 
 // ──────────────────────────────────────────────
 // 9. UI 렌더링
