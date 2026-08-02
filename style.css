@@ -304,10 +304,10 @@ html, body {
   animation: pulse 0.8s ease-in-out infinite;
 }
 
-/* 타이머 숫자 너비 고정 (염, 분:초 포맷 모두 수용) */
+/* 타이머 숫자 너비: JS에서 모드별 동적 설정 (countdown=2ch, deckExhaust=7ch) */
 #timerDisplay {
   font-variant-numeric: tabular-nums;
-  min-width: 7ch;
+  min-width: auto;
   display: inline-block;
   text-align: center;
 }

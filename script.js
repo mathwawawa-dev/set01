@@ -276,6 +276,8 @@ function replaceCards(boardIndices) {
       }
 
       for (const trio of combos) {
+        // 새로 등장하는 3장 자체가 SET이면 건너뜀
+        if (isSet(trio[0], trio[1], trio[2])) continue;
         if (canExhaustAll([...remaining, ...trio])) {
           for (let i = 0; i < 3; i++) board[boardIndices[i]] = trio[i];
           const key = c => `${c.shape}_${c.color}_${c.fill}`;
@@ -285,8 +287,9 @@ function replaceCards(boardIndices) {
         }
       }
 
-      // 안전망: canExhaustAll 불가 시 hasAnySet 기준으로 강제 보충
+      // 안전망: canExhaustAll 불가 시 hasAnySet 기준 (trio 자체 SET 제외)
       for (const trio of combos) {
+        if (isSet(trio[0], trio[1], trio[2])) continue;
         const temp = [...board];
         for (let i = 0; i < 3; i++) temp[boardIndices[i]] = trio[i];
         if (hasAnySet(temp.filter(Boolean))) {
@@ -502,6 +505,7 @@ function startTimer() {
   if (gameMode === 'countdown') {
     timeLeft = TOTAL_TIME;
     timerDisplay.textContent = timeLeft;
+    timerDisplay.style.minWidth = '2ch';
     statTimerLabel.textContent = '남은 시간';
     statTimerUnit.textContent = '초';
     timerID = setInterval(() => {
@@ -513,6 +517,7 @@ function startTimer() {
   } else {
     elapsedTime = 0;
     timerDisplay.textContent = '0:00:00';
+    timerDisplay.style.minWidth = 'auto';
     statTimerLabel.textContent = '진행 시간';
     statTimerUnit.textContent = '';
     timerID = setInterval(() => {
