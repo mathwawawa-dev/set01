@@ -141,16 +141,18 @@ html, body {
   gap: 4px;
   background: var(--bg-card2);
   border: 1.5px solid var(--border);
-  border-radius: 30px;
+  border-radius: var(--radius-stat);
   color: var(--text-primary);
   font-family: 'Outfit', sans-serif;
   font-size: 0.78rem;
   font-weight: 600;
-  padding: 5px 12px;
+  padding: 6px 10px;
   cursor: pointer;
   transition: all 0.25s ease;
   white-space: nowrap;
   flex-shrink: 0;
+  height: 100%;
+  align-self: stretch;
 }
 
 .btn-theme:hover {
@@ -202,10 +204,19 @@ html, body {
   animation: pulse 0.8s ease-in-out infinite;
 }
 
+/* 타이머 숫자 너비 고정 (숫자가 바뀌어도 레이아웃 흔들림 없음) */
+#timerDisplay {
+  font-variant-numeric: tabular-nums;
+  min-width: 2.8ch;
+  display: inline-block;
+  text-align: right;
+}
+
 @keyframes pulse {
   0%, 100% { transform: scale(1); }
   50%       { transform: scale(1.12); }
 }
+
 
 /* ---------- 게임 메인 ---------- */
 .game-main {
@@ -258,7 +269,7 @@ html, body {
   pointer-events: none;
 }
 
-.card:hover:not(.selected):not(.disabled) {
+.card:hover:not(.selected):not(.disabled):not(.correct):not(.wrong) {
   transform: translateY(-6px) scale(1.03);
   border-color: rgba(255,255,255,0.18);
   box-shadow: var(--shadow-card), 0 12px 36px rgba(91,141,238,0.18);
@@ -273,7 +284,7 @@ html, body {
   transition: transform 0.22s ease;
 }
 
-.card:hover:not(.selected):not(.disabled) img {
+.card:hover:not(.selected):not(.disabled):not(.correct):not(.wrong) img {
   transform: scale(1.06);
 }
 
