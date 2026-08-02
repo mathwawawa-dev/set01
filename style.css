@@ -9,10 +9,37 @@
   padding: 0;
 }
 
+/* ── 라이트 모드 기본값 ── */
 :root {
+  --bg-base:      #f0f2f8;
+  --bg-card:      #ffffff;
+  --bg-card2:     #e8ebf4;
+  --header-bg:    rgba(240,242,248,0.88);
+  --accent-gold:  #d4971a;
+  --accent-blue:  #3a6fd8;
+  --accent-pink:  #c040e8;
+  --accent-green: #18b87a;
+  --text-primary: #1a1a2e;
+  --text-muted:   #5a5a7a;
+  --border:       rgba(0,0,0,0.10);
+  --shadow-card:  0 4px 20px rgba(0,0,0,0.12);
+  --radius-card:  18px;
+  --radius-stat:  14px;
+  --timer-danger: #e03060;
+  --sel-bar-bg:   rgba(255,255,255,0.92);
+  --sel-bar-text: #5a5a7a;
+
+  --sel-glow:     0 0 0 3px #3a6fd8, 0 0 20px 4px rgba(58,111,216,0.35);
+  --correct-glow: 0 0 0 3px #18b87a, 0 0 24px 6px rgba(24,184,122,0.4);
+  --wrong-glow:   0 0 0 3px #e03060, 0 0 24px 6px rgba(224,48,96,0.4);
+}
+
+/* ── 다크 모드 오버라이드 ── */
+body.dark {
   --bg-base:      #0d0d1a;
   --bg-card:      #13132b;
   --bg-card2:     #1a1a38;
+  --header-bg:    rgba(13,13,26,0.82);
   --accent-gold:  #f5c842;
   --accent-blue:  #5b8dee;
   --accent-pink:  #e05fff;
@@ -21,11 +48,10 @@
   --text-muted:   #8888aa;
   --border:       rgba(255,255,255,0.08);
   --shadow-card:  0 8px 32px rgba(0,0,0,0.5);
-  --radius-card:  18px;
-  --radius-stat:  14px;
   --timer-danger: #ff4d6d;
+  --sel-bar-bg:   rgba(19,19,43,0.92);
+  --sel-bar-text: #8888aa;
 
-  /* card selection colours */
   --sel-glow:     0 0 0 3px #5b8dee, 0 0 24px 4px rgba(91,141,238,0.45);
   --correct-glow: 0 0 0 3px #3de8a0, 0 0 28px 6px rgba(61,232,160,0.5);
   --wrong-glow:   0 0 0 3px #ff4d6d, 0 0 28px 6px rgba(255,77,109,0.5);
@@ -37,6 +63,7 @@ html, body {
   font-family: 'Outfit', sans-serif;
   color: var(--text-primary);
   overflow-x: hidden;
+  transition: background 0.35s ease, color 0.35s ease;
 }
 
 /* ---------- 배경 파티클 ---------- */
@@ -66,11 +93,12 @@ html, body {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(13, 13, 26, 0.82);
+  background: var(--header-bg);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   border-bottom: 1px solid var(--border);
-  padding: 14px 24px;
+  padding: 10px 20px;
+  transition: background 0.35s ease;
 }
 
 .header-inner {
@@ -101,6 +129,30 @@ html, body {
   color: var(--text-muted);
   margin-left: 8px;
   letter-spacing: 0;
+}
+
+/* 테마 토글 버튼 */
+.btn-theme {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg-card2);
+  border: 1.5px solid var(--border);
+  border-radius: 30px;
+  color: var(--text-primary);
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 7px 16px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+}
+
+.btn-theme:hover {
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 12px rgba(58,111,216,0.25);
+  transform: translateY(-1px);
 }
 
 /* 통계 카드 행 */
@@ -155,7 +207,7 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding: 32px 16px 120px;
+  padding: 16px 16px 100px;
   min-height: calc(100vh - 90px);
 }
 
@@ -163,9 +215,9 @@ html, body {
 .card-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
+  gap: 10px;
   width: 100%;
-  max-width: 780px;
+  max-width: 420px;
 }
 
 /* ---------- 카드 ---------- */
@@ -205,8 +257,8 @@ html, body {
 }
 
 .card img {
-  width: 72%;
-  height: 72%;
+  width: 75%;
+  height: 75%;
   object-fit: contain;
   display: block;
   pointer-events: none;
@@ -278,17 +330,17 @@ html, body {
   left: 50%;
   transform: translateX(-50%);
   z-index: 200;
-  background: rgba(19,19,43,0.92);
+  background: var(--sel-bar-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--border);
   border-radius: 40px;
   padding: 12px 32px;
   font-size: 0.95rem;
-  color: var(--text-muted);
+  color: var(--sel-bar-text);
   white-space: nowrap;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.15);
 }
 
 .selection-bar.active {
