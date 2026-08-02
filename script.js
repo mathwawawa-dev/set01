@@ -32,7 +32,7 @@ let animLock    = false; // 애니메이션 중 입력 방지
 const cardGrid      = document.getElementById('cardGrid');
 const timerDisplay  = document.getElementById('timerDisplay');
 const scoreDisplay  = document.getElementById('scoreDisplay');
-const hintDisplay   = document.getElementById('hintDisplay');
+const hintText      = document.getElementById('hintText');
 const statTimer     = document.getElementById('statTimer');
 const selectionBar  = document.getElementById('selectionBar');
 const selectionText = document.getElementById('selectionText');
@@ -294,7 +294,7 @@ function renderCardAt(idx) {
 // ──────────────────────────────────────────────
 function updateHint() {
   const n = countSets(board.filter(Boolean));
-  hintDisplay.textContent = n;
+  hintText.textContent = `${n}개의 셋이 보입니다.`;
 }
 
 // ──────────────────────────────────────────────
@@ -359,7 +359,6 @@ function evaluateSelection() {
 
     score++;
     scoreDisplay.textContent = score;
-    triggerScoreEffect();
 
     const indices = [...selected];
     selected = [];
@@ -371,26 +370,18 @@ function evaluateSelection() {
     animLock = false;
 
   } else {
-    // 오답: 즉시 선택 해제
+    // 오답: 선택 즉시 해제 + 일시적 메시지
     elems.forEach(el => el.classList.remove('selected'));
     selected = [];
-    updateSelectionBar(null, '카드를 3장 선택하세요');
+    updateSelectionBar('fail', '틀렸습니다! 다시 선택하세요.');
+    setTimeout(() => {
+      updateSelectionBar(null, '카드를 3장 선택하세요');
+    }, 1200);
     animLock = false;
   }
 }
 
-// ──────────────────────────────────────────────
-// 14. 점수 숫자 이펙트
-// ──────────────────────────────────────────────
-function triggerScoreEffect() {
-  scoreDisplay.classList.remove('score-bump');
-  // reflow 강제
-  void scoreDisplay.offsetWidth;
-  scoreDisplay.classList.add('score-bump');
-  scoreDisplay.addEventListener('animationend', () => {
-    scoreDisplay.classList.remove('score-bump');
-  }, { once: true });
-}
+
 
 // ──────────────────────────────────────────────
 // 15. 타이머
@@ -444,7 +435,7 @@ function startGame() {
   selected   = [];
 
   scoreDisplay.textContent = '0';
-  hintDisplay.textContent  = '-';
+  hintText.textContent = '';
   statTimer.classList.remove('danger');
   gameOverlay.hidden = true;
 
@@ -458,6 +449,41 @@ function startGame() {
 // 18. 이벤트 바인딩
 // ──────────────────────────────────────────────
 btnRestart.addEventListener('click', startGame);
+
+// ──────────────────────────────────────────────
+// 19. 키보드 단축키
+// ──────────────────────────────────────────────
+// 그리드 레이아웃 (row-major):
+//   카드 0  1  2  (행 1)
+//   카드 3  4  5  (행 2)
+//   카드 6  7  8  (행 3)
+//
+// 키맵:
+//   1  2  3  → card 0,1,2
+//   Q  W  E  → card 3,4,5 (한글: ㅂㅈㄷ)
+//   A  S  D  → card 6,7,8 (한글: ㅁㄴㅇ)
+//   Numpad7  8  9 → card 0,1,2
+//   Numpad4  5  6 → card 3,4,5
+//   Numpad1  2  3 → card 6,7,8
+const KEY_MAP = {
+  'Digit1': 0, 'Digit2': 1, 'Digit3': 2,
+  'KeyQ':   3, 'KeyW':   4, 'KeyE':   5,
+  'KeyA':   6, 'KeyS':   7, 'KeyD':   8,
+  'Numpad7': 0, 'Numpad8': 1, 'Numpad9': 2,
+  'Numpad4': 3, 'Numpad5': 4, 'Numpad6': 5,
+  'Numpad1': 6, 'Numpad2': 7, 'Numpad3': 8,
+};
+
+document.addEventListener('keydown', (e) => {
+  if (gameOver || animLock) return;
+  // 입력줄에 포커스되어 있으면 무시
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  const idx = KEY_MAP[e.code];
+  if (idx !== undefined) {
+    e.preventDefault();
+    onCardClick(idx);
+  }
+});
 
 // ──────────────────────────────────────────────
 // 19. 다크/라이트 모드 토글
