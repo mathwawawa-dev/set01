@@ -307,17 +307,34 @@ function replaceCards(boardIndices) {
   for (let t = 0; t < MAX_TRIES; t++) {
     const pool = getPool(); shuffle(pool);
     const newCards = pool.slice(0, 3);
+
+    // 신규 조건: 보충 3장 자체가 SET이면 건너뜀
+    if (isSet(newCards[0], newCards[1], newCards[2])) continue;
+
     const tempBoard = [...board];
     for (let i = 0; i < 3; i++) tempBoard[boardIndices[i]] = newCards[i];
-    if (hasAnySet(tempBoard.filter(Boolean))) {
 
+    // 기존 조건: 전체 9장 안에 SET 1개 이상 존재
+    if (hasAnySet(tempBoard.filter(Boolean))) {
       for (let i = 0; i < 3; i++) board[boardIndices[i]] = newCards[i];
       return;
     }
   }
+  // 안전망: 신규 조건(3장 자체 SET 금지)만 유지
   const pool = getPool(); shuffle(pool);
+  for (let i = 0; i + 2 < pool.length; i++) {
+    const a = pool[i], b = pool[i + 1], c = pool[i + 2];
+    if (!isSet(a, b, c)) {
+      board[boardIndices[0]] = a;
+      board[boardIndices[1]] = b;
+      board[boardIndices[2]] = c;
+      return;
+    }
+  }
+  // 최후: 조건 포기하고 그냥 채움
   for (let i = 0; i < 3; i++) board[boardIndices[i]] = pool[i];
 }
+
 
 
 // ──────────────────────────────────────────────
