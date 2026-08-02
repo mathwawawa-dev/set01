@@ -50,6 +50,28 @@ const bgParticles   = document.getElementById('bgParticles');
 const modeScreen    = document.getElementById('modeScreen');
 
 // ──────────────────────────────────────────────
+// 로고 색상 랜덤 무작위 지정 (#e71f19, #167c3b, #702071 3색을 1:1 대응)
+// ──────────────────────────────────────────────
+function randomizeLogoColors() {
+  const colors = ['#e71f19', '#167c3b', '#702071'];
+  // Fisher-Yates 셔플
+  for (let i = colors.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [colors[i], colors[j]] = [colors[j], colors[i]];
+  }
+  const s = document.getElementById('logoS');
+  const e = document.getElementById('logoE');
+  const t = document.getElementById('logoT');
+  if (s && e && t) {
+    s.style.color = colors[0];
+    e.style.color = colors[1];
+    t.style.color = colors[2];
+  }
+}
+document.addEventListener('DOMContentLoaded', randomizeLogoColors);
+randomizeLogoColors();
+
+// ──────────────────────────────────────────────
 // 4. 파티클 배경 생성
 // ──────────────────────────────────────────────
 function createParticles() {
@@ -553,6 +575,7 @@ function startGame() {
 // 다시 시작 → 모드 선택 화면으로
 btnRestart.addEventListener('click', () => {
   gameOverlay.hidden = true;
+  randomizeLogoColors();
   modeScreen.hidden = false;
 });
 

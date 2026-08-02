@@ -93,9 +93,13 @@ html, body {
 .mode-logo {
   font-size: clamp(4rem, 15vw, 7rem);
   font-weight: 900;
-  letter-spacing: -2px;
+  letter-spacing: normal;
   line-height: 1;
   user-select: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.05em;
 }
 
 .mode-subtitle {
