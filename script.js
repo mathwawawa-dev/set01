@@ -13,7 +13,7 @@ const COLORS       = ['green',   'purple', 'red'];
 const FILLS        = ['outline', 'striped', 'solid'];
 const TOTAL_TIME   = 120;   // 카운트다운 초
 const GRID_SIZE    = 9;     // 3×3
-const TARGET_SETS  = 10;    // 10 SET 타임어택 목표
+const TARGET_SETS  = 20;    // 20 SET 타임어택 목표
 
 // ──────────────────────────────────────────────
 // 2. 게임 상태
@@ -556,7 +556,7 @@ function endGame() {
     overlayEmoji.textContent = '🏅';
     overlayTitle.textContent = `${TARGET_SETS} SET 달성!`;
     overlayDesc.innerHTML =
-      `10개의 SET를 모두 찾았습니다!<br>` +
+      `20개의 SET를 모두 찾았습니다!<br>` +
       `기록: <strong style="color:#f5c842">${formatTime(elapsedTime)}</strong>`;
   }
 
