@@ -99,7 +99,11 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 0.05em;
+  gap: 0.08em;
+}
+
+#logoT {
+  margin-left: 0.04em;
 }
 
 .mode-subtitle {
