@@ -162,8 +162,8 @@ html, body {
 
 .stat-card {
   display: flex;
-  align-items: center;
-  gap: 5px;
+  align-items: baseline;
+  gap: 2px;
   background: none;
   border: none;
   padding: 0;
@@ -176,17 +176,20 @@ html, body {
   font-weight: 400;
   color: var(--text-primary);
   white-space: nowrap;
+  margin-right: 2px;
 }
 .stat-value {
   font-size: 0.9rem;
   font-weight: 400;
   color: var(--text-primary);
   transition: color 0.3s, transform 0.2s;
+  line-height: inherit;
 }
 .stat-unit {
   font-size: 0.9rem;
   font-weight: 400;
   color: var(--text-primary);
+  line-height: inherit;
 }
 
 /* 타이머 위험 상태 */
@@ -195,12 +198,12 @@ html, body {
   animation: pulse 0.8s ease-in-out infinite;
 }
 
-/* 타이머 숫자 너비 고정 (숫자가 바뀌어도 레이아웃 흔들림 없음) */
+/* 타이머 숫자 너비 고정 (숫자가 바뀌어도 레이아웃 흔들림 최소화) */
 #timerDisplay {
   font-variant-numeric: tabular-nums;
-  min-width: 2.8ch;
+  min-width: 1.8ch;
   display: inline-block;
-  text-align: right;
+  text-align: center;
 }
 
 @keyframes pulse {
