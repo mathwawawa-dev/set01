@@ -371,16 +371,11 @@ function evaluateSelection() {
     animLock = false;
 
   } else {
-    // 오답: 선택색(blue)이 즐슬 사라짐
-    elems.forEach(el => el.classList.add('deselecting'));
-    setTimeout(() => {
-      elems.forEach(el => {
-        el.classList.remove('selected', 'deselecting');
-      });
-      selected = [];
-      updateSelectionBar(null, '카드를 3장 선택하세요');
-      animLock = false;
-    }, 350);
+    // 오답: 즉시 선택 해제
+    elems.forEach(el => el.classList.remove('selected'));
+    selected = [];
+    updateSelectionBar(null, '카드를 3장 선택하세요');
+    animLock = false;
   }
 }
 
