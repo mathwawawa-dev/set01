@@ -294,7 +294,7 @@ function renderCardAt(idx) {
 // ──────────────────────────────────────────────
 function updateHint() {
   const n = countSets(board.filter(Boolean));
-  hintText.textContent = `${n}개의 셋이 보입니다.`;
+  hintText.textContent = `${n}개의 SET가 있습니다.`;
 }
 
 // ──────────────────────────────────────────────
@@ -354,7 +354,7 @@ function evaluateSelection() {
   const elems = selected.map(idx => document.getElementById(`card-${idx}`));
 
   if (valid) {
-    // 정답: 별도 표시 없이 카드 교체
+    // 정답: 카드 교체 후 메시지 표시
     elems.forEach(el => el.classList.remove('selected'));
 
     score++;
@@ -366,17 +366,20 @@ function evaluateSelection() {
     indices.forEach(idx => renderCardAt(idx));
     updateHint();
 
-    updateSelectionBar(null, '카드를 3장 선택하세요');
+    updateSelectionBar('success', '정답입니다.');
+    setTimeout(() => {
+      updateSelectionBar(null, '카드를 3장 선택하세요');
+    }, 700);
     animLock = false;
 
   } else {
     // 오답: 선택 즉시 해제 + 일시적 메시지
     elems.forEach(el => el.classList.remove('selected'));
     selected = [];
-    updateSelectionBar('fail', '틀렸습니다! 다시 선택하세요.');
+    updateSelectionBar('fail', 'SET가 아닙니다.');
     setTimeout(() => {
       updateSelectionBar(null, '카드를 3장 선택하세요');
-    }, 1200);
+    }, 700);
     animLock = false;
   }
 }
