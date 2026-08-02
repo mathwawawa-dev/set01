@@ -456,22 +456,17 @@ btnRestart.addEventListener('click', startGame);
 // ──────────────────────────────────────────────
 // 19. 키보드 단축키
 // ──────────────────────────────────────────────
-// 그리드 레이아웃 (row-major):
-//   카드 0  1  2  (행 1)
-//   카드 3  4  5  (행 2)
-//   카드 6  7  8  (행 3)
-//
 // 키맵:
-//   1  2  3  → card 0,1,2
-//   Q  W  E  → card 3,4,5 (한글: ㅂㅈㄷ)
-//   A  S  D  → card 6,7,8 (한글: ㅁㄴㅇ)
-//   Numpad7  8  9 → card 0,1,2
-//   Numpad4  5  6 → card 3,4,5
-//   Numpad1  2  3 → card 6,7,8
+//   Q(ㅂ) W(ㅈ) E(ㄷ) → card 0,1,2
+//   A(ㅁ) S(ㄴ) D(ㅇ) → card 3,4,5
+//   Z(ㅋ) X(ㅌ) C(ㅊ) → card 6,7,8
+//   Numpad7  8  9     → card 0,1,2
+//   Numpad4  5  6     → card 3,4,5
+//   Numpad1  2  3     → card 6,7,8
 const KEY_MAP = {
-  'Digit1': 0, 'Digit2': 1, 'Digit3': 2,
-  'KeyQ':   3, 'KeyW':   4, 'KeyE':   5,
-  'KeyA':   6, 'KeyS':   7, 'KeyD':   8,
+  'KeyQ': 0, 'KeyW': 1, 'KeyE': 2,
+  'KeyA': 3, 'KeyS': 4, 'KeyD': 5,
+  'KeyZ': 6, 'KeyX': 7, 'KeyC': 8,
   'Numpad7': 0, 'Numpad8': 1, 'Numpad9': 2,
   'Numpad4': 3, 'Numpad5': 4, 'Numpad6': 5,
   'Numpad1': 6, 'Numpad2': 7, 'Numpad3': 8,
