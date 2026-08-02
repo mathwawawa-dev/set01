@@ -354,56 +354,47 @@ function evaluateSelection() {
   const elems = selected.map(idx => document.getElementById(`card-${idx}`));
 
   if (valid) {
-    updateSelectionBar('success', '✅ SET! 정답입니다!');
-    elems.forEach(el => {
-      el.classList.remove('selected');
-      el.classList.add('correct');
-    });
+    // 정답: 별도 표시 없이 카드 교체
+    elems.forEach(el => el.classList.remove('selected'));
 
-    setTimeout(() => {
-      score++;
-      scoreDisplay.textContent = score;
-      showScorePop(elems[1]);   // 가운데 카드 기준 팝업
+    score++;
+    scoreDisplay.textContent = score;
+    triggerScoreEffect();
 
-      const indices = [...selected];
-      selected = [];
-      replaceCards(indices);
-      // 새로 등장하는 3장만 개별 렌더링 (전체 재렌더링 방지)
-      indices.forEach(idx => renderCardAt(idx));
-      updateHint();
+    const indices = [...selected];
+    selected = [];
+    replaceCards(indices);
+    indices.forEach(idx => renderCardAt(idx));
+    updateHint();
 
-      updateSelectionBar(null, '카드를 3장 선택하세요');
-      animLock = false;
-    }, 550);
+    updateSelectionBar(null, '카드를 3장 선택하세요');
+    animLock = false;
 
   } else {
-    updateSelectionBar('fail', '❌ SET가 아닙니다');
-    elems.forEach(el => {
-      el.classList.remove('selected');
-      el.classList.add('wrong');
-    });
-
+    // 오답: 선택색(blue)이 즐슬 사라짐
+    elems.forEach(el => el.classList.add('deselecting'));
     setTimeout(() => {
-      elems.forEach(el => el.classList.remove('wrong'));
+      elems.forEach(el => {
+        el.classList.remove('selected', 'deselecting');
+      });
       selected = [];
       updateSelectionBar(null, '카드를 3장 선택하세요');
       animLock = false;
-    }, 550);
+    }, 350);
   }
 }
 
 // ──────────────────────────────────────────────
-// 14. 점수 팝업
+// 14. 점수 숫자 이펙트
 // ──────────────────────────────────────────────
-function showScorePop(referenceEl) {
-  const rect = referenceEl ? referenceEl.getBoundingClientRect() : { top: 200, left: 200, width: 0, height: 0 };
-  const pop = document.createElement('div');
-  pop.classList.add('score-pop');
-  pop.textContent = '+1 SET!';
-  pop.style.left = `${rect.left + rect.width / 2 - 40}px`;
-  pop.style.top  = `${rect.top + window.scrollY + rect.height / 2}px`;
-  document.body.appendChild(pop);
-  setTimeout(() => pop.remove(), 900);
+function triggerScoreEffect() {
+  scoreDisplay.classList.remove('score-bump');
+  // reflow 강제
+  void scoreDisplay.offsetWidth;
+  scoreDisplay.classList.add('score-bump');
+  scoreDisplay.addEventListener('animationend', () => {
+    scoreDisplay.classList.remove('score-bump');
+  }, { once: true });
 }
 
 // ──────────────────────────────────────────────
