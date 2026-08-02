@@ -422,14 +422,19 @@ html, body {
   box-sizing: border-box;
 }
 
-/* 모든 count에서 동일한 이미지 크기 (이미지 비율 219×464 = 1:2.1 기준) */
+/* width 기반 고정 크기 — 이미지 비율 219:464(1:2.12)로 높이 자동 결정 */
 .card-symbol {
-  height: 72%;
-  width: auto;
+  width: 26%;
+  height: auto;
   flex: 0 0 auto;
   object-fit: contain;
   pointer-events: none;
 }
+
+/* 2개: 거의 붙어있도록 */
+.card-symbols.count-2 { gap: 1%; }
+/* 3개: 최소 간격 */
+.card-symbols.count-3 { gap: 1%; }
 
 /* 선택 상태: 테두리만 파란색 */
 .card.selected {
