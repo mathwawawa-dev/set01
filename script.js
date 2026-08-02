@@ -17,8 +17,7 @@ const GRID_SIZE    = 9;     // 3×3
 // ──────────────────────────────────────────────
 // 2. 게임 상태
 // ──────────────────────────────────────────────
-let deck        = [];   // 남은 덱 (아직 화면에 없는 카드)
-let board       = [];   // 현재 화면에 있는 카드 (9장)
+let board       = [];   // 현재 화면에 있는 카드 (9장, null 포함)
 let selected    = [];   // 선택된 카드 인덱스(board 기준)
 let score       = 0;
 let timeLeft    = TOTAL_TIME;
@@ -127,37 +126,41 @@ function countSets(cards) {
 // ──────────────────────────────────────────────
 
 /**
- * SET가 최소 1개 이상 보장된 9장을 뽑아 board에 설정하고
- * 나머지를 deck에 남긴다.
+ * SET가 최소 1개 이상 보장된 9장을 보드에 설정.
+ * deck 없이 매번 27장 전체에서 무작위 9장 추출.
  */
 function initBoard() {
-  let attempt = 0;
-  while (true) {
-    attempt++;
+  const MAX_TRIES = 500;
+  for (let attempt = 0; attempt < MAX_TRIES; attempt++) {
     const full = shuffle(buildFullDeck());
     const candidate = full.slice(0, GRID_SIZE);
     if (hasAnySet(candidate)) {
       board = candidate;
-      deck  = full.slice(GRID_SIZE);
-      return;
-    }
-    // 최대 200회 시도 (실제로는 10회 이내에 반드시 성공)
-    if (attempt > 200) {
-      // 안전망: 억지로 SET 하나를 삽입
-      const allCards = shuffle(buildFullDeck());
-      board = forcedSetBoard(allCards);
-      deck  = allCards.filter(c => !board.includes(c));
       return;
     }
   }
+  // 안전망
+  const all = shuffle(buildFullDeck());
+  board = forcedSetBoard(all);
+}
+
+/**
+ * 화면에 놓인 9장을 제외한 나머지 18장의 풀(Pool)을 반환
+ * 매번 보충 시에 계산하므로 제거된 카드가 자동으로 풀에 돌아옴
+ */
+function getPool() {
+  const onBoard = board.filter(Boolean);
+  const all = buildFullDeck();
+  // card는 단순 객체이므로 속성값으로 비교
+  return all.filter(c =>
+    !onBoard.some(b => b.shape === c.shape && b.color === c.color && b.fill === c.fill)
+  );
 }
 
 /**
  * 안전망: SET가 없는 경우 강제로 SET 포함 9장 구성
- * (실제로는 거의 호출되지 않음)
  */
 function forcedSetBoard(shuffled) {
-  // 첫 3장 중 SET를 만족하는 세 번째 카드를 찾아 삽입
   const a = shuffled[0];
   const b = shuffled[1];
   const third = findThirdCard(a, b);
@@ -171,6 +174,7 @@ function forcedSetBoard(shuffled) {
  */
 function findThirdCard(a, b) {
   const props = ['shape', 'color', 'fill'];
+  const sets  = { shape: SHAPES, color: COLORS, fill: FILLS };
   const result = {};
   for (const prop of props) {
     if (a[prop] === b[prop]) {
@@ -192,49 +196,45 @@ function findThirdCard(a, b) {
 // ──────────────────────────────────────────────
 
 /**
- * SET로 확인된 3장(boardIndices)을 제거하고
- * deck에서 3장을 뽑아 보충. 보충 후 SET가 없으면 재시도.
- * deck이 3장 미만이면 빈자리 그대로.
+ * SET로 확인된 3장(boardIndices)을 보드에서 제거하고
+ * 27장 전체 중 현재 보드에 없는 18장 풀에서 3장을 무작위 보충.
+ * 보충 후 SET가 없으면 조건 만족 시까지 재시도.
+ * 제거된 카드는 자동으로 풀에 귀환(영구 소멸 없음).
  */
 function replaceCards(boardIndices) {
-  if (deck.length < 3) {
-    // 덱 소진 시: 해당 인덱스를 null로 만 설정
-    // board 배열을 압축하지 않아 인덱스 일관성 유지
-    for (const idx of boardIndices) {
-      board[idx] = null;
-    }
-    return;
+  // 1. 제거: 해당 슬롯을 null로 설정 (board 배열 인덱스 불변 유지)
+  for (const idx of boardIndices) {
+    board[idx] = null;
   }
 
-  const MAX_TRIES = 300;
-  let tries = 0;
+  // 2. 풀 = 27장 전체 - 현재 보드에 남은 6장
+  //    (방금 null 처리된 3장은 자동으로 풀에 포함됨)
+  const MAX_TRIES = 500;
+  for (let t = 0; t < MAX_TRIES; t++) {
+    const pool = getPool();   // 매 시도마다 최신 보드 기준으로 계산
+    shuffle(pool);
+    const newCards = pool.slice(0, 3);
 
-  while (tries < MAX_TRIES) {
-    tries++;
-    // 덱 셔플 후 3장 후보 뽑기
-    shuffle(deck);
-    const newCards = deck.slice(0, 3);
-
-    // 보드에 임시 적용
+    // 임시 보드에 적용해서 SET 존재 여부 확인
     const tempBoard = [...board];
     for (let i = 0; i < 3; i++) {
       tempBoard[boardIndices[i]] = newCards[i];
     }
 
-    if (hasAnySet(tempBoard)) {
-      // 확정
+    if (hasAnySet(tempBoard.filter(Boolean))) {
+      // 확정 적용
       for (let i = 0; i < 3; i++) {
         board[boardIndices[i]] = newCards[i];
       }
-      deck.splice(0, 3);
       return;
     }
   }
 
-  // 300회 이후에도 실패하면 그냥 교체 (극히 드문 엣지 케이스)
-  const newCards = deck.splice(0, 3);
+  // 500회 시도 후에도 실패 시 강제 보충 (극히 드문 엣지케이스)
+  const pool = getPool();
+  shuffle(pool);
   for (let i = 0; i < 3; i++) {
-    board[boardIndices[i]] = newCards[i];
+    board[boardIndices[i]] = pool[i];
   }
 }
 
