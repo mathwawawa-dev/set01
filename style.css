@@ -575,6 +575,18 @@ html, body {
   max-width: min(540px, calc(100vw - 32px));
 }
 
+/* 회전 모드: 카드 크기 유지하며 가로/세로 교체
+   portrait 420px(3열) → landscape 560px(3열): 420 × 4/3 = 560
+   → 카드 한 장의 픽셀 면적이 동일, 방향만 가로로 바뀜 */
+.card-grid.rotated:not(.official) {
+  max-width: min(560px, calc(100vw - 32px));
+}
+
+/* 81장 회전: landscape→portrait, max-width 유지 */
+.card-grid.official.rotated {
+  max-width: min(405px, calc(100vw - 32px));  /* 540 × 3/4 = 405 */
+}
+
 /* 정식 모드에서만 카드 가로형 */
 .card-grid.official .card {
   aspect-ratio: 4 / 3;
