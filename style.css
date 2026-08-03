@@ -457,7 +457,7 @@ html, body {
   gap: 10px;
   justify-content: flex-end;
 }
-.btn-reset-keys {
+.btn-preset {
   background: none;
   border: 1.5px solid var(--border);
   border-radius: 10px;
@@ -466,9 +466,14 @@ html, body {
   font-family: 'Outfit', sans-serif;
   font-size: 0.85rem;
   cursor: pointer;
-  transition: border-color 0.2s, color 0.2s;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+  flex: 1;
 }
-.btn-reset-keys:hover { border-color: var(--accent-blue); color: var(--text-primary); }
+.btn-preset:hover { 
+  border-color: var(--accent-blue); 
+  color: var(--text-primary); 
+  background: rgba(43, 116, 255, 0.05);
+}
 
 .stat-card {
   display: flex;

@@ -739,14 +739,33 @@ document.getElementById('btnModeOfficial').addEventListener('click', () => {
 // 19. 단축키 시스템 (사용자 설정 가능)
 // ──────────────────────────────────────────────
 
-// 기본 키 (4행 3열)
-const DEFAULT_KEYS_4X3 = [
+// 기본 키 (4행 3열 - Preset 1)
+const DEFAULT_KEYS_4X3_PRESET1 = [
   'Digit1','Digit2','Digit3',
   'KeyQ',  'KeyW',  'KeyE',
   'KeyA',  'KeyS',  'KeyD',
   'KeyZ',  'KeyX',  'KeyC',
 ];
-// 기본 키 (3행 4열)
+// 기본 키 (3행 4열 - Preset 1)
+const DEFAULT_KEYS_3X4_PRESET1 = [
+  'Digit1','Digit2','Digit3','Digit4',
+  'KeyQ',  'KeyW',  'KeyE',  'KeyR',
+  'KeyA',  'KeyS',  'KeyD',  'KeyF',
+];
+
+// 프리셋 2 (QWE~ 4행 3열)
+const PRESET2_4X3 = [
+  'KeyQ',  'KeyW',  'KeyE',
+  'KeyA',  'KeyS',  'KeyD',
+  'KeyZ',  'KeyX',  'KeyC',
+  'Digit1','Digit2','Digit3',
+];
+// 프리셋 2 (QWE~ 3행 4열)
+const PRESET2_3X4 = [
+  'KeyQ',  'KeyW',  'KeyE',  'KeyR',
+  'KeyA',  'KeyS',  'KeyD',  'KeyF',
+  'KeyZ',  'KeyX',  'KeyC',  'KeyV',
+];
 const DEFAULT_KEYS_3X4 = [
   'Digit1','Digit2','Digit3','Digit4',
   'KeyQ',  'KeyW',  'KeyE',  'KeyR',
@@ -755,9 +774,11 @@ const DEFAULT_KEYS_3X4 = [
 
 let officialLayout = localStorage.getItem('setGameLayout') === '3x4' ? '3x4' : '4x3';
 
-function getDefaultKeys() {
-  if (gameMode === 'official' && officialLayout === '3x4') return DEFAULT_KEYS_3X4;
-  return DEFAULT_KEYS_4X3;
+function getDefaultKeys(preset = 1) {
+  if (gameMode === 'official' && officialLayout === '3x4') {
+    return preset === 2 ? PRESET2_3X4 : DEFAULT_KEYS_3X4_PRESET1;
+  }
+  return preset === 2 ? PRESET2_4X3 : DEFAULT_KEYS_4X3_PRESET1;
 }
 
 // 넘패드: 항상 보조 활성화 (설정 불가, 고정)
@@ -773,14 +794,14 @@ let userKeys4x3 = (() => {
     const saved = JSON.parse(localStorage.getItem('setGameKeys4x3') || localStorage.getItem('setGameKeys'));
     if (Array.isArray(saved) && saved.length === 12) return saved;
   } catch(_) {}
-  return [...DEFAULT_KEYS_4X3];
+  return [...DEFAULT_KEYS_4X3_PRESET1];
 })();
 let userKeys3x4 = (() => {
   try {
     const saved = JSON.parse(localStorage.getItem('setGameKeys3x4'));
     if (Array.isArray(saved) && saved.length === 12) return saved;
   } catch(_) {}
-  return [...DEFAULT_KEYS_3X4];
+  return [...DEFAULT_KEYS_3X4_PRESET1];
 })();
 
 function getCurrentUserKeys() {
@@ -929,8 +950,8 @@ document.getElementById('btnSettings').addEventListener('click', openSettings);
 document.getElementById('btnSettingsClose').addEventListener('click', closeSettings);
 settingsOverlay.addEventListener('click', (e) => { if (e.target === settingsOverlay) closeSettings(); });
 
-document.getElementById('btnResetKeys').addEventListener('click', () => {
-  tempKeys = [...getDefaultKeys()];
+function applyPreset(presetNum) {
+  tempKeys = [...getDefaultKeys(presetNum)];
   if (gameMode === 'official' && officialLayout === '3x4') {
     userKeys3x4 = [...tempKeys];
     localStorage.setItem('setGameKeys3x4', JSON.stringify(userKeys3x4));
@@ -941,7 +962,10 @@ document.getElementById('btnResetKeys').addEventListener('click', () => {
   buildKeyMap();
   buildSettingsGrid();
   stopListening();
-});
+}
+
+document.getElementById('btnPreset1').addEventListener('click', () => applyPreset(1));
+document.getElementById('btnPreset2').addEventListener('click', () => applyPreset(2));
 
 // 설정 모달 키 캡처
 document.addEventListener('keydown', (e) => {
