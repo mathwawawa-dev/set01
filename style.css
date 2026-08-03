@@ -701,7 +701,7 @@ html, body {
 
 /* 카드 등장 애니메이션 */
 .card.entering {
-  animation: cardEnter 0.08s ease-out forwards;
+  animation: cardEnter 0.1s ease-out forwards;
 }
 
 @keyframes cardEnter {
