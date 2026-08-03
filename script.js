@@ -772,7 +772,7 @@ const PRESET2_4X3 = [
   'KeyQ',  'KeyW',  'KeyE',
   'KeyA',  'KeyS',  'KeyD',
   'KeyZ',  'KeyX',  'KeyC',
-  'Digit1','Digit2','Digit3',
+  '',      '',      '',
 ];
 // 프리셋 2 (QWE~ 3행 4열)
 const PRESET2_3X4 = [
