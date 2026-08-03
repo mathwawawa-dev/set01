@@ -657,7 +657,7 @@ html, body {
   transform: none;
 }
 .card-grid.official.rotated .card-symbols {
-  transform: rotate(90deg) scale(0.75);
+  transform: rotate(90deg);
   transition: transform 0.35s ease;
 }
 
