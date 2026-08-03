@@ -641,10 +641,11 @@ html, body {
   aspect-ratio: 4 / 3;
   transform: none;
 }
-/* 세로 이미지를 세로 박스(33%×88%)에 contain → rotate(90°) → 가로 타원으로 표시 */
+/* 세로 이미지를 portrait 박스(75%×95%)에 contain → rotate(90°) → 가로 타원으로 표시
+   height 95%: 126px → image renders 59.5px×126px → rotate 후 126px×59.5px (portrait와 동일 크기 교체) */
 .card-grid.rotated:not(.official) .card img {
-  width: 33%;
-  height: 88%;
+  width: 75%;
+  height: 95%;
   object-fit: contain;
   transform: rotate(90deg);
   transition: transform 0.35s ease;
