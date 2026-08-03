@@ -39,7 +39,7 @@
           <span class="mode-card-tag">81장 유한 덱 · 카운트다운</span>
         </button>
       </div>
-      <div class="mode-version">v1.34_20260803_1438_정시SET카운트다운전환</div>
+      <div class="mode-version">v1.35_20260803_1514_단축키설정기능추가</div>
     </div>
   </div>
 
@@ -54,15 +54,16 @@
         <span id="themeLabel">다크 모드</span>
       </button>
       <div class="stat-card" id="statTimer">
-        <span class="stat-label">남은 시간</span>
+        <span class="stat-label" id="statTimerLabel">남은 시간</span>
         <span class="stat-value" id="timerDisplay">120</span>
-        <span class="stat-unit">초</span>
+        <span class="stat-unit" id="statTimerUnit">초</span>
       </div>
       <div class="stat-card" id="statScore">
         <span class="stat-label">찾은 SET</span>
         <span class="stat-value" id="scoreDisplay">0</span>
         <span class="stat-unit">개</span>
       </div>
+      <button class="btn-settings" id="btnSettings" title="단축키 설정">⚙</button>
     </div>
   </header>
 
@@ -84,6 +85,22 @@
       <h2 class="overlay-title" id="overlayTitle">시간 종료!</h2>
       <p class="overlay-desc" id="overlayDesc"></p>
       <button class="btn-restart" id="btnRestart">다시 시작</button>
+    </div>
+  </div>
+
+  <!-- 단축키 설정 모달 -->
+  <div class="settings-overlay" id="settingsOverlay" hidden>
+    <div class="settings-box">
+      <div class="settings-header">
+        <h2 class="settings-title">⌨️ 단축키 설정</h2>
+        <button class="settings-close" id="btnSettingsClose">✕</button>
+      </div>
+      <p class="settings-desc">각 카드 위치를 클릭한 뒤 원하는 키를 누르세요.</p>
+      <div class="settings-grid" id="settingsGrid"></div>
+      <div class="settings-actions">
+        <button class="btn-reset-keys" id="btnResetKeys">기본값 복원</button>
+        <button class="btn-save-keys" id="btnSaveKeys">저장</button>
+      </div>
     </div>
   </div>
 

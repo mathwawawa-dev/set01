@@ -729,27 +729,161 @@ document.getElementById('btnModeOfficial').addEventListener('click', () => {
 });
 
 // ──────────────────────────────────────────────
-// 19. 키보드 단축키
+// 19. 단축키 시스템 (사용자 설정 가능)
 // ──────────────────────────────────────────────
-// 키맵:
-//   Q(ㅂ) W(ㅈ) E(ㄷ) → card 0,1,2
-//   A(ㅁ) S(ㄴ) D(ㅇ) → card 3,4,5
-//   Z(ㅋ) X(ㅌ) C(ㅊ) → card 6,7,8
-//   Numpad7  8  9     → card 0,1,2
-//   Numpad4  5  6     → card 3,4,5
-//   Numpad1  2  3     → card 6,7,8
-const KEY_MAP = {
-  'KeyQ': 0, 'KeyW': 1, 'KeyE': 2,
-  'KeyA': 3, 'KeyS': 4, 'KeyD': 5,
-  'KeyZ': 6, 'KeyX': 7, 'KeyC': 8,
+
+// 기본 키: 1,2,3 / ㅂ(Q),ㅈ(W),ㄷ(E) / ㅁ(A),ㄴ(S),ㅇ(D) / ㅋ(Z),ㅌ(X),ㅊ(C)
+const DEFAULT_KEYS = [
+  'Digit1','Digit2','Digit3',
+  'KeyQ',  'KeyW',  'KeyE',
+  'KeyA',  'KeyS',  'KeyD',
+  'KeyZ',  'KeyX',  'KeyC',
+];
+
+// 넘패드: 항상 보조 활성화 (설정 불가, 고정)
+const NUMPAD_MAP = {
   'Numpad7': 0, 'Numpad8': 1, 'Numpad9': 2,
   'Numpad4': 3, 'Numpad5': 4, 'Numpad6': 5,
   'Numpad1': 6, 'Numpad2': 7, 'Numpad3': 8,
 };
 
+// 로컬스토리지에서 불러오기
+let userKeys = (() => {
+  try {
+    const saved = JSON.parse(localStorage.getItem('setGameKeys'));
+    if (Array.isArray(saved) && saved.length === 12) return saved;
+  } catch(_) {}
+  return [...DEFAULT_KEYS];
+})();
+
+// 동적 KEY_MAP 빌드
+let KEY_MAP = {};
+function buildKeyMap() {
+  KEY_MAP = { ...NUMPAD_MAP };
+  userKeys.forEach((code, cardIdx) => {
+    if (code) KEY_MAP[code] = cardIdx;
+  });
+}
+buildKeyMap();
+
+// e.code → 표시용 라벨
+function keyLabel(code) {
+  if (!code) return '—';
+  if (code.startsWith('Digit')) return code.slice(5);
+  if (code.startsWith('Key'))   return code.slice(3);
+  if (code.startsWith('Numpad')) return 'N' + code.slice(6);
+  if (code === 'Space') return 'SPC';
+  if (code === 'Enter') return '↵';
+  if (code === 'Backspace') return '⌫';
+  if (code === 'ArrowUp')    return '↑';
+  if (code === 'ArrowDown')  return '↓';
+  if (code === 'ArrowLeft')  return '←';
+  if (code === 'ArrowRight') return '→';
+  return code.replace(/^(Key|Digit|Arrow)/, '');
+}
+
+// 카드 위치 라벨 (행, 열)
+function posLabel(idx) {
+  const row = Math.floor(idx / 3) + 1;
+  const col = (idx % 3) + 1;
+  return `${row}행 ${col}열`;
+}
+
+// ── 설정 모달 로직 ──
+const settingsOverlay = document.getElementById('settingsOverlay');
+const settingsGrid    = document.getElementById('settingsGrid');
+let   listeningIdx    = -1;   // 현재 키 입력 대기 중인 칸 인덱스
+let   tempKeys        = [];   // 모달 내 임시 편집 상태
+
+function buildSettingsGrid() {
+  const count = (gameMode === 'official') ? 12 : 9;
+  settingsGrid.innerHTML = '';
+  for (let i = 0; i < count; i++) {
+    const cell = document.createElement('div');
+    cell.className = 'key-cell';
+    cell.dataset.idx = i;
+    cell.innerHTML = `
+      <span class="key-cell-pos">${posLabel(i)}</span>
+      <span class="key-cell-badge" id="keybadge-${i}">${keyLabel(tempKeys[i])}</span>
+    `;
+    cell.addEventListener('click', () => startListening(i));
+    settingsGrid.appendChild(cell);
+  }
+}
+
+function startListening(idx) {
+  // 이전 리스닝 해제
+  if (listeningIdx >= 0) {
+    const prev = settingsGrid.querySelector(`[data-idx="${listeningIdx}"]`);
+    if (prev) { prev.classList.remove('listening'); prev.querySelector('.key-cell-badge').textContent = keyLabel(tempKeys[listeningIdx]); }
+  }
+  listeningIdx = idx;
+  const cell  = settingsGrid.querySelector(`[data-idx="${idx}"]`);
+  const badge = cell.querySelector('.key-cell-badge');
+  cell.classList.add('listening');
+  badge.textContent = '…';
+}
+
+function stopListening() {
+  if (listeningIdx < 0) return;
+  const cell = settingsGrid.querySelector(`[data-idx="${listeningIdx}"]`);
+  if (cell) cell.classList.remove('listening');
+  listeningIdx = -1;
+}
+
+function openSettings() {
+  tempKeys = [...userKeys];
+  buildSettingsGrid();
+  settingsOverlay.hidden = false;
+}
+function closeSettings() {
+  stopListening();
+  settingsOverlay.hidden = true;
+}
+
+document.getElementById('btnSettings').addEventListener('click', openSettings);
+document.getElementById('btnSettingsClose').addEventListener('click', closeSettings);
+settingsOverlay.addEventListener('click', (e) => { if (e.target === settingsOverlay) closeSettings(); });
+
+document.getElementById('btnResetKeys').addEventListener('click', () => {
+  tempKeys = [...DEFAULT_KEYS];
+  buildSettingsGrid();
+  stopListening();
+});
+
+document.getElementById('btnSaveKeys').addEventListener('click', () => {
+  userKeys = [...tempKeys];
+  localStorage.setItem('setGameKeys', JSON.stringify(userKeys));
+  buildKeyMap();
+  closeSettings();
+});
+
+// 설정 모달 키 캡처
 document.addEventListener('keydown', (e) => {
+  // ── 설정 모달이 열려 있을 때 ──
+  if (!settingsOverlay.hidden) {
+    if (listeningIdx < 0) return;
+    e.preventDefault();
+    if (e.code === 'Escape') { stopListening(); return; }
+
+    // 이미 다른 칸에 할당된 키이면 교환
+    const conflict = tempKeys.indexOf(e.code);
+    if (conflict >= 0 && conflict !== listeningIdx) {
+      tempKeys[conflict] = '';
+      const badge = document.getElementById(`keybadge-${conflict}`);
+      if (badge) badge.textContent = '—';
+    }
+    tempKeys[listeningIdx] = e.code;
+    const cell  = settingsGrid.querySelector(`[data-idx="${listeningIdx}"]`);
+    const badge = cell.querySelector('.key-cell-badge');
+    badge.textContent = keyLabel(e.code);
+    cell.classList.remove('listening');
+    listeningIdx = -1;
+    return;
+  }
+
+  // ── 게임 중 단축키 ──
   if (gameOver || animLock) return;
-  // 입력줄에 포커스되어 있으면 무시
   if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
   const idx = KEY_MAP[e.code];
   if (idx !== undefined) {
