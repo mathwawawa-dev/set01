@@ -831,8 +831,16 @@ function stopListening() {
   listeningIdx = -1;
 }
 
+// 회전 설정 로드
+let cardRotated = localStorage.getItem('setGameRotate') === '1';
+function applyRotation() {
+  cardGrid.classList.toggle('rotated', cardRotated);
+}
+applyRotation();
+
 function openSettings() {
   tempKeys = [...userKeys];
+  document.getElementById('chkRotate').checked = cardRotated;
   buildSettingsGrid();
   settingsOverlay.hidden = false;
 }
@@ -855,6 +863,9 @@ document.getElementById('btnSaveKeys').addEventListener('click', () => {
   userKeys = [...tempKeys];
   localStorage.setItem('setGameKeys', JSON.stringify(userKeys));
   buildKeyMap();
+  cardRotated = document.getElementById('chkRotate').checked;
+  localStorage.setItem('setGameRotate', cardRotated ? '1' : '0');
+  applyRotation();
   closeSettings();
 });
 

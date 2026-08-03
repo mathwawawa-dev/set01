@@ -39,7 +39,7 @@
           <span class="mode-card-tag">81장 유한 덱 · 카운트다운</span>
         </button>
       </div>
-      <div class="mode-version">v1.35_20260803_1514_단축키설정기능추가</div>
+      <div class="mode-version">v1.36_20260803_1525_헤더정렬_카드회전설정</div>
     </div>
   </div>
 
@@ -49,21 +49,25 @@
   <!-- 헤더 -->
   <header class="game-header">
     <div class="header-inner">
-      <button class="btn-theme" id="btnTheme" title="테마 전환">
-        <span id="themeIcon">🌙</span>
-        <span id="themeLabel">다크 모드</span>
-      </button>
-      <div class="stat-card" id="statTimer">
-        <span class="stat-label" id="statTimerLabel">남은 시간</span>
-        <span class="stat-value" id="timerDisplay">120</span>
-        <span class="stat-unit" id="statTimerUnit">초</span>
+      <div class="header-left">
+        <button class="btn-theme" id="btnTheme" title="테마 전환">
+          <span id="themeIcon">🌙</span>
+          <span id="themeLabel">다크 모드</span>
+        </button>
+        <button class="btn-settings" id="btnSettings" title="단축키 설정">⚙</button>
       </div>
-      <div class="stat-card" id="statScore">
-        <span class="stat-label">찾은 SET</span>
-        <span class="stat-value" id="scoreDisplay">0</span>
-        <span class="stat-unit">개</span>
+      <div class="header-right">
+        <div class="stat-card" id="statTimer">
+          <span class="stat-label" id="statTimerLabel">남은 시간</span>
+          <span class="stat-value" id="timerDisplay">120</span>
+          <span class="stat-unit" id="statTimerUnit">초</span>
+        </div>
+        <div class="stat-card" id="statScore">
+          <span class="stat-label">찾은 SET</span>
+          <span class="stat-value" id="scoreDisplay">0</span>
+          <span class="stat-unit">개</span>
+        </div>
       </div>
-      <button class="btn-settings" id="btnSettings" title="단축키 설정">⚙</button>
     </div>
   </header>
 
@@ -92,11 +96,27 @@
   <div class="settings-overlay" id="settingsOverlay" hidden>
     <div class="settings-box">
       <div class="settings-header">
-        <h2 class="settings-title">⌨️ 단축키 설정</h2>
+        <h2 class="settings-title">⌨️ 설정</h2>
         <button class="settings-close" id="btnSettingsClose">✕</button>
       </div>
-      <p class="settings-desc">각 카드 위치를 클릭한 뒤 원하는 키를 누르세요.</p>
+
+      <!-- 카드 회전 토글 -->
+      <div class="settings-section">
+        <span class="settings-section-label">회전</span>
+        <label class="settings-toggle">
+          <input type="checkbox" id="chkRotate" />
+          <span class="settings-toggle-track"></span>
+          <span class="settings-toggle-text">카드 이미지 90° 회전</span>
+        </label>
+      </div>
+
+      <!-- 단축키 설정 -->
+      <div class="settings-section">
+        <span class="settings-section-label">단축키</span>
+        <p class="settings-desc">각 카드 위치를 클릭한 뒤 원하는 키를 누르세요.</p>
+      </div>
       <div class="settings-grid" id="settingsGrid"></div>
+
       <div class="settings-actions">
         <button class="btn-reset-keys" id="btnResetKeys">기본값 복원</button>
         <button class="btn-save-keys" id="btnSaveKeys">저장</button>
