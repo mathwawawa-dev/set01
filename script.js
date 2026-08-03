@@ -608,7 +608,7 @@ function startTimer() {
   clearInterval(timerID);
   statTimer.classList.remove('danger');
 
-  if (gameMode === 'countdown') {
+  if (gameMode === 'countdown' || gameMode === 'official') {
     timeLeft = TOTAL_TIME;
     timerDisplay.textContent = timeLeft;
     timerDisplay.style.minWidth = '2ch';
@@ -659,13 +659,20 @@ function endGame() {
       `20개의 SET를 모두 찾았습니다!<br>` +
       `기록: <strong style="color:#f5c842">${formatTime(elapsedTime)}</strong>`;
   } else {
-    // 81장 정시 모드 종료
+    // 81장 정식 모드 종료
     const allCleared = board.filter(Boolean).length === 0 && deck.length === 0;
-    overlayEmoji.textContent = allCleared ? '🌟' : '🎉';
-    overlayTitle.textContent = allCleared ? '완주 달성!' : '정시 SET 종료';
-    overlayDesc.innerHTML = allCleared
-      ? `81장 완주! 모든 SET를 찾았습니다!<br>기록: <strong style="color:#f5c842">${formatTime(elapsedTime)}</strong>`
-      : `엔드! 총 <strong style="color:#f5c842">${score}</strong>개의 SET를 찾았습니다.<br>기록: <strong style="color:#f5c842">${formatTime(elapsedTime)}</strong>`;
+    const timeOver   = timeLeft <= 0;
+    if (allCleared) {
+      overlayEmoji.textContent = '🌟';
+      overlayTitle.textContent = '완주 달성!';
+      overlayDesc.innerHTML = `81장 완주! 모든 SET를 찾았습니다!<br>남은 시간: <strong style="color:#f5c842">${timeLeft}초</strong>`;
+    } else {
+      overlayEmoji.textContent = timeOver ? '⏰' : '🎉';
+      overlayTitle.textContent = timeOver ? '시간 종료!' : '정식 SET 종료';
+      overlayDesc.innerHTML =
+        `어쨌든! 총 <strong style="color:#f5c842">${score}</strong>개의 SET를 찾았습니다.<br>` +
+        (score >= 10 ? '👏 대단한 실력입니다!' : score >= 5 ? '좋은 성적이에요!' : '다음엔 더 잘 할 수 있어요! 💪');
+    }
   }
 
   gameOverlay.hidden = false;
