@@ -877,8 +877,14 @@ function applyLayout() {
 }
 applyLayout();
 
+let originalLayout = officialLayout;
+let originalRotated = cardRotated;
+
 function openSettings() {
   tempKeys = [...getCurrentUserKeys()];
+  originalLayout = officialLayout;
+  originalRotated = cardRotated;
+  
   document.getElementById('chkRotate').checked = cardRotated;
   
   const chkLayout = document.getElementById('chkLayout');
@@ -895,8 +901,31 @@ function openSettings() {
 }
 function closeSettings() {
   stopListening();
+  
+  // 취소 시 원상 복구
+  officialLayout = originalLayout;
+  cardRotated = originalRotated;
+  applyRotation();
+  applyLayout();
+  
   settingsOverlay.hidden = true;
 }
+
+// 토글 실시간 미리보기
+document.getElementById('chkRotate').addEventListener('change', (e) => {
+  cardRotated = e.target.checked;
+  applyRotation();
+});
+document.getElementById('chkLayout').addEventListener('change', (e) => {
+  if (gameMode === 'official') {
+    officialLayout = e.target.checked ? '3x4' : '4x3';
+    applyLayout();
+    
+    // 배열이 바뀌면 단축키 설정 화면의 그리드도 즉시 갱신 (선택 사항이나 자연스러운 UX)
+    // 주의: tempKeys는 유지하되, UI만 재생성
+    buildSettingsGrid();
+  }
+});
 
 document.getElementById('btnSettings').addEventListener('click', openSettings);
 document.getElementById('btnSettingsClose').addEventListener('click', closeSettings);
@@ -919,17 +948,22 @@ document.getElementById('btnSaveKeys').addEventListener('click', () => {
   
   cardRotated = document.getElementById('chkRotate').checked;
   localStorage.setItem('setGameRotate', cardRotated ? '1' : '0');
+  originalRotated = cardRotated;
   
   if (gameMode === 'official') {
     const is3x4 = document.getElementById('chkLayout').checked;
     officialLayout = is3x4 ? '3x4' : '4x3';
     localStorage.setItem('setGameLayout', officialLayout);
+    originalLayout = officialLayout;
   }
   
   buildKeyMap();
   applyRotation();
   applyLayout();
-  closeSettings();
+  
+  // 저장 후 closeSettings 호출 시 복구 방지를 위해 original 값을 갱신했으므로 닫아도 됨
+  settingsOverlay.hidden = true;
+  stopListening();
 });
 
 // 설정 모달 키 캡처
