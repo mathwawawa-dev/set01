@@ -1,15 +1,15 @@
-/* ============================================================
-   SET 게임 — style.css
+﻿/* ============================================================
+   SET 寃뚯엫 ??style.css
    ============================================================ */
 
-/* ---------- 리셋 & 기본 ---------- */
+/* ---------- 由ъ뀑 & 湲곕낯 ---------- */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-/* ── 라이트 모드 기본값 ── */
+/* ?? ?쇱씠??紐⑤뱶 湲곕낯媛??? */
 :root {
   --bg-base:      #f0f2f8;
   --bg-card:      #ffffff;
@@ -34,7 +34,7 @@
   --wrong-glow:   0 0 0 3px #e03060, 0 0 24px 6px rgba(224,48,96,0.4);
 }
 
-/* ── 다크 모드 오버라이드 ── */
+/* ?? ?ㅽ겕 紐⑤뱶 ?ㅻ쾭?쇱씠???? */
 body.dark {
   --bg-base:      #0d0d1a;
   --bg-card:      #13132b;
@@ -66,7 +66,7 @@ html, body {
   transition: background 0.35s ease, color 0.35s ease;
 }
 
-/* ---------- 모드 선택 화면 ---------- */
+/* ---------- 紐⑤뱶 ?좏깮 ?붾㈃ ---------- */
 .mode-screen {
   position: fixed;
   inset: 0;
@@ -180,7 +180,7 @@ html, body {
 }
 
 
-/* ---------- 배경 파티클 ---------- */
+/* ---------- 諛곌꼍 ?뚰떚??---------- */
 .bg-particles {
   position: fixed;
   inset: 0;
@@ -202,7 +202,7 @@ html, body {
   100% { transform: translateY(-110vh) scale(0.6); opacity: 0; }
 }
 
-/* ---------- 헤더 ---------- */
+/* ---------- ?ㅻ뜑 ---------- */
 .game-header {
   position: sticky;
   top: 0;
@@ -240,12 +240,12 @@ html, body {
   flex: 1;
 }
 
-/* 점수를 우측으로 고정 */
+/* ?먯닔瑜??곗륫?쇰줈 怨좎젙 */
 #statScore {
   justify-self: end;
 }
 
-/* 타이틀 */
+/* ??댄? */
 .game-title {
   font-size: clamp(1.2rem, 3vw, 2rem);
   font-weight: 900;
@@ -267,7 +267,7 @@ html, body {
   letter-spacing: 0;
 }
 
-/* 테마 토글 버튼 */
+/* ?뚮쭏 ?좉? 踰꾪듉 */
 .btn-theme {
   display: flex;
   align-items: center;
@@ -289,7 +289,7 @@ html, body {
   opacity: 0.7;
 }
 
-/* 설정 버튼 */
+/* ?ㅼ젙 踰꾪듉 */
 .btn-settings {
   display: flex;
   align-items: center;
@@ -310,7 +310,7 @@ html, body {
   opacity: 0.7;
 }
 
-/* ---------- 설정 모달 ---------- */
+/* ---------- ?ㅼ젙 紐⑤떖 ---------- */
 .settings-overlay {
   position: fixed;
   inset: 0;
@@ -369,7 +369,7 @@ html, body {
   margin-bottom: 8px;
 }
 
-/* 박스형 토글 스위치 */
+/* 諛뺤뒪???좉? ?ㅼ쐞移?*/
 .settings-box-toggle {
   display: block;
   cursor: pointer;
@@ -401,7 +401,7 @@ html, body {
   margin-bottom: 18px;
 }
 
-/* 3열 그리드 (최대 4행, official 모드용) */
+/* 3??洹몃━??(理쒕? 4?? official 紐⑤뱶?? */
 .settings-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -448,7 +448,7 @@ html, body {
 }
 .key-cell.listening .key-cell-badge {
   color: var(--accent-pink);
-  content: '…';
+  content: '??;
 }
 
 .settings-actions {
@@ -506,18 +506,18 @@ html, body {
   line-height: inherit;
 }
 
-/* 타이머 위험 상태 */
+/* ??대㉧ ?꾪뿕 ?곹깭 */
 #statTimer.danger .stat-value {
   color: var(--timer-danger);
   animation: pulse 0.8s ease-in-out infinite;
 }
 
-/* --- 타이머 강조 (중앙 배치 시 시인성 강화 - 제거 요청 반영) --- */
+/* --- ??대㉧ 媛뺤“ (以묒븰 諛곗튂 ???쒖씤??媛뺥솕 - ?쒓굅 ?붿껌 諛섏쁺) --- */
 #statTimer {
-  /* 배경/글씨체 특별 강조 해제, 일반 stat-card 디자인 따름 */
+  /* 諛곌꼍/湲?⑥껜 ?밸퀎 媛뺤“ ?댁젣, ?쇰컲 stat-card ?붿옄???곕쫫 */
 }
 
-/* 타이머 숫자 너비: JS에서 모드별 동적 설정 (countdown=2ch, deckExhaust=7ch) */
+/* ??대㉧ ?レ옄 ?덈퉬: JS?먯꽌 紐⑤뱶蹂??숈쟻 ?ㅼ젙 (countdown=2ch, deckExhaust=7ch) */
 #timerDisplay {
   font-variant-numeric: tabular-nums;
   min-width: auto;
@@ -531,7 +531,7 @@ html, body {
 }
 
 
-/* ---------- 게임 메인 ---------- */
+/* ---------- 寃뚯엫 硫붿씤 ---------- */
 .game-main {
   position: relative;
   z-index: 1;
@@ -542,7 +542,7 @@ html, body {
   min-height: calc(100vh - 70px);
 }
 
-/* 힙트 텍스트 (상단바와 카드 사이) */
+/* ?숉듃 ?띿뒪??(?곷떒諛붿? 移대뱶 ?ъ씠) */
 .hint-text {
   font-size: 0.9rem;
   color: var(--text-primary);
@@ -553,51 +553,51 @@ html, body {
   letter-spacing: 0.01em;
 }
 
-/* 3×3 카드 그리드 (27장 모드) */
+/* 3횞3 移대뱶 洹몃━??(27??紐⑤뱶) */
 .card-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);  /* 빈 행이 생겨도 3행 구조 고정 */
+  grid-template-rows: repeat(3, 1fr);  /* 鍮??됱씠 ?앷꺼??3??援ъ“ 怨좎젙 */
   gap: clamp(6px, 1.5vmin, 10px);
   width: 100%;
-  max-width: min(407px, calc(100vw - 32px));  /* 3×129 + 2×10 = 407 */
+  max-width: min(407px, calc(100vw - 32px));  /* 3횞129 + 2횞10 = 407 */
 }
 
-/* 4행×3열 그리드 (81장 정식 모드) — 가로형(4:3) 기본, 27장과 반대 방향 */
+/* 4?됁???洹몃━??(81???뺤떇 紐⑤뱶) ??媛濡쒗삎(4:3) 湲곕낯, 27?κ낵 諛섎? 諛⑺뼢 */
 .card-grid.official {
   grid-template-rows: repeat(4, 1fr);
-  max-width: min(536px, calc(100vw - 32px));  /* 3×172 + 2×10 */
+  max-width: min(536px, calc(100vw - 32px));  /* 3횞172 + 2횞10 */
 }
-/* 정식 모드 카드: 기본 가로형 */
+/* ?뺤떇 紐⑤뱶 移대뱶: 湲곕낯 媛濡쒗삎 */
 .card-grid.official .card {
   aspect-ratio: 4 / 3;
 }
 
-/* ── 3행 4열 (81장 정식 모드 옵션) ── */
+/* ?? 3??4??(81???뺤떇 紐⑤뱶 ?듭뀡) ?? */
 .card-grid.official.official-3x4 {
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(3, 1fr);
-  max-width: min(718px, calc(100vw - 32px));  /* 가로카드 4열: 4×172 + 3×10 = 718 */
+  max-width: min(718px, calc(100vw - 32px));  /* 媛濡쒖뭅??4?? 4횞172 + 3횞10 = 718 */
 }
 
-/* 회전 ON: 전 모드 공통 max-width (27장은 536 그대로, 정식은 아래에서 override) */
+/* ?뚯쟾 ON: ??紐⑤뱶 怨듯넻 max-width (27?μ? 536 洹몃?濡? ?뺤떇? ?꾨옒?먯꽌 override) */
 .card-grid.rotated {
-  max-width: min(536px, calc(100vw - 32px));  /* 27장 회전 ON: 172×129 */
+  max-width: min(536px, calc(100vw - 32px));  /* 27???뚯쟾 ON: 172횞129 */
 }
 
-/* 정식 모드 4x3 회전 ON: 세로형으로 전환 (27장과 반대) */
+/* ?뺤떇 紐⑤뱶 4x3 ?뚯쟾 ON: ?몃줈?뺤쑝濡??꾪솚 (27?κ낵 諛섎?) */
 .card-grid.official.rotated {
-  max-width: min(407px, calc(100vw - 32px));  /* 3×129 + 2×10 */
+  max-width: min(407px, calc(100vw - 32px));  /* 3횞129 + 2횞10 */
 }
-/* 정식 모드 3x4 회전 ON: 세로형 4열 */
+/* ?뺤떇 紐⑤뱶 3x4 ?뚯쟾 ON: ?몃줈??4??*/
 .card-grid.official.official-3x4.rotated {
-  max-width: min(546px, calc(100vw - 32px));  /* 4×129 + 3×10 = 546 */
+  max-width: min(546px, calc(100vw - 32px));  /* 4횞129 + 3횞10 = 546 */
 }
 .card-grid.official.rotated .card {
   aspect-ratio: 3 / 4;
 }
 
-/* ---------- 카드 ---------- */
+/* ---------- 移대뱶 ---------- */
 .card {
   position: relative;
   background: var(--bg-card);
@@ -627,9 +627,9 @@ html, body {
   pointer-events: none;
 }
 
-/* hover 효과 제거 */
+/* hover ?④낵 ?쒓굅 */
 
-/* 27장 모드: 단일 이미지 */
+/* 27??紐⑤뱶: ?⑥씪 ?대?吏 */
 .card img {
   width: 75%;
   height: 75%;
@@ -639,16 +639,16 @@ html, body {
   transition: transform 0.3s ease;
 }
 
-/* ── 회전 모드 (전 모드 공통) ── */
+/* ?? ?뚯쟾 紐⑤뱶 (??紐⑤뱶 怨듯넻) ?? */
 
-/* 회전 ON: 카드 portrait(3:4) → landscape(4:3) */
+/* ?뚯쟾 ON: 移대뱶 portrait(3:4) ??landscape(4:3) */
 .card-grid.rotated .card {
   aspect-ratio: 4 / 3;
   transform: none;
 }
 
-/* 27장 회전: img를 portrait 박스(75%×95%)에 contain → rotate(90°) → 가로 타원
-   카드 172×129px, img박스 129×123px, 렌더 58×123px → rotate 후 123×58px */
+/* 27???뚯쟾: img瑜?portrait 諛뺤뒪(75%횞95%)??contain ??rotate(90째) ??媛濡????
+   移대뱶 172횞129px, img諛뺤뒪 129횞123px, ?뚮뜑 58횞123px ??rotate ??123횞58px */
 .card-grid.rotated:not(.official) .card img {
   width: 75%;
   height: 95%;
@@ -657,18 +657,18 @@ html, body {
   transition: transform 0.35s ease;
 }
 
-/* 81장 회전: card-symbols 90° 회전 (scale 없이 overflow:hidden이 클리핑) */
+/* 81???뚯쟾: card-symbols 90째 ?뚯쟾 (scale ?놁씠 overflow:hidden???대━?? */
 .card-grid.official.rotated .card-symbols {
   transform: rotate(90deg) scale(calc(4/3));
   transition: transform 0.35s ease;
 }
 
-/* 81장 정식 모드: count별 CSS Grid로 이미지 배치 */
+/* 81???뺤떇 紐⑤뱶: count蹂?CSS Grid濡??대?吏 諛곗튂 */
 .card-symbols {
   display: grid;
   align-items: center;
   justify-items: center;
-  justify-content: center;   /* count-1/2에서 중앙 정렬 */
+  justify-content: center;   /* count-1/2?먯꽌 以묒븰 ?뺣젹 */
   width: 100%;
   height: 100%;
   padding: 5%;
@@ -677,7 +677,7 @@ html, body {
   row-gap: 0;
 }
 
-/* 모든 count에서 열 너비 = count-3 기준 (100%-4px)/3 으로 고정 → 이미지 크기 동일 */
+/* 紐⑤뱺 count?먯꽌 ???덈퉬 = count-3 湲곗? (100%-4px)/3 ?쇰줈 怨좎젙 ???대?吏 ?ш린 ?숈씪 */
 .card-symbols.count-1 { grid-template-columns: repeat(1, calc((100% - 4px) / 3)); }
 .card-symbols.count-2 { grid-template-columns: repeat(2, calc((100% - 4px) / 3)); }
 .card-symbols.count-3 { grid-template-columns: repeat(3, calc((100% - 4px) / 3)); }
@@ -690,20 +690,20 @@ html, body {
   display: block;
 }
 
-/* 선택 상태: 테두리만 파란색 */
+/* ?좏깮 ?곹깭: ?뚮몢由щ쭔 ?뚮???*/
 .card.selected {
   border-color: #5b8dee;
   box-shadow: var(--sel-glow);
 }
 
-/* 비활성(게임 종료) */
+/* 鍮꾪솢??寃뚯엫 醫낅즺) */
 .card.disabled {
   opacity: 0.4;
   cursor: not-allowed;
   pointer-events: none;
 }
 
-/* 카드 등장 애니메이션 */
+/* 移대뱶 ?깆옣 ?좊땲硫붿씠??*/
 .card.entering {
   animation: cardEnter 0.15s ease-out forwards;
 }
@@ -713,7 +713,7 @@ html, body {
   100% { transform: scale(1) translateY(0); opacity: 1; }
 }
 
-/* ---------- 선택 안내 바 ---------- */
+/* ---------- ?좏깮 ?덈궡 諛?---------- */
 .selection-bar {
   position: fixed;
   bottom: 24px;
@@ -751,7 +751,7 @@ html, body {
   box-shadow: 0 4px 24px rgba(255,77,109,0.25);
 }
 
-/* ---------- 게임 오버 오버레이 ---------- */
+/* ---------- 寃뚯엫 ?ㅻ쾭 ?ㅻ쾭?덉씠 ---------- */
 .overlay {
   position: fixed;
   inset: 0;
@@ -843,7 +843,7 @@ html, body {
 
 
 
-/* ---------- 반응형 ---------- */
+/* ---------- 諛섏쓳??---------- */
 @media (max-width: 700px) {
   .game-header { padding: 6px 12px; }
 
@@ -870,7 +870,7 @@ html, body {
 
 
 
-/* ---------- �ϴ� �÷��� �׼� ---------- */
+/* ---------- 하단 플로팅 액션 ---------- */
 .floating-menu {
   position: fixed;
   bottom: 24px;
@@ -908,10 +908,5 @@ html, body {
   box-shadow: 0 6px 16px rgba(0,0,0,0.15);
 }
 
-.btn-floating svg {
-  transition: transform 0.3s;
-}
 
-.btn-floating:hover svg {
-  transform: rotate(15deg) scale(1.1);
-}
+
