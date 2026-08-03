@@ -725,6 +725,8 @@ document.getElementById('btnModeDeck').addEventListener('click', () => {
 document.getElementById('btnModeOfficial').addEventListener('click', () => {
   gameMode = 'official';
   modeScreen.hidden = true;
+  buildKeyMap();
+  applyLayout();
   startGame();
 });
 
@@ -732,13 +734,26 @@ document.getElementById('btnModeOfficial').addEventListener('click', () => {
 // 19. 단축키 시스템 (사용자 설정 가능)
 // ──────────────────────────────────────────────
 
-// 기본 키: 1,2,3 / ㅂ(Q),ㅈ(W),ㄷ(E) / ㅁ(A),ㄴ(S),ㅇ(D) / ㅋ(Z),ㅌ(X),ㅊ(C)
-const DEFAULT_KEYS = [
+// 기본 키 (4행 3열)
+const DEFAULT_KEYS_4X3 = [
   'Digit1','Digit2','Digit3',
   'KeyQ',  'KeyW',  'KeyE',
   'KeyA',  'KeyS',  'KeyD',
   'KeyZ',  'KeyX',  'KeyC',
 ];
+// 기본 키 (3행 4열)
+const DEFAULT_KEYS_3X4 = [
+  'Digit1','Digit2','Digit3','Digit4',
+  'KeyQ',  'KeyW',  'KeyE',  'KeyR',
+  'KeyA',  'KeyS',  'KeyD',  'KeyF',
+];
+
+let officialLayout = localStorage.getItem('setGameLayout') === '3x4' ? '3x4' : '4x3';
+
+function getDefaultKeys() {
+  if (gameMode === 'official' && officialLayout === '3x4') return DEFAULT_KEYS_3X4;
+  return DEFAULT_KEYS_4X3;
+}
 
 // 넘패드: 항상 보조 활성화 (설정 불가, 고정)
 const NUMPAD_MAP = {
@@ -747,20 +762,32 @@ const NUMPAD_MAP = {
   'Numpad1': 6, 'Numpad2': 7, 'Numpad3': 8,
 };
 
-// 로컬스토리지에서 불러오기
-let userKeys = (() => {
+// 로컬스토리지에서 불러오기 (배열에 따라 별도 저장 권장하나 단순화를 위해 일단 하나의 키 배열 사용 시엔 기본값으로 덮어씀, 여기서는 각각 저장)
+let userKeys4x3 = (() => {
   try {
-    const saved = JSON.parse(localStorage.getItem('setGameKeys'));
+    const saved = JSON.parse(localStorage.getItem('setGameKeys4x3') || localStorage.getItem('setGameKeys'));
     if (Array.isArray(saved) && saved.length === 12) return saved;
   } catch(_) {}
-  return [...DEFAULT_KEYS];
+  return [...DEFAULT_KEYS_4X3];
 })();
+let userKeys3x4 = (() => {
+  try {
+    const saved = JSON.parse(localStorage.getItem('setGameKeys3x4'));
+    if (Array.isArray(saved) && saved.length === 12) return saved;
+  } catch(_) {}
+  return [...DEFAULT_KEYS_3X4];
+})();
+
+function getCurrentUserKeys() {
+  if (gameMode === 'official' && officialLayout === '3x4') return userKeys3x4;
+  return userKeys4x3;
+}
 
 // 동적 KEY_MAP 빌드
 let KEY_MAP = {};
 function buildKeyMap() {
   KEY_MAP = { ...NUMPAD_MAP };
-  userKeys.forEach((code, cardIdx) => {
+  getCurrentUserKeys().forEach((code, cardIdx) => {
     if (code) KEY_MAP[code] = cardIdx;
   });
 }
@@ -784,8 +811,10 @@ function keyLabel(code) {
 
 // 카드 위치 라벨 (행, 열)
 function posLabel(idx) {
-  const row = Math.floor(idx / 3) + 1;
-  const col = (idx % 3) + 1;
+  let cols = 3;
+  if (gameMode === 'official' && officialLayout === '3x4') cols = 4;
+  const row = Math.floor(idx / cols) + 1;
+  const col = (idx % cols) + 1;
   return `${row}행 ${col}열`;
 }
 
@@ -798,6 +827,8 @@ let   tempKeys        = [];   // 모달 내 임시 편집 상태
 function buildSettingsGrid() {
   const count = (gameMode === 'official') ? 12 : 9;
   settingsGrid.innerHTML = '';
+  const cols = (gameMode === 'official' && officialLayout === '3x4') ? 4 : 3;
+  settingsGrid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
   for (let i = 0; i < count; i++) {
     const cell = document.createElement('div');
     cell.className = 'key-cell';
@@ -838,9 +869,24 @@ function applyRotation() {
 }
 applyRotation();
 
+function applyLayout() {
+  cardGrid.classList.toggle('official-3x4', officialLayout === '3x4');
+}
+applyLayout();
+
 function openSettings() {
-  tempKeys = [...userKeys];
+  tempKeys = [...getCurrentUserKeys()];
   document.getElementById('chkRotate').checked = cardRotated;
+  
+  const chkLayout = document.getElementById('chkLayout');
+  const layoutContainer = chkLayout.closest('.settings-section');
+  if (gameMode === 'official') {
+    layoutContainer.style.display = 'flex';
+    chkLayout.checked = (officialLayout === '3x4');
+  } else {
+    layoutContainer.style.display = 'none';
+  }
+  
   buildSettingsGrid();
   settingsOverlay.hidden = false;
 }
@@ -854,18 +900,32 @@ document.getElementById('btnSettingsClose').addEventListener('click', closeSetti
 settingsOverlay.addEventListener('click', (e) => { if (e.target === settingsOverlay) closeSettings(); });
 
 document.getElementById('btnResetKeys').addEventListener('click', () => {
-  tempKeys = [...DEFAULT_KEYS];
+  tempKeys = [...getDefaultKeys()];
   buildSettingsGrid();
   stopListening();
 });
 
 document.getElementById('btnSaveKeys').addEventListener('click', () => {
-  userKeys = [...tempKeys];
-  localStorage.setItem('setGameKeys', JSON.stringify(userKeys));
-  buildKeyMap();
+  if (gameMode === 'official' && officialLayout === '3x4') {
+    userKeys3x4 = [...tempKeys];
+    localStorage.setItem('setGameKeys3x4', JSON.stringify(userKeys3x4));
+  } else {
+    userKeys4x3 = [...tempKeys];
+    localStorage.setItem('setGameKeys4x3', JSON.stringify(userKeys4x3));
+  }
+  
   cardRotated = document.getElementById('chkRotate').checked;
   localStorage.setItem('setGameRotate', cardRotated ? '1' : '0');
+  
+  if (gameMode === 'official') {
+    const is3x4 = document.getElementById('chkLayout').checked;
+    officialLayout = is3x4 ? '3x4' : '4x3';
+    localStorage.setItem('setGameLayout', officialLayout);
+  }
+  
+  buildKeyMap();
   applyRotation();
+  applyLayout();
   closeSettings();
 });
 
