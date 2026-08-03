@@ -221,23 +221,23 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
-  padding: 0 4px;
-  flex-wrap: nowrap;   /* 절대 줄바꿈 없음 */
 }
-
+.header-left, .header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+}
 .header-left {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  flex-shrink: 0;
+  justify-content: flex-start;
 }
-
 .header-right {
+  justify-content: flex-end;
+}
+.header-center {
   display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
+  justify-content: center;
+  flex: 1;
 }
 
 /* 점수를 우측으로 고정 */
@@ -362,40 +362,31 @@ html, body {
   margin-bottom: 8px;
 }
 
-/* 토글 스위치 */
-.settings-toggle {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+/* 박스형 토글 스위치 */
+.settings-box-toggle {
+  display: block;
   cursor: pointer;
 }
-.settings-toggle input { display: none; }
-.settings-toggle-track {
-  width: 42px;
-  height: 24px;
+.settings-box-toggle input { display: none; }
+.box-toggle-content {
+  display: block;
+  padding: 12px;
+  background: var(--bg-base);
+  border: 1.5px solid var(--border);
   border-radius: 12px;
-  background: var(--border);
-  position: relative;
-  flex-shrink: 0;
-  transition: background 0.22s;
+  text-align: center;
+  font-weight: 600;
+  color: var(--text-muted);
+  transition: all 0.2s;
+  user-select: none;
 }
-.settings-toggle-track::after {
-  content: '';
-  position: absolute;
-  top: 3px; left: 3px;
-  width: 18px; height: 18px;
-  border-radius: 50%;
-  background: #fff;
-  transition: transform 0.22s;
+.settings-box-toggle:hover .box-toggle-content {
+  border-color: var(--accent-blue);
 }
-.settings-toggle input:checked + .settings-toggle-track {
+.settings-box-toggle input:checked + .box-toggle-content {
   background: var(--accent-blue);
-}
-.settings-toggle input:checked + .settings-toggle-track::after {
-  transform: translateX(18px);
-}
-.settings-toggle-text {
-  font-size: 0.9rem;
+  color: #fff;
+  border-color: var(--accent-blue);
 }
 
 .settings-desc {
@@ -472,20 +463,6 @@ html, body {
 }
 .btn-reset-keys:hover { border-color: var(--accent-blue); color: var(--text-primary); }
 
-.btn-save-keys {
-  background: linear-gradient(135deg, var(--accent-blue), var(--accent-pink));
-  border: none;
-  border-radius: 10px;
-  color: #fff;
-  padding: 8px 22px;
-  font-family: 'Outfit', sans-serif;
-  font-size: 0.85rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: opacity 0.2s;
-}
-.btn-save-keys:hover { opacity: 0.85; }
-
 .stat-card {
   display: flex;
   align-items: baseline;
@@ -522,6 +499,17 @@ html, body {
 #statTimer.danger .stat-value {
   color: var(--timer-danger);
   animation: pulse 0.8s ease-in-out infinite;
+}
+
+/* --- 타이머 강조 (중앙 배치 시 시인성 강화) --- */
+#statTimer {
+  background: var(--accent-pink);
+  color: #fff;
+  border: none;
+}
+#statTimer .stat-label, 
+#statTimer .stat-unit {
+  color: rgba(255,255,255,0.8);
 }
 
 /* 타이머 숫자 너비: JS에서 모드별 동적 설정 (countdown=2ch, deckExhaust=7ch) */
@@ -712,12 +700,12 @@ html, body {
 
 /* 카드 등장 애니메이션 */
 .card.entering {
-  animation: cardEnter 0.4s cubic-bezier(0.34,1.56,0.64,1) forwards;
+  animation: cardEnter 0.2s cubic-bezier(0.34,1.56,0.64,1) forwards;
 }
 
 @keyframes cardEnter {
-  0%   { opacity: 0; transform: scale(0.6) translateY(20px); }
-  100% { opacity: 1; transform: scale(1) translateY(0); }
+  0%   { transform: scale(0.6) translateY(20px); opacity: 0; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
 }
 
 /* ---------- 선택 안내 바 ---------- */
