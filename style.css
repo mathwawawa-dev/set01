@@ -408,10 +408,9 @@ html, body {
 .settings-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
   gap: 8px;
   margin-bottom: 20px;
-  min-height: 250px;
-  align-content: start;
 }
 
 .key-cell {
