@@ -358,10 +358,10 @@ html, body {
   max-width: min(420px, calc(100vw - 32px));
 }
 
-/* 4행×3열 그리드 (81장 정시 모드) */
+/* 4행×3열 그리드 (81장 정식 모드) */
 .card-grid.official {
   grid-template-rows: repeat(4, 1fr);
-  max-width: min(380px, calc(100vw - 32px));
+  max-width: min(540px, calc(100vw - 32px));
 }
 
 /* 정식 모드에서만 카드 가로형 */
@@ -409,32 +409,29 @@ html, body {
   pointer-events: none;
 }
 
-/* 81장 정식 모드: 개수에 따라 이미지 가로 반복 */
+/* 81장 정식 모드: count별 CSS Grid로 이미지 배치 */
 .card-symbols {
-  display: flex;
-  flex-direction: row;
+  display: grid;
   align-items: center;
-  justify-content: center;
-  gap: 3%;
+  justify-items: center;
   width: 100%;
   height: 100%;
-  padding: 6% 4%;
+  padding: 5%;
   box-sizing: border-box;
+  column-gap: 2px;
+  row-gap: 0;
 }
+.card-symbols.count-1 { grid-template-columns: 1fr; }
+.card-symbols.count-2 { grid-template-columns: 1fr 1fr; column-gap: 4px; }
+.card-symbols.count-3 { grid-template-columns: 1fr 1fr 1fr; column-gap: 2px; }
 
-/* width 기반 고정 크기 — 이미지 비율 219:464(1:2.12)로 높이 자동 결정 */
 .card-symbol {
-  width: 26%;
-  height: auto;
-  flex: 0 0 auto;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
   pointer-events: none;
+  display: block;
 }
-
-/* 2개: 거의 붙어있도록 */
-.card-symbols.count-2 { gap: 1%; }
-/* 3개: 최소 간격 */
-.card-symbols.count-3 { gap: 1%; }
 
 /* 선택 상태: 테두리만 파란색 */
 .card.selected {
