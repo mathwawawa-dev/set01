@@ -654,7 +654,7 @@ html, body {
 
 /* 81장 회전: card-symbols 90° 회전 (scale 없이 overflow:hidden이 클리핑) */
 .card-grid.official.rotated .card-symbols {
-  transform: rotate(90deg);
+  transform: rotate(90deg) scale(calc(4/3));
   transition: transform 0.35s ease;
 }
 
