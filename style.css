@@ -569,16 +569,27 @@ html, body {
   max-width: min(407px, calc(100vw - 32px));  /* 3×129 + 2×10 = 407 */
 }
 
-/* 4행×3열 그리드 (81장 정식 모드) — 카드 세로형(3:4) 기본 */
+/* 4행×3열 그리드 (81장 정식 모드) — 가로형(4:3) 기본, 27장과 반대 방향 */
 .card-grid.official {
   grid-template-rows: repeat(4, 1fr);
-  max-width: min(407px, calc(100vw - 32px));  /* 27장과 동일 */
+  max-width: min(536px, calc(100vw - 32px));  /* 3×172 + 2×10 */
+}
+/* 정식 모드 카드: 기본 가로형 */
+.card-grid.official .card {
+  aspect-ratio: 4 / 3;
 }
 
-/* 회전 ON: 전 모드 공통 → 가로형(4:3), 172×129px
-   3×172 + 2×10 = 536px */
+/* 회전 ON: 전 모드 공통 max-width (27장은 536 그대로, 정식은 아래에서 override) */
 .card-grid.rotated {
-  max-width: min(536px, calc(100vw - 32px));
+  max-width: min(536px, calc(100vw - 32px));  /* 27장 회전 ON: 172×129 */
+}
+
+/* 정식 모드 회전 ON: 세로형으로 전환 (27장과 반대) */
+.card-grid.official.rotated {
+  max-width: min(407px, calc(100vw - 32px));  /* 3×129 + 2×10 */
+}
+.card-grid.official.rotated .card {
+  aspect-ratio: 3 / 4;
 }
 
 /* ---------- 카드 ---------- */
