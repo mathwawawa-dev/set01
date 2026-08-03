@@ -418,7 +418,9 @@ function renderBoard() {
   } else {
     cardGrid.classList.remove('official');
   }
-  const cols = 3;
+  let cols = 3;
+  if (gameMode === 'official' && officialLayout === '3x4') cols = 4;
+  
   board.forEach((card, idx) => {
     if (!card) return;
     const el = createCardElement(card, idx);
@@ -871,6 +873,7 @@ applyRotation();
 
 function applyLayout() {
   cardGrid.classList.toggle('official-3x4', officialLayout === '3x4');
+  if (board.length > 0) renderBoard(); // 이미 게임 중이면 재렌더링하여 인라인 스타일 갱신
 }
 applyLayout();
 
