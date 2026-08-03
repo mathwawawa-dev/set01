@@ -889,7 +889,9 @@ function openSettings() {
   const layoutContainer = document.getElementById('layoutSettingContainer');
   if (gameMode === 'official') {
     layoutContainer.style.display = 'block';
-    chkLayout.checked = (officialLayout === '3x4');
+    const is3x4 = (officialLayout === '3x4');
+    chkLayout.checked = is3x4;
+    chkLayout.nextElementSibling.textContent = is3x4 ? '4행 3열로 보기' : '3행 4열로 보기';
   } else {
     layoutContainer.style.display = 'none';
   }
@@ -910,7 +912,9 @@ document.getElementById('chkRotate').addEventListener('change', (e) => {
 });
 document.getElementById('chkLayout').addEventListener('change', (e) => {
   if (gameMode === 'official') {
-    officialLayout = e.target.checked ? '3x4' : '4x3';
+    const is3x4 = e.target.checked;
+    officialLayout = is3x4 ? '3x4' : '4x3';
+    e.target.nextElementSibling.textContent = is3x4 ? '4행 3열로 보기' : '3행 4열로 보기';
     localStorage.setItem('setGameLayout', officialLayout);
     applyLayout();
     
