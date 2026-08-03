@@ -694,6 +694,8 @@ function startGame() {
   deck        = [];
   elapsedTime = 0;
 
+  document.getElementById('floatingMenu').hidden = false;
+
   scoreDisplay.textContent = '0';
   hintText.textContent = '';
   statTimer.classList.remove('danger');
@@ -709,12 +711,24 @@ function startGame() {
 // 18. 이벤트 바인딩
 // ──────────────────────────────────────────────
 
-// 다시 시작 → 모드 선택 화면으로
-btnRestart.addEventListener('click', () => {
+// 대문으로 돌아가기 공통 함수
+function returnToHome() {
+  clearInterval(timerID);
   gameOverlay.hidden = true;
+  document.getElementById('floatingMenu').hidden = true;
   randomizeLogoColors();
   modeScreen.hidden = false;
+}
+
+// 오버레이 다시 시작 → 모드 선택 화면으로
+btnRestart.addEventListener('click', returnToHome);
+
+// 플로팅 액션 버튼
+document.getElementById('btnFloatRestart').addEventListener('click', () => {
+  if (!gameOver) clearInterval(timerID);
+  startGame();
 });
+document.getElementById('btnFloatHome').addEventListener('click', returnToHome);
 
 // 모드 선택
 document.getElementById('btnModeCountdown').addEventListener('click', () => {
