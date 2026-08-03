@@ -476,8 +476,11 @@ function renderCardAt(idx) {
 
   const el = createCardElement(card, idx);
   // grid-area로 정확한 위치에 삽입
-  const col = (idx % 3) + 1;
-  const row = Math.floor(idx / 3) + 1;
+  let cols = 3;
+  if (gameMode === 'official' && officialLayout === '3x4') cols = 4;
+  
+  const col = (idx % cols) + 1;
+  const row = Math.floor(idx / cols) + 1;
   el.style.gridColumn = col;
   el.style.gridRow    = row;
 
