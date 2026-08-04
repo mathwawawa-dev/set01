@@ -173,7 +173,8 @@ html, body {
 }
 
 .mode-card-icon.icon-red {
-  filter: sepia(1) saturate(6) hue-rotate(310deg) brightness(0.85);
+  color: #ff4d6d;
+  filter: drop-shadow(0 0 8px rgba(255, 77, 109, 0.4));
 }
 
 .mode-card-name {
