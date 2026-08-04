@@ -616,7 +616,7 @@ function startTimer() {
   clearInterval(timerID);
   statTimer.classList.remove('danger');
 
-  if (gameMode === 'countdown' || gameMode === 'official' || gameMode === 'officialDeckExhaust') {
+  if (gameMode === 'countdown' || gameMode === 'official') {
     timeLeft = TOTAL_TIME;
     timerDisplay.textContent = timeLeft;
     timerDisplay.style.minWidth = '2ch';
@@ -651,7 +651,7 @@ function endGame() {
 
   document.querySelectorAll('.card').forEach(el => el.classList.add('disabled'));
 
-  if (gameMode === 'countdown' || gameMode === 'official' || gameMode === 'officialDeckExhaust') {
+  if (gameMode === 'countdown' || gameMode === 'official') {
     overlayEmoji.textContent = score >= 5 ? '🏆' : score >= 3 ? '🎉' : '😅';
     overlayTitle.textContent = '시간 종료!';
     overlayDesc.innerHTML =
