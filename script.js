@@ -1370,7 +1370,7 @@ function onTutSeqAnswer(answer) {
     tutFeedbackEl.className = 'tut-feedback tut-success';
 
     if (tutSubQIdx < step.questions.length - 1) {
-      setTimeout(() => { tutSubQIdx++; renderTutSubQ(); }, 1300);
+      setTimeout(() => { tutSubQIdx++; renderTutSubQ(); }, 2800);
     } else {
       const isLast = tutStepIdx >= JUNIOR_TUT_STEPS.length - 1;
       tutNextBtn.hidden      = false;
@@ -1386,7 +1386,7 @@ function onTutSeqAnswer(answer) {
         tutFeedbackEl.textContent = '';
         tutFeedbackEl.className   = 'tut-feedback';
       }
-    }, 2200);
+    }, 3000);
   }
 }
 
