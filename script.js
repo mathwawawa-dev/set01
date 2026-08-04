@@ -1086,47 +1086,70 @@ const TUT_CARDS_QUIZ_NO = [
 const JUNIOR_TUT_STEPS = [
   {
     id: 'intro', title: 'SET란 무엇인가요?',
-    text: '카드 세 장을 골라 <strong>SET</strong>를 완성하는 게임이에요!<br>세 장의 <em>모든 속성</em>이 모두 같거나, 모두 다를 때 SET가 돼요.<br>속성은 <strong>모양 · 색 · 채움</strong> 세 가지예요. 같이 살펴보요!',
+    text: '카드 세 장을 골라 <strong>SET</strong>를 완성하는 게임이에요!<br>각 속성(모양·색·채움)이 <em>모두 같거나</em> <em>모두 달라야</em> SET가 돼요.<br>지금부터 세 장을 보며 직접 판단해요!',
     cards: TUT_CARDS_INTRO, interactive: false,
   },
   {
-    id: 'attr_shape', type: 'attrquiz',
-    title: '속성 ① 모양 — 판단해보세요!',
-    text: '아래 세 장의 <strong>모양</strong>은 어떤가요?<br><small style="color:var(--text-muted)">타원(Oval) · 마름모(Diamond) · 물결(Squiggle)</small>',
-    cards: TUT_CARDS_SHAPE,
-    correctAnswer: 'different',
-    praise: '👏 정확해요! 타원 · 마름모 · 물결 — <strong>모두 달라요</strong>.<br>속성이 모두 다떼 때도 OK!',
-    hint: '다시 살펴보세요. 카드의 형태가 세 가지 모두 다른가요?',
+    id: 'seq_a', type: 'sequence',
+    title: '직접 판단해보세요 — 예시 ①',
+    cards: TUT_CARDS_INTRO,
+    questions: [
+      {
+        q: '이 세 장의 <strong>모양</strong>은 어떤가요?',
+        type: 'attr', correctAnswer: 'different',
+        praise: '👏 맞아요! 타원 · 마름모 · 물결 — <strong>모두 달라요</strong>.',
+        wrong: '다시 보세요. 세 카드의 형태: 타원 · 마름모 · 물결 — 세 종류 모두 달라요.',
+      },
+      {
+        q: '이 세 장의 <strong>색</strong>은 어떤가요?',
+        type: 'attr', correctAnswer: 'different',
+        praise: '👏 맞아요! 초록 · 보라 · 빨강 — <strong>모두 달라요</strong>.',
+        wrong: '다시 보세요. 세 카드의 색: 초록 · 보라 · 빨강 — 세 가지 모두 다른 색이에요.',
+      },
+      {
+        q: '이 세 장의 <strong>채움</strong>은 어떤가요?',
+        type: 'attr', correctAnswer: 'different',
+        praise: '👏 맞아요! 비어있음 · 줄무늬 · 가득참 — <strong>모두 달라요</strong>.',
+        wrong: '다시 보세요. 채움: 비어있음 · 줄무늬 · 가득참 — 세 종류 모두 다른 방식이에요.',
+      },
+      {
+        q: '모양 · 색 · 채움 모두 확인했어요!<br>그렇다면 이 세 장은 <strong>SET</strong>일까요?',
+        type: 'set', correctAnswer: 'yes',
+        praise: '🎉 정확해요! 세 속성이 모두 규칙에 맞아요 — <strong>SET</strong>예요!',
+        wrong: '다시 생각해보세요! 세 속성이 모두 "모두 달라요"였잖아요? 모두 다를 때도 SET가 돼요!',
+      },
+    ],
   },
   {
-    id: 'attr_color', type: 'attrquiz',
-    title: '속성 ② 색 — 판단해보세요!',
-    text: '아래 세 장의 <strong>색</strong>은 어떤가요?<br><small style="color:var(--text-muted)">초록(Green) · 보라(Purple) · 빨강(Red)</small>',
-    cards: TUT_CARDS_COLOR_SAME,
-    correctAnswer: 'same',
-    praise: '👏 정확해요! 세 장 모두 초록색 — <strong>모두 같아요</strong>.<br>속성이 모두 같을 때도 OK!',
-    hint: '다시 살펴보세요. 세 장의 색이 모두 같은가요?',
-  },
-  {
-    id: 'attr_fill', type: 'attrquiz',
-    title: '속성 ③ 채움 — 판단해보세요!',
-    text: '아래 세 장의 <strong>채움</strong>은 어떤가요?<br><small style="color:var(--text-muted)">비어있음(Outline) · 줄무늬(Striped) · 가득참(Solid)</small>',
+    id: 'seq_b', type: 'sequence',
+    title: '직접 판단해보세요 — 예시 ②',
     cards: TUT_CARDS_FILL,
-    correctAnswer: 'different',
-    praise: '👏 정확해요! 비어있음 · 줄무늬 · 가득참 — <strong>모두 달라요</strong>.<br>세 속성 모두 규칙에 맞으면 SET예요!',
-    hint: '다시 살펴보세요. 세 장의 채움 주황(비어있음/줄/진하게 나뉘었나요?',
-  },
-  {
-    id: 'quiz_yes', title: '퀴즈! 이게 SET일까요?', type: 'quiz', isSet: true,
-    text: '아래 세 장을 <strong>모양 · 색 · 채움</strong> 순서로 확인해보세요!',
-    cards: TUT_CARDS_QUIZ_YES, interactive: false,
-    explanation: '✅ <strong>SET예요!</strong><br>모양(타원·마름모·물결) — 모두 달라요<br>색(초록·보라·빨강) — 모두 달라요<br>채움(비어있음·줄무늬·가득참) — 모두 달라요 ✨',
-  },
-  {
-    id: 'quiz_no', title: '퀴즈! 이게 SET일까요?', type: 'quiz', isSet: false,
-    text: '아래 세 장을 <strong>모양 · 색 · 채움</strong> 순서로 확인해보세요!',
-    cards: TUT_CARDS_QUIZ_NO, interactive: false,
-    explanation: '❌ <strong>SET가 아니에요!</strong><br>모양을 보면 타원 · 타원 · 물결 — 2개가 같아요.<br><em>모두 같거나 모두 달라야</em> 하는데, 2개만 같으면 안 돼요!',
+    questions: [
+      {
+        q: '이 세 장의 <strong>모양</strong>은 어떤가요?',
+        type: 'attr', correctAnswer: 'same',
+        praise: '👏 맞아요! 세 장 모두 타원 — <strong>모두 같아요</strong>.',
+        wrong: '다시 보세요. 세 카드의 형태: 타원 · 타원 · 타원 — 모두 타원으로 같아요.',
+      },
+      {
+        q: '이 세 장의 <strong>색</strong>은 어떤가요?',
+        type: 'attr', correctAnswer: 'same',
+        praise: '👏 맞아요! 세 장 모두 초록 — <strong>모두 같아요</strong>.',
+        wrong: '다시 보세요. 세 카드의 색: 초록 · 초록 · 초록 — 모두 초록으로 같아요.',
+      },
+      {
+        q: '이 세 장의 <strong>채움</strong>은 어떤가요?',
+        type: 'attr', correctAnswer: 'different',
+        praise: '👏 맞아요! 비어있음 · 줄무늬 · 가득참 — <strong>모두 달라요</strong>.',
+        wrong: '다시 보세요. 채움: 비어있음 · 줄무늬 · 가득참 — 세 종류 모두 다른 방식이에요.',
+      },
+      {
+        q: '모양(같음) · 색(같음) · 채움(다름) 확인했어요!<br>그렇다면 이 세 장은 <strong>SET</strong>일까요?',
+        type: 'set', correctAnswer: 'yes',
+        praise: '🎉 정확해요! 모양·색은 모두 같고, 채움은 모두 달라 — 규칙에 맞아요. <strong>SET</strong>예요!',
+        wrong: '다시 생각해보세요! 모양·색은 모두 같고, 채움은 모두 달라요. 각 속성이 규칙을 만족하면 SET가 돼요!',
+      },
+    ],
   },
   {
     id: 'challenge1', title: '직접 찾아보세요!',
@@ -1142,6 +1165,7 @@ const JUNIOR_TUT_STEPS = [
 
 // Tutorial 상태
 let tutStepIdx  = 0;
+let tutSubQIdx  = 0;
 let tutSelected = [];
 let tutCards    = [];
 let tutAnswer   = [];
@@ -1170,46 +1194,32 @@ function renderTutStep() {
   const step  = JUNIOR_TUT_STEPS[tutStepIdx];
   const total = JUNIOR_TUT_STEPS.length;
 
+  document.getElementById('tutQuizBtns')?.remove();
   tutProgressFill.style.width = `${(tutStepIdx / total) * 100}%`;
   tutStepLabel.textContent    = `${tutStepIdx + 1} / ${total}`;
-  tutTitleEl.textContent = step.title;
-  tutBubbleEl.innerHTML  = step.text;
-  tutFeedbackEl.textContent = '';
-  tutFeedbackEl.className   = 'tut-feedback';
+  tutTitleEl.textContent      = step.title;
+  tutFeedbackEl.textContent   = '';
+  tutFeedbackEl.className     = 'tut-feedback';
   tutSelected = [];
   tutDone     = false;
 
-  if (step.id === 'challenge1')      setupTutC1();
-  else if (step.id === 'challenge2') setupTutC2();
-  else                               tutCards = step.cards;
-
-  renderTutCards(step.interactive);
-
-  const isLast = tutStepIdx === total - 1;
   tutHintBtn.hidden      = !step.interactive || !step.hasHint;
   tutHintBtn.disabled    = false;
   tutHintBtn.textContent = '💡 힌트';
 
-  if (step.type === 'quiz') {
-    tutNextBtn.hidden = true;
-    tutFeedbackEl.insertAdjacentHTML('beforebegin', `
-      <div class="tut-quiz-btns" id="tutQuizBtns">
-        <button class="tut-quiz-yes" id="tutQuizYes">✓ SET이에요!</button>
-        <button class="tut-quiz-no"  id="tutQuizNo" >✗ SET이 아니에요!</button>
-      </div>`);
-    document.getElementById('tutQuizYes').addEventListener('click', () => onTutQuiz(true));
-    document.getElementById('tutQuizNo' ).addEventListener('click', () => onTutQuiz(false));
-  } else if (step.type === 'attrquiz') {
-    tutNextBtn.hidden = true;
-    tutFeedbackEl.insertAdjacentHTML('beforebegin', `
-      <div class="tut-quiz-btns" id="tutQuizBtns">
-        <button class="tut-quiz-same" id="tutQuizSame">🔵 모두 같아요</button>
-        <button class="tut-quiz-diff" id="tutQuizDiff">🟣 모두 달라요</button>
-      </div>`);
-    document.getElementById('tutQuizSame').addEventListener('click', () => onTutAttrQuiz('same'));
-    document.getElementById('tutQuizDiff').addEventListener('click', () => onTutAttrQuiz('different'));
+  if (step.type === 'sequence') {
+    tutSubQIdx        = 0;
+    tutCards          = step.cards;
+    tutBubbleEl.innerHTML = '';
+    renderTutCards(false);
+    renderTutSubQ();
   } else {
-    document.getElementById('tutQuizBtns')?.remove();
+    tutBubbleEl.innerHTML = step.text;
+    if (step.id === 'challenge1')      setupTutC1();
+    else if (step.id === 'challenge2') setupTutC2();
+    else                               tutCards = step.cards;
+    renderTutCards(step.interactive);
+    const isLast = tutStepIdx === total - 1;
     tutNextBtn.hidden      = step.interactive;
     tutNextBtn.textContent = isLast ? '완료! 🎓' : '다음 →';
   }
@@ -1316,7 +1326,72 @@ function onTutHint() {
   tutHintBtn.textContent = '💡 힌트 사용됨';
 }
 
+function renderTutSubQ() {
+  const step  = JUNIOR_TUT_STEPS[tutStepIdx];
+  const q     = step.questions[tutSubQIdx];
+  const qNum  = tutSubQIdx + 1;
+  const qTot  = step.questions.length;
+
+  document.getElementById('tutQuizBtns')?.remove();
+  tutBubbleEl.innerHTML     = `<span class="tut-sub-label">Q${qNum} / ${qTot}</span><br>${q.q}`;
+  tutFeedbackEl.textContent = '';
+  tutFeedbackEl.className   = 'tut-feedback';
+
+  if (q.type === 'set') {
+    tutFeedbackEl.insertAdjacentHTML('beforebegin', `
+      <div class="tut-quiz-btns" id="tutQuizBtns">
+        <button class="tut-quiz-yes" id="tutSeqYes">\u2713 SET\uc774\uc5d0\uc694!</button>
+        <button class="tut-quiz-no"  id="tutSeqNo">\u2717 SET\uac00 \uc544\ub2c8\uc5d0\uc694!</button>
+      </div>`);
+    document.getElementById('tutSeqYes').addEventListener('click', () => onTutSeqAnswer('yes'));
+    document.getElementById('tutSeqNo' ).addEventListener('click', () => onTutSeqAnswer('no'));
+  } else {
+    tutFeedbackEl.insertAdjacentHTML('beforebegin', `
+      <div class="tut-quiz-btns" id="tutQuizBtns">
+        <button class="tut-quiz-same" id="tutSeqSame">\ud83d\udd35 \ubaa8\ub450 \uac19\uc544\uc694</button>
+        <button class="tut-quiz-diff" id="tutSeqDiff">\ud83d\udfe3 \ubaa8\ub450 \ub2ec\ub77c\uc694</button>
+      </div>`);
+    document.getElementById('tutSeqSame').addEventListener('click', () => onTutSeqAnswer('same'));
+    document.getElementById('tutSeqDiff').addEventListener('click', () => onTutSeqAnswer('different'));
+  }
+  tutNextBtn.hidden = true;
+}
+
+function onTutSeqAnswer(answer) {
+  const step    = JUNIOR_TUT_STEPS[tutStepIdx];
+  const q       = step.questions[tutSubQIdx];
+  const correct = (answer === q.correctAnswer);
+
+  if (correct) {
+    ['tutSeqYes','tutSeqNo','tutSeqSame','tutSeqDiff'].forEach(id => {
+      document.getElementById(id)?.setAttribute('disabled', '');
+    });
+    tutFeedbackEl.innerHTML = q.praise;
+    tutFeedbackEl.className = 'tut-feedback tut-success';
+
+    if (tutSubQIdx < step.questions.length - 1) {
+      setTimeout(() => { tutSubQIdx++; renderTutSubQ(); }, 1300);
+    } else {
+      const isLast = tutStepIdx >= JUNIOR_TUT_STEPS.length - 1;
+      tutNextBtn.hidden      = false;
+      tutNextBtn.textContent = isLast ? '\uc644\ub8cc! \ud83c\udf93' : '\ub2e4\uc74c \u2192';
+    }
+  } else {
+    tutFeedbackEl.innerHTML = `\u274c ${q.wrong}`;
+    tutFeedbackEl.className = 'tut-feedback tut-fail';
+    setTimeout(() => {
+      const stillActive = !document.getElementById('tutSeqYes')?.disabled
+                       && !document.getElementById('tutSeqSame')?.disabled;
+      if (stillActive) {
+        tutFeedbackEl.textContent = '';
+        tutFeedbackEl.className   = 'tut-feedback';
+      }
+    }, 2200);
+  }
+}
+
 function onTutAttrQuiz(userAnswer) {
+
   const step = JUNIOR_TUT_STEPS[tutStepIdx];
   const correct = (userAnswer === step.correctAnswer);
   if (correct) {

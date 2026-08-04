@@ -1039,6 +1039,13 @@ html, body {
 .tut-complete-btns { display: flex; flex-direction: column; gap: 12px; width: 100%; align-items: center; }
 
 /* 퀴즈 YES/NO 버튼 */
+/* Q번호 배지 */
+.tut-sub-label {
+  display: inline-block; padding: 2px 10px; border-radius: 20px;
+  background: rgba(58,111,216,0.15); color: var(--accent-blue);
+  font-size: 0.75rem; font-weight: 700; letter-spacing: 0.04em;
+  margin-bottom: 4px;
+}
 .tut-quiz-btns { display: flex; gap: 12px; width: 100%; justify-content: center; }
 .tut-quiz-yes, .tut-quiz-no, .tut-quiz-same, .tut-quiz-diff {
   flex: 1; max-width: 200px; padding: 13px 16px;
