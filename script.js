@@ -1030,7 +1030,251 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
+// ══════════════════════════════════════════════
+// TUTORIAL MODULE — Junior SET (27종 카드)
+// ══════════════════════════════════════════════
+
+// 설명용 고정 카드
+const TUT_CARDS_INTRO = [
+  { shape: 'oval',     color: 'green',  fill: 'outline' },
+  { shape: 'diamond',  color: 'purple', fill: 'striped' },
+  { shape: 'squiggle', color: 'red',    fill: 'solid'   },
+];
+const TUT_CARDS_SHAPE = [
+  { shape: 'oval',     color: 'green', fill: 'outline' },
+  { shape: 'diamond',  color: 'green', fill: 'outline' },
+  { shape: 'squiggle', color: 'green', fill: 'outline' },
+];
+const TUT_CARDS_COLOR = [
+  { shape: 'oval', color: 'green',  fill: 'outline' },
+  { shape: 'oval', color: 'purple', fill: 'outline' },
+  { shape: 'oval', color: 'red',    fill: 'outline' },
+];
+const TUT_CARDS_FILL = [
+  { shape: 'oval', color: 'green', fill: 'outline' },
+  { shape: 'oval', color: 'green', fill: 'striped' },
+  { shape: 'oval', color: 'green', fill: 'solid'   },
+];
+// Challenge 1: 6장 — 유일한 SET는 인덱스 0,1,2 (수학적으로 검증 완료)
+const TUT_C1_BASE = [
+  { shape: 'oval',     color: 'green',  fill: 'outline' }, // 정답 A
+  { shape: 'diamond',  color: 'purple', fill: 'striped' }, // 정답 B
+  { shape: 'squiggle', color: 'red',    fill: 'solid'   }, // 정답 C
+  { shape: 'diamond',  color: 'green',  fill: 'outline' }, // 오답
+  { shape: 'oval',     color: 'red',    fill: 'striped' }, // 오답
+  { shape: 'squiggle', color: 'purple', fill: 'outline' }, // 오답
+];
+
+const JUNIOR_TUT_STEPS = [
+  { id: 'intro',      title: 'SET란 무엇인가요?', text: '세 장의 카드를 골라 <strong>SET</strong>를 만들어요!<br>각 속성이 <em>모두 같거나, 모두 달라야</em> 해요.<br>아래 세 장은 모양·색·채움이 <strong>모두 달라요 ✓</strong>', cards: TUT_CARDS_INTRO, interactive: false },
+  { id: 'shape',      title: '속성 ① 모양',      text: '모양은 <strong>모두 같거나 모두 달라야</strong> 해요.<br>아래 세 장은 모양이 전부 달라요 ✓',                       cards: TUT_CARDS_SHAPE, interactive: false },
+  { id: 'color',      title: '속성 ② 색',        text: '색도 <strong>모두 같거나 모두 달라야</strong> 해요.<br>아래 세 장은 색이 전부 달라요 ✓',                           cards: TUT_CARDS_COLOR, interactive: false },
+  { id: 'fill',       title: '속성 ③ 채움',       text: '채움(비어있음·줄무늬·가득참)도 <strong>모두 같거나 모두 달라야</strong> 해요.<br>아래 세 장은 채움이 전부 달라요 ✓', cards: TUT_CARDS_FILL,  interactive: false },
+  { id: 'challenge1', title: '직접 찾아보세요!', text: '아래 6장 중에서 <strong>SET가 되는 세 장</strong>을 골라보세요!<br>힌트 버튼을 눌러 도움을 받을 수 있어요.', cards: null, interactive: true, hasHint: true  },
+  { id: 'challenge2', title: '이제 실전이에요!',  text: '9장 중에서 <strong>SET를 찾아보세요.</strong><br>이번엔 힌트가 없어요!',                                                  cards: null, interactive: true, hasHint: false },
+];
+
+// Tutorial 상태
+let tutStepIdx  = 0;
+let tutSelected = [];
+let tutCards    = [];
+let tutAnswer   = [];
+let tutHintCard = -1;
+let tutDone     = false;
+
+// DOM 참조
+const tutorialScreen  = document.getElementById('tutorialScreen');
+const tutProgressFill = document.getElementById('tutProgressFill');
+const tutStepLabel    = document.getElementById('tutStepLabel');
+const tutTitleEl      = document.getElementById('tutTitle');
+const tutBubbleEl     = document.getElementById('tutBubble');
+const tutCardArea     = document.getElementById('tutCardArea');
+const tutFeedbackEl   = document.getElementById('tutFeedback');
+const tutNextBtn      = document.getElementById('tutNextBtn');
+const tutHintBtn      = document.getElementById('tutHintBtn');
+
+function startTutorial() {
+  tutStepIdx = 0;
+  modeScreen.hidden     = true;
+  tutorialScreen.hidden = false;
+  renderTutStep();
+}
+
+function renderTutStep() {
+  const step  = JUNIOR_TUT_STEPS[tutStepIdx];
+  const total = JUNIOR_TUT_STEPS.length;
+
+  // 진행 바
+  tutProgressFill.style.width = `${(tutStepIdx / total) * 100}%`;
+  tutStepLabel.textContent    = `${tutStepIdx + 1} / ${total}`;
+
+  // 제목·버블
+  tutTitleEl.textContent = step.title;
+  tutBubbleEl.innerHTML  = step.text;
+
+  // 초기화
+  tutFeedbackEl.textContent = '';
+  tutFeedbackEl.className   = 'tut-feedback';
+  tutSelected = [];
+  tutDone     = false;
+
+  // 카드 준비
+  if (step.id === 'challenge1')      setupTutC1();
+  else if (step.id === 'challenge2') setupTutC2();
+  else                               tutCards = step.cards;
+
+  renderTutCards(step.interactive);
+
+  // 버튼 상태
+  const isLast = tutStepIdx === total - 1;
+  tutHintBtn.hidden      = !step.interactive || !step.hasHint;
+  tutHintBtn.disabled    = false;
+  tutHintBtn.textContent = '💡 힌트';
+  tutNextBtn.hidden      = step.interactive;
+  tutNextBtn.textContent = isLast ? '완료! 🎓' : '다음 →';
+}
+
+function setupTutC1() {
+  const indexed = TUT_C1_BASE.map((card, i) => ({ card, ans: i < 3 }));
+  shuffle(indexed);
+  tutCards    = indexed.map(x => x.card);
+  tutAnswer   = indexed.reduce((acc, x, i) => { if (x.ans) acc.push(i); return acc; }, []);
+  tutHintCard = tutAnswer[0];
+}
+
+function setupTutC2() {
+  for (let t = 0; t < 400; t++) {
+    const pool = shuffle(buildFullDeck());
+    const nine = pool.slice(0, 9);
+    if (!hasAnySet(nine)) continue;
+    tutCards = nine;
+    for (let i = 0; i < 7; i++)
+      for (let j = i + 1; j < 8; j++)
+        for (let k = j + 1; k < 9; k++)
+          if (isSet(nine[i], nine[j], nine[k])) {
+            tutAnswer = [i, j, k]; tutHintCard = -1; return;
+          }
+  }
+}
+
+function renderTutCards(interactive) {
+  tutCardArea.innerHTML = '';
+  tutCards.forEach((card, idx) => {
+    const el       = document.createElement('div');
+    el.className   = 'card tut-card' + (interactive ? '' : ' tut-highlight');
+    el.dataset.tidx = idx;
+    el.id          = `tut-card-${idx}`;
+    const img      = document.createElement('img');
+    img.src        = imgPath(card);
+    img.alt        = `${card.shape} ${card.color} ${card.fill}`;
+    img.draggable  = false;
+    el.appendChild(img);
+    if (interactive) el.addEventListener('click', () => onTutCardClick(idx));
+    tutCardArea.appendChild(el);
+  });
+}
+
+function onTutCardClick(idx) {
+  if (tutDone) return;
+  const el = document.getElementById(`tut-card-${idx}`);
+  if (!el) return;
+  if (tutSelected.includes(idx)) {
+    tutSelected = tutSelected.filter(i => i !== idx);
+    el.classList.remove('selected');
+    return;
+  }
+  if (tutSelected.length >= 3) return;
+  tutSelected.push(idx);
+  el.classList.add('selected');
+  if (tutSelected.length === 3) setTimeout(evalTutSel, 60);
+}
+
+function evalTutSel() {
+  const [i, j, k] = tutSelected;
+  const valid = isSet(tutCards[i], tutCards[j], tutCards[k]);
+  if (valid) {
+    tutDone = true;
+    tutSelected.forEach(idx => {
+      const el = document.getElementById(`tut-card-${idx}`);
+      if (el) { el.classList.remove('selected'); el.classList.add('tut-correct'); }
+    });
+    const praises = [
+      '🎉 완벽해요! 세 장이 SET를 이루고 있어요!',
+      '🌟 훌륭해요! 정확하게 찾았어요!',
+      '👏 대단해요! 세 속성이 모두 맞아요!',
+    ];
+    tutFeedbackEl.textContent = praises[Math.floor(Math.random() * praises.length)];
+    tutFeedbackEl.className   = 'tut-feedback tut-success';
+    tutHintBtn.hidden         = true;
+    tutNextBtn.hidden         = false;
+    tutNextBtn.textContent    = tutStepIdx >= JUNIOR_TUT_STEPS.length - 1 ? '완료! 🎓' : '다음 →';
+  } else {
+    tutSelected.forEach(idx => {
+      const el = document.getElementById(`tut-card-${idx}`);
+      if (el) el.classList.add('tut-wrong');
+    });
+    tutFeedbackEl.textContent = '❌ SET가 아니에요. 다시 살펴보세요!';
+    tutFeedbackEl.className   = 'tut-feedback tut-fail';
+    setTimeout(() => {
+      tutSelected.forEach(idx => {
+        const el = document.getElementById(`tut-card-${idx}`);
+        if (el) el.classList.remove('selected', 'tut-wrong');
+      });
+      tutSelected = [];
+      tutFeedbackEl.textContent = '';
+      tutFeedbackEl.className   = 'tut-feedback';
+    }, 900);
+  }
+}
+
+function onTutHint() {
+  if (tutHintCard < 0) return;
+  const el = document.getElementById(`tut-card-${tutHintCard}`);
+  if (el) el.classList.add('tut-hint-glow');
+  tutHintBtn.disabled    = true;
+  tutHintBtn.textContent = '💡 힌트 사용됨';
+}
+
+function tutAdvance() {
+  tutStepIdx++;
+  if (tutStepIdx >= JUNIOR_TUT_STEPS.length) { showTutComplete(); return; }
+  renderTutStep();
+}
+
+function showTutComplete() {
+  tutProgressFill.style.width = '100%';
+  tutStepLabel.textContent    = '완료! 🎓';
+  tutTitleEl.textContent      = '🏅 튜토리얼 완료!';
+  tutBubbleEl.innerHTML       = 'Junior SET 규칙을 모두 배웠어요!<br>어떤 모드에 도전할까요?';
+  tutCardArea.innerHTML       = `
+    <div class="tut-complete-btns">
+      <button class="tut-goto-btn" id="tutGo120">⏱ 120초 챌린지</button>
+      <button class="tut-goto-btn" id="tutGo20">🎯 20 SET 도전</button>
+      <button class="tut-back-btn" id="tutGoHome">↩ 대문으로</button>
+    </div>`;
+  tutFeedbackEl.textContent = '';
+  tutHintBtn.hidden  = true;
+  tutNextBtn.hidden  = true;
+  document.getElementById('tutGo120').addEventListener('click', () => {
+    tutorialScreen.hidden = true; gameMode = 'countdown'; startGame();
+  });
+  document.getElementById('tutGo20').addEventListener('click', () => {
+    tutorialScreen.hidden = true; gameMode = 'deckExhaust'; startGame();
+  });
+  document.getElementById('tutGoHome').addEventListener('click', () => {
+    tutorialScreen.hidden = true; returnToHome();
+  });
+}
+
+tutNextBtn.addEventListener('click', tutAdvance);
+tutHintBtn.addEventListener('click', onTutHint);
+document.getElementById('tutHomeBtn').addEventListener('click', () => {
+  tutorialScreen.hidden = true; returnToHome();
+});
+document.getElementById('btnModeTutorial').addEventListener('click', startTutorial);
+
 // ──────────────────────────────────────────────
+
 // 19. 다크/라이트 모드 토글
 // ──────────────────────────────────────────────
 const btnTheme   = document.getElementById('btnTheme');

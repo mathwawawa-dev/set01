@@ -21,6 +21,20 @@
       <p class="mode-subtitle">게임 모드를 선택하세요</p>
       <div class="mode-section-label">Junior SET <span class="mode-section-sub">· 27종 카드</span></div>
       <div class="mode-cards">
+        <button class="mode-card mode-card-tutorial" id="btnModeTutorial">
+          <span class="mode-card-icon">
+            <svg viewBox="0 0 24 24" width="2rem" height="2rem" fill="none" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+              <path d="M12 17h.01"/>
+            </svg>
+          </span>
+          <div class="tut-btn-text">
+            <span class="mode-card-name">튜토리얼</span>
+            <span class="mode-card-desc">SET가 처음이라면! 규칙을 배우고 직접 도전해보세요</span>
+          </div>
+          <span class="mode-card-tag">단계별 가이드</span>
+        </button>
         <button class="mode-card" id="btnModeCountdown">
           <span class="mode-card-icon">
             <svg viewBox="0 0 24 24" width="2.4rem" height="2.4rem" fill="none" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round">
@@ -82,7 +96,28 @@
           <span class="mode-card-tag">카운트업</span>
         </button>
       </div>
-      <div class="mode-version">v1.89_20260804_2243_120초챌린지명칭및설명통일</div>
+      <div class="mode-version">v1.90_20260804_2252_주니어튜토리얼추가</div>
+    </div>
+  </div>
+
+  <!-- 튜토리얼 화면 -->
+  <div id="tutorialScreen" class="tutorial-screen" hidden>
+    <div class="tut-inner">
+      <div class="tut-header">
+        <div class="tut-progress-track"><div class="tut-progress-fill" id="tutProgressFill"></div></div>
+        <div class="tut-header-row">
+          <span class="tut-step-label" id="tutStepLabel">1 / 6</span>
+          <button class="tut-home-btn" id="tutHomeBtn">✕ 나가기</button>
+        </div>
+      </div>
+      <h2 class="tut-title" id="tutTitle"></h2>
+      <div class="tut-bubble" id="tutBubble"></div>
+      <div class="tut-card-area" id="tutCardArea"></div>
+      <div class="tut-feedback" id="tutFeedback"></div>
+      <div class="tut-actions">
+        <button class="tut-btn-hint" id="tutHintBtn" hidden>💡 힌트</button>
+        <button class="tut-btn-next" id="tutNextBtn">다음 →</button>
+      </div>
     </div>
   </div>
 
