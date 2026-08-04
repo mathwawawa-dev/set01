@@ -146,7 +146,7 @@ function isSetOfficial(a, b, c) {
 
 /** 현재 모드에 맞는 isSet 함수 반환 */
 function getIsSet() {
-  return gameMode === 'official' ? isSetOfficial : isSet;
+  return (gameMode === 'official' || gameMode === 'officialDeckExhaust') ? isSetOfficial : isSet;
 }
 
 /** 배열에서 SET가 존재하는지 여부 반환 */
@@ -179,7 +179,7 @@ function countSets(cards) {
  * 정시 모드는 initOfficialBoard() 로 분기.
  */
 function initBoard() {
-  if (gameMode === 'official') { initOfficialBoard(); return; }
+  if (gameMode === 'official' || gameMode === 'officialDeckExhaust') { initOfficialBoard(); return; }
   const MAX_TRIES = 500;
   for (let attempt = 0; attempt < MAX_TRIES; attempt++) {
     const full = shuffle(buildFullDeck());
@@ -339,7 +339,7 @@ function getCombinations(arr, k) {
  *   3순위: hasAnySet (최소한 SET 존재)
  */
 function replaceCards(boardIndices) {
-  if (gameMode === 'official') { replaceOfficialCards(boardIndices); return; }
+  if (gameMode === 'official' || gameMode === 'officialDeckExhaust') { replaceOfficialCards(boardIndices); return; }
 
   // 27장 븴로: 두 모드 모두 무한 풀 방식으로 통일
   for (const idx of boardIndices) { board[idx] = null; }
@@ -422,14 +422,14 @@ function replaceOfficialCards(boardIndices) {
 /** 카드 그리드 전체 렌더링 */
 function renderBoard() {
   cardGrid.innerHTML = '';
-  // 정시 모드일 때 4행 그리드 적용
-  if (gameMode === 'official') {
+  // 정식 모드일 때 4행 그리드 적용
+  if (gameMode === 'official' || gameMode === 'officialDeckExhaust') {
     cardGrid.classList.add('official');
   } else {
     cardGrid.classList.remove('official');
   }
   let cols = 3;
-  if (gameMode === 'official' && officialLayout === '3x4') cols = 4;
+  if ((gameMode === 'official' || gameMode === 'officialDeckExhaust') && officialLayout === '3x4') cols = 4;
   
   board.forEach((card, idx) => {
     if (!card) return;
@@ -487,7 +487,7 @@ function renderCardAt(idx) {
   const el = createCardElement(card, idx);
   // grid-area로 정확한 위치에 삽입
   let cols = 3;
-  if (gameMode === 'official' && officialLayout === '3x4') cols = 4;
+  if ((gameMode === 'official' || gameMode === 'officialDeckExhaust') && officialLayout === '3x4') cols = 4;
   
   const col = (idx % cols) + 1;
   const row = Math.floor(idx / cols) + 1;
@@ -558,7 +558,7 @@ function evaluateSelection() {
 
   const [i, j, k] = selected;
   const a = board[i], b = board[j], c = board[k];
-  const valid = (gameMode === 'official') ? isSetOfficial(a, b, c) : isSet(a, b, c);
+  const valid = (gameMode === 'official' || gameMode === 'officialDeckExhaust') ? isSetOfficial(a, b, c) : isSet(a, b, c);
 
   const elems = selected.map(idx => document.getElementById(`card-${idx}`));
 
@@ -574,7 +574,7 @@ function evaluateSelection() {
     updateHint();
 
     // 20 SET 타임어택: 목표 달성 시 종료
-    if (gameMode === 'deckExhaust' && score >= TARGET_SETS) {
+    if ((gameMode === 'deckExhaust' || gameMode === 'officialDeckExhaust') && score >= TARGET_SETS) {
       animLock = false;
       setTimeout(() => endGame(), 300);
       return;
@@ -616,7 +616,7 @@ function startTimer() {
   clearInterval(timerID);
   statTimer.classList.remove('danger');
 
-  if (gameMode === 'countdown' || gameMode === 'official') {
+  if (gameMode === 'countdown' || gameMode === 'official' || gameMode === 'officialDeckExhaust') {
     timeLeft = TOTAL_TIME;
     timerDisplay.textContent = timeLeft;
     timerDisplay.style.minWidth = '2ch';
@@ -651,7 +651,7 @@ function endGame() {
 
   document.querySelectorAll('.card').forEach(el => el.classList.add('disabled'));
 
-  if (gameMode === 'countdown') {
+  if (gameMode === 'countdown' || gameMode === 'official' || gameMode === 'officialDeckExhaust') {
     overlayEmoji.textContent = score >= 5 ? '🏆' : score >= 3 ? '🎉' : '😅';
     overlayTitle.textContent = '시간 종료!';
     overlayDesc.innerHTML =
@@ -659,8 +659,7 @@ function endGame() {
       (score >= 5 ? '훌륭한 실력입니다! 👏' :
        score >= 3 ? '좋은 성적이에요! 계속 도전해보세요.' :
                    '연습하면 분명 더 잘할 수 있어요! 💪');
-  } else if (gameMode === 'deckExhaust') {
-    // 20 SET 타임어택 클리어
+  } else if (gameMode === 'deckExhaust' || gameMode === 'officialDeckExhaust') {
     overlayEmoji.textContent = '🏅';
     overlayTitle.textContent = `${TARGET_SETS} SET 달성!`;
     overlayDesc.innerHTML =
@@ -743,6 +742,13 @@ document.getElementById('btnModeOfficial').addEventListener('click', () => {
   applyLayout();
   startGame();
 });
+document.getElementById('btnModeOfficialDeck').addEventListener('click', () => {
+  gameMode = 'officialDeckExhaust';
+  modeScreen.hidden = true;
+  buildKeyMap();
+  applyLayout();
+  startGame();
+});
 
 // ──────────────────────────────────────────────
 // 19. 단축키 시스템 (사용자 설정 가능)
@@ -784,7 +790,7 @@ const DEFAULT_KEYS_3X4 = [
 let officialLayout = localStorage.getItem('setGameLayout') === '3x4' ? '3x4' : '4x3';
 
 function getDefaultKeys(preset = 1) {
-  if (gameMode === 'official' && officialLayout === '3x4') {
+  if ((gameMode === 'official' || gameMode === 'officialDeckExhaust') && officialLayout === '3x4') {
     return preset === 2 ? PRESET2_3X4 : DEFAULT_KEYS_3X4_PRESET1;
   }
   return preset === 2 ? PRESET2_4X3 : DEFAULT_KEYS_4X3_PRESET1;
@@ -814,7 +820,7 @@ let userKeys3x4 = (() => {
 })();
 
 function getCurrentUserKeys() {
-  if (gameMode === 'official' && officialLayout === '3x4') return userKeys3x4;
+  if ((gameMode === 'official' || gameMode === 'officialDeckExhaust') && officialLayout === '3x4') return userKeys3x4;
   return userKeys4x3;
 }
 
@@ -847,7 +853,7 @@ function keyLabel(code) {
 // 카드 위치 라벨 (행, 열)
 function posLabel(idx) {
   let cols = 3;
-  if (gameMode === 'official' && officialLayout === '3x4') cols = 4;
+  if ((gameMode === 'official' || gameMode === 'officialDeckExhaust') && officialLayout === '3x4') cols = 4;
   const row = Math.floor(idx / cols) + 1;
   const col = (idx % cols) + 1;
   return `${row}행 ${col}열`;
@@ -860,9 +866,9 @@ let   listeningIdx    = -1;   // 현재 키 입력 대기 중인 칸 인덱스
 let   tempKeys        = [];   // 모달 내 임시 편집 상태
 
 function buildSettingsGrid() {
-  const count = (gameMode === 'official') ? 12 : 9;
+  const count = (gameMode === 'official' || gameMode === 'officialDeckExhaust') ? 12 : 9;
   settingsGrid.innerHTML = '';
-  const cols = (gameMode === 'official' && officialLayout === '3x4') ? 4 : 3;
+  const cols = ((gameMode === 'official' || gameMode === 'officialDeckExhaust') && officialLayout === '3x4') ? 4 : 3;
   settingsGrid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
   for (let i = 0; i < count; i++) {
     const cell = document.createElement('div');
@@ -917,7 +923,7 @@ function openSettings() {
   
   const chkLayout = document.getElementById('chkLayout');
   const layoutContainer = document.getElementById('layoutSettingContainer');
-  if (gameMode === 'official') {
+  if (gameMode === 'official' || gameMode === 'officialDeckExhaust') {
     layoutContainer.style.display = 'block';
     const is3x4 = (officialLayout === '3x4');
     chkLayout.checked = is3x4;
@@ -941,7 +947,7 @@ document.getElementById('chkRotate').addEventListener('change', (e) => {
   applyRotation();
 });
 document.getElementById('chkLayout').addEventListener('change', (e) => {
-  if (gameMode === 'official') {
+  if (gameMode === 'official' || gameMode === 'officialDeckExhaust') {
     const is3x4 = e.target.checked;
     officialLayout = is3x4 ? '3x4' : '4x3';
     e.target.nextElementSibling.textContent = is3x4 ? '4행 3열로 보기' : '3행 4열로 보기';
@@ -961,7 +967,7 @@ settingsOverlay.addEventListener('click', (e) => { if (e.target === settingsOver
 
 function applyPreset(presetNum) {
   tempKeys = [...getDefaultKeys(presetNum)];
-  if (gameMode === 'official' && officialLayout === '3x4') {
+  if ((gameMode === 'official' || gameMode === 'officialDeckExhaust') && officialLayout === '3x4') {
     userKeys3x4 = [...tempKeys];
     localStorage.setItem('setGameKeys3x4', JSON.stringify(userKeys3x4));
   } else {
@@ -996,7 +1002,7 @@ document.addEventListener('keydown', (e) => {
     tempKeys[listeningIdx] = e.code;
     
     // 자동 저장 로직
-    if (gameMode === 'official' && officialLayout === '3x4') {
+    if ((gameMode === 'official' || gameMode === 'officialDeckExhaust') && officialLayout === '3x4') {
       userKeys3x4 = [...tempKeys];
       localStorage.setItem('setGameKeys3x4', JSON.stringify(userKeys3x4));
     } else {
