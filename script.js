@@ -375,11 +375,21 @@ function replaceCards(boardIndices) {
   for (let i = 0; i < 3; i++) board[boardIndices[i]] = pool[i];
 }
 
-/** 81장 정시 모드 컨드 보충 (덱에서 3장) */
+/** 81장 정식 모드 카드 보충 (덱 소진 시 재셔플) */
 function replaceOfficialCards(boardIndices) {
   for (const idx of boardIndices) board[idx] = null;
 
-  if (deck.length < 3) return;  // 덱 소진 후 보충 불가
+  // 덱이 3장 미만이면 재셔플 (보드에 없는 카드로 새 덱 구성)
+  if (deck.length < 3) {
+    const onBoard = board.filter(Boolean);
+    const newDeck = shuffle(buildOfficialDeck()).filter(c => {
+      return !onBoard.some(b =>
+        b.shape === c.shape && b.color === c.color &&
+        b.fill === c.fill && b.count === c.count
+      );
+    });
+    deck = newDeck;
+  }
 
   const MAX_TRIES = 500;
   for (let t = 0; t < MAX_TRIES; t++) {
@@ -570,15 +580,8 @@ function evaluateSelection() {
       return;
     }
 
-    // 정시 모드: 덱 소진 또는 보드 전체 클리어 시 종료
-    if (gameMode === 'official') {
-      const remaining = board.filter(Boolean);
-      if (remaining.length === 0 || (deck.length === 0 && !hasAnySet(remaining))) {
-        animLock = false;
-        setTimeout(() => endGame(), 300);
-        return;
-      }
-    }
+    // 정식 모드: 종료 조건 없음 (무한 카드, 타이머가 끝날 때만 종료)
+    // 종료는 타이머 0이 되면 endGame()이 자동 호출됨
 
     updateSelectionBar('success', '정답입니다.');
     setTimeout(() => {
@@ -664,20 +667,12 @@ function endGame() {
       `20개의 SET를 모두 찾았습니다!<br>` +
       `기록: <strong style="color:#f5c842">${formatTime(elapsedTime)}</strong>`;
   } else {
-    // 81장 정식 모드 종료
-    const allCleared = board.filter(Boolean).length === 0 && deck.length === 0;
-    const timeOver   = timeLeft <= 0;
-    if (allCleared) {
-      overlayEmoji.textContent = '🌟';
-      overlayTitle.textContent = '완주 달성!';
-      overlayDesc.innerHTML = `81장 완주! 모든 SET를 찾았습니다!<br>남은 시간: <strong style="color:#f5c842">${timeLeft}초</strong>`;
-    } else {
-      overlayEmoji.textContent = timeOver ? '⏰' : '🎉';
-      overlayTitle.textContent = timeOver ? '시간 종료!' : '정식 SET 종료';
-      overlayDesc.innerHTML =
-        `어쨌든! 총 <strong style="color:#f5c842">${score}</strong>개의 SET를 찾았습니다.<br>` +
-        (score >= 10 ? '👏 대단한 실력입니다!' : score >= 5 ? '좋은 성적이에요!' : '다음엔 더 잘 할 수 있어요! 💪');
-    }
+    // 81장 정식 모드 종료 (타이머 종료)
+    overlayEmoji.textContent = '⏱';
+    overlayTitle.textContent = '시간 종료!';
+    overlayDesc.innerHTML =
+      `총 <strong style="color:#f5c842">${score}</strong>개의 SET를 찾았어요!<br>` +
+      (score >= 10 ? '👏 대단한 실력입니다!' : score >= 5 ? '좋은 성적이에요!' : '다음엔 더 잘 할 수 있어요! 💪');
   }
 
   gameOverlay.hidden = false;
