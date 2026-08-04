@@ -1037,11 +1037,11 @@ html, body {
 .tut-btn-hint[hidden] { display: none; }
 
 .tut-btn-next {
-  padding: 11px 32px; border-radius: 10px;
-  border: 1.5px solid var(--text);
+  padding: 10px 36px; border-radius: 999px;
+  border: 2px solid var(--text);
   background: transparent;
   color: var(--text); font-family: 'Outfit', sans-serif; font-size: 0.9rem; font-weight: 500;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.03em;
   cursor: pointer; transition: opacity 0.15s, transform 0.14s;
 }
 .tut-btn-next:hover { opacity: 0.65; transform: translateY(-1px); }
