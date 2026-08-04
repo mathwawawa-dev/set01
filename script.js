@@ -1055,6 +1055,12 @@ const TUT_CARDS_FILL = [
   { shape: 'oval', color: 'green', fill: 'striped' },
   { shape: 'oval', color: 'green', fill: 'solid'   },
 ];
+// 색이 모두 야은 예시 (attrquiz 색 스텝용)
+const TUT_CARDS_COLOR_SAME = [
+  { shape: 'oval',     color: 'green', fill: 'outline' },
+  { shape: 'diamond',  color: 'green', fill: 'striped' },
+  { shape: 'squiggle', color: 'green', fill: 'solid'   },
+];
 // Challenge 1: 6장 — 유일한 SET는 인덱스 0,1,2 (수학적으로 검증 완료)
 const TUT_C1_BASE = [
   { shape: 'oval',     color: 'green',  fill: 'outline' }, // 정답 A
@@ -1080,39 +1086,51 @@ const TUT_CARDS_QUIZ_NO = [
 const JUNIOR_TUT_STEPS = [
   {
     id: 'intro', title: 'SET란 무엇인가요?',
-    text: '카드 세 장을 골라 <strong>SET</strong>를 완성하는 게임이에요!<br>각 속성이 <em>모두 같거나, 모두 달라야</em> SET가 돼요.<br>속성은 <strong>모양 · 색 · 채움</strong> — 세 가지예요.',
+    text: '카드 세 장을 골라 <strong>SET</strong>를 완성하는 게임이에요!<br>세 장의 <em>모든 속성</em>이 모두 같거나, 모두 다를 때 SET가 돼요.<br>속성은 <strong>모양 · 색 · 채움</strong> 세 가지예요. 같이 살펴보요!',
     cards: TUT_CARDS_INTRO, interactive: false,
   },
   {
-    id: 'shape', title: '속성 ① 모양',
-    text: '카드에는 <strong>타원 · 마름모 · 물결</strong> 세 가지 모양이 있어요.<br>세 장의 모양이 <em>모두 같거나</em>, <em>모두 달라야</em> SET가 돼요.<br>아래: 타원 · 마름모 · 물결 — <strong>모두 달라요 ✓</strong>',
-    cards: TUT_CARDS_SHAPE, interactive: false,
+    id: 'attr_shape', type: 'attrquiz',
+    title: '속성 ① 모양 — 판단해보세요!',
+    text: '아래 세 장의 <strong>모양</strong>은 어떤가요?<br><small style="color:var(--text-muted)">타원(Oval) · 마름모(Diamond) · 물결(Squiggle)</small>',
+    cards: TUT_CARDS_SHAPE,
+    correctAnswer: 'different',
+    praise: '👏 정확해요! 타원 · 마름모 · 물결 — <strong>모두 달라요</strong>.<br>속성이 모두 다떼 때도 OK!',
+    hint: '다시 살펴보세요. 카드의 형태가 세 가지 모두 다른가요?',
   },
   {
-    id: 'color', title: '속성 ② 색',
-    text: '카드에는 <strong>초록 · 보라 · 빨강</strong> 세 가지 색이 있어요.<br>세 장의 색이 <em>모두 같거나</em>, <em>모두 달라야</em> SET가 돼요.<br>아래: 초록 · 보라 · 빨강 — <strong>모두 달라요 ✓</strong>',
-    cards: TUT_CARDS_COLOR, interactive: false,
+    id: 'attr_color', type: 'attrquiz',
+    title: '속성 ② 색 — 판단해보세요!',
+    text: '아래 세 장의 <strong>색</strong>은 어떤가요?<br><small style="color:var(--text-muted)">초록(Green) · 보라(Purple) · 빨강(Red)</small>',
+    cards: TUT_CARDS_COLOR_SAME,
+    correctAnswer: 'same',
+    praise: '👏 정확해요! 세 장 모두 초록색 — <strong>모두 같아요</strong>.<br>속성이 모두 같을 때도 OK!',
+    hint: '다시 살펴보세요. 세 장의 색이 모두 같은가요?',
   },
   {
-    id: 'fill', title: '속성 ③ 채움',
-    text: '카드에는 <strong>비어있음 · 줄무늬 · 가득참</strong> 세 가지 채움이 있어요.<br>세 장의 채움이 <em>모두 같거나</em>, <em>모두 달라야</em> SET가 돼요.<br>아래: 비어있음 · 줄무늬 · 가득참 — <strong>모두 달라요 ✓</strong>',
-    cards: TUT_CARDS_FILL, interactive: false,
+    id: 'attr_fill', type: 'attrquiz',
+    title: '속성 ③ 채움 — 판단해보세요!',
+    text: '아래 세 장의 <strong>채움</strong>은 어떤가요?<br><small style="color:var(--text-muted)">비어있음(Outline) · 줄무늬(Striped) · 가득참(Solid)</small>',
+    cards: TUT_CARDS_FILL,
+    correctAnswer: 'different',
+    praise: '👏 정확해요! 비어있음 · 줄무늬 · 가득참 — <strong>모두 달라요</strong>.<br>세 속성 모두 규칙에 맞으면 SET예요!',
+    hint: '다시 살펴보세요. 세 장의 채움 주황(비어있음/줄/진하게 나뉘었나요?',
   },
   {
     id: 'quiz_yes', title: '퀴즈! 이게 SET일까요?', type: 'quiz', isSet: true,
-    text: '아래 세 장의 카드를 잘 살펴보세요.<br>모양 · 색 · 채움을 <strong>하나씩 확인</strong>해보세요!',
+    text: '아래 세 장을 <strong>모양 · 색 · 채움</strong> 순서로 확인해보세요!',
     cards: TUT_CARDS_QUIZ_YES, interactive: false,
-    explanation: '✅ <strong>맞아요! SET예요.</strong><br>모양(타원·마름모·물결) — 모두 달라요<br>색(초록·보라·빨강) — 모두 달라요<br>채움(비어있음·줄무늬·가득참) — 모두 달라요',
+    explanation: '✅ <strong>SET예요!</strong><br>모양(타원·마름모·물결) — 모두 달라요<br>색(초록·보라·빨강) — 모두 달라요<br>채움(비어있음·줄무늬·가득참) — 모두 달라요 ✨',
   },
   {
     id: 'quiz_no', title: '퀴즈! 이게 SET일까요?', type: 'quiz', isSet: false,
-    text: '아래 세 장의 카드를 잘 살펴보세요.<br>모양 · 색 · 채움을 <strong>하나씩 확인</strong>해보세요!',
+    text: '아래 세 장을 <strong>모양 · 색 · 채움</strong> 순서로 확인해보세요!',
     cards: TUT_CARDS_QUIZ_NO, interactive: false,
     explanation: '❌ <strong>SET가 아니에요!</strong><br>모양을 보면 타원 · 타원 · 물결 — 2개가 같아요.<br><em>모두 같거나 모두 달라야</em> 하는데, 2개만 같으면 안 돼요!',
   },
   {
     id: 'challenge1', title: '직접 찾아보세요!',
-    text: '아래 6장 중에서 <strong>SET가 되는 세 장</strong>을 골라보세요!<br>힌트 버튼을 눌러 도움을 받을 수 있어요.',
+    text: '6장 중에서 <strong>SET가 되는 세 장</strong>을 골라보세요!<br>힌트 버튼을 눌러 도움을 받을 수 있어요.',
     cards: null, interactive: true, hasHint: true,
   },
   {
@@ -1173,7 +1191,6 @@ function renderTutStep() {
   tutHintBtn.textContent = '💡 힌트';
 
   if (step.type === 'quiz') {
-    // 퀴즈 스텝: YES/NO 버튼 주입
     tutNextBtn.hidden = true;
     tutFeedbackEl.insertAdjacentHTML('beforebegin', `
       <div class="tut-quiz-btns" id="tutQuizBtns">
@@ -1182,6 +1199,15 @@ function renderTutStep() {
       </div>`);
     document.getElementById('tutQuizYes').addEventListener('click', () => onTutQuiz(true));
     document.getElementById('tutQuizNo' ).addEventListener('click', () => onTutQuiz(false));
+  } else if (step.type === 'attrquiz') {
+    tutNextBtn.hidden = true;
+    tutFeedbackEl.insertAdjacentHTML('beforebegin', `
+      <div class="tut-quiz-btns" id="tutQuizBtns">
+        <button class="tut-quiz-same" id="tutQuizSame">🔵 모두 같아요</button>
+        <button class="tut-quiz-diff" id="tutQuizDiff">🟣 모두 달라요</button>
+      </div>`);
+    document.getElementById('tutQuizSame').addEventListener('click', () => onTutAttrQuiz('same'));
+    document.getElementById('tutQuizDiff').addEventListener('click', () => onTutAttrQuiz('different'));
   } else {
     document.getElementById('tutQuizBtns')?.remove();
     tutNextBtn.hidden      = step.interactive;
@@ -1288,6 +1314,30 @@ function onTutHint() {
   if (el) el.classList.add('tut-hint-glow');
   tutHintBtn.disabled    = true;
   tutHintBtn.textContent = '💡 힌트 사용됨';
+}
+
+function onTutAttrQuiz(userAnswer) {
+  const step = JUNIOR_TUT_STEPS[tutStepIdx];
+  const correct = (userAnswer === step.correctAnswer);
+  if (correct) {
+    document.getElementById('tutQuizSame')?.setAttribute('disabled', '');
+    document.getElementById('tutQuizDiff')?.setAttribute('disabled', '');
+    tutFeedbackEl.innerHTML = step.praise;
+    tutFeedbackEl.className = 'tut-feedback tut-success';
+    tutCards.forEach((_, idx) => {
+      const el = document.getElementById(`tut-card-${idx}`);
+      if (el) el.classList.add('tut-correct');
+    });
+    tutNextBtn.hidden = false;
+    tutNextBtn.textContent = tutStepIdx >= JUNIOR_TUT_STEPS.length - 1 ? '완료! 🎓' : '다음 →';
+  } else {
+    tutFeedbackEl.innerHTML = `⚠️ 다시 살펴보세요! ${step.hint}`;
+    tutFeedbackEl.className = 'tut-feedback tut-fail';
+    setTimeout(() => {
+      tutFeedbackEl.textContent = '';
+      tutFeedbackEl.className   = 'tut-feedback';
+    }, 1800);
+  }
 }
 
 function onTutQuiz(userAnswer) {
