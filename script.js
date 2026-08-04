@@ -1182,6 +1182,9 @@ const tutCardArea     = document.getElementById('tutCardArea');
 const tutFeedbackEl   = document.getElementById('tutFeedback');
 const tutNextBtn      = document.getElementById('tutNextBtn');
 const tutHintBtn      = document.getElementById('tutHintBtn');
+const tutContextBubble = document.getElementById('tutContextBubble');
+
+const TUT_INTRO_TEXT = '카드 세 장을 골라 <strong>SET</strong>를 완성하는 게임이에요!<br>각 속성(모양·색·채움)이 <em>모두 같거나</em> <em>모두 달라야</em> SET가 돼요.';
 
 function startTutorial() {
   tutStepIdx = 0;
@@ -1211,10 +1214,13 @@ function renderTutStep() {
     tutSubQIdx        = 0;
     tutCards          = step.cards;
     tutBubbleEl.innerHTML = '';
+    tutContextBubble.innerHTML = TUT_INTRO_TEXT;
+    tutContextBubble.hidden    = false;
     renderTutCards(false);
     renderTutSubQ();
   } else {
-    tutBubbleEl.innerHTML = step.text;
+    tutBubbleEl.innerHTML      = step.text;
+    tutContextBubble.hidden    = true;
     if (step.id === 'challenge1')      setupTutC1();
     else if (step.id === 'challenge2') setupTutC2();
     else                               tutCards = step.cards;
@@ -1371,7 +1377,7 @@ function onTutSeqAnswer(answer) {
     tutFeedbackEl.className = 'tut-feedback tut-success';
 
     if (tutSubQIdx < step.questions.length - 1) {
-      setTimeout(() => { tutSubQIdx++; renderTutSubQ(); }, 2800);
+      setTimeout(() => { tutSubQIdx++; renderTutSubQ(); }, 2100);
     } else {
       const isLast = tutStepIdx >= JUNIOR_TUT_STEPS.length - 1;
       tutNextBtn.hidden      = false;
@@ -1387,7 +1393,7 @@ function onTutSeqAnswer(answer) {
         tutFeedbackEl.textContent = '';
         tutFeedbackEl.className   = 'tut-feedback';
       }
-    }, 3000);
+    }, 2500);
   }
 }
 

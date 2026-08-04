@@ -984,6 +984,16 @@ html, body {
 .tut-bubble strong { color: var(--accent-blue); }
 .tut-bubble em { font-style: normal; color: var(--accent-pink); font-weight: 600; }
 
+.tut-context-bubble {
+  background: transparent; border: 1px solid var(--border);
+  border-radius: 12px; padding: 10px 18px;
+  font-size: 0.82rem; line-height: 1.6; text-align: center;
+  color: var(--text-muted); width: 100%; opacity: 0.85;
+}
+.tut-context-bubble strong { color: var(--accent-blue); }
+.tut-context-bubble em { font-style: normal; color: var(--accent-pink); font-weight: 600; }
+.tut-context-bubble[hidden] { display: none; }
+
 .tut-card-area {
   display: grid; grid-template-columns: repeat(3, 1fr);
   gap: 10px; width: 100%; max-width: 400px;
