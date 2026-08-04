@@ -150,6 +150,10 @@ html, body {
   line-height: 1;
 }
 
+.mode-card-icon.icon-gray {
+  filter: grayscale(100%);
+}
+
 .mode-card-name {
   font-size: 1.15rem;
   font-weight: 700;
