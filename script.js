@@ -1087,7 +1087,7 @@ const JUNIOR_TUT_STEPS = [
   {
     id: 'intro', title: 'SET란 무엇인가요?',
     text: '카드 세 장을 골라 <strong>SET</strong>를 완성하는 게임이에요!<br>각 속성(모양·색·채움)이 <em>모두 같거나</em> <em>모두 달라야</em> SET가 돼요.<br>지금부터 세 장을 보며 직접 판단해요!',
-    cards: TUT_CARDS_INTRO, interactive: false,
+    cards: null, interactive: false,
   },
   {
     id: 'seq_a', type: 'sequence',
@@ -1250,6 +1250,7 @@ function setupTutC2() {
 
 function renderTutCards(interactive) {
   tutCardArea.innerHTML = '';
+  if (!tutCards || tutCards.length === 0) return;
   tutCards.forEach((card, idx) => {
     const el        = document.createElement('div');
     el.className    = 'card tut-card';
