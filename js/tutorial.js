@@ -304,6 +304,13 @@ function renderTutStep() {
   tutHintBtn.disabled    = false;
   tutHintBtn.textContent = '💡 힌트';
 
+  // 이전 버튼: 첫 스텝은 숨기고 나머지는 표시
+  document.getElementById('tutBackBtn').hidden = (tutStepIdx === 0);
+
+  // 완료 화면에서 돌아온 경우 카드 래퍼 복원
+  const wrapper = tutCardArea.parentElement;
+  if (wrapper) wrapper.style.display = '';
+
   const tutInner = tutorialScreen.querySelector('.tut-inner');
 
   if (step.type === 'sequence') {
@@ -686,27 +693,37 @@ function showTutComplete() {
   tutProgressFill.style.width = '100%';
   tutStepLabel.textContent    = '완료! 🎓';
   tutTitleEl.textContent      = '🏅 튜토리얼 완료!';
-  tutBubbleEl.innerHTML       = 'Junior SET 규칙을 모두 익혔어요!<br>이제 모드 선택 화면으로 돌아가 도전해보세요.';
   document.getElementById('tutQuizBtns')?.remove();
 
-  // 완료 시 카드 래퍼가 남은 공간을 모두 차지해 버튼이 세로 중앙 배치되도록
-  const wrapper = tutCardArea.parentElement;
-  if (wrapper) wrapper.style.flex = '1';
-  tutCardArea.style.flex = '1';
+  const tutInner = tutorialScreen.querySelector('.tut-inner');
+  tutInner.classList.add('tut-layout-quiz');
 
-  tutCardArea.innerHTML = `
-    <div class="tut-complete-home">
+  // 버블 안에 줄바꿈 2번 후 대문으로 버튼 중앙 배치
+  tutBubbleEl.innerHTML = `
+    <div>Junior SET 규칙을 모두 익혔어요!<br>이제 모드 선택 화면으로 돌아가 도전해보세요.</div>
+    <div style="height:2em;"></div>
+    <div style="display:flex; justify-content:center;">
       <button class="tut-home-big-btn" id="tutGoHomeComplete">
-        <svg viewBox="0 0 24 24" width="56" height="56" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+        <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
           <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
           <polyline points="9 22 9 12 15 12 15 22"/>
         </svg>
         <span>대문으로</span>
       </button>
     </div>`;
+
+  // 카드 영역 숨기기
+  tutCardArea.innerHTML = '';
+  const wrapper = tutCardArea.parentElement;
+  if (wrapper) { wrapper.style.display = 'none'; wrapper.style.flex = ''; }
+  tutCardArea.style.flex = '';
+
+  tutContextBubble.hidden = true;
+  tutAnswerLog.hidden     = true;
   tutFeedbackEl.textContent = '';
   tutHintBtn.hidden  = true;
   tutNextBtn.hidden  = true;
+  document.getElementById('tutBackBtn').hidden = true;
   document.getElementById('tutGoHomeComplete').addEventListener('click', () => {
     tutorialScreen.hidden = true; returnToHome();
   });
@@ -719,6 +736,15 @@ tutNextBtn.addEventListener('click', tutAdvance);
 tutHintBtn.addEventListener('click', onTutHint);
 document.getElementById('tutHomeBtn').addEventListener('click', () => {
   tutorialScreen.hidden = true; returnToHome();
+});
+document.getElementById('tutBackBtn').addEventListener('click', () => {
+  if (tutStepIdx <= 0) return;
+  // 완료 화면에서 돌아즌다면 카드 래퍼 복원
+  const wrapper = tutCardArea.parentElement;
+  if (wrapper) { wrapper.style.display = ''; wrapper.style.flex = ''; }
+  tutCardArea.style.flex = '';
+  tutStepIdx--;
+  renderTutStep();
 });
 document.getElementById('btnModeTutorial').addEventListener('click', startTutorial);
 
