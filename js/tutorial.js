@@ -1,107 +1,94 @@
-// TUTORIAL MODULE — Junior SET (27종 카드)
+﻿// TUTORIAL MODULE — Junior SET (27종 카드)
 // ══════════════════════════════════════════════
 
-// 설명용 고정 카드
-const TUT_CARDS_INTRO = [
-  { shape: 'oval',     color: 'green',  fill: 'outline' },
-  { shape: 'diamond',  color: 'purple', fill: 'striped' },
-  { shape: 'squiggle', color: 'red',    fill: 'solid'   },
+// ── 분석 1 카드 ──────────────────────────────────
+const TUT_ANA1_CARDS = [
+  { shape: 'diamond', color: 'green',  fill: 'outline' },
+  { shape: 'diamond', color: 'purple', fill: 'outline' },
+  { shape: 'diamond', color: 'red',    fill: 'outline' },
 ];
-const TUT_CARDS_SHAPE = [
-  { shape: 'oval',     color: 'green', fill: 'outline' },
-  { shape: 'diamond',  color: 'green', fill: 'outline' },
-  { shape: 'squiggle', color: 'green', fill: 'outline' },
+
+// ── 문제 1 카드 ──────────────────────────────────
+const TUT_Q1_GIVEN = [
+  { shape: 'squiggle', color: 'green', fill: 'solid' },
+  { shape: 'squiggle', color: 'red',   fill: 'solid' },
 ];
-const TUT_CARDS_COLOR = [
-  { shape: 'oval', color: 'green',  fill: 'outline' },
-  { shape: 'oval', color: 'purple', fill: 'outline' },
-  { shape: 'oval', color: 'red',    fill: 'outline' },
+const TUT_Q1_CHOICES = [
+  { isCorrect: true,  card: { shape: 'squiggle', color: 'purple', fill: 'solid'   } },
+  { isCorrect: false, card: { shape: 'squiggle', color: 'purple', fill: 'outline' } },
+  { isCorrect: false, card: { shape: 'oval',     color: 'purple', fill: 'solid'   } },
+  { isCorrect: false, card: { shape: 'squiggle', color: 'green',  fill: 'solid'   } },
 ];
-const TUT_CARDS_FILL = [
-  { shape: 'oval', color: 'green', fill: 'outline' },
-  { shape: 'oval', color: 'green', fill: 'striped' },
-  { shape: 'oval', color: 'green', fill: 'solid'   },
+
+// ── 분석 2 카드 ──────────────────────────────────
+const TUT_ANA2_CARDS = [
+  { shape: 'oval',     color: 'green',  fill: 'striped' },
+  { shape: 'squiggle', color: 'purple', fill: 'striped' },
+  { shape: 'diamond',  color: 'red',    fill: 'outline' },
 ];
-// 색이 모두 야은 예시 (attrquiz 색 스텝용)
-const TUT_CARDS_COLOR_SAME = [
-  { shape: 'oval',     color: 'green', fill: 'outline' },
-  { shape: 'diamond',  color: 'green', fill: 'striped' },
-  { shape: 'squiggle', color: 'green', fill: 'solid'   },
+
+// ── 문제 2 카드 ──────────────────────────────────
+const TUT_Q2_GIVEN = [
+  { shape: 'oval',    color: 'red', fill: 'solid' },
+  { shape: 'diamond', color: 'red', fill: 'solid' },
 ];
-// Challenge 1: 6장 — 유일한 SET는 인덱스 0,1,2 (수학적으로 검증 완료)
-const TUT_C1_BASE = [
+const TUT_Q2_CHOICES = [
+  { isCorrect: true,  card: { shape: 'squiggle', color: 'red',    fill: 'solid'   } },
+  { isCorrect: false, card: { shape: 'squiggle', color: 'red',    fill: 'outline' } },
+  { isCorrect: false, card: { shape: 'squiggle', color: 'purple', fill: 'solid'   } },
+  { isCorrect: false, card: { shape: 'oval',     color: 'red',    fill: 'solid'   } },
+];
+
+// ── 분석 3 카드 ──────────────────────────────────
+const TUT_ANA3_CARDS = [
+  { shape: 'diamond',  color: 'green',  fill: 'striped' },
+  { shape: 'oval',     color: 'purple', fill: 'solid'   },
+  { shape: 'squiggle', color: 'red',    fill: 'outline' },
+];
+
+// ── 문제 3 카드 ──────────────────────────────────
+const TUT_Q3_GIVEN = [
+  { shape: 'diamond', color: 'green',  fill: 'striped' },
+  { shape: 'oval',    color: 'purple', fill: 'solid'   },
+];
+const TUT_Q3_CHOICES = [
+  { isCorrect: true,  card: { shape: 'squiggle', color: 'red',   fill: 'outline' } },
+  { isCorrect: false, card: { shape: 'squiggle', color: 'red',   fill: 'solid'   } },
+  { isCorrect: false, card: { shape: 'squiggle', color: 'green', fill: 'outline' } },
+  { isCorrect: false, card: { shape: 'oval',     color: 'red',   fill: 'outline' } },
+];
+
+// ── 훈련1 고정 4장 (수학적 검증 완료: 유일 SET = 인덱스 0,1,2) ──
+const TUT_TRAIN1_BASE = [
   { shape: 'oval',     color: 'green',  fill: 'outline' }, // 정답 A
   { shape: 'diamond',  color: 'purple', fill: 'striped' }, // 정답 B
   { shape: 'squiggle', color: 'red',    fill: 'solid'   }, // 정답 C
-  { shape: 'diamond',  color: 'green',  fill: 'outline' }, // 오답
-  { shape: 'oval',     color: 'red',    fill: 'striped' }, // 오답
-  { shape: 'squiggle', color: 'purple', fill: 'outline' }, // 오답
+  { shape: 'oval',     color: 'purple', fill: 'solid'   }, // 미끼
 ];
 
-// 퀴즈용 고정 카드
-const TUT_CARDS_QUIZ_YES = [
-  { shape: 'oval',     color: 'green',  fill: 'outline' },
-  { shape: 'diamond',  color: 'purple', fill: 'striped' },
-  { shape: 'squiggle', color: 'red',    fill: 'solid'   },
-]; // 세 속성 모두 달라 → SET ✓
-const TUT_CARDS_QUIZ_NO = [
-  { shape: 'oval',     color: 'green',  fill: 'outline' },
-  { shape: 'oval',     color: 'purple', fill: 'striped' },
-  { shape: 'squiggle', color: 'red',    fill: 'solid'   },
-]; // 모양: 타원·타원·물결 (2개 같음) → NOT SET ✗
-
-// 예시 2 (새로운 두 번째 예시): 모두 초록색이지만 모양 oval/oval/squiggle (2개만 같음 규칙 위반)
-// seq_c (예시 ③): 모양에서 규칙 위반 — 타원·타원·물결 (2개만 같음)
-const TUT_SEQ_C_CARDS = [
-  { shape: 'oval',     color: 'green',  fill: 'outline' },
-  { shape: 'oval',     color: 'purple', fill: 'striped' },
-  { shape: 'squiggle', color: 'red',    fill: 'solid'   },
-];
-const TUT_SEQ_B2_CARDS = [
-  { shape: 'oval',     color: 'green', fill: 'outline' },
-  { shape: 'oval',     color: 'green', fill: 'striped' },
-  { shape: 'squiggle', color: 'green', fill: 'solid'   },
-];
-const TUT_CARDPICK_GIVEN_B2 = [
-  { shape: 'oval',  color: 'green', fill: 'outline' },
-  { shape: 'oval',  color: 'green', fill: 'striped' },
-];
-const TUT_CARDPICK_CHOICES_RAW_B2 = [
-  { isCorrect: true,  card: { shape: 'oval',     color: 'green', fill: 'solid'   } }, // 정답
-  { isCorrect: false, card: { shape: 'squiggle', color: 'green', fill: 'solid'   } }, // 오답
-  { isCorrect: false, card: { shape: 'oval',     color: 'purple',fill: 'solid'   } }, // 오답
-  { isCorrect: false, card: { shape: 'oval',     color: 'green', fill: 'striped' } }, // 오답
-];
-
-// 예시 3 (세 번째 예시): 모두 다른 카드들 (기존 예시 1 카드)
-const TUT_CARDPICK_GIVEN_A = [
-  { shape: 'oval',    color: 'green',  fill: 'outline' },
-  { shape: 'diamond', color: 'purple', fill: 'striped' },
-];
-const TUT_CARDPICK_CHOICES_RAW_A = [
-  { isCorrect: true,  card: { shape: 'squiggle', color: 'red',    fill: 'solid'   } },
-  { isCorrect: false, card: { shape: 'oval',     color: 'red',    fill: 'solid'   } },
-  { isCorrect: false, card: { shape: 'squiggle', color: 'green',  fill: 'solid'   } },
-  { isCorrect: false, card: { shape: 'squiggle', color: 'red',    fill: 'outline' } },
-];
-
+// ══════════════════════════════════════════════
+// JUNIOR_TUT_STEPS — 11단계
+// ══════════════════════════════════════════════
 const JUNIOR_TUT_STEPS = [
+  // ── STEP 1: intro ──────────────────────────
   {
     id: 'intro', title: 'SET 게임이 뭐예요?',
     text: 'SET는 카드 세 장을 골라서 만드는 게임이에요! 🌟<br><br>카드마다 <strong>세 가지 특징</strong>이 있어요.<br><strong>모양</strong> (타원 · 마름모 · 물결)<br><strong>색깔</strong> (초록 · 보라 · 빨강)<br><strong>채움</strong> (빈 것 · 줄무늬 · 가득참)<br><br>세 장 각각의 특징이<br><span class="txt-black">모두 </span><span class="txt-blue">같거나</span> <span class="txt-black">모두 </span><span class="txt-red">달라야</span> SET예요!',
     cards: null, interactive: false,
   },
+
+  // ── STEP 2: analysis1 ──────────────────────
   {
-    id: 'seq_a', type: 'sequence',
-    title: '세 카드를 살펴봐요! — 예시 ①',
-    cards: TUT_CARDS_INTRO,
+    id: 'analysis1', type: 'sequence',
+    title: '분석 ①',
+    cards: TUT_ANA1_CARDS,
     questions: [
       {
         q: '<strong>모양</strong>을 비교합시다!',
         attrLabel: '모양이', logLabel: '모양',
-        type: 'attr', correctAnswer: 'different',
-        praise: '🎉 굿굿!<br><br>타원 · 마름모 · 물결<br>— 세 모양이 <strong>모두 달라요</strong>! ✔️',
-        wrong: '타원 · 마름모 · 물결<br>— 세 개가 서로 달라요! 😊',
+        type: 'attr', correctAnswer: 'same',
+        praise: '🎉 굿굿!<br><br>마름모 · 마름모 · 마름모<br>— 세 장 모두 마름모! <strong>모두 같아요</strong>! ✔️',
+        wrong: '세 장 모두 마름모 모양이에요!<br>— 다 같지 않나요? 😊',
       },
       {
         q: '<strong>색깔</strong>을 비교합시다!',
@@ -113,107 +100,154 @@ const JUNIOR_TUT_STEPS = [
       {
         q: '<strong>채움</strong>을 비교합시다!',
         attrLabel: '채움이', logLabel: '채움',
-        type: 'attr', correctAnswer: 'different',
-        praise: '🎉 굿굿!<br><br>빈 것 · 줄무늬 · 가득 참<br>— 채움도 <strong>모두 달라요</strong>! ✔️',
-        wrong: '빈 것 · 줄무늬 · 가득 참<br>— 세 개가 다 다른 채움이에요! 😊',
+        type: 'attr', correctAnswer: 'same',
+        praise: '🎉 굿굿!<br><br>빈 것 · 빈 것 · 빈 것<br>— 채움 모두 같아요! <strong>모두 같아요</strong>! ✔️',
+        wrong: '세 장 모두 빈 것(outline)이에요!<br>— 다 같지 않나요? 😊',
       },
       {
         q: '모양, 색깔, 채움을 모두 정리해봐요!<br>세 장이 <strong>SET</strong>일까요?',
         type: 'set', correctAnswer: 'yes',
         praise: '🎉 굿굿!<br><br>세 가지 특징이 모두 규칙에 맞아요!<br>이게 바로 <strong>SET</strong>예요! 🌟',
-        wrong: '💡 다시 생각해봐요!<br>모양·색깔·채움이 모두<br>"다 달라요" 규칙에 맞았어요!<br>→ 이럴 때도 SET가 돼요! 🎉',
+        wrong: '💡 다시 생각해봐요!<br>모양·채움은 다 같고, 색깔만 다 달라요!<br>→ 이럴 때도 SET가 돼요! 🎉',
       },
     ],
   },
+
+  // ── STEP 3: quiz1 ──────────────────────────
   {
-    id: 'seq_b', type: 'sequence',
-    title: '세 카드를 살펴봐요! — 예시 ②',
-    cards: TUT_CARDS_FILL,
+    id: 'quiz1', type: 'cardpick',
+    title: '문제 ① — SET를 완성해봐요!',
+    text: 'SET가 되기 위해<br>필요한 카드는 무엇일까요?<br>A, B, C, D 중에서 골라봐요!',
+    givenCards: TUT_Q1_GIVEN,
+    choices: TUT_Q1_CHOICES,
+    explanation: '🎉 정확해요!<br>모양 같음 · 색깔 달라야 보라 · 채움 같음<br>→ squiggle_purple_solid! ✅',
+  },
+
+  // ── STEP 4: analysis2 ──────────────────────
+  {
+    id: 'analysis2', type: 'sequence',
+    title: '분석 ②',
+    cards: TUT_ANA2_CARDS,
     questions: [
       {
         q: '<strong>모양</strong>을 비교합시다!',
         attrLabel: '모양이', logLabel: '모양',
-        type: 'attr', correctAnswer: 'same',
-        praise: '🎉 굿굿!<br><br>타원 · 타원 · 타원<br>— 세 장 모두 타원! <strong>다 같아요</strong>! ✔️',
-        wrong: '세 장 모두 타원 모양이에요!<br>— 다 같지 않나요? 😊',
+        type: 'attr', correctAnswer: 'different',
+        praise: '🎉 굿굿!<br><br>타원 · 물결 · 마름모<br>— 세 모양이 <strong>모두 달라요</strong>! ✔️',
+        wrong: '타원 · 물결 · 마름모<br>— 세 개가 서로 달라요! 😊',
       },
       {
         q: '<strong>색깔</strong>을 비교합시다!',
         attrLabel: '색깔이', logLabel: '색깔',
-        type: 'attr', correctAnswer: 'same',
-        praise: '🎉 굿굿!<br><br>초록 · 초록 · 초록<br>— 세 장 모두 초록! <strong>다 같아요</strong>! ✔️',
-        wrong: '세 장 모두 초록색이에요!<br>— 다 같지 않나요? 😊',
+        type: 'attr', correctAnswer: 'different',
+        praise: '🎉 굿굿!<br><br>초록 · 보라 · 빨강<br>— 색깔도 <strong>모두 달라요</strong>! ✔️',
+        wrong: '초록 · 보라 · 빨강<br>— 세 개가 다 다른 색깔이에요! 😊',
+      },
+      {
+        q: '<strong>채움</strong>을 비교합시다!',
+        attrLabel: '채움이', logLabel: '채움',
+        type: 'attr3', correctAnswer: 'neither',
+        praise: '🎉 굿굿!<br><br>줄무늬 · 줄무늬 · 빈 것<br>— 줄무늬가 두 개예요.<br>⚠️ <strong>2개만 같아요</strong> — 규칙 위반이에요!',
+        wrong_same: '줄무늬 · 줄무늬 · 빈 것<br>— 마지막이 빈 것이에요!<br>모두 같지는 않아요. 😊',
+        wrong_diff: '줄무늬 · 줄무늬 · 빈 것<br>— 줄무늬가 두 개나 있어요!<br>모두 다른 것도 아니에요. 😊',
+      },
+      {
+        q: '모양, 색깔, 채움을 모두 정리해봐요!<br>그럼 이 세 장이 <strong>SET</strong>일까요?',
+        type: 'set', correctAnswer: 'no', logLabel: null,
+        praise: '🎉 굿굿!<br><br>채움에서 규칙을 어겼으니까<br>이 세 장은 <strong>SET가 아니에요</strong>! 🙌',
+        wrong: '💡 다시 생각해봐요!<br>채움에서 실패했어요 (줄무늬가 두 개).<br>한 가지라도 규칙을 어기면<br>SET가 안 돼요!',
+      },
+    ],
+  },
+
+  // ── STEP 5: quiz2 ──────────────────────────
+  {
+    id: 'quiz2', type: 'cardpick',
+    title: '문제 ② — SET를 완성해봐요!',
+    text: 'SET가 되기 위해<br>필요한 카드는 무엇일까요?<br>A, B, C, D 중에서 골라봐요!',
+    givenCards: TUT_Q2_GIVEN,
+    choices: TUT_Q2_CHOICES,
+    explanation: '🎉 정확해요!<br>모양 달라야 물결 · 색깔 같음 빨강 · 채움 같음<br>→ squiggle_red_solid! ✅',
+  },
+
+  // ── STEP 6: analysis3 ──────────────────────
+  {
+    id: 'analysis3', type: 'sequence',
+    title: '분석 ③',
+    cards: TUT_ANA3_CARDS,
+    questions: [
+      {
+        q: '<strong>모양</strong>을 비교합시다!',
+        attrLabel: '모양이', logLabel: '모양',
+        type: 'attr', correctAnswer: 'different',
+        praise: '🎉 굿굿!<br><br>마름모 · 타원 · 물결<br>— 세 모양이 <strong>모두 달라요</strong>! ✔️',
+        wrong: '마름모 · 타원 · 물결<br>— 세 개가 서로 달라요! 😊',
+      },
+      {
+        q: '<strong>색깔</strong>을 비교합시다!',
+        attrLabel: '색깔이', logLabel: '색깔',
+        type: 'attr', correctAnswer: 'different',
+        praise: '🎉 굿굿!<br><br>초록 · 보라 · 빨강<br>— 색깔도 <strong>모두 달라요</strong>! ✔️',
+        wrong: '초록 · 보라 · 빨강<br>— 세 개가 다 다른 색깔이에요! 😊',
       },
       {
         q: '<strong>채움</strong>을 비교합시다!',
         attrLabel: '채움이', logLabel: '채움',
         type: 'attr', correctAnswer: 'different',
-        praise: '🎉 굿굿!<br><br>빈 것 · 줄무늬 · 가득 참<br>— 채움만 <strong>다 달라요</strong>! ✔️',
-        wrong: '빈 것 · 줄무늬 · 가득 참<br>— 세 개가 다 다른 채움이에요! 😊',
+        praise: '🎉 굿굿!<br><br>줄무늬 · 가득 참 · 빈 것<br>— 채움도 <strong>모두 달라요</strong>! ✔️',
+        wrong: '줄무늬 · 가득 참 · 빈 것<br>— 세 개가 다 다른 채움이에요! 😊',
       },
       {
         q: '모양, 색깔, 채움을 모두 정리해봐요!<br>세 장이 <strong>SET</strong>일까요?',
         type: 'set', correctAnswer: 'yes',
-        praise: '🎉 굿굿!<br><br>모양·색깔은 다 같고, 채움만 다 달라요!<br>이게 바로 <strong>SET</strong>예요! 🌟',
-        wrong: '💡 다시 생각해봐요!<br>모양·색깔·채움이 모두<br>각 특징이 규칙에 맞으면 SET가 돼요! 🎉',
+        praise: '🎉 굿굿!<br><br>세 가지 특징이 모두 다 달라서<br>이게 바로 <strong>SET</strong>예요! 🌟',
+        wrong: '💡 다시 생각해봐요!<br>모양·색깔·채움이 모두 다 달라요!<br>→ 이럴 때도 SET가 돼요! 🎉',
       },
     ],
   },
+
+  // ── STEP 7: quiz3 ──────────────────────────
   {
-    id: 'seq_c', type: 'sequence',
-    title: '이건 왜 SET가 아닐까요? — 예시 ③',
-    cards: TUT_SEQ_C_CARDS,
-    questions: [
-      {
-        q: '<strong>모양</strong>을 비교합시다!',
-        attrLabel: '모양이',
-        type: 'attr3', correctAnswer: 'neither', logLabel: '모양',
-        praise: '🎉 굿굿!<br><br>타원 · 타원 · 물결<br>— 타원이 두 개, 물결이 한 개예요.<br>⚠️ <strong>2개만 같아요</strong> — 이건 규칙 위반이에요!',
-        wrong_same: '타원 · 타원 · 물결<br>— 마지막이 물결이에요!<br>모두 같지는 않아요. 😊',
-        wrong_diff: '타원 · 타원 · 물결<br>— 타원이 두 개나 있어요!<br>모두 다른 것도 아니에요. 😊',
-      },
-      {
-        q: '<strong>색깔</strong>을 비교합시다!',
-        attrLabel: '색깔이',
-        type: 'attr', correctAnswer: 'different', logLabel: '색깔',
-        praise: '🎉 굿굿!<br><br>초록 · 보라 · 빨강<br>— 색깔은 <strong>다 달라요</strong>! ✔️',
-        wrong: '초록 · 보라 · 빨강<br>— 세 가지 다 다른 색깔이에요! 😊',
-      },
-      {
-        q: '<strong>채움</strong>을 비교합시다!',
-        attrLabel: '채움이',
-        type: 'attr', correctAnswer: 'different', logLabel: '채움',
-        praise: '🎉 굿굿!<br><br>빈 것 · 줄무늬 · 가득 참<br>— 채움도 <strong>다 달라요</strong>! ✔️',
-        wrong: '빈 것 · 줄무늬 · 가득 참<br>— 세 개가 다 다른 채움이에요! 😊',
-      },
-      {
-        q: '모양, 색깔, 채움을 모두 정리해봐요!<br>그럼 이 세 장이 <strong>SET</strong>일까요?',
-        type: 'set', correctAnswer: 'no', logLabel: null,
-        praise: '🎉 굿굿!<br><br>모양에서 규칙을 어겼으니까<br>이 세 장은 <strong>SET가 아니에요</strong>! 🙌',
-        wrong: '💡 다시 생각해봐요!<br>모양에서 실패했어요 (타원이 두 개).<br>한 가지라도 규칙을 어기면<br>SET가 안 돼요!',
-      },
-    ],
+    id: 'quiz3', type: 'cardpick',
+    title: '문제 ③ — SET를 완성해봐요!',
+    text: 'SET가 되기 위해<br>필요한 카드는 무엇일까요?<br>A, B, C, D 중에서 골라봐요!',
+    givenCards: TUT_Q3_GIVEN,
+    choices: TUT_Q3_CHOICES,
+    explanation: '🎉 정확해요!<br>모양·색깔·채움 모두 달라야<br>→ squiggle_red_outline! ✅',
   },
+
+  // ── STEP 8: training1 ──────────────────────
   {
-    id: 'cardpick', type: 'cardpick',
-    title: '빠진 카드를 찾아봐요! 🔍',
-    text: '아래 두 장으로 SET를 만들려면<br>나머지 한 장은 어떤 카드일까요?<br>A, B, C, D 중에서 골라봐요!',
-    givenCards: TUT_CARDPICK_GIVEN_A,
-    choices: TUT_CARDPICK_CHOICES_RAW_A,
+    id: 'training1', title: '훈련 ① — 4장에서 찾아봐요!',
+    text: '4장 중에서 <strong>SET가 되는 세 장</strong>을 골라봐요!<br>힌트 버튼을 눌러 도움을 받을 수 있어요.',
+    cards: null, interactive: true, hasHint: true, challengeN: 4,
   },
+
+  // ── STEP 9: training2 ──────────────────────
   {
-    id: 'challenge1', title: '직접 찾아봐요! 💪',
+    id: 'training2', title: '훈련 ② — 5장에서 찾아봐요!',
+    text: '5장 중에서 <strong>SET가 되는 세 장</strong>을 골라봐요!<br>힌트 버튼을 눌러 도움을 받을 수 있어요.',
+    cards: null, interactive: true, hasHint: true, challengeN: 5,
+  },
+
+  // ── STEP 10: training3 ──────────────────────
+  {
+    id: 'training3', title: '훈련 ③ — 6장에서 찾아봐요!',
     text: '6장 중에서 <strong>SET가 되는 세 장</strong>을 골라봐요!<br>힌트 버튼을 눌러 도움을 받을 수 있어요.',
-    cards: null, interactive: true, hasHint: true,
+    cards: null, interactive: true, hasHint: true, challengeN: 6,
   },
+
+  // ── STEP 11: final ──────────────────────────
   {
-    id: 'challenge2', title: '이제 실전이에요!',
+    id: 'final', title: '이제 실전이에요!',
     text: '9장 중에서 <strong>SET를 찾아보세요.</strong><br>이번엔 힌트가 없어요!',
-    cards: null, interactive: true, hasHint: false,
+    cards: null, interactive: true, hasHint: false, challengeN: 9,
   },
 ];
 
+// ══════════════════════════════════════════════
 // Tutorial 상태
+// ══════════════════════════════════════════════
 let tutStepIdx  = 0;
 let tutSubQIdx  = 0;
 let tutSelected = [];
@@ -221,28 +255,28 @@ let tutCards    = [];
 let tutAnswer   = [];
 let tutHintCard = -1;
 let tutDone     = false;
-let tutSubQNext = false; // 다음 질문 진행용 플래그
-
-// Tutorial 누적 답변
+let tutSubQNext = false;
 let tutAnswerItems = [];
 
-// DOM 참조
-const tutorialScreen  = document.getElementById('tutorialScreen');
-const tutProgressFill = document.getElementById('tutProgressFill');
-const tutStepLabel    = document.getElementById('tutStepLabel');
-const tutTitleEl      = document.getElementById('tutTitle');
-const tutBubbleEl     = document.getElementById('tutBubble');
-const tutCardArea     = document.getElementById('tutCardArea');
-const tutFeedbackEl   = document.getElementById('tutFeedback');
-const tutNextBtn      = document.getElementById('tutNextBtn');
-const tutHintBtn      = document.getElementById('tutHintBtn');
+// ── DOM 참조 ─────────────────────────────────
+const tutorialScreen   = document.getElementById('tutorialScreen');
+const tutProgressFill  = document.getElementById('tutProgressFill');
+const tutStepLabel     = document.getElementById('tutStepLabel');
+const tutTitleEl       = document.getElementById('tutTitle');
+const tutBubbleEl      = document.getElementById('tutBubble');
+const tutCardArea      = document.getElementById('tutCardArea');
+const tutFeedbackEl    = document.getElementById('tutFeedback');
+const tutNextBtn       = document.getElementById('tutNextBtn');
+const tutHintBtn       = document.getElementById('tutHintBtn');
 const tutContextBubble = document.getElementById('tutContextBubble');
 const tutAnswerLog     = document.getElementById('tutAnswerLog');
-// game.js 에서 공유되는 DOM (tutorial 전용 재참조)
-const tutModeScreen   = document.getElementById('modeScreen');
+const tutModeScreen    = document.getElementById('modeScreen');
 
 const TUT_INTRO_TEXT = '세 가지를 하나씩 확인해요!<br>모양 · 색깔 · 채움<br><span class="txt-black">모두 </span><span class="txt-blue">같거나</span> <span class="txt-black">모두 </span><span class="txt-red">달라야</span> SET예요!';
 
+// ══════════════════════════════════════════════
+// 진입/종료
+// ══════════════════════════════════════════════
 function startTutorial() {
   tutStepIdx = 0;
   tutModeScreen.hidden  = true;
@@ -250,6 +284,9 @@ function startTutorial() {
   renderTutStep();
 }
 
+// ══════════════════════════════════════════════
+// 스텝 렌더링
+// ══════════════════════════════════════════════
 function renderTutStep() {
   const step  = JUNIOR_TUT_STEPS[tutStepIdx];
   const total = JUNIOR_TUT_STEPS.length;
@@ -292,12 +329,11 @@ function renderTutStep() {
     tutNextBtn.hidden          = false;
     tutNextBtn.textContent     = '다음 →';
   } else {
+    // training1 / training2 / training3 / final
     tutBubbleEl.innerHTML      = step.text;
     tutContextBubble.hidden    = true;
     tutAnswerLog.hidden        = true;
-    if (step.id === 'challenge1' || step.id === 'challenge1_2') setupTutC1();
-    else if (step.id === 'challenge2') setupTutC2();
-    else tutCards = step.cards;
+    setupTutChallenge(step);
     renderTutCards(step.interactive);
     const isLast = tutStepIdx === total - 1;
     tutNextBtn.hidden      = step.interactive;
@@ -305,31 +341,71 @@ function renderTutStep() {
   }
 }
 
-function setupTutC1() {
-  const indexed = TUT_C1_BASE.map((card, i) => ({ card, ans: i < 3 }));
-  shuffle(indexed);
-  tutCards    = indexed.map(x => x.card);
-  tutAnswer   = indexed.reduce((acc, x, i) => { if (x.ans) acc.push(i); return acc; }, []);
-  tutHintCard = tutAnswer[0];
-}
+// ══════════════════════════════════════════════
+// challenge 세팅 — 범용 함수
+// ══════════════════════════════════════════════
+function setupTutChallenge(step) {
+  const n = step.challengeN || 6;
 
-function setupTutC2() {
-  for (let t = 0; t < 400; t++) {
-    const pool = shuffle(buildFullDeck());
-    const nine = pool.slice(0, 9);
-    if (!hasAnySet(nine)) continue;
-    tutCards = nine;
-    for (let i = 0; i < 7; i++)
-      for (let j = i + 1; j < 8; j++)
-        for (let k = j + 1; k < 9; k++)
-          if (isSet(nine[i], nine[j], nine[k])) {
-            tutAnswer = [i, j, k]; tutHintCard = -1; return;
-          }
+  if (n === 4) {
+    // 고정 4장 — 수학적 검증 완료
+    const indexed = TUT_TRAIN1_BASE.map((card, i) => ({ card, ans: i < 3 }));
+    shuffle(indexed);
+    tutCards    = indexed.map(x => x.card);
+    tutAnswer   = indexed.reduce((acc, x, i) => { if (x.ans) acc.push(i); return acc; }, []);
+    tutHintCard = tutAnswer[0];
+    return;
+  }
+
+  // n=5, 6, 9: 랜덤 탐색
+  const wantExact = (n !== 9); // 9장은 1개 이상이면 OK
+  for (let t = 0; t < 500; t++) {
+    const pool = shuffle(buildFullDeck()).slice(0, n);
+    const sets = findAllSets(pool);
+    if (wantExact ? sets.length === 1 : sets.length >= 1) {
+      tutCards    = pool;
+      tutAnswer   = sets[0];
+      tutHintCard = wantExact ? tutAnswer[0] : -1;
+      return;
+    }
+  }
+  // 폴백: 1회 유효 SET 찾기
+  for (let t = 0; t < 500; t++) {
+    const pool = shuffle(buildFullDeck()).slice(0, n);
+    if (hasAnySet(pool)) {
+      tutCards = pool;
+      for (let i = 0; i < n - 2; i++)
+        for (let j = i + 1; j < n - 1; j++)
+          for (let k = j + 1; k < n; k++)
+            if (isSet(pool[i], pool[j], pool[k])) {
+              tutAnswer   = [i, j, k];
+              tutHintCard = wantExact ? i : -1;
+              return;
+            }
+    }
   }
 }
 
+// ══════════════════════════════════════════════
+// 모든 SET 찾기 헬퍼
+// ══════════════════════════════════════════════
+function findAllSets(cards) {
+  const sets = [];
+  const n = cards.length;
+  for (let i = 0; i < n - 2; i++)
+    for (let j = i + 1; j < n - 1; j++)
+      for (let k = j + 1; k < n; k++)
+        if (isSet(cards[i], cards[j], cards[k]))
+          sets.push([i, j, k]);
+  return sets;
+}
+
+// ══════════════════════════════════════════════
+// 카드 렌더링
+// ══════════════════════════════════════════════
 function renderTutCards(interactive) {
   tutCardArea.innerHTML = '';
+  tutCardArea.className = 'tut-card-area';
   if (!tutCards || tutCards.length === 0) return;
   tutCards.forEach((card, idx) => {
     const el        = document.createElement('div');
@@ -346,6 +422,9 @@ function renderTutCards(interactive) {
   });
 }
 
+// ══════════════════════════════════════════════
+// 카드 클릭 (훈련/실전)
+// ══════════════════════════════════════════════
 function onTutCardClick(idx) {
   if (tutDone) return;
   const el = document.getElementById(`tut-card-${idx}`);
@@ -399,6 +478,9 @@ function evalTutSel() {
   }
 }
 
+// ══════════════════════════════════════════════
+// 힌트
+// ══════════════════════════════════════════════
 function onTutHint() {
   if (tutHintCard < 0) return;
   const el = document.getElementById(`tut-card-${tutHintCard}`);
@@ -407,6 +489,9 @@ function onTutHint() {
   tutHintBtn.textContent = '💡 힌트 사용됨';
 }
 
+// ══════════════════════════════════════════════
+// 서브 질문 렌더링 (sequence)
+// ══════════════════════════════════════════════
 function renderTutSubQ() {
   const step  = JUNIOR_TUT_STEPS[tutStepIdx];
   const q     = step.questions[tutSubQIdx];
@@ -444,6 +529,9 @@ function renderTutSubQ() {
   tutNextBtn.hidden = true;
 }
 
+// ══════════════════════════════════════════════
+// 서브 질문 답변 처리
+// ══════════════════════════════════════════════
 function onTutSeqAnswer(answer) {
   const step    = JUNIOR_TUT_STEPS[tutStepIdx];
   const q       = step.questions[tutSubQIdx];
@@ -462,19 +550,18 @@ function onTutSeqAnswer(answer) {
     tutFeedbackEl.innerHTML = q.praise;
     tutFeedbackEl.className = 'tut-feedback tut-success';
 
-    // 답변 로그 누적
     if (q.logLabel) {
-      const ansText = answer === 'same'      ? '모두 같아요'
-                    : answer === 'different'  ? '모두 달라요'
+      const ansText = answer === 'same'     ? '모두 같아요'
+                    : answer === 'different' ? '모두 달라요'
                     : '2개만 같아요';
-      const cls    = answer === 'same' ? 'log-same' : answer === 'different' ? 'log-diff' : 'log-err';
+      const cls = answer === 'same' ? 'log-same' : answer === 'different' ? 'log-diff' : 'log-err';
       tutAnswerItems.push({ label: q.logLabel, text: ansText, cls });
       renderAnswerLog();
     }
 
-    const isLastQ = tutSubQIdx >= step.questions.length - 1;
+    const isLastQ    = tutSubQIdx >= step.questions.length - 1;
     const isLastStep = tutStepIdx >= JUNIOR_TUT_STEPS.length - 1;
-    tutSubQNext = !isLastQ; // 중간 질문이면 다음 질문 버튼
+    tutSubQNext = !isLastQ;
     tutNextBtn.hidden      = false;
     tutNextBtn.textContent = isLastQ
       ? (isLastStep ? '완료! 🎓' : '다음 →')
@@ -482,13 +569,15 @@ function onTutSeqAnswer(answer) {
   } else {
     tutFeedbackEl.innerHTML = `❌<br><br>${wrongMsg}`;
     tutFeedbackEl.className = 'tut-feedback tut-fail';
-    // 메시지는 그대로 유지, 버튼만 즉시 재활성화 → 정답 선택 시 칭찬으로 교체
     ['tutSeqYes','tutSeqNo','tutSeqSame','tutSeqDiff','tutSeqNeither'].forEach(id => {
       document.getElementById(id)?.removeAttribute('disabled');
     });
   }
 }
 
+// ══════════════════════════════════════════════
+// 판단 결과 로그
+// ══════════════════════════════════════════════
 function renderAnswerLog() {
   tutAnswerLog.innerHTML = '<div class="tut-log-title">판단 결과</div>'
     + tutAnswerItems.map(it =>
@@ -497,14 +586,17 @@ function renderAnswerLog() {
   tutAnswerLog.hidden = false;
 }
 
+// ══════════════════════════════════════════════
+// 카드픽 퀴즈 렌더링
+// ══════════════════════════════════════════════
 function renderCardPickStep() {
   tutCardArea.innerHTML = '';
   tutCardArea.className = 'tut-card-area tut-cardpick-area';
-  const step    = JUNIOR_TUT_STEPS[tutStepIdx];
-  const rawChoices = step.choices || TUT_CARDPICK_CHOICES_RAW_A;
+  const step       = JUNIOR_TUT_STEPS[tutStepIdx];
+  const rawChoices = step.choices;
   const choices    = shuffle([...rawChoices]);
   const labels     = ['A', 'B', 'C', 'D'];
-  const givenCards = step.givenCards || TUT_CARDPICK_GIVEN_A;
+  const givenCards = step.givenCards;
   const givenHTML  = givenCards
     .map(c => `<div class="tut-pick-given-card"><img src="${imgPath(c)}" alt="" draggable="false"></div>`)
     .join('');
@@ -547,65 +639,26 @@ function onCardPickAnswer(isCorrect, clickedIdx, choices, explanation) {
   }
 }
 
-function onTutAttrQuiz(userAnswer) {
-
-  const step = JUNIOR_TUT_STEPS[tutStepIdx];
-  const correct = (userAnswer === step.correctAnswer);
-  if (correct) {
-    document.getElementById('tutQuizSame')?.setAttribute('disabled', '');
-    document.getElementById('tutQuizDiff')?.setAttribute('disabled', '');
-    tutFeedbackEl.innerHTML = step.praise;
-    tutFeedbackEl.className = 'tut-feedback tut-success';
-    tutCards.forEach((_, idx) => {
-      const el = document.getElementById(`tut-card-${idx}`);
-      if (el) el.classList.add('tut-correct');
-    });
-    tutNextBtn.hidden = false;
-    tutNextBtn.textContent = tutStepIdx >= JUNIOR_TUT_STEPS.length - 1 ? '완료! 🎓' : '다음 →';
-  } else {
-    tutFeedbackEl.innerHTML = `⚠️ 다시 살펴보세요! ${step.hint}`;
-    tutFeedbackEl.className = 'tut-feedback tut-fail';
-    setTimeout(() => {
-      tutFeedbackEl.textContent = '';
-      tutFeedbackEl.className   = 'tut-feedback';
-    }, 1800);
-  }
-}
-
-function onTutQuiz(userAnswer) {
-  const step = JUNIOR_TUT_STEPS[tutStepIdx];
-  const correct = (userAnswer === step.isSet);
-  // 버튼 비활성화
-  document.getElementById('tutQuizYes')?.setAttribute('disabled', '');
-  document.getElementById('tutQuizNo' )?.setAttribute('disabled', '');
-  // 피드백
-  tutFeedbackEl.innerHTML = step.explanation;
-  tutFeedbackEl.className = 'tut-feedback ' + (correct ? 'tut-success' : 'tut-fail');
-  // 카드에 정오 표시
-  tutCards.forEach((_, idx) => {
-    const el = document.getElementById(`tut-card-${idx}`);
-    if (el) el.classList.add(correct ? 'tut-correct' : 'tut-wrong');
-  });
-  // 다음 버튼 표시
-  tutNextBtn.hidden      = false;
-  tutNextBtn.textContent = tutStepIdx >= JUNIOR_TUT_STEPS.length - 1 ? '완료! 🎓' : '다음 →';
-}
-
+// ══════════════════════════════════════════════
+// 진행 버튼
+// ══════════════════════════════════════════════
 function tutAdvance() {
-  // 시퀀스 내 서브퀴즈 이동
   if (tutSubQNext) {
     tutSubQNext = false;
     tutSubQIdx++;
     renderTutSubQ();
     return;
   }
-  tutCardArea.className = 'tut-card-area'; // cardpick 클래스 초기화
+  tutCardArea.className = 'tut-card-area';
   document.getElementById('tutQuizBtns')?.remove();
   tutStepIdx++;
   if (tutStepIdx >= JUNIOR_TUT_STEPS.length) { showTutComplete(); return; }
   renderTutStep();
 }
 
+// ══════════════════════════════════════════════
+// 완료 화면
+// ══════════════════════════════════════════════
 function showTutComplete() {
   tutProgressFill.style.width = '100%';
   tutStepLabel.textContent    = '완료! 🎓';
@@ -630,6 +683,9 @@ function showTutComplete() {
   });
 }
 
+// ══════════════════════════════════════════════
+// 이벤트 리스너
+// ══════════════════════════════════════════════
 tutNextBtn.addEventListener('click', tutAdvance);
 tutHintBtn.addEventListener('click', onTutHint);
 document.getElementById('tutHomeBtn').addEventListener('click', () => {
