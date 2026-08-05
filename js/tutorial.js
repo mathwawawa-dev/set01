@@ -1,4 +1,4 @@
-﻿// TUTORIAL MODULE — Junior SET (27종 카드)
+// TUTORIAL MODULE — Junior SET (27종 카드)
 // ══════════════════════════════════════════════
 
 // 설명용 고정 카드
@@ -231,12 +231,14 @@ const tutNextBtn      = document.getElementById('tutNextBtn');
 const tutHintBtn      = document.getElementById('tutHintBtn');
 const tutContextBubble = document.getElementById('tutContextBubble');
 const tutAnswerLog     = document.getElementById('tutAnswerLog');
+// game.js 에서 공유되는 DOM (tutorial 전용 재참조)
+const tutModeScreen   = document.getElementById('modeScreen');
 
 const TUT_INTRO_TEXT = '세 가지를 하나씩 확인해요!<br>모양 · 색깔 · 채움<br><em>모두 같거나</em> <em>모두 달라야</em> SET예요!';
 
 function startTutorial() {
   tutStepIdx = 0;
-  modeScreen.hidden     = true;
+  tutModeScreen.hidden  = true;
   tutorialScreen.hidden = false;
   renderTutStep();
 }
