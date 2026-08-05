@@ -1429,7 +1429,7 @@ function renderTutSubQ() {
       <div class="tut-quiz-btns tut-quiz-btns-3" id="tutQuizBtns">
         <button class="tut-quiz-same"    id="tutSeqSame">모두 같아요</button>
         <button class="tut-quiz-diff"    id="tutSeqDiff">모두 달라요</button>
-        <button class="tut-quiz-neither" id="tutSeqNeither">2개만 같아요 (규칙 위반)</button>
+        <button class="tut-quiz-neither" id="tutSeqNeither">2개만 같아요</button>
       </div>`);
     document.getElementById('tutSeqSame'   ).addEventListener('click', () => onTutSeqAnswer('same'));
     document.getElementById('tutSeqDiff'   ).addEventListener('click', () => onTutSeqAnswer('different'));
