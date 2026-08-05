@@ -88,7 +88,7 @@ const TUT_CARDPICK_CHOICES_RAW_A = [
 const JUNIOR_TUT_STEPS = [
   {
     id: 'intro', title: 'SET 게임이 뭐예요?',
-    text: 'SET는 카드 세 장을 골라서 만드는 게임이에요! 🌟<br><br>카드마다 <strong>세 가지 특징</strong>이 있어요.<br><strong>모양</strong> (타원 · 마름모 · 물결)<br><strong>색깔</strong> (초록 · 보라 · 빨강)<br><strong>채움</strong> (빈 것 · 줄무늬 · 가득참)<br><br>세 장 각각의 특징이<br><em class="txt-blue">모두 같거나</em> <em class="txt-red">모두 달라야</em> SET예요!',
+    text: 'SET는 카드 세 장을 골라서 만드는 게임이에요! 🌟<br><br>카드마다 <strong>세 가지 특징</strong>이 있어요.<br><strong>모양</strong> (타원 · 마름모 · 물결)<br><strong>색깔</strong> (초록 · 보라 · 빨강)<br><strong>채움</strong> (빈 것 · 줄무늬 · 가득참)<br><br>세 장 각각의 특징이<br><span class="txt-black">모두 </span><span class="txt-blue">같거나</span> <span class="txt-black">모두 </span><span class="txt-red">달라야</span> SET예요!',
     cards: null, interactive: false,
   },
   {
@@ -241,7 +241,7 @@ const tutAnswerLog     = document.getElementById('tutAnswerLog');
 // game.js 에서 공유되는 DOM (tutorial 전용 재참조)
 const tutModeScreen   = document.getElementById('modeScreen');
 
-const TUT_INTRO_TEXT = '세 가지를 하나씩 확인해요!<br>모양 · 색깔 · 채움<br><em class="txt-blue">모두 같거나</em> <em class="txt-red">모두 달라야</em> SET예요!';
+const TUT_INTRO_TEXT = '세 가지를 하나씩 확인해요!<br>모양 · 색깔 · 채움<br><span class="txt-black">모두 </span><span class="txt-blue">같거나</span> <span class="txt-black">모두 </span><span class="txt-red">달라야</span> SET예요!';
 
 function startTutorial() {
   tutStepIdx = 0;
@@ -492,7 +492,7 @@ function onTutSeqAnswer(answer) {
 function renderAnswerLog() {
   tutAnswerLog.innerHTML = '<div class="tut-log-title">판단 결과</div>'
     + tutAnswerItems.map(it =>
-        `<div class="tut-log-item ${it.cls}">${it.label}: ${it.text}</div>`
+        `<div class="tut-log-item ${it.cls}"><span class="log-label">${it.label}:</span> ${it.text}</div>`
       ).join('');
   tutAnswerLog.hidden = false;
 }

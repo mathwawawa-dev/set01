@@ -1026,12 +1026,14 @@ html, body {
   font-size: 0.82rem; font-weight: 400; line-height: 1.35;
   color: #111111;
 }
+.tut-log-item .log-label { color: #111111; font-weight: 400; }
 .tut-log-item.log-same { color: #1e66f5; font-weight: 600; }
 .tut-log-item.log-diff { color: #e63946; font-weight: 600; }
 .tut-log-item.log-err  { color: #111111; font-weight: 400; }
 
-.txt-blue { color: #1e66f5; font-style: normal; font-weight: 700; }
-.txt-red  { color: #e63946; font-style: normal; font-weight: 700; }
+.txt-black { color: #111111; font-style: normal; font-weight: 400; }
+.txt-blue  { color: #1e66f5; font-style: normal; font-weight: 700; }
+.txt-red   { color: #e63946; font-style: normal; font-weight: 700; }
 
 /* 3번째 버튼(규칙위반) */
 .tut-quiz-btns-3 { flex-wrap: wrap; }
