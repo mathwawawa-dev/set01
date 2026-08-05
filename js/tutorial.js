@@ -699,24 +699,21 @@ function showTutComplete() {
   const tutInner = tutorialScreen.querySelector('.tut-inner');
   tutInner.classList.add('tut-layout-quiz');
 
-  // 버블 안에 텍스트 + 간격 + 대문으로 버튼(흰박스 없음) 배치
-  tutBubbleEl.innerHTML = `
-    <div>Junior SET 규칙을 모두 익혔어요!<br>이제 모드 선택 화면으로 돌아가 도전해보세요.</div>
-    <div style="margin-top:24px; display:flex; justify-content:center;">
-      <button class="tut-home-bare-btn" id="tutGoHomeComplete">
-        <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-          <polyline points="9 22 9 12 15 12 15 22"/>
-        </svg>
-        <span>대문으로</span>
-      </button>
-    </div>`;
+  // 버블: 텍스트만
+  tutBubbleEl.innerHTML = 'Junior SET 규칙을 모두 익혔어요!<br>이제 모드 선택 화면으로 돌아가 도전해보세요.';
 
-  // 카드 영역 숨기기
-  tutCardArea.innerHTML = '';
+  // 버튼: 버블 밖 카드 영역에, 버블과 동일한 폭(100%)으로 배치
   const wrapper = tutCardArea.parentElement;
-  if (wrapper) { wrapper.style.display = 'none'; wrapper.style.flex = ''; }
-  tutCardArea.style.flex = '';
+  if (wrapper) { wrapper.style.display = ''; wrapper.style.flex = ''; }
+  tutCardArea.style.cssText = 'width:100%; max-width:100%; display:flex; justify-content:center;';
+  tutCardArea.innerHTML = `
+    <button class="tut-home-bare-btn" id="tutGoHomeComplete">
+      <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+        <polyline points="9 22 9 12 15 12 15 22"/>
+      </svg>
+      <span>대문으로</span>
+    </button>`;
 
   tutContextBubble.hidden   = true;
   tutAnswerLog.hidden       = true;
