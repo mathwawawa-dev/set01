@@ -258,6 +258,7 @@ let tutDone     = false;
 let tutSubQNext = false;
 let tutAnswerItems = [];
 let tutFinalSetCount = 0; // final 스텝에서 SET 발견 횟수 (0→1: 재도전, 2: 완료)
+let tutIntroPhase = 1; // intro(1/11) 스텝 순차 진행 단계 (1, 2, 3)
 
 // ── DOM 참조 ─────────────────────────────────
 const tutorialScreen   = document.getElementById('tutorialScreen');
@@ -337,12 +338,11 @@ function renderTutStep() {
     tutNextBtn.hidden = true;
   } else if (step.id === 'intro') {
     tutInner.classList.remove('tut-layout-quiz');
-    tutBubbleEl.innerHTML      = step.text;
-    tutContextBubble.hidden    = true;
-    tutAnswerLog.hidden        = true;
-    tutCardArea.innerHTML      = '';
-    tutNextBtn.hidden          = false;
-    tutNextBtn.textContent     = '다음 →';
+    tutContextBubble.hidden = true;
+    tutAnswerLog.hidden     = true;
+    tutCardArea.innerHTML   = '';
+    tutIntroPhase           = 1;
+    renderIntroPhase();
   } else {
     // training1 / training2 / training3 / final
     tutInner.classList.add('tut-layout-quiz');
@@ -354,6 +354,54 @@ function renderTutStep() {
     const isLast = tutStepIdx === total - 1;
     tutNextBtn.hidden      = step.interactive;
     tutNextBtn.textContent = isLast ? '완료! 🎓' : '다음 →';
+  }
+}
+
+// ══════════════════════════════════════════════
+// 1/11 단계 (intro) 순차 펼치기
+// ══════════════════════════════════════════════
+function renderIntroPhase() {
+  let html = `<div>SET는 카드 세 장을 골라서 만드는 게임이에요! 🌟</div>`;
+
+  if (tutIntroPhase >= 2) {
+    html += `
+      <div class="stamp-anim" style="margin-top: 14px;">
+        <div>카드마다 <strong>세 가지 특징</strong>이 있어요.</div>
+        <div style="margin-top: 6px;"><strong>모양</strong> (타원 · 마름모 · 물결)</div>
+        <div><strong>색깔</strong> (초록 · 보라 · 빨강)</div>
+        <div><strong>채움</strong> (빈 것 · 줄무늬 · 가득참)</div>
+      </div>`;
+  }
+
+  if (tutIntroPhase >= 3) {
+    html += `
+      <div class="stamp-anim" style="margin-top: 14px; animation-delay: 0.1s;">
+        <div>세 장 각각의 특징이</div>
+        <div><span class="txt-black">모두 </span><span class="txt-blue">같거나</span> <span class="txt-black">모두 </span><span class="txt-red">달라야</span> SET예요!</div>
+      </div>`;
+  }
+
+  if (tutIntroPhase < 3) {
+    html += `
+      <div style="margin-top: 16px; display: flex; justify-content: center;">
+        <button class="tut-expand-arrow-btn" id="btnIntroExpand">
+          <span>▼ 다음</span>
+        </button>
+      </div>`;
+    tutNextBtn.hidden = true;
+  } else {
+    tutNextBtn.hidden = false;
+    tutNextBtn.textContent = '다음 →';
+  }
+
+  tutBubbleEl.innerHTML = html;
+
+  const expandBtn = document.getElementById('btnIntroExpand');
+  if (expandBtn) {
+    expandBtn.addEventListener('click', () => {
+      tutIntroPhase++;
+      renderIntroPhase();
+    });
   }
 }
 

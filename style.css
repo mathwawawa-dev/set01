@@ -1234,6 +1234,28 @@ html, body {
   transition: color 0.15s, transform 0.15s;
 }
 .tut-home-bare-btn:hover { color: var(--accent-blue); transform: translateY(-3px); }
+
+/* 1/11 단계 펼치기 화살표 버튼 */
+.tut-expand-arrow-btn {
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 6px 16px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.18s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.tut-expand-arrow-btn:hover {
+  background: rgba(0, 0, 0, 0.08);
+  color: var(--text-primary);
+  transform: translateY(1px);
+}
 .tut-goto-btn {
   width: 100%; max-width: 300px; padding: 14px 20px;
   border-radius: 14px; border: none;
