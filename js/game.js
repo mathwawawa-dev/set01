@@ -1,4 +1,4 @@
-﻿/* ============================================================
+/* ============================================================
    SET 게임 — script.js
    ============================================================ */
 
@@ -556,46 +556,52 @@ function onCardClick(idx) {
 function evaluateSelection() {
   animLock = true;
 
-  const [i, j, k] = selected;
-  const a = board[i], b = board[j], c = board[k];
-  const valid = (gameMode === 'official' || gameMode === 'officialDeckExhaust') ? isSetOfficial(a, b, c) : isSet(a, b, c);
+  try {
+    const [i, j, k] = selected;
+    const a = board[i], b = board[j], c = board[k];
 
-  const elems = selected.map(idx => document.getElementById(`card-${idx}`));
-
-  if (valid) {
-    elems.forEach(el => el.classList.remove('selected'));
-    score++;
-    scoreDisplay.textContent = score;
-
-    const indices = [...selected];
-    selected = [];
-    replaceCards(indices);
-    indices.forEach(idx => renderCardAt(idx));
-    updateHint();
-
-    // 20 SET 타임어택: 목표 달성 시 종료
-    if ((gameMode === 'deckExhaust' || gameMode === 'officialDeckExhaust') && score >= TARGET_SETS) {
-      animLock = false;
-      setTimeout(() => endGame(), 300);
+    // 보드에서 이미 사라진 슬롯이면 중단 (빠른 연타 방어)
+    if (!a || !b || !c) {
+      selected = [];
+      updateSelectionBar(null, '카드를 3장 선택하세요');
       return;
     }
 
-    // 정식 모드: 종료 조건 없음 (무한 카드, 타이머가 끝날 때만 종료)
-    // 종료는 타이머 0이 되면 endGame()이 자동 호출됨
+    const valid = (gameMode === 'official' || gameMode === 'officialDeckExhaust') ? isSetOfficial(a, b, c) : isSet(a, b, c);
+    const elems = selected.map(idx => document.getElementById(`card-${idx}`));
 
-    updateSelectionBar('success', '정답입니다.');
-    setTimeout(() => {
-      updateSelectionBar(null, '카드를 3장 선택하세요');
-    }, 400);
-    animLock = false;
+    if (valid) {
+      elems.forEach(el => el?.classList.remove('selected'));
+      score++;
+      scoreDisplay.textContent = score;
 
-  } else {
-    elems.forEach(el => el.classList.remove('selected'));
-    selected = [];
-    updateSelectionBar('fail', 'SET가 아닙니다.');
-    setTimeout(() => {
-      updateSelectionBar(null, '카드를 3장 선택하세요');
-    }, 400);
+      const indices = [...selected];
+      selected = [];
+      replaceCards(indices);
+      indices.forEach(idx => renderCardAt(idx));
+      updateHint();
+
+      // 20 SET 타임어택: 목표 달성 시 종료
+      if ((gameMode === 'deckExhaust' || gameMode === 'officialDeckExhaust') && score >= TARGET_SETS) {
+        setTimeout(() => endGame(), 300);
+        return;
+      }
+
+      updateSelectionBar('success', '정답입니다.');
+      setTimeout(() => {
+        updateSelectionBar(null, '카드를 3장 선택하세요');
+      }, 400);
+
+    } else {
+      elems.forEach(el => el?.classList.remove('selected'));
+      selected = [];
+      updateSelectionBar('fail', 'SET가 아닙니다.');
+      setTimeout(() => {
+        updateSelectionBar(null, '카드를 3장 선택하세요');
+      }, 400);
+    }
+  } finally {
+    // 에러가 나더라도 반드시 잠금 해제
     animLock = false;
   }
 }
