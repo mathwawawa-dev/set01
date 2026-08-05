@@ -1483,16 +1483,10 @@ function onTutSeqAnswer(answer) {
   } else {
     tutFeedbackEl.innerHTML = `❌ ${wrongMsg}`;
     tutFeedbackEl.className = 'tut-feedback tut-fail';
-    setTimeout(() => {
-      const stillFailed = tutFeedbackEl.classList.contains('tut-fail');
-      if (stillFailed) {
-        tutFeedbackEl.textContent = '';
-        tutFeedbackEl.className   = 'tut-feedback';
-        ['tutSeqYes','tutSeqNo','tutSeqSame','tutSeqDiff','tutSeqNeither'].forEach(id => {
-          document.getElementById(id)?.removeAttribute('disabled');
-        });
-      }
-    }, 1200);
+    // 메시지는 그대로 유지, 버튼만 즉시 재활성화 → 정답 선택 시 칭찬으로 교체
+    ['tutSeqYes','tutSeqNo','tutSeqSame','tutSeqDiff','tutSeqNeither'].forEach(id => {
+      document.getElementById(id)?.removeAttribute('disabled');
+    });
   }
 }
 
