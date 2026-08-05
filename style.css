@@ -1002,6 +1002,8 @@ html, body {
 }
 .tut-context-bubble strong { color: #111111; font-weight: 700; }
 .tut-context-bubble em { font-style: normal; color: var(--accent-pink); font-weight: 600; }
+.tut-context-bubble .txt-blue { color: #1e66f5 !important; }
+.tut-context-bubble .txt-red  { color: #e63946 !important; }
 .tut-context-bubble[hidden] { display: none; }
 
 .tut-cards-wrapper {

@@ -524,8 +524,8 @@ function renderTutSubQ() {
     const prefix = attrSubject ? `${attrSubject}<br>` : '';
     tutFeedbackEl.insertAdjacentHTML('beforebegin', `
       <div class="tut-quiz-btns tut-quiz-btns-3 choices-hidden" id="tutQuizBtns">
-        <button class="tut-quiz-same"    id="tutSeqSame">${prefix}모두 같아요</button>
-        <button class="tut-quiz-diff"    id="tutSeqDiff">${prefix}모두 달라요</button>
+        <button class="tut-quiz-same"    id="tutSeqSame">${prefix}<span class="txt-blue">모두 같아요</span></button>
+        <button class="tut-quiz-diff"    id="tutSeqDiff">${prefix}<span class="txt-red">모두 달라요</span></button>
         <button class="tut-quiz-neither" id="tutSeqNeither">${prefix}2개만 같아요</button>
       </div>`);
     document.getElementById('tutSeqSame'   ).addEventListener('click', () => onTutSeqAnswer('same'));
