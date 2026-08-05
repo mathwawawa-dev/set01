@@ -1007,10 +1007,10 @@ html, body {
 
 /* 답변 누적 패널 */
 .tut-answer-log {
-  flex: 0 0 auto; min-width: 128px;
+  flex: 0 0 auto; min-width: 120px;
   background: #fffde7; border: 2px solid #f9c74f;
-  border-radius: 14px; padding: 10px 13px; min-height: 108px;
-  display: flex; flex-direction: column; gap: 7px;
+  border-radius: 14px; padding: 6px 10px; min-height: 108px;
+  display: flex; flex-direction: column; gap: 4px;
 }
 .tut-answer-log[hidden] { display: none; }
 .tut-log-title {

@@ -1,4 +1,4 @@
-﻿/* ============================================================
+/* ============================================================
    SET 게임 — script.js
    ============================================================ */
 
@@ -1424,24 +1424,16 @@ function renderTutSubQ() {
       </div>`);
     document.getElementById('tutSeqYes').addEventListener('click', () => onTutSeqAnswer('yes'));
     document.getElementById('tutSeqNo' ).addEventListener('click', () => onTutSeqAnswer('no'));
-  } else if (q.type === 'attr3') {
+  } else {
     tutFeedbackEl.insertAdjacentHTML('beforebegin', `
       <div class="tut-quiz-btns tut-quiz-btns-3" id="tutQuizBtns">
-        <button class="tut-quiz-same"    id="tutSeqSame">🔵 모두 같아요</button>
-        <button class="tut-quiz-diff"    id="tutSeqDiff">🟣 모두 달라요</button>
-        <button class="tut-quiz-neither" id="tutSeqNeither">🔴 2개만 같아요 (규칙 위반)</button>
+        <button class="tut-quiz-same"    id="tutSeqSame">모두 같아요</button>
+        <button class="tut-quiz-diff"    id="tutSeqDiff">모두 달라요</button>
+        <button class="tut-quiz-neither" id="tutSeqNeither">2개만 같아요 (규칙 위반)</button>
       </div>`);
     document.getElementById('tutSeqSame'   ).addEventListener('click', () => onTutSeqAnswer('same'));
     document.getElementById('tutSeqDiff'   ).addEventListener('click', () => onTutSeqAnswer('different'));
     document.getElementById('tutSeqNeither').addEventListener('click', () => onTutSeqAnswer('neither'));
-  } else {
-    tutFeedbackEl.insertAdjacentHTML('beforebegin', `
-      <div class="tut-quiz-btns" id="tutQuizBtns">
-        <button class="tut-quiz-same" id="tutSeqSame">🔵 모두 같아요</button>
-        <button class="tut-quiz-diff" id="tutSeqDiff">🟣 모두 달라요</button>
-      </div>`);
-    document.getElementById('tutSeqSame').addEventListener('click', () => onTutSeqAnswer('same'));
-    document.getElementById('tutSeqDiff').addEventListener('click', () => onTutSeqAnswer('different'));
   }
   tutNextBtn.hidden = true;
 }
@@ -1466,9 +1458,9 @@ function onTutSeqAnswer(answer) {
 
     // 답변 로그 누적
     if (q.logLabel) {
-      const ansText = answer === 'same'      ? '모두 같아요 ✔️'
-                    : answer === 'different'  ? '모두 달라요 ✔️'
-                    : '2개만 같아요 ⚠️';
+      const ansText = answer === 'same'      ? '모두 같아요'
+                    : answer === 'different'  ? '모두 달라요'
+                    : '2개만 같아요';
       const cls    = answer === 'neither' ? 'log-err' : 'log-ok';
       tutAnswerItems.push({ label: q.logLabel, text: ansText, cls });
       renderAnswerLog();
@@ -1492,7 +1484,7 @@ function onTutSeqAnswer(answer) {
 }
 
 function renderAnswerLog() {
-  tutAnswerLog.innerHTML = '<div class="tut-log-title">📋 판단 결과</div>'
+  tutAnswerLog.innerHTML = '<div class="tut-log-title">판단 결과</div>'
     + tutAnswerItems.map(it =>
         `<div class="tut-log-item ${it.cls}">${it.label}: ${it.text}</div>`
       ).join('');
