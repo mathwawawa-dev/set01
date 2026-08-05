@@ -1104,7 +1104,7 @@ const TUT_CARDPICK_CHOICES_RAW = [
 const JUNIOR_TUT_STEPS = [
   {
     id: 'intro', title: 'SET 게임이 뭐예요?',
-    text: 'SET는 카드 세 장을 골라서 만드는 게임이에요! 🌟<br><br>카드마다 <strong>세 가지 특징</strong>이 있어요.<br>🔷 <strong>모양</strong> (타원 · 마름모 · 물결)<br>🎨 <strong>색깔</strong> (초록 · 보라 · 빨강)<br>✏️ <strong>채움</strong> (빈 것 · 줄무늬 · 가득참)<br><br>세 장 각각의 특징이<br><em>모두 같거나</em> <em>모두 달라야</em> SET예요!',
+    text: 'SET는 카드 세 장을 골라서 만드는 게임이에요! 🌟<br><br>카드마다 <strong>세 가지 특징</strong>이 있어요.<br><strong>모양</strong> (타원 · 마름모 · 물결)<br><strong>색깔</strong> (초록 · 보라 · 빨강)<br><strong>채움</strong> (빈 것 · 줄무늬 · 가득참)<br><br>세 장 각각의 특징이<br><em>모두 같거나</em> <em>모두 달라야</em> SET예요!',
     cards: null, interactive: false,
   },
   {
@@ -1113,19 +1113,19 @@ const JUNIOR_TUT_STEPS = [
     cards: TUT_CARDS_INTRO,
     questions: [
       {
-        q: '🔷 <strong>모양</strong>을 봐요!<br>세 장의 모양이 다 같아요?<br>아니면 다 달라요?',
+        q: '<strong>모양</strong>을 봐요!<br>세 장의 모양이 다 같아요?<br>아니면 다 달라요?',
         type: 'attr', correctAnswer: 'different',
         praise: '🎉 이야! 잘 봤어요!<br>타원 · 마름모 · 물결<br>— 세 모양이 <strong>모두 달라요</strong>! ✔️',
         wrong: '👀 다시 봐요!<br>타원 · 마름모 · 물결<br>— 세 개가 서로 달라요! 😊',
       },
       {
-        q: '🎨 <strong>색깔</strong>을 봐요!<br>세 장의 색깔이 다 같아요?<br>아니면 다 달라요?',
+        q: '<strong>색깔</strong>을 봐요!<br>세 장의 색깔이 다 같아요?<br>아니면 다 달라요?',
         type: 'attr', correctAnswer: 'different',
         praise: '🎉 이야! 잘 봤어요!<br>초록 · 보라 · 빨강<br>— 세 색깔이 <strong>모두 달라요</strong>! ✔️',
         wrong: '👀 다시 봐요!<br>초록 · 보라 · 빨강<br>— 세 개가 다 다른 색깔이에요! 😊',
       },
       {
-        q: '✏️ <strong>채움</strong>을 봐요!<br>(빈 것 / 줄무늬 / 가득 찬 것)<br>다 같아요? 다 달라요?',
+        q: '<strong>채움</strong>을 봐요!<br>(빈 것 / 줄무늬 / 가득 찬 것)<br>다 같아요? 다 달라요?',
         type: 'attr', correctAnswer: 'different',
         praise: '🎉 이야! 잘 봤어요!<br>빈 것 · 줄무늬 · 가득 참<br>— 채움도 <strong>모두 달라요</strong>! ✔️',
         wrong: '👀 다시 봐요!<br>빈 것 · 줄무늬 · 가득 참<br>— 세 개가 다 다른 채움이에요! 😊',
@@ -1144,19 +1144,19 @@ const JUNIOR_TUT_STEPS = [
     cards: TUT_CARDS_FILL,
     questions: [
       {
-        q: '🔷 <strong>모양</strong>을 봐요!<br>세 장의 모양이 다 같아요?<br>아니면 다 달라요?',
+        q: '<strong>모양</strong>을 봐요!<br>세 장의 모양이 다 같아요?<br>아니면 다 달라요?',
         type: 'attr', correctAnswer: 'same',
         praise: '🎉 이야! 잘 봤어요!<br>타원 · 타원 · 타원<br>— 세 장 모두 타원! <strong>다 같아요</strong>! ✔️',
         wrong: '👀 다시 봐요!<br>세 장 모두 타원 모양이에요!<br>— 다 같지 않나요? 😊',
       },
       {
-        q: '🎨 <strong>색깔</strong>을 봐요!<br>세 장의 색깔이 다 같아요?<br>아니면 다 달라요?',
+        q: '<strong>색깔</strong>을 봐요!<br>세 장의 색깔이 다 같아요?<br>아니면 다 달라요?',
         type: 'attr', correctAnswer: 'same',
         praise: '🎉 이야! 잘 봤어요!<br>초록 · 초록 · 초록<br>— 세 장 모두 초록! <strong>다 같아요</strong>! ✔️',
         wrong: '👀 다시 봐요!<br>세 장 모두 초록색이에요!<br>— 다 같지 않나요? 😊',
       },
       {
-        q: '✏️ <strong>채움</strong>을 봐요!<br>(빈 것 / 줄무늬 / 가득 찬 것)<br>다 같아요? 다 달라요?',
+        q: '<strong>채움</strong>을 봐요!<br>(빈 것 / 줄무늬 / 가득 찬 것)<br>다 같아요? 다 달라요?',
         type: 'attr', correctAnswer: 'different',
         praise: '🎉 이야! 잘 봤어요!<br>빈 것 · 줄무늬 · 가득 참<br>— 채움만 <strong>다 달라요</strong>! ✔️',
         wrong: '👀 다시 봐요!<br>빈 것 · 줄무늬 · 가득 참<br>— 세 개가 다 다른 채움이에요! 😊',
@@ -1175,20 +1175,20 @@ const JUNIOR_TUT_STEPS = [
     cards: TUT_SEQ_C_CARDS,
     questions: [
       {
-        q: '🔷 <strong>모양</strong>을 봐요!<br>세 장의 모양이 다 같아요?<br>다 달라요? 아니면 둘 다 아니에요?',
+        q: '<strong>모양</strong>을 봐요!<br>세 장의 모양이 다 같아요?<br>다 달라요? 아니면 둘 다 아니에요?',
         type: 'attr3', correctAnswer: 'neither', logLabel: '모양',
         praise: '🎉 맞아요! 잘 봤어요!<br>타원 · 타원 · 물결<br>— 타원이 두 개, 물결이 한 개예요.<br>⚠️ <strong>2개만 같아요</strong> — 이건 규칙 위반이에요!',
         wrong_same: '👀 다시 봐요!<br>타원 · 타원 · 물결<br>— 마지막이 물결이에요!<br>모두 같지는 않아요. 😊',
         wrong_diff: '👀 다시 봐요!<br>타원 · 타원 · 물결<br>— 타원이 두 개나 있어요!<br>모두 다른 것도 아니에요. 😊',
       },
       {
-        q: '🎨 <strong>색깔</strong>을 봐요!<br>세 장의 색깔이 다 같아요?<br>아니면 다 달라요?',
+        q: '<strong>색깔</strong>을 봐요!<br>세 장의 색깔이 다 같아요?<br>아니면 다 달라요?',
         type: 'attr', correctAnswer: 'different', logLabel: '색깔',
         praise: '🎉 맞아요! 잘 봤어요!<br>초록 · 보라 · 빨강<br>— 색깔은 <strong>다 달라요</strong>! ✔️',
         wrong: '👀 다시 봐요!<br>초록 · 보라 · 빨강<br>— 세 가지 다 다른 색깔이에요! 😊',
       },
       {
-        q: '✏️ <strong>채움</strong>을 봐요!<br>(빈 것 / 줄무늬 / 가득 찬 것)<br>다 같아요? 다 달라요?',
+        q: '<strong>채움</strong>을 봐요!<br>(빈 것 / 줄무늬 / 가득 찬 것)<br>다 같아요? 다 달라요?',
         type: 'attr', correctAnswer: 'different', logLabel: '채움',
         praise: '🎉 맞아요! 잘 봤어요!<br>빈 것 · 줄무늬 · 가득 참<br>— 채움도 <strong>다 달라요</strong>! ✔️',
         wrong: '👀 다시 봐요!<br>빈 것 · 줄무늬 · 가득 참<br>— 세 개가 다 다른 채움이에요! 😊',
@@ -1245,7 +1245,7 @@ const tutHintBtn      = document.getElementById('tutHintBtn');
 const tutContextBubble = document.getElementById('tutContextBubble');
 const tutAnswerLog     = document.getElementById('tutAnswerLog');
 
-const TUT_INTRO_TEXT = '🔍 세 가지를 하나씩 확인해요!<br>🔷 모양 · 🎨 색깔 · ✏️ 채움<br><em>모두 같거나</em> <em>모두 달라야</em> SET예요!';
+const TUT_INTRO_TEXT = '세 가지를 하나씩 확인해요!<br>모양 · 색깔 · 채움<br><em>모두 같거나</em> <em>모두 달라야</em> SET예요!';
 
 function startTutorial() {
   tutStepIdx = 0;
