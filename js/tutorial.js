@@ -698,11 +698,16 @@ function showTutComplete() {
   const tutInner = tutorialScreen.querySelector('.tut-inner');
   tutInner.classList.add('tut-layout-quiz');
 
-  // 버블 안에 줄바꿈 2번 후 대문으로 버튼 중앙 배치
-  tutBubbleEl.innerHTML = `
-    <div>Junior SET 규칙을 모두 익혔어요!<br>이제 모드 선택 화면으로 돌아가 도전해보세요.</div>
-    <div style="height:2em;"></div>
-    <div style="display:flex; justify-content:center;">
+  // 버블: 텍스트만
+  tutBubbleEl.innerHTML = 'Junior SET 규칙을 모두 익혔어요!<br>이제 모드 선택 화면으로 돌아가 도전해보세요.';
+
+  // 대문으로 버튼: 버블 아래 카드 영역에 중앙 배치
+  const wrapper = tutCardArea.parentElement;
+  if (wrapper) { wrapper.style.display = ''; wrapper.style.flex = ''; }
+  tutCardArea.style.flex = '';
+  tutCardArea.className = 'tut-card-area';
+  tutCardArea.innerHTML = `
+    <div class="tut-complete-home">
       <button class="tut-home-big-btn" id="tutGoHomeComplete">
         <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
           <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
@@ -712,14 +717,8 @@ function showTutComplete() {
       </button>
     </div>`;
 
-  // 카드 영역 숨기기
-  tutCardArea.innerHTML = '';
-  const wrapper = tutCardArea.parentElement;
-  if (wrapper) { wrapper.style.display = 'none'; wrapper.style.flex = ''; }
-  tutCardArea.style.flex = '';
-
-  tutContextBubble.hidden = true;
-  tutAnswerLog.hidden     = true;
+  tutContextBubble.hidden   = true;
+  tutAnswerLog.hidden       = true;
   tutFeedbackEl.textContent = '';
   tutHintBtn.hidden  = true;
   tutNextBtn.hidden  = true;
