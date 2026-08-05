@@ -1,4 +1,4 @@
-/* ============================================================
+﻿/* ============================================================
    SET 게임 — script.js
    ============================================================ */
 
@@ -1116,19 +1116,19 @@ const JUNIOR_TUT_STEPS = [
         q: '<strong>모양</strong>을 비교합시다!<br>세 장의 모양이 다 같아요?<br>아니면 다 달라요?',
         type: 'attr', correctAnswer: 'different',
         praise: '🎉 굿굿!<br>타원 · 마름모 · 물결<br>— 세 모양이 <strong>모두 달라요</strong>! ✔️',
-        wrong: '👀 다시 봐요!<br>타원 · 마름모 · 물결<br>— 세 개가 서로 달라요! 😊',
+        wrong: '타원 · 마름모 · 물결<br>— 세 개가 서로 달라요! 😊',
       },
       {
         q: '<strong>색깔</strong>을 비교합시다!<br>세 장의 색깔이 다 같아요?<br>아니면 다 달라요?',
         type: 'attr', correctAnswer: 'different',
         praise: '🎉 굿굿!<br>초록 · 보라 · 빨강<br>— 세 색깔이 <strong>모두 달라요</strong>! ✔️',
-        wrong: '👀 다시 봐요!<br>초록 · 보라 · 빨강<br>— 세 개가 다 다른 색깔이에요! 😊',
+        wrong: '초록 · 보라 · 빨강<br>— 세 개가 다 다른 색깔이에요! 😊',
       },
       {
         q: '<strong>채움</strong>을 비교합시다!<br>(빈 것 / 줄무늬 / 가득 찬 것)<br>다 같아요? 다 달라요?',
         type: 'attr', correctAnswer: 'different',
         praise: '🎉 굿굿!<br>빈 것 · 줄무늬 · 가득 참<br>— 채움도 <strong>모두 달라요</strong>! ✔️',
-        wrong: '👀 다시 봐요!<br>빈 것 · 줄무늬 · 가득 참<br>— 세 개가 다 다른 채움이에요! 😊',
+        wrong: '빈 것 · 줄무늬 · 가득 참<br>— 세 개가 다 다른 채움이에요! 😊',
       },
       {
         q: '🤔 자, 이제 정리해봐요!<br>모양 ✔️ 다 달라요<br>색깔 ✔️ 다 달라요<br>채움 ✔️ 다 달라요<br>세 장이 <strong>SET</strong>일까요?',
@@ -1147,19 +1147,19 @@ const JUNIOR_TUT_STEPS = [
         q: '<strong>모양</strong>을 비교합시다!<br>세 장의 모양이 다 같아요?<br>아니면 다 달라요?',
         type: 'attr', correctAnswer: 'same',
         praise: '🎉 굿굿!<br>타원 · 타원 · 타원<br>— 세 장 모두 타원! <strong>다 같아요</strong>! ✔️',
-        wrong: '👀 다시 봐요!<br>세 장 모두 타원 모양이에요!<br>— 다 같지 않나요? 😊',
+        wrong: '세 장 모두 타원 모양이에요!<br>— 다 같지 않나요? 😊',
       },
       {
         q: '<strong>색깔</strong>을 비교합시다!<br>세 장의 색깔이 다 같아요?<br>아니면 다 달라요?',
         type: 'attr', correctAnswer: 'same',
         praise: '🎉 굿굿!<br>초록 · 초록 · 초록<br>— 세 장 모두 초록! <strong>다 같아요</strong>! ✔️',
-        wrong: '👀 다시 봐요!<br>세 장 모두 초록색이에요!<br>— 다 같지 않나요? 😊',
+        wrong: '세 장 모두 초록색이에요!<br>— 다 같지 않나요? 😊',
       },
       {
         q: '<strong>채움</strong>을 비교합시다!<br>(빈 것 / 줄무늬 / 가득 찬 것)<br>다 같아요? 다 달라요?',
         type: 'attr', correctAnswer: 'different',
         praise: '🎉 굿굿!<br>빈 것 · 줄무늬 · 가득 참<br>— 채움만 <strong>다 달라요</strong>! ✔️',
-        wrong: '👀 다시 봐요!<br>빈 것 · 줄무늬 · 가득 참<br>— 세 개가 다 다른 채움이에요! 😊',
+        wrong: '빈 것 · 줄무늬 · 가득 참<br>— 세 개가 다 다른 채움이에요! 😊',
       },
       {
         q: '🤔 자, 정리해봐요!<br>모양 ✔️ 다 같아요<br>색깔 ✔️ 다 같아요<br>채움 ✔️ 다 달라요<br>세 장이 <strong>SET</strong>일까요?',
@@ -1178,20 +1178,20 @@ const JUNIOR_TUT_STEPS = [
         q: '<strong>모양</strong>을 비교합시다!<br>세 장의 모양이 다 같아요?<br>다 달라요? 아니면 둘 다 아니에요?',
         type: 'attr3', correctAnswer: 'neither', logLabel: '모양',
         praise: '🎉 굿굿!<br>타원 · 타원 · 물결<br>— 타원이 두 개, 물결이 한 개예요.<br>⚠️ <strong>2개만 같아요</strong> — 이건 규칙 위반이에요!',
-        wrong_same: '👀 다시 봐요!<br>타원 · 타원 · 물결<br>— 마지막이 물결이에요!<br>모두 같지는 않아요. 😊',
-        wrong_diff: '👀 다시 봐요!<br>타원 · 타원 · 물결<br>— 타원이 두 개나 있어요!<br>모두 다른 것도 아니에요. 😊',
+        wrong_same: '타원 · 타원 · 물결<br>— 마지막이 물결이에요!<br>모두 같지는 않아요. 😊',
+        wrong_diff: '타원 · 타원 · 물결<br>— 타원이 두 개나 있어요!<br>모두 다른 것도 아니에요. 😊',
       },
       {
         q: '<strong>색깔</strong>을 비교합시다!<br>세 장의 색깔이 다 같아요?<br>아니면 다 달라요?',
         type: 'attr', correctAnswer: 'different', logLabel: '색깔',
         praise: '🎉 굿굿!<br>초록 · 보라 · 빨강<br>— 색깔은 <strong>다 달라요</strong>! ✔️',
-        wrong: '👀 다시 봐요!<br>초록 · 보라 · 빨강<br>— 세 가지 다 다른 색깔이에요! 😊',
+        wrong: '초록 · 보라 · 빨강<br>— 세 가지 다 다른 색깔이에요! 😊',
       },
       {
         q: '<strong>채움</strong>을 비교합시다!<br>(빈 것 / 줄무늬 / 가득 찬 것)<br>다 같아요? 다 달라요?',
         type: 'attr', correctAnswer: 'different', logLabel: '채움',
         praise: '🎉 굿굿!<br>빈 것 · 줄무늬 · 가득 참<br>— 채움도 <strong>다 달라요</strong>! ✔️',
-        wrong: '👀 다시 봐요!<br>빈 것 · 줄무늬 · 가득 참<br>— 세 개가 다 다른 채움이에요! 😊',
+        wrong: '빈 것 · 줄무늬 · 가득 참<br>— 세 개가 다 다른 채움이에요! 😊',
       },
       {
         q: '🤔 이제 정리해봐요!<br>모양 ❌ 타원이 두 개 — 규칙 위반!<br>색깔 ✔️ 다 달라요<br>채움 ✔️ 다 달라요<br>그럼 이 세 장이 <strong>SET</strong>일까요?',
@@ -1656,3 +1656,4 @@ btnTheme.addEventListener('click', () => {
 createParticles();
 // 게임 자동 시작 없이 대문(모드 선택) 화면 표시
 modeScreen.hidden = false;
+
