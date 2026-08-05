@@ -257,6 +257,7 @@ let tutHintCard = -1;
 let tutDone     = false;
 let tutSubQNext = false;
 let tutAnswerItems = [];
+let tutFinalSetCount = 0; // final 스텝에서 SET 발견 횟수 (0→1: 재도전, 2: 완료)
 
 // ── DOM 참조 ─────────────────────────────────
 const tutorialScreen   = document.getElementById('tutorialScreen');
@@ -314,6 +315,7 @@ function renderTutStep() {
 
   const tutInner = tutorialScreen.querySelector('.tut-inner');
 
+  tutFinalSetCount = 0; // final 스텝 SET 카운터 리셋
   if (step.type === 'sequence') {
     tutInner.classList.remove('tut-layout-quiz');
     tutSubQIdx         = 0;
@@ -458,21 +460,78 @@ function evalTutSel() {
   const [i, j, k] = tutSelected;
   const valid = isSet(tutCards[i], tutCards[j], tutCards[k]);
   if (valid) {
-    tutDone = true;
+    const step = JUNIOR_TUT_STEPS[tutStepIdx];
+    const isFinal = step.id === 'final';
+
     tutSelected.forEach(idx => {
       const el = document.getElementById(`tut-card-${idx}`);
       if (el) { el.classList.remove('selected'); el.classList.add('tut-correct'); }
     });
-    const praises = [
-      '🎉 완벽해요! 세 장이 SET를 이루고 있어요!',
-      '🌟 훌륭해요! 정확하게 찾았어요!',
-      '👏 대단해요! 세 속성이 모두 맞아요!',
-    ];
-    tutFeedbackEl.textContent = praises[Math.floor(Math.random() * praises.length)];
-    tutFeedbackEl.className   = 'tut-feedback tut-success';
-    tutHintBtn.hidden         = true;
-    tutNextBtn.hidden         = false;
-    tutNextBtn.textContent    = tutStepIdx >= JUNIOR_TUT_STEPS.length - 1 ? '완료! 🎓' : '다음 →';
+
+    if (isFinal) {
+      tutFinalSetCount++;
+      if (tutFinalSetCount === 1) {
+        // 첫 번째 SET: 카드 교체 후 재도전 메시지
+        setTimeout(() => {
+          // 찾은 3장 교체 (game.js replaceCards 방식 인라인)
+          const idxs = [...tutSelected].sort((a, b) => a - b);
+          const onBoard = tutCards.filter(Boolean);
+          const all = buildFullDeck();
+          const pool = shuffle(all.filter(c =>
+            !onBoard.some(b => b.shape === c.shape && b.color === c.color && b.fill === c.fill)
+          ));
+          // 신규 3장: 자체 SET 아니고, 전체 9장 안에 SET 존재하는 조합 탐색
+          let placed = false;
+          for (let t = 0; t < 500 && !placed; t++) {
+            const newCards = shuffle([...pool]).slice(0, 3);
+            if (isSet(newCards[0], newCards[1], newCards[2])) continue;
+            const tempBoard = [...tutCards];
+            idxs.forEach((bi, ni) => { tempBoard[bi] = newCards[ni]; });
+            if (hasAnySet(tempBoard.filter(Boolean))) {
+              idxs.forEach((bi, ni) => { tutCards[bi] = newCards[ni]; });
+              placed = true;
+            }
+          }
+          if (!placed) {
+            const newCards = pool.slice(0, 3);
+            idxs.forEach((bi, ni) => { tutCards[bi] = newCards[ni]; });
+          }
+          tutSelected = [];
+          tutDone = false;
+          renderTutCards(true);
+          tutFeedbackEl.textContent = '🎉 훌륭해요! 한 번 더 찾아보세요!';
+          tutFeedbackEl.className = 'tut-feedback tut-success';
+          tutBubbleEl.innerHTML = 'SET가 되는 세 장의 카드를 <strong>한번 더</strong> 찾아보세요!';
+          tutNextBtn.hidden = true;
+          tutHintBtn.hidden = true;
+        }, 700);
+        return;
+      }
+      // 두 번째 SET: 완료 버튼 표시
+      tutDone = true;
+      const praises = [
+        '🎉 완벽해요! 세 장이 SET를 이루고 있어요!',
+        '🌟 훌륭해요! 정확하게 찾았어요!',
+        '👏 대단해요! 세 속성이 모두 맞아요!',
+      ];
+      tutFeedbackEl.textContent = praises[Math.floor(Math.random() * praises.length)];
+      tutFeedbackEl.className   = 'tut-feedback tut-success';
+      tutHintBtn.hidden = true;
+      tutNextBtn.hidden = false;
+      tutNextBtn.textContent = '완료! 🎓';
+    } else {
+      tutDone = true;
+      const praises = [
+        '🎉 완벽해요! 세 장이 SET를 이루고 있어요!',
+        '🌟 훌륭해요! 정확하게 찾았어요!',
+        '👏 대단해요! 세 속성이 모두 맞아요!',
+      ];
+      tutFeedbackEl.textContent = praises[Math.floor(Math.random() * praises.length)];
+      tutFeedbackEl.className   = 'tut-feedback tut-success';
+      tutHintBtn.hidden         = true;
+      tutNextBtn.hidden         = false;
+      tutNextBtn.textContent    = tutStepIdx >= JUNIOR_TUT_STEPS.length - 1 ? '완료! 🎓' : '다음 →';
+    }
   } else {
     tutSelected.forEach(idx => {
       const el = document.getElementById(`tut-card-${idx}`);
