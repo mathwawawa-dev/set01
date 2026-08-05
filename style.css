@@ -1220,6 +1220,15 @@ html, body {
   border-color: var(--accent-blue);
   color: var(--accent-blue);
 }
+/* 완료 화면 버블 내 대문으로 버튼 — 흰 박스 없음 */
+.tut-home-bare-btn {
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  background: none; border: none; padding: 8px 20px; border-radius: 14px;
+  color: var(--text-primary); font-family: 'Outfit', sans-serif;
+  font-size: 1rem; font-weight: 700; cursor: pointer;
+  transition: color 0.15s, transform 0.15s;
+}
+.tut-home-bare-btn:hover { color: var(--accent-blue); transform: translateY(-3px); }
 .tut-goto-btn {
   width: 100%; max-width: 300px; padding: 14px 20px;
   border-radius: 14px; border: none;
