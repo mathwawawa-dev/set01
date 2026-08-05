@@ -1401,7 +1401,7 @@ function onTutHint() {
   const el = document.getElementById(`tut-card-${tutHintCard}`);
   if (el) el.classList.add('tut-hint-glow');
   tutHintBtn.disabled    = true;
-  tutHintBtn.textContent = '?�� ?�트 ?�용??;
+  tutHintBtn.textContent = '? ?트 ?용??;
 }
 
 function renderTutSubQ() {
@@ -1500,10 +1500,11 @@ function renderAnswerLog() {
 
 function renderCardPickStep() {
   tutCardArea.innerHTML = '';
+  tutCardArea.className = 'tut-card-area tut-cardpick-area';
   const choices = shuffle([...TUT_CARDPICK_CHOICES_RAW]);
   const labels  = ['A', 'B', 'C', 'D'];
   const givenHTML = TUT_CARDPICK_GIVEN
-    .map(c => `<div class="card tut-card"><img src="${imgPath(c)}" alt="" draggable="false"></div>`)
+    .map(c => `<div class="tut-pick-given-card"><img src="${imgPath(c)}" alt="" draggable="false"></div>`)
     .join('');
   const choicesHTML = choices.map((ch, i) => `
     <button class="tut-pick-choice" id="tut-pick-${i}">
@@ -1596,8 +1597,8 @@ function tutAdvance() {
     renderTutSubQ();
     return;
   }
+  tutCardArea.className = 'tut-card-area';
   document.getElementById('tutQuizBtns')?.remove();
-  tutStepIdx++;
   if (tutStepIdx >= JUNIOR_TUT_STEPS.length) { showTutComplete(); return; }
   renderTutStep();
 }
