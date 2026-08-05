@@ -394,8 +394,8 @@ function renderIntroPhase() {
   if (tutIntroPhase >= 6) {
     html += `
       <div class="${tutIntroPhase === 6 ? 'stamp-anim' : ''}" style="margin-top: 14px;">
-        <div>선택한 세 카드의 특징이</div>
-        <div>각각 모두 <span class="txt-blue">같거나</span>, 모두 <span class="txt-red">다르면</span> SET 완성!</div>
+        <div>세 장의 카드 각각의 특징이</div>
+        <div>모두 <span class="txt-blue">같거나</span>, 모두 <span class="txt-red">다르면</span> SET 완성!</div>
       </div>`;
   }
 
