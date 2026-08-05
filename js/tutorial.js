@@ -347,6 +347,12 @@ function renderTutStep() {
     // training1 / training2 / training3 / final
     tutInner.classList.add('tut-layout-quiz');
     tutBubbleEl.innerHTML      = step.text;
+    // final 스텝만 버블 높이 고정
+    if (step.id === 'final') {
+      tutBubbleEl.classList.add('tut-bubble--fixed');
+    } else {
+      tutBubbleEl.classList.remove('tut-bubble--fixed');
+    }
     tutContextBubble.hidden    = true;
     tutAnswerLog.hidden        = true;
     setupTutChallenge(step);

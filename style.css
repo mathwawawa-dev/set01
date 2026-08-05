@@ -982,9 +982,12 @@ html, body {
   border-radius: 16px; padding: 16px 22px;
   font-size: 0.95rem; line-height: 1.7; text-align: center;
   color: var(--text-primary); box-shadow: var(--shadow-card); width: 100%;
-  min-height: 4.2em; /* 한 줄이어도 두 줄 높이 유지 */
-  display: flex; align-items: center; justify-content: center; flex-direction: column;
   box-sizing: border-box;
+}
+/* 11단계 전용: 한 줄이어도 두 줄 높이 유지 */
+.tut-bubble--fixed {
+  min-height: 4.2em;
+  display: flex; align-items: center; justify-content: center; flex-direction: column;
 }
 .tut-bubble strong { color: #111111; font-weight: 700; }
 .tut-bubble em { font-style: normal; color: var(--accent-pink); font-weight: 600; }
