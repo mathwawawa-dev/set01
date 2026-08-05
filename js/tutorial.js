@@ -13,11 +13,12 @@ const TUT_Q1_GIVEN = [
   { shape: 'squiggle', color: 'green', fill: 'solid' },
   { shape: 'squiggle', color: 'red',   fill: 'solid' },
 ];
+// 이미 제시된 squiggle_green_solid(제시카드 1) 제거 -> oval_purple_outline으로 대체
 const TUT_Q1_CHOICES = [
   { isCorrect: true,  card: { shape: 'squiggle', color: 'purple', fill: 'solid'   } },
   { isCorrect: false, card: { shape: 'squiggle', color: 'purple', fill: 'outline' } },
   { isCorrect: false, card: { shape: 'oval',     color: 'purple', fill: 'solid'   } },
-  { isCorrect: false, card: { shape: 'squiggle', color: 'green',  fill: 'solid'   } },
+  { isCorrect: false, card: { shape: 'oval',     color: 'purple', fill: 'outline' } },
 ];
 
 // ── 분석 2 카드 ──────────────────────────────────
@@ -32,11 +33,12 @@ const TUT_Q2_GIVEN = [
   { shape: 'oval',    color: 'red', fill: 'solid' },
   { shape: 'diamond', color: 'red', fill: 'solid' },
 ];
+// 이미 제시된 oval_red_solid(제시카드 1) 제거 -> diamond_purple_solid로 대체
 const TUT_Q2_CHOICES = [
   { isCorrect: true,  card: { shape: 'squiggle', color: 'red',    fill: 'solid'   } },
   { isCorrect: false, card: { shape: 'squiggle', color: 'red',    fill: 'outline' } },
   { isCorrect: false, card: { shape: 'squiggle', color: 'purple', fill: 'solid'   } },
-  { isCorrect: false, card: { shape: 'oval',     color: 'red',    fill: 'solid'   } },
+  { isCorrect: false, card: { shape: 'diamond',  color: 'purple', fill: 'solid'   } },
 ];
 
 // ── 분석 3 카드 ──────────────────────────────────
@@ -46,16 +48,17 @@ const TUT_ANA3_CARDS = [
   { shape: 'squiggle', color: 'red',    fill: 'outline' },
 ];
 
-// ── 문제 3 카드 ──────────────────────────────────
+// ── 문제 3 카드 (사용자 지정: diamond_green_outline, oval_purple_striped) ──
 const TUT_Q3_GIVEN = [
-  { shape: 'diamond', color: 'green',  fill: 'striped' },
-  { shape: 'oval',    color: 'purple', fill: 'solid'   },
+  { shape: 'diamond', color: 'green',  fill: 'outline' },
+  { shape: 'oval',    color: 'purple', fill: 'striped' },
 ];
+// 정답: 모양(squiggle), 색깔(red), 채움(solid) -> squiggle_red_solid
 const TUT_Q3_CHOICES = [
-  { isCorrect: true,  card: { shape: 'squiggle', color: 'red',   fill: 'outline' } },
-  { isCorrect: false, card: { shape: 'squiggle', color: 'red',   fill: 'solid'   } },
-  { isCorrect: false, card: { shape: 'squiggle', color: 'green', fill: 'outline' } },
-  { isCorrect: false, card: { shape: 'oval',     color: 'red',   fill: 'outline' } },
+  { isCorrect: true,  card: { shape: 'squiggle', color: 'red',    fill: 'solid'   } },
+  { isCorrect: false, card: { shape: 'squiggle', color: 'red',    fill: 'outline' } },
+  { isCorrect: false, card: { shape: 'squiggle', color: 'green',  fill: 'solid'   } },
+  { isCorrect: false, card: { shape: 'diamond',  color: 'red',    fill: 'solid'   } },
 ];
 
 // ── 훈련1 고정 4장 (수학적 검증 완료: 유일 SET = 인덱스 0,1,2) ──
@@ -101,7 +104,7 @@ const JUNIOR_TUT_STEPS = [
         q: '<strong>채움</strong>을 비교합시다!',
         attrLabel: '채움이', logLabel: '채움',
         type: 'attr', correctAnswer: 'same',
-        praise: '🎉 굿굿!<br><br>빈 것 · 빈 것 · 빈 것<br>— 채움 모두 같아요! <strong>모두 같아요</strong>! ✔️',
+        praise: '🎉 굿굿!<br><br>빈 것 · 빈 것 · 빈 것<br>— 채움 <strong>모두 같아요</strong>! ✔️',
         wrong: '세 장 모두 빈 것(outline)이에요!<br>— 다 같지 않나요? 😊',
       },
       {
@@ -120,7 +123,7 @@ const JUNIOR_TUT_STEPS = [
     text: 'SET가 되기 위해<br>필요한 카드는 무엇일까요?<br>A, B, C, D 중에서 골라봐요!',
     givenCards: TUT_Q1_GIVEN,
     choices: TUT_Q1_CHOICES,
-    explanation: '🎉 정확해요!<br>모양 같음 · 색깔 달라야 보라 · 채움 같음<br>→ squiggle_purple_solid! ✅',
+    explanation: '🎉 정확해요!<br>모양 같음 · 색깔 달라야 보라 · 채움 같음<br>→ 물결 보라 가득참 카드! ✅',
   },
 
   // ── STEP 4: analysis2 ──────────────────────
@@ -167,7 +170,7 @@ const JUNIOR_TUT_STEPS = [
     text: 'SET가 되기 위해<br>필요한 카드는 무엇일까요?<br>A, B, C, D 중에서 골라봐요!',
     givenCards: TUT_Q2_GIVEN,
     choices: TUT_Q2_CHOICES,
-    explanation: '🎉 정확해요!<br>모양 달라야 물결 · 색깔 같음 빨강 · 채움 같음<br>→ squiggle_red_solid! ✅',
+    explanation: '🎉 정확해요!<br>모양 달라야 물결 · 색깔 같음 빨강 · 채움 같음<br>→ 물결 빨강 가득참 카드! ✅',
   },
 
   // ── STEP 6: analysis3 ──────────────────────
@@ -213,7 +216,7 @@ const JUNIOR_TUT_STEPS = [
     text: 'SET가 되기 위해<br>필요한 카드는 무엇일까요?<br>A, B, C, D 중에서 골라봐요!',
     givenCards: TUT_Q3_GIVEN,
     choices: TUT_Q3_CHOICES,
-    explanation: '🎉 정확해요!<br>모양·색깔·채움 모두 달라야<br>→ squiggle_red_outline! ✅',
+    explanation: '🎉 정확해요!<br>모양·색깔·채움 모두 달라야<br>→ 물결 빨강 가득참 카드! ✅',
   },
 
   // ── STEP 8: training1 ──────────────────────

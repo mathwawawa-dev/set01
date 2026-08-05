@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SET 게임</title>
-  <meta name="description" content="27장의 커스텀 카드로 즐기는 웹 기반 SET 게임. 120초 안에 최대한 많은 SET를 찾아보세요!" />
+  <title>SET 寃뚯엫</title>
+  <meta name="description" content="27?μ쓽 而ㅼ뒪? 移대뱶濡?利먭린????湲곕컲 SET 寃뚯엫. 120珥??덉뿉 理쒕???留롮? SET瑜?李얠븘蹂댁꽭??" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet" />
@@ -12,14 +12,14 @@
 </head>
 <body>
 
-  <!-- 모드 선택 화면 (대문) -->
+  <!-- 紐⑤뱶 ?좏깮 ?붾㈃ (?臾? -->
   <div class="mode-screen" id="modeScreen">
     <div class="mode-inner">
       <div class="mode-logo">
         <span id="logoS">S</span><span id="logoE">E</span><span id="logoT">T</span>
       </div>
-      <p class="mode-subtitle">게임 모드를 선택하세요</p>
-      <div class="mode-section-label">Junior SET <span class="mode-section-sub">· 27종 카드</span></div>
+      <p class="mode-subtitle">寃뚯엫 紐⑤뱶瑜??좏깮?섏꽭??/p>
+      <div class="mode-section-label">Junior SET <span class="mode-section-sub">쨌 27醫?移대뱶</span></div>
       <div class="mode-cards">
         <button class="mode-card" id="btnModeTutorial">
           <span class="mode-card-icon">
@@ -30,9 +30,9 @@
               <line x1="22" y1="8.5" x2="22" y2="14"/>
             </svg>
           </span>
-          <span class="mode-card-name">튜토리얼</span>
-          <span class="mode-card-desc">SET가 처음이라면!<br>규칙을 익혀요</span>
-          <span class="mode-card-tag">단계별 가이드</span>
+          <span class="mode-card-name">?쒗넗由ъ뼹</span>
+          <span class="mode-card-desc">SET媛 泥섏쓬?대씪硫?<br>洹쒖튃???듯???/span>
+          <span class="mode-card-tag">?④퀎蹂?媛?대뱶</span>
         </button>
         <button class="mode-card" id="btnModeCountdown">
           <span class="mode-card-icon">
@@ -43,9 +43,9 @@
               <path d="M12 3v2"/>
             </svg>
           </span>
-          <span class="mode-card-name">120초 챌린지</span>
-          <span class="mode-card-desc">120초 안에 최대한 많은<br>SET를 찾아보세요</span>
-          <span class="mode-card-tag">카운트다운</span>
+          <span class="mode-card-name">120珥?梨뚮┛吏</span>
+          <span class="mode-card-desc">120珥??덉뿉 理쒕???留롮?<br>SET瑜?李얠븘蹂댁꽭??/span>
+          <span class="mode-card-tag">移댁슫?몃떎??/span>
         </button>
         <button class="mode-card" id="btnModeDeck">
           <span class="mode-card-icon">
@@ -58,13 +58,13 @@
               <path d="M16 8 L19 8 L23 4 L20 4 Z"/>
             </svg>
           </span>
-          <span class="mode-card-name">20 SET 도전</span>
-          <span class="mode-card-desc">20개의 SET를 얼마나<br>빠르게 찾을 수 있나요?</span>
-          <span class="mode-card-tag">카운트업</span>
+          <span class="mode-card-name">20 SET ?꾩쟾</span>
+          <span class="mode-card-desc">20媛쒖쓽 SET瑜??쇰쭏??br>鍮좊Ⅴ寃?李얠쓣 ???덈굹??</span>
+          <span class="mode-card-tag">移댁슫?몄뾽</span>
         </button>
       </div>
 
-      <div class="mode-section-label">정식 SET <span class="mode-section-sub">· 81종 카드</span></div>
+      <div class="mode-section-label">?뺤떇 SET <span class="mode-section-sub">쨌 81醫?移대뱶</span></div>
       <div class="mode-cards">
         <button class="mode-card" id="btnModeOfficial">
           <span class="mode-card-icon icon-red">
@@ -75,9 +75,9 @@
               <path d="M12 3v2"/>
             </svg>
           </span>
-          <span class="mode-card-name">120초 챌린지</span>
-          <span class="mode-card-desc">120초 안에 최대한 많은<br>SET를 찾아보세요</span>
-          <span class="mode-card-tag">카운트다운</span>
+          <span class="mode-card-name">120珥?梨뚮┛吏</span>
+          <span class="mode-card-desc">120珥??덉뿉 理쒕???留롮?<br>SET瑜?李얠븘蹂댁꽭??/span>
+          <span class="mode-card-tag">移댁슫?몃떎??/span>
         </button>
         <button class="mode-card" id="btnModeOfficialDeck">
           <span class="mode-card-icon icon-red">
@@ -90,23 +90,23 @@
               <path d="M16 8 L19 8 L23 4 L20 4 Z"/>
             </svg>
           </span>
-          <span class="mode-card-name">20 SET 도전</span>
-          <span class="mode-card-desc">20개의 SET를 얼마나<br>빠르게 찾을 수 있나요?</span>
-          <span class="mode-card-tag">카운트업</span>
+          <span class="mode-card-name">20 SET ?꾩쟾</span>
+          <span class="mode-card-desc">20媛쒖쓽 SET瑜??쇰쭏??br>鍮좊Ⅴ寃?李얠쓣 ???덈굹??</span>
+          <span class="mode-card-tag">移댁슫?몄뾽</span>
         </button>
       </div>
-      <div class="mode-version">v2.01_20260806_0448_tutorial11step</div>
+      <div class="mode-version">v2.02_20260806_0459_tutorial_fix</div>
     </div>
   </div>
 
-  <!-- 튜토리얼 화면 -->
+  <!-- ?쒗넗由ъ뼹 ?붾㈃ -->
   <div id="tutorialScreen" class="tutorial-screen" hidden>
     <div class="tut-inner">
       <div class="tut-header">
         <div class="tut-progress-track"><div class="tut-progress-fill" id="tutProgressFill"></div></div>
         <div class="tut-header-row">
           <span class="tut-step-label" id="tutStepLabel">1 / 6</span>
-          <button class="tut-home-btn" id="tutHomeBtn">✕ 나가기</button>
+          <button class="tut-home-btn" id="tutHomeBtn">???섍?湲?/button>
         </div>
       </div>
       <h2 class="tut-title" id="tutTitle"></h2>
@@ -115,113 +115,113 @@
       <div class="tut-cards-wrapper">
         <div class="tut-card-area" id="tutCardArea"></div>
         <div class="tut-answer-log" id="tutAnswerLog" hidden>
-          <div class="tut-log-title">📋 판단 결과</div>
+          <div class="tut-log-title">?뱥 ?먮떒 寃곌낵</div>
         </div>
       </div>
       <div class="tut-feedback" id="tutFeedback"></div>
       <div class="tut-actions">
-        <button class="tut-btn-hint" id="tutHintBtn" hidden>💡 힌트</button>
-        <button class="tut-btn-next" id="tutNextBtn">다음 →</button>
+        <button class="tut-btn-hint" id="tutHintBtn" hidden>?뮕 ?뚰듃</button>
+        <button class="tut-btn-next" id="tutNextBtn">?ㅼ쓬 ??/button>
       </div>
     </div>
   </div>
 
-  <!-- 배경 파티클 -->
+  <!-- 諛곌꼍 ?뚰떚??-->
   <div class="bg-particles" id="bgParticles"></div>
 
-  <!-- 헤더 -->
+  <!-- ?ㅻ뜑 -->
   <header class="game-header">
     <div class="header-inner">
       <div class="header-left">
-        <button class="btn-theme" id="btnTheme" title="테마 전환">
-          <span id="themeIcon">🌙</span>
-          <span id="themeLabel">다크 모드</span>
+        <button class="btn-theme" id="btnTheme" title="?뚮쭏 ?꾪솚">
+          <span id="themeIcon">?뙔</span>
+          <span id="themeLabel">?ㅽ겕 紐⑤뱶</span>
         </button>
-        <button class="btn-settings" id="btnSettings" title="단축키 설정">⚙ 설정</button>
+        <button class="btn-settings" id="btnSettings" title="?⑥텞???ㅼ젙">???ㅼ젙</button>
       </div>
       <div class="header-center">
         <div class="stat-card" id="statTimer">
-          <span class="stat-label" id="statTimerLabel">남은 시간</span>
+          <span class="stat-label" id="statTimerLabel">?⑥? ?쒓컙</span>
           <span class="stat-value" id="timerDisplay">120</span>
-          <span class="stat-unit" id="statTimerUnit">초</span>
+          <span class="stat-unit" id="statTimerUnit">珥?/span>
         </div>
       </div>
       <div class="header-right">
         <div class="stat-card" id="statScore">
-          <span class="stat-label">찾은 SET</span>
+          <span class="stat-label">李얠? SET</span>
           <span class="stat-value" id="scoreDisplay">0</span>
-          <span class="stat-unit">개</span>
+          <span class="stat-unit">媛?/span>
         </div>
       </div>
     </div>
   </header>
 
-  <!-- 메인 게임 영역 -->
+  <!-- 硫붿씤 寃뚯엫 ?곸뿭 -->
   <main class="game-main">
     <div class="hint-text" id="hintText"></div>
     <div class="card-grid" id="cardGrid"></div>
   </main>
 
-  <!-- 선택 안내 바 -->
+  <!-- ?좏깮 ?덈궡 諛?-->
   <div class="selection-bar" id="selectionBar">
-    <span id="selectionText">카드를 3장 선택하세요</span>
+    <span id="selectionText">移대뱶瑜?3???좏깮?섏꽭??/span>
   </div>
 
-  <!-- 하단 플로팅 액션 -->
+  <!-- ?섎떒 ?뚮줈???≪뀡 -->
   <div class="floating-menu" id="floatingMenu">
-    <button class="btn-floating" id="btnFloatRestart" title="현재 모드 다시 시작">
+    <button class="btn-floating" id="btnFloatRestart" title="?꾩옱 紐⑤뱶 ?ㅼ떆 ?쒖옉">
       <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
     </button>
-    <button class="btn-floating" id="btnFloatHome" title="대문으로 (모드 선택)">
+    <button class="btn-floating" id="btnFloatHome" title="?臾몄쑝濡?(紐⑤뱶 ?좏깮)">
       <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
     </button>
   </div>
 
-  <!-- 게임 오버 오버레이 -->
+  <!-- 寃뚯엫 ?ㅻ쾭 ?ㅻ쾭?덉씠 -->
   <div class="overlay" id="gameOverlay" hidden>
     <div class="overlay-box">
-      <div class="overlay-emoji" id="overlayEmoji">🎉</div>
-      <h2 class="overlay-title" id="overlayTitle">시간 종료!</h2>
+      <div class="overlay-emoji" id="overlayEmoji">?럦</div>
+      <h2 class="overlay-title" id="overlayTitle">?쒓컙 醫낅즺!</h2>
       <p class="overlay-desc" id="overlayDesc"></p>
-      <button class="btn-restart" id="btnRestart">다시 시작</button>
+      <button class="btn-restart" id="btnRestart">?ㅼ떆 ?쒖옉</button>
     </div>
   </div>
 
-  <!-- 단축키 설정 모달 -->
+  <!-- ?⑥텞???ㅼ젙 紐⑤떖 -->
   <div class="settings-overlay" id="settingsOverlay" hidden>
     <div class="settings-box">
       <div class="settings-header">
-        <h2 class="settings-title">⌨️ 설정</h2>
-        <button class="settings-close" id="btnSettingsClose">✕</button>
+        <h2 class="settings-title">?⑨툘 ?ㅼ젙</h2>
+        <button class="settings-close" id="btnSettingsClose">??/button>
       </div>
       
-      <!-- 회전 설정 -->
+      <!-- ?뚯쟾 ?ㅼ젙 -->
       <div class="settings-section">
         <label class="settings-box-toggle">
           <input type="checkbox" id="chkRotate" />
-          <span class="box-toggle-content">카드 이미지 90° 회전</span>
+          <span class="box-toggle-content">移대뱶 ?대?吏 90째 ?뚯쟾</span>
         </label>
       </div>
 
-      <!-- 81장 정식 모드 배열 설정 -->
+      <!-- 81???뺤떇 紐⑤뱶 諛곗뿴 ?ㅼ젙 -->
       <div class="settings-section" id="layoutSettingContainer">
         <label class="settings-box-toggle">
           <input type="checkbox" id="chkLayout" />
-          <span class="box-toggle-content">3행 4열로 보기 (기본 4행 3열)</span>
+          <span class="box-toggle-content">3??4?대줈 蹂닿린 (湲곕낯 4??3??</span>
         </label>
       </div>
 
-      <!-- 단축키 설정 -->
+      <!-- ?⑥텞???ㅼ젙 -->
       <div class="settings-section">
-        <span class="settings-section-label">단축키</span>
-        <p class="settings-desc">각 카드 위치를 클릭한 뒤 원하는 키를 누르세요.</p>
+        <span class="settings-section-label">?⑥텞??/span>
+        <p class="settings-desc">媛?移대뱶 ?꾩튂瑜??대┃?????먰븯???ㅻ? ?꾨Ⅴ?몄슂.</p>
       </div>
       <div class="settings-grid" id="settingsGrid"></div>
       
-      <!-- 프리셋 -->
+      <!-- ?꾨━??-->
       <div class="settings-actions">
-        <button class="btn-preset" id="btnPreset1">프리셋 1 (123~)</button>
-        <button class="btn-preset" id="btnPreset2">프리셋 2 (QWE~)</button>
+        <button class="btn-preset" id="btnPreset1">?꾨━??1 (123~)</button>
+        <button class="btn-preset" id="btnPreset2">?꾨━??2 (QWE~)</button>
       </div>
     </div>
   </div>
