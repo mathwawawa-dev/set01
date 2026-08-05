@@ -1114,21 +1114,21 @@ const JUNIOR_TUT_STEPS = [
     questions: [
       {
         q: '<strong>모양</strong>을 비교합시다!',
-        attrLabel: '모양이',
+        attrLabel: '모양이', logLabel: '모양',
         type: 'attr', correctAnswer: 'different',
         praise: '🎉 굿굿!<br><br>타원 · 마름모 · 물결<br>— 세 모양이 <strong>모두 달라요</strong>! ✔️',
         wrong: '타원 · 마름모 · 물결<br>— 세 개가 서로 달라요! 😊',
       },
       {
         q: '<strong>색깔</strong>을 비교합시다!',
-        attrLabel: '색깔이',
+        attrLabel: '색깔이', logLabel: '색깔',
         type: 'attr', correctAnswer: 'different',
         praise: '🎉 굿굿!<br><br>초록 · 보라 · 빨강<br>— 세 색깔이 <strong>모두 달라요</strong>! ✔️',
         wrong: '초록 · 보라 · 빨강<br>— 세 개가 다 다른 색깔이에요! 😊',
       },
       {
         q: '<strong>채움</strong>을 비교합시다!',
-        attrLabel: '채움이',
+        attrLabel: '채움이', logLabel: '채움',
         type: 'attr', correctAnswer: 'different',
         praise: '🎉 굿굿!<br><br>빈 것 · 줄무늬 · 가득 참<br>— 채움도 <strong>모두 달라요</strong>! ✔️',
         wrong: '빈 것 · 줄무늬 · 가득 참<br>— 세 개가 다 다른 채움이에요! 😊',
@@ -1148,21 +1148,21 @@ const JUNIOR_TUT_STEPS = [
     questions: [
       {
         q: '<strong>모양</strong>을 비교합시다!',
-        attrLabel: '모양이',
+        attrLabel: '모양이', logLabel: '모양',
         type: 'attr', correctAnswer: 'same',
         praise: '🎉 굿굿!<br><br>타원 · 타원 · 타원<br>— 세 장 모두 타원! <strong>다 같아요</strong>! ✔️',
         wrong: '세 장 모두 타원 모양이에요!<br>— 다 같지 않나요? 😊',
       },
       {
         q: '<strong>색깔</strong>을 비교합시다!',
-        attrLabel: '색깔이',
+        attrLabel: '색깔이', logLabel: '색깔',
         type: 'attr', correctAnswer: 'same',
         praise: '🎉 굿굿!<br><br>초록 · 초록 · 초록<br>— 세 장 모두 초록! <strong>다 같아요</strong>! ✔️',
         wrong: '세 장 모두 초록색이에요!<br>— 다 같지 않나요? 😊',
       },
       {
         q: '<strong>채움</strong>을 비교합시다!',
-        attrLabel: '채움이',
+        attrLabel: '채움이', logLabel: '채움',
         type: 'attr', correctAnswer: 'different',
         praise: '🎉 굿굿!<br><br>빈 것 · 줄무늬 · 가득 참<br>— 채움만 <strong>다 달라요</strong>! ✔️',
         wrong: '빈 것 · 줄무늬 · 가득 참<br>— 세 개가 다 다른 채움이에요! 😊',
@@ -1171,7 +1171,7 @@ const JUNIOR_TUT_STEPS = [
         q: '모양, 색깔, 채움을 모두 정리해봐요!<br>세 장이 <strong>SET</strong>일까요?',
         type: 'set', correctAnswer: 'yes',
         praise: '🎉 굿굿!<br><br>모양·색깔은 다 같고, 채움만 다 달라요!<br>이게 바로 <strong>SET</strong>예요! 🌟',
-        wrong: '💡 다시 생각해봐요!<br>모양·색깔은 다 같고, 채움만 다 달라요.<br>각 특징이 규칙에 맞으면 SET가 돼요! 🎉',
+        wrong: '💡 다시 생각해봐요!<br>모양·색깔·채움이 모두<br>각 특징이 규칙에 맞으면 SET가 돼요! 🎉',
       },
     ],
   },

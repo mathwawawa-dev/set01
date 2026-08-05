@@ -995,7 +995,7 @@ html, body {
 .tut-context-bubble[hidden] { display: none; }
 
 .tut-cards-wrapper {
-  display: flex; gap: 14px; align-items: flex-start;
+  display: flex; gap: 14px; align-items: stretch;
   width: 100%; justify-content: center;
 }
 .tut-card-area {
@@ -1009,7 +1009,8 @@ html, body {
 .tut-answer-log {
   flex: 0 0 auto; min-width: 120px;
   background: #fffde7; border: 2px solid #f9c74f;
-  border-radius: 14px; padding: 6px 10px; min-height: 108px;
+  border-radius: 14px; padding: 8px 10px;
+  box-sizing: border-box;
   display: flex; flex-direction: column; gap: 4px;
 }
 .tut-answer-log[hidden] { display: none; }
