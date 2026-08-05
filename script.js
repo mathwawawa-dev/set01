@@ -1103,113 +1103,113 @@ const TUT_CARDPICK_CHOICES_RAW = [
 
 const JUNIOR_TUT_STEPS = [
   {
-    id: 'intro', title: 'SET란 무엇인가요?',
-    text: '카드 세 장을 골라 <strong>SET</strong>를 완성하는 게임이에요!<br>각 속성(모양·색·채움)이 <em>모두 같거나</em> <em>모두 달라야</em> SET가 돼요.<br>지금부터 세 장을 보며 직접 판단해요!',
+    id: 'intro', title: 'SET 게임이 뭐예요?',
+    text: 'SET는 카드 세 장을 골라서 만드는 게임이에요! 🌟<br><br>카드마다 <strong>세 가지 특징</strong>이 있어요.<br>🔷 <strong>모양</strong> (타원 · 마름모 · 물결)<br>🎨 <strong>색깔</strong> (초록 · 보라 · 빨강)<br>✏️ <strong>채움</strong> (빈 것 · 줄무늬 · 가득참)<br><br>세 장 각각의 특징이<br><em>모두 같거나</em> <em>모두 달라야</em> SET예요!',
     cards: null, interactive: false,
   },
   {
     id: 'seq_a', type: 'sequence',
-    title: '직접 판단해보세요 — 예시 ①',
+    title: '세 카드를 살펴봐요! — 예시 ①',
     cards: TUT_CARDS_INTRO,
     questions: [
       {
-        q: '이 세 장의 <strong>모양</strong>은 어떤가요?',
+        q: '🔷 <strong>모양</strong>을 봐요!<br>세 장의 모양이 다 같아요?<br>아니면 다 달라요?',
         type: 'attr', correctAnswer: 'different',
-        praise: '👏 맞아요! 타원 · 마름모 · 물결 — <strong>모두 달라요</strong>.',
-        wrong: '다시 보세요.<br>세 카드의 형태: 타원 · 마름모 · 물결<br>— 세 종류 모두 달라요.',
+        praise: '🎉 이야! 잘 봤어요!<br>타원 · 마름모 · 물결<br>— 세 모양이 <strong>모두 달라요</strong>! ✔️',
+        wrong: '👀 다시 봐요!<br>타원 · 마름모 · 물결<br>— 세 개가 서로 달라요! 😊',
       },
       {
-        q: '이 세 장의 <strong>색</strong>은 어떤가요?',
+        q: '🎨 <strong>색깔</strong>을 봐요!<br>세 장의 색깔이 다 같아요?<br>아니면 다 달라요?',
         type: 'attr', correctAnswer: 'different',
-        praise: '👏 맞아요! 초록 · 보라 · 빨강 — <strong>모두 달라요</strong>.',
-        wrong: '다시 보세요.<br>세 카드의 색: 초록 · 보라 · 빨강<br>— 세 가지 모두 다른 색이에요.',
+        praise: '🎉 이야! 잘 봤어요!<br>초록 · 보라 · 빨강<br>— 세 색깔이 <strong>모두 달라요</strong>! ✔️',
+        wrong: '👀 다시 봐요!<br>초록 · 보라 · 빨강<br>— 세 개가 다 다른 색깔이에요! 😊',
       },
       {
-        q: '이 세 장의 <strong>채움</strong>은 어떤가요?',
+        q: '✏️ <strong>채움</strong>을 봐요!<br>(빈 것 / 줄무늬 / 가득 찬 것)<br>다 같아요? 다 달라요?',
         type: 'attr', correctAnswer: 'different',
-        praise: '👏 맞아요! 비어있음 · 줄무늬 · 가득참 — <strong>모두 달라요</strong>.',
-        wrong: '다시 보세요.<br>채움: 비어있음 · 줄무늬 · 가득참<br>— 세 종류 모두 다른 방식이에요.',
+        praise: '🎉 이야! 잘 봤어요!<br>빈 것 · 줄무늬 · 가득 참<br>— 채움도 <strong>모두 달라요</strong>! ✔️',
+        wrong: '👀 다시 봐요!<br>빈 것 · 줄무늬 · 가득 참<br>— 세 개가 다 다른 채움이에요! 😊',
       },
       {
-        q: '모양 · 색 · 채움 모두 확인했어요!<br>그렇다면 이 세 장은 <strong>SET</strong>일까요?',
+        q: '🤔 자, 이제 정리해봐요!<br>모양 ✔️ 다 달라요<br>색깔 ✔️ 다 달라요<br>채움 ✔️ 다 달라요<br>세 장이 <strong>SET</strong>일까요?',
         type: 'set', correctAnswer: 'yes',
-        praise: '🎉 정확해요! 세 속성이 모두 규칙에 맞아요 — <strong>SET</strong>예요!',
-        wrong: '다시 생각해보세요!<br>세 속성이 모두 "모두 달라요"였잖아요?<br>모두 다를 때도 SET가 돼요!',
+        praise: '🎉 대단해요! 완벽해요!<br>세 가지 특징이 모두 규칙에 맞아요!<br>이게 바로 <strong>SET</strong>예요! 🌟',
+        wrong: '💡 다시 생각해봐요!<br>모양·색깔·채움이 모두<br>"다 달라요" 규칙에 맞았어요!<br>→ 이럴 때도 SET가 돼요! 🎉',
       },
     ],
   },
   {
     id: 'seq_b', type: 'sequence',
-    title: '직접 판단해보세요 — 예시 ②',
+    title: '세 카드를 살펴봐요! — 예시 ②',
     cards: TUT_CARDS_FILL,
     questions: [
       {
-        q: '이 세 장의 <strong>모양</strong>은 어떤가요?',
+        q: '🔷 <strong>모양</strong>을 봐요!<br>세 장의 모양이 다 같아요?<br>아니면 다 달라요?',
         type: 'attr', correctAnswer: 'same',
-        praise: '👏 맞아요! 세 장 모두 타원 — <strong>모두 같아요</strong>.',
-        wrong: '다시 보세요.<br>세 카드의 형태: 타원 · 타원 · 타원<br>— 모두 타원으로 같아요.',
+        praise: '🎉 이야! 잘 봤어요!<br>타원 · 타원 · 타원<br>— 세 장 모두 타원! <strong>다 같아요</strong>! ✔️',
+        wrong: '👀 다시 봐요!<br>세 장 모두 타원 모양이에요!<br>— 다 같지 않나요? 😊',
       },
       {
-        q: '이 세 장의 <strong>색</strong>은 어떤가요?',
+        q: '🎨 <strong>색깔</strong>을 봐요!<br>세 장의 색깔이 다 같아요?<br>아니면 다 달라요?',
         type: 'attr', correctAnswer: 'same',
-        praise: '👏 맞아요! 세 장 모두 초록 — <strong>모두 같아요</strong>.',
-        wrong: '다시 보세요.<br>세 카드의 색: 초록 · 초록 · 초록<br>— 모두 초록으로 같아요.',
+        praise: '🎉 이야! 잘 봤어요!<br>초록 · 초록 · 초록<br>— 세 장 모두 초록! <strong>다 같아요</strong>! ✔️',
+        wrong: '👀 다시 봐요!<br>세 장 모두 초록색이에요!<br>— 다 같지 않나요? 😊',
       },
       {
-        q: '이 세 장의 <strong>채움</strong>은 어떤가요?',
+        q: '✏️ <strong>채움</strong>을 봐요!<br>(빈 것 / 줄무늬 / 가득 찬 것)<br>다 같아요? 다 달라요?',
         type: 'attr', correctAnswer: 'different',
-        praise: '👏 맞아요! 비어있음 · 줄무늬 · 가득참 — <strong>모두 달라요</strong>.',
-        wrong: '다시 보세요.<br>채움: 비어있음 · 줄무늬 · 가득참<br>— 세 종류 모두 다른 방식이에요.',
+        praise: '🎉 이야! 잘 봤어요!<br>빈 것 · 줄무늬 · 가득 참<br>— 채움만 <strong>다 달라요</strong>! ✔️',
+        wrong: '👀 다시 봐요!<br>빈 것 · 줄무늬 · 가득 참<br>— 세 개가 다 다른 채움이에요! 😊',
       },
       {
-        q: '모양(같음) · 색(같음) · 채움(다름) 확인했어요!<br>그렇다면 이 세 장은 <strong>SET</strong>일까요?',
+        q: '🤔 자, 정리해봐요!<br>모양 ✔️ 다 같아요<br>색깔 ✔️ 다 같아요<br>채움 ✔️ 다 달라요<br>세 장이 <strong>SET</strong>일까요?',
         type: 'set', correctAnswer: 'yes',
-        praise: '🎉 정확해요! 모양·색은 모두 같고, 채움은 모두 달라 — 규칙에 맞아요. <strong>SET</strong>예요!',
-        wrong: '다시 생각해보세요!<br>모양·색은 모두 같고, 채움은 모두 달라요.<br>각 속성이 규칙을 만족하면 SET가 돼요!',
+        praise: '🎉 대단해요! 완벽해요!<br>모양·색깔은 다 같고, 채움만 다 달라요!<br>이게 바로 <strong>SET</strong>예요! 🌟',
+        wrong: '💡 다시 생각해봐요!<br>모양·색깔은 다 같고, 채움만 다 달라요.<br>각 특징이 규칙에 맞으면 SET가 돼요! 🎉',
       },
     ],
   },
   {
     id: 'seq_c', type: 'sequence',
-    title: '직접 판단해보세요 — 예시 ③ (SET 아닌 경우)',
+    title: '이건 왜 SET가 아닐까요? — 예시 ③',
     cards: TUT_SEQ_C_CARDS,
     questions: [
       {
-        q: '이 세 장의 <strong>모양</strong>은 어떤가요?',
+        q: '🔷 <strong>모양</strong>을 봐요!<br>세 장의 모양이 다 같아요?<br>다 달라요? 아니면 둘 다 아니에요?',
         type: 'attr3', correctAnswer: 'neither', logLabel: '모양',
-        praise: '👏 맞아요! 타원 · 타원 · 물결 — 2개만 같아요. 이건 <strong>규칙 위반</strong>이에요!',
-        wrong_same: '다시 보세요.<br>타원·타원·물결<br>— 모두 같지는 않아요.',
-        wrong_diff: '다시 보세요.<br>타원·타원·물결<br>— 모두 다르지도 않아요.<br>타원이 두 개예요.',
+        praise: '🎉 맞아요! 잘 봤어요!<br>타원 · 타원 · 물결<br>— 타원이 두 개, 물결이 한 개예요.<br>⚠️ <strong>2개만 같아요</strong> — 이건 규칙 위반이에요!',
+        wrong_same: '👀 다시 봐요!<br>타원 · 타원 · 물결<br>— 마지막이 물결이에요!<br>모두 같지는 않아요. 😊',
+        wrong_diff: '👀 다시 봐요!<br>타원 · 타원 · 물결<br>— 타원이 두 개나 있어요!<br>모두 다른 것도 아니에요. 😊',
       },
       {
-        q: '이 세 장의 <strong>색</strong>은 어떤가요?',
-        type: 'attr', correctAnswer: 'different', logLabel: '색',
-        praise: '👏 맞아요! 초록 · 보라 · 빨강 — <strong>모두 달라요</strong>.',
-        wrong: '다시 보세요.<br>초록 · 보라 · 빨강<br>— 세 가지 모두 다른 색이에요.',
+        q: '🎨 <strong>색깔</strong>을 봐요!<br>세 장의 색깔이 다 같아요?<br>아니면 다 달라요?',
+        type: 'attr', correctAnswer: 'different', logLabel: '색깔',
+        praise: '🎉 맞아요! 잘 봤어요!<br>초록 · 보라 · 빨강<br>— 색깔은 <strong>다 달라요</strong>! ✔️',
+        wrong: '👀 다시 봐요!<br>초록 · 보라 · 빨강<br>— 세 가지 다 다른 색깔이에요! 😊',
       },
       {
-        q: '이 세 장의 <strong>채움</strong>은 어떤가요?',
+        q: '✏️ <strong>채움</strong>을 봐요!<br>(빈 것 / 줄무늬 / 가득 찬 것)<br>다 같아요? 다 달라요?',
         type: 'attr', correctAnswer: 'different', logLabel: '채움',
-        praise: '👏 맞아요! 비어있음 · 줄무늬 · 가득참 — <strong>모두 달라요</strong>.',
-        wrong: '다시 보세요.<br>채움: 비어있음 · 줄무늬 · 가득참<br>— 모두 다른 방식이에요.',
+        praise: '🎉 맞아요! 잘 봤어요!<br>빈 것 · 줄무늬 · 가득 참<br>— 채움도 <strong>다 달라요</strong>! ✔️',
+        wrong: '👀 다시 봐요!<br>빈 것 · 줄무늬 · 가득 참<br>— 세 개가 다 다른 채움이에요! 😊',
       },
       {
-        q: '모양에서 <strong>규칙 위반</strong>이 있었어요!<br>그렇다면 이 세 장은 <strong>SET</strong>일까요?',
+        q: '🤔 이제 정리해봐요!<br>모양 ❌ 타원이 두 개 — 규칙 위반!<br>색깔 ✔️ 다 달라요<br>채움 ✔️ 다 달라요<br>그럼 이 세 장이 <strong>SET</strong>일까요?',
         type: 'set', correctAnswer: 'no', logLabel: null,
-        praise: '🎯 정확해요! 모양이 규칙을 위반했으니 <strong>SET가 아니에요</strong>.',
-        wrong: '다시 생각해보세요!<br>모양에서 2개만 같은 규칙 위반이 있었어요.<br>하나라도 위반하면 SET가 안 돼요.',
+        praise: '🍯 맞아요! 정답은 "아니에요"!<br>모양에서 규칙을 어겼으니까<br>이 세 장은 <strong>SET가 아니에요</strong>! 🙌',
+        wrong: '💡 다시 생각해봐요!<br>모양에서 실패했어요 (타원이 두 개).<br>한 가지라도 규칙을 어기면<br>SET가 안 돼요!',
       },
     ],
   },
   {
     id: 'cardpick', type: 'cardpick',
-    title: 'SET를 완성할 카드는?',
-    text: '아래 두 장으로 SET를 만들려면 나머지 한 장은 어떤 카드일까요?',
+    title: '빠진 카드를 찾아봐요! 🔍',
+    text: '아래 두 장으로 SET를 만들려면<br>나머지 한 장은 어떤 카드일까요?<br>A, B, C, D 중에서 골라봐요!',
     givenCards: TUT_CARDPICK_GIVEN,
   },
   {
-    id: 'challenge1', title: '직접 찾아보세요!',
-    text: '6장 중에서 <strong>SET가 되는 세 장</strong>을 골라보세요!<br>힌트 버튼을 눌러 도움을 받을 수 있어요.',
+    id: 'challenge1', title: '직접 찾아봐요! 💪',
+    text: '6장 중에서 <strong>SET가 되는 세 장</strong>을 골라봐요!<br>힌트 버튼을 눌러 도움을 받을 수 있어요.',
     cards: null, interactive: true, hasHint: true,
   },
   {
@@ -1245,7 +1245,7 @@ const tutHintBtn      = document.getElementById('tutHintBtn');
 const tutContextBubble = document.getElementById('tutContextBubble');
 const tutAnswerLog     = document.getElementById('tutAnswerLog');
 
-const TUT_INTRO_TEXT = '카드 세 장을 골라 <strong>SET</strong>를 완성하는 게임이에요!<br>각 속성(모양·색·채움)이 <em>모두 같거나</em> <em>모두 달라야</em> SET가 돼요.';
+const TUT_INTRO_TEXT = '🔍 세 가지를 하나씩 확인해요!<br>🔷 모양 · 🎨 색깔 · ✏️ 채움<br><em>모두 같거나</em> <em>모두 달라야</em> SET예요!';
 
 function startTutorial() {
   tutStepIdx = 0;
