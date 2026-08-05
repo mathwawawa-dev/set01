@@ -1113,25 +1113,28 @@ const JUNIOR_TUT_STEPS = [
     cards: TUT_CARDS_INTRO,
     questions: [
       {
-        q: '<strong>모양</strong>을 비교합시다!<br><br>세 장의 모양이 다 같아요?<br>아니면 다 달라요?',
+        q: '<strong>모양</strong>을 비교합시다!',
+        attrLabel: '모양이',
         type: 'attr', correctAnswer: 'different',
         praise: '🎉 굿굿!<br><br>타원 · 마름모 · 물결<br>— 세 모양이 <strong>모두 달라요</strong>! ✔️',
         wrong: '타원 · 마름모 · 물결<br>— 세 개가 서로 달라요! 😊',
       },
       {
-        q: '<strong>색깔</strong>을 비교합시다!<br><br>세 장의 색깔이 다 같아요?<br>아니면 다 달라요?',
+        q: '<strong>색깔</strong>을 비교합시다!',
+        attrLabel: '색깔이',
         type: 'attr', correctAnswer: 'different',
         praise: '🎉 굿굿!<br><br>초록 · 보라 · 빨강<br>— 세 색깔이 <strong>모두 달라요</strong>! ✔️',
         wrong: '초록 · 보라 · 빨강<br>— 세 개가 다 다른 색깔이에요! 😊',
       },
       {
-        q: '<strong>채움</strong>을 비교합시다!<br><br>(빈 것 / 줄무늬 / 가득 찬 것)<br>다 같아요? 다 달라요?',
+        q: '<strong>채움</strong>을 비교합시다!',
+        attrLabel: '채움이',
         type: 'attr', correctAnswer: 'different',
         praise: '🎉 굿굿!<br><br>빈 것 · 줄무늬 · 가득 참<br>— 채움도 <strong>모두 달라요</strong>! ✔️',
         wrong: '빈 것 · 줄무늬 · 가득 참<br>— 세 개가 다 다른 채움이에요! 😊',
       },
       {
-        q: '🤔 자, 이제 정리해봐요!<br>모양 ✔️ 다 달라요<br>색깔 ✔️ 다 달라요<br>채움 ✔️ 다 달라요<br>세 장이 <strong>SET</strong>일까요?',
+        q: '모양, 색깔, 채움을 모두 정리해봐요!<br>세 장이 <strong>SET</strong>일까요?',
         type: 'set', correctAnswer: 'yes',
         praise: '🎉 굿굿!<br><br>세 가지 특징이 모두 규칙에 맞아요!<br>이게 바로 <strong>SET</strong>예요! 🌟',
         wrong: '💡 다시 생각해봐요!<br>모양·색깔·채움이 모두<br>"다 달라요" 규칙에 맞았어요!<br>→ 이럴 때도 SET가 돼요! 🎉',
@@ -1144,25 +1147,28 @@ const JUNIOR_TUT_STEPS = [
     cards: TUT_CARDS_FILL,
     questions: [
       {
-        q: '<strong>모양</strong>을 비교합시다!<br><br>세 장의 모양이 다 같아요?<br>아니면 다 달라요?',
+        q: '<strong>모양</strong>을 비교합시다!',
+        attrLabel: '모양이',
         type: 'attr', correctAnswer: 'same',
         praise: '🎉 굿굿!<br><br>타원 · 타원 · 타원<br>— 세 장 모두 타원! <strong>다 같아요</strong>! ✔️',
         wrong: '세 장 모두 타원 모양이에요!<br>— 다 같지 않나요? 😊',
       },
       {
-        q: '<strong>색깔</strong>을 비교합시다!<br><br>세 장의 색깔이 다 같아요?<br>아니면 다 달라요?',
+        q: '<strong>색깔</strong>을 비교합시다!',
+        attrLabel: '색깔이',
         type: 'attr', correctAnswer: 'same',
         praise: '🎉 굿굿!<br><br>초록 · 초록 · 초록<br>— 세 장 모두 초록! <strong>다 같아요</strong>! ✔️',
         wrong: '세 장 모두 초록색이에요!<br>— 다 같지 않나요? 😊',
       },
       {
-        q: '<strong>채움</strong>을 비교합시다!<br><br>(빈 것 / 줄무늬 / 가득 찬 것)<br>다 같아요? 다 달라요?',
+        q: '<strong>채움</strong>을 비교합시다!',
+        attrLabel: '채움이',
         type: 'attr', correctAnswer: 'different',
         praise: '🎉 굿굿!<br><br>빈 것 · 줄무늬 · 가득 참<br>— 채움만 <strong>다 달라요</strong>! ✔️',
         wrong: '빈 것 · 줄무늬 · 가득 참<br>— 세 개가 다 다른 채움이에요! 😊',
       },
       {
-        q: '🤔 자, 정리해봐요!<br>모양 ✔️ 다 같아요<br>색깔 ✔️ 다 같아요<br>채움 ✔️ 다 달라요<br>세 장이 <strong>SET</strong>일까요?',
+        q: '모양, 색깔, 채움을 모두 정리해봐요!<br>세 장이 <strong>SET</strong>일까요?',
         type: 'set', correctAnswer: 'yes',
         praise: '🎉 굿굿!<br><br>모양·색깔은 다 같고, 채움만 다 달라요!<br>이게 바로 <strong>SET</strong>예요! 🌟',
         wrong: '💡 다시 생각해봐요!<br>모양·색깔은 다 같고, 채움만 다 달라요.<br>각 특징이 규칙에 맞으면 SET가 돼요! 🎉',
@@ -1175,26 +1181,29 @@ const JUNIOR_TUT_STEPS = [
     cards: TUT_SEQ_C_CARDS,
     questions: [
       {
-        q: '<strong>모양</strong>을 비교합시다!<br><br>세 장의 모양이 다 같아요?<br>다 달라요? 아니면 둘 다 아니에요?',
+        q: '<strong>모양</strong>을 비교합시다!',
+        attrLabel: '모양이',
         type: 'attr3', correctAnswer: 'neither', logLabel: '모양',
         praise: '🎉 굿굿!<br><br>타원 · 타원 · 물결<br>— 타원이 두 개, 물결이 한 개예요.<br>⚠️ <strong>2개만 같아요</strong> — 이건 규칙 위반이에요!',
         wrong_same: '타원 · 타원 · 물결<br>— 마지막이 물결이에요!<br>모두 같지는 않아요. 😊',
         wrong_diff: '타원 · 타원 · 물결<br>— 타원이 두 개나 있어요!<br>모두 다른 것도 아니에요. 😊',
       },
       {
-        q: '<strong>색깔</strong>을 비교합시다!<br><br>세 장의 색깔이 다 같아요?<br>아니면 다 달라요?',
+        q: '<strong>색깔</strong>을 비교합시다!',
+        attrLabel: '색깔이',
         type: 'attr', correctAnswer: 'different', logLabel: '색깔',
         praise: '🎉 굿굿!<br><br>초록 · 보라 · 빨강<br>— 색깔은 <strong>다 달라요</strong>! ✔️',
         wrong: '초록 · 보라 · 빨강<br>— 세 가지 다 다른 색깔이에요! 😊',
       },
       {
-        q: '<strong>채움</strong>을 비교합시다!<br><br>(빈 것 / 줄무늬 / 가득 찬 것)<br>다 같아요? 다 달라요?',
+        q: '<strong>채움</strong>을 비교합시다!',
+        attrLabel: '채움이',
         type: 'attr', correctAnswer: 'different', logLabel: '채움',
         praise: '🎉 굿굿!<br><br>빈 것 · 줄무늬 · 가득 참<br>— 채움도 <strong>다 달라요</strong>! ✔️',
         wrong: '빈 것 · 줄무늬 · 가득 참<br>— 세 개가 다 다른 채움이에요! 😊',
       },
       {
-        q: '🤔 이제 정리해봐요!<br>모양 ❌ 타원이 두 개 — 규칙 위반!<br>색깔 ✔️ 다 달라요<br>채움 ✔️ 다 달라요<br>그럼 이 세 장이 <strong>SET</strong>일까요?',
+        q: '모양, 색깔, 채움을 모두 정리해봐요!<br>그럼 이 세 장이 <strong>SET</strong>일까요?',
         type: 'set', correctAnswer: 'no', logLabel: null,
         praise: '🎉 굿굿!<br><br>모양에서 규칙을 어겼으니까<br>이 세 장은 <strong>SET가 아니에요</strong>! 🙌',
         wrong: '💡 다시 생각해봐요!<br>모양에서 실패했어요 (타원이 두 개).<br>한 가지라도 규칙을 어기면<br>SET가 안 돼요!',
@@ -1425,11 +1434,13 @@ function renderTutSubQ() {
     document.getElementById('tutSeqYes').addEventListener('click', () => onTutSeqAnswer('yes'));
     document.getElementById('tutSeqNo' ).addEventListener('click', () => onTutSeqAnswer('no'));
   } else {
+    const attrSubject = q.attrLabel || '';
+    const prefix = attrSubject ? `${attrSubject}<br>` : '';
     tutFeedbackEl.insertAdjacentHTML('beforebegin', `
       <div class="tut-quiz-btns tut-quiz-btns-3" id="tutQuizBtns">
-        <button class="tut-quiz-same"    id="tutSeqSame">모두 같아요</button>
-        <button class="tut-quiz-diff"    id="tutSeqDiff">모두 달라요</button>
-        <button class="tut-quiz-neither" id="tutSeqNeither">2개만 같아요</button>
+        <button class="tut-quiz-same"    id="tutSeqSame">${prefix}모두 같아요</button>
+        <button class="tut-quiz-diff"    id="tutSeqDiff">${prefix}모두 달라요</button>
+        <button class="tut-quiz-neither" id="tutSeqNeither">${prefix}2개만 같아요</button>
       </div>`);
     document.getElementById('tutSeqSame'   ).addEventListener('click', () => onTutSeqAnswer('same'));
     document.getElementById('tutSeqDiff'   ).addEventListener('click', () => onTutSeqAnswer('different'));
