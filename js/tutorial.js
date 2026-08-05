@@ -365,39 +365,40 @@ function renderIntroPhase() {
 
   if (tutIntroPhase >= 2) {
     html += `
-      <div class="stamp-anim" style="margin-top: 14px;">
+      <div class="${tutIntroPhase === 2 ? 'stamp-anim' : ''}" style="margin-top: 14px;">
         <div>카드마다 <strong>세 가지 특징</strong>이 있어요.</div>
       </div>`;
   }
 
   if (tutIntroPhase >= 3) {
     html += `
-      <div class="stamp-anim" style="margin-top: 6px;">
+      <div class="${tutIntroPhase === 3 ? 'stamp-anim' : ''}" style="margin-top: 6px;">
         <div><strong>모양</strong> (타원 · 마름모 · 물결)</div>
       </div>`;
   }
 
   if (tutIntroPhase >= 4) {
     html += `
-      <div class="stamp-anim" style="margin-top: 2px;">
+      <div class="${tutIntroPhase === 4 ? 'stamp-anim' : ''}" style="margin-top: 2px;">
         <div><strong>색깔</strong> (초록 · 보라 · 빨강)</div>
       </div>`;
   }
 
   if (tutIntroPhase >= 5) {
     html += `
-      <div class="stamp-anim" style="margin-top: 2px;">
+      <div class="${tutIntroPhase === 5 ? 'stamp-anim' : ''}" style="margin-top: 2px;">
         <div><strong>채움</strong> (빈 것 · 줄무늬 · 가득참)</div>
       </div>`;
   }
 
   if (tutIntroPhase >= 6) {
     html += `
-      <div class="stamp-anim" style="margin-top: 14px;">
+      <div class="${tutIntroPhase === 6 ? 'stamp-anim' : ''}" style="margin-top: 14px;">
         <div>세 장 각각의 특징이</div>
         <div><span class="txt-black">모두 </span><span class="txt-blue">같거나</span> <span class="txt-black">모두 </span><span class="txt-red">달라야</span> SET예요!</div>
       </div>`;
   }
+
 
   if (tutIntroPhase < 6) {
     html += `
