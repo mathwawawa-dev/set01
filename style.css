@@ -1012,7 +1012,7 @@ html, body {
   border-radius: 14px; padding: 8px 10px;
   box-sizing: border-box;
   font-family: 'Outfit', sans-serif; font-weight: 400;
-  display: flex; flex-direction: column; gap: 4px;
+  display: flex; flex-direction: column; justify-content: center; gap: 4px;
 }
 .tut-answer-log[hidden] { display: none; }
 .tut-log-title {
