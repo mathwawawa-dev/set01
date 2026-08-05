@@ -420,6 +420,7 @@ function findAllSets(cards) {
 // 카드 렌더링
 // ══════════════════════════════════════════════
 function renderTutCards(interactive) {
+  tutCardArea.style.cssText = ''; // 완료 화면 등에서 남은 인라인 스타일 초기화
   tutCardArea.innerHTML = '';
   tutCardArea.className = 'tut-card-area';
   if (!tutCards || tutCards.length === 0) return;
@@ -764,7 +765,8 @@ function showTutComplete() {
   // 버튼: 버블 밖 카드 영역에, 버블과 동일한 폭(100%)으로 배치
   const wrapper = tutCardArea.parentElement;
   if (wrapper) { wrapper.style.display = ''; wrapper.style.flex = ''; }
-  tutCardArea.style.cssText = 'width:100%; max-width:100%; display:flex; justify-content:center;';
+  tutCardArea.style.cssText = ''; // 인라인 스타일 초기화
+  tutCardArea.className = 'tut-card-area tut-card-area--complete';
   tutCardArea.innerHTML = `
     <button class="tut-home-bare-btn" id="tutGoHomeComplete">
       <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
