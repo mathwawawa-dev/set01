@@ -981,7 +981,7 @@ html, body {
   font-size: 0.95rem; line-height: 1.7; text-align: center;
   color: var(--text-primary); box-shadow: var(--shadow-card); width: 100%;
 }
-.tut-bubble strong { color: var(--accent-blue); }
+.tut-bubble strong { color: #111111; font-weight: 700; }
 .tut-bubble em { font-style: normal; color: var(--accent-pink); font-weight: 600; }
 
 .tut-context-bubble {
@@ -990,7 +990,7 @@ html, body {
   font-size: 0.82rem; line-height: 1.6; text-align: center;
   color: var(--text-muted); width: 100%; opacity: 0.85;
 }
-.tut-context-bubble strong { color: var(--accent-blue); }
+.tut-context-bubble strong { color: #111111; font-weight: 700; }
 .tut-context-bubble em { font-style: normal; color: var(--accent-pink); font-weight: 600; }
 .tut-context-bubble[hidden] { display: none; }
 
@@ -1141,7 +1141,7 @@ html, body {
 /* Q번호 배지 */
 .tut-sub-label {
   display: inline-block; padding: 2px 10px; border-radius: 20px;
-  background: rgba(58,111,216,0.15); color: var(--accent-blue);
+  background: rgba(0,0,0,0.06); color: #111111;
   font-size: 0.75rem; font-weight: 700; letter-spacing: 0.04em;
   margin-bottom: 12px;
 }
