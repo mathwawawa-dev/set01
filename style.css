@@ -1165,7 +1165,7 @@ html, body {
 .tut-quiz-same:disabled, .tut-quiz-diff:disabled, .tut-quiz-neither:disabled { opacity: 0.45; cursor: not-allowed; }
 
 /* 완료 화면 대문 버튼 */
-.tut-complete-home { display: flex; justify-content: center; width: 100%; margin: 0 auto; }
+.tut-complete-home { display: flex; justify-content: center; align-items: center; width: 100%; min-height: 180px; margin: 0 auto; }
 .tut-home-big-btn {
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
   padding: 24px 44px; min-width: 140px; border-radius: 24px;
