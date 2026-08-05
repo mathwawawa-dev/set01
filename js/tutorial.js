@@ -240,7 +240,7 @@ const JUNIOR_TUT_STEPS = [
   // ── STEP 11: final ──────────────────────────
   {
     id: 'final', title: '이제 실전이에요!',
-    text: '9장 중에서 <strong>SET를 찾아보세요.</strong><br>이번엔 힌트가 없어요!',
+    text: '9장 중에서 <strong>SET를 찾아보세요.</strong>',
     cards: null, interactive: true, hasHint: false, challengeN: 9,
   },
 ];
