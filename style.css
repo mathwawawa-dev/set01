@@ -1189,7 +1189,7 @@ html, body {
 .tut-quiz-btns { display: flex; gap: 20px; width: 100%; justify-content: center; }
 .tut-quiz-yes, .tut-quiz-no, .tut-quiz-same, .tut-quiz-diff, .tut-quiz-neither {
   flex: 1; min-height: 64px; padding: 14px 16px;
-  border-radius: 14px; border: 2px solid #111111;
+  border-radius: 14px; border: 1.5px solid #111111;
   color: #111111; background: transparent;
   font-size: 0.95rem; font-weight: 400;
   line-height: 1.35; text-align: center;
