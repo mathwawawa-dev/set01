@@ -1083,22 +1083,33 @@ const TUT_CARDS_QUIZ_NO = [
   { shape: 'squiggle', color: 'red',    fill: 'solid'   },
 ]; // 모양: 타원·타원·물결 (2개 같음) → NOT SET ✗
 
-// NOT-SET 예시: 모양 oval/oval/squiggle → 2개만 같아 규칙 위반
-const TUT_SEQ_C_CARDS = [
-  { shape: 'oval',     color: 'green',  fill: 'outline' },
-  { shape: 'oval',     color: 'purple', fill: 'striped' },
-  { shape: 'squiggle', color: 'red',    fill: 'solid'   },
+// 예시 2 (새로운 두 번째 예시): 모두 초록색이지만 모양 oval/oval/squiggle (2개만 같음 규칙 위반)
+const TUT_SEQ_B2_CARDS = [
+  { shape: 'oval',     color: 'green', fill: 'outline' },
+  { shape: 'oval',     color: 'green', fill: 'striped' },
+  { shape: 'squiggle', color: 'green', fill: 'solid'   },
 ];
-// 카드픽 퀴즈: 두 장 제시 후 나머지 한 장 고르기
-const TUT_CARDPICK_GIVEN = [
+const TUT_CARDPICK_GIVEN_B2 = [
+  { shape: 'oval',  color: 'green', fill: 'outline' },
+  { shape: 'oval',  color: 'green', fill: 'striped' },
+];
+const TUT_CARDPICK_CHOICES_RAW_B2 = [
+  { isCorrect: true,  card: { shape: 'oval',     color: 'green', fill: 'solid'   } }, // 정답
+  { isCorrect: false, card: { shape: 'squiggle', color: 'green', fill: 'solid'   } }, // 오답
+  { isCorrect: false, card: { shape: 'oval',     color: 'purple',fill: 'solid'   } }, // 오답
+  { isCorrect: false, card: { shape: 'oval',     color: 'green', fill: 'striped' } }, // 오답
+];
+
+// 예시 3 (세 번째 예시): 모두 다른 카드들 (기존 예시 1 카드)
+const TUT_CARDPICK_GIVEN_A = [
   { shape: 'oval',    color: 'green',  fill: 'outline' },
   { shape: 'diamond', color: 'purple', fill: 'striped' },
 ];
-const TUT_CARDPICK_CHOICES_RAW = [
-  { isCorrect: true,  card: { shape: 'squiggle', color: 'red',    fill: 'solid'   } }, // 정답
-  { isCorrect: false, card: { shape: 'oval',     color: 'red',    fill: 'solid'   } }, // 오답(모양위반)
-  { isCorrect: false, card: { shape: 'squiggle', color: 'green',  fill: 'solid'   } }, // 오답(색위반)
-  { isCorrect: false, card: { shape: 'squiggle', color: 'red',    fill: 'outline' } }, // 오답(채움위반)
+const TUT_CARDPICK_CHOICES_RAW_A = [
+  { isCorrect: true,  card: { shape: 'squiggle', color: 'red',    fill: 'solid'   } },
+  { isCorrect: false, card: { shape: 'oval',     color: 'red',    fill: 'solid'   } },
+  { isCorrect: false, card: { shape: 'squiggle', color: 'green',  fill: 'solid'   } },
+  { isCorrect: false, card: { shape: 'squiggle', color: 'red',    fill: 'outline' } },
 ];
 
 const JUNIOR_TUT_STEPS = [
@@ -1506,9 +1517,12 @@ function renderAnswerLog() {
 function renderCardPickStep() {
   tutCardArea.innerHTML = '';
   tutCardArea.className = 'tut-card-area tut-cardpick-area';
-  const choices = shuffle([...TUT_CARDPICK_CHOICES_RAW]);
-  const labels  = ['A', 'B', 'C', 'D'];
-  const givenHTML = TUT_CARDPICK_GIVEN
+  const step    = JUNIOR_TUT_STEPS[tutStepIdx];
+  const rawChoices = step.choices || TUT_CARDPICK_CHOICES_RAW_A;
+  const choices    = shuffle([...rawChoices]);
+  const labels     = ['A', 'B', 'C', 'D'];
+  const givenCards = step.givenCards || TUT_CARDPICK_GIVEN_A;
+  const givenHTML  = givenCards
     .map(c => `<div class="tut-pick-given-card"><img src="${imgPath(c)}" alt="" draggable="false"></div>`)
     .join('');
   const choicesHTML = choices.map((ch, i) => `
@@ -1525,15 +1539,15 @@ function renderCardPickStep() {
     <div class="tut-pick-choices">${choicesHTML}</div>`;
 
   choices.forEach((ch, i) => {
-    document.getElementById(`tut-pick-${i}`)?.addEventListener('click', () => onCardPickAnswer(ch.isCorrect, i, choices));
+    document.getElementById(`tut-pick-${i}`)?.addEventListener('click', () => onCardPickAnswer(ch.isCorrect, i, choices, step.explanation));
   });
 }
 
-function onCardPickAnswer(isCorrect, clickedIdx, choices) {
+function onCardPickAnswer(isCorrect, clickedIdx, choices, explanation) {
   choices.forEach((_, i) => document.getElementById(`tut-pick-${i}`)?.setAttribute('disabled', ''));
   if (isCorrect) {
     document.getElementById(`tut-pick-${clickedIdx}`)?.classList.add('tut-pick-correct');
-    tutFeedbackEl.innerHTML = '🎉 정확해요! 모양(타원→마름모→물결), 색(초록→보라→빨강), 채움(비어있음→줄무늬→가득참) — 모두 달라서 <strong>SET</strong>예요!';
+    tutFeedbackEl.innerHTML = explanation || '🎉 정확해요! 규칙에 맞아서 <strong>SET</strong>예요!';
     tutFeedbackEl.className = 'tut-feedback tut-success';
     tutNextBtn.hidden      = false;
     tutNextBtn.textContent = tutStepIdx >= JUNIOR_TUT_STEPS.length - 1 ? '완료! 🎓' : '다음 →';
