@@ -1178,7 +1178,7 @@ html, body {
 
 .tut-quiz-btns { display: flex; gap: 20px; width: 100%; justify-content: center; }
 .tut-quiz-yes, .tut-quiz-no, .tut-quiz-same, .tut-quiz-diff, .tut-quiz-neither {
-  flex: 1; max-width: 200px; min-height: 64px; padding: 14px 16px;
+  flex: 1; min-height: 64px; padding: 14px 16px;
   border-radius: 14px; border: 2px solid #111111;
   color: #111111; background: transparent;
   font-size: 0.95rem; font-weight: 400;
@@ -1187,6 +1187,8 @@ html, body {
   box-sizing: border-box;
   cursor: pointer; transition: transform 0.14s, background 0.15s;
 }
+/* 3지선다는 너무 넓어지지 않도록 개별 제한 */
+.tut-quiz-same, .tut-quiz-diff, .tut-quiz-neither { max-width: 200px; }
 .tut-quiz-yes:hover:not(:disabled),
 .tut-quiz-no:hover:not(:disabled),
 .tut-quiz-same:hover:not(:disabled),
