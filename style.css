@@ -1026,15 +1026,6 @@ html, body {
 .tut-log-item.log-err { color: #dc2626; }
 
 /* 3번째 버튼(규칙위반) */
-.tut-quiz-neither {
-  flex: 1; max-width: 200px; padding: 13px 14px;
-  border-radius: 14px; border: 2.5px solid #e03060;
-  background: transparent; color: #e03060;
-  font-family: 'Outfit', sans-serif; font-size: 0.9rem; font-weight: 700;
-  cursor: pointer; transition: background 0.12s, transform 0.12s;
-}
-.tut-quiz-neither:hover:not(:disabled) { background: rgba(224,48,96,0.08); transform: translateY(-2px); }
-.tut-quiz-neither:disabled { opacity: 0.4; cursor: not-allowed; }
 .tut-quiz-btns-3 { flex-wrap: wrap; }
 
 /* 카드픽 퀴즈 — 전체 컨테이너 */
@@ -1143,22 +1134,22 @@ html, body {
   margin-bottom: 4px;
 }
 .tut-quiz-btns { display: flex; gap: 12px; width: 100%; justify-content: center; }
-.tut-quiz-yes, .tut-quiz-no, .tut-quiz-same, .tut-quiz-diff {
+.tut-quiz-yes, .tut-quiz-no, .tut-quiz-same, .tut-quiz-diff, .tut-quiz-neither {
   flex: 1; max-width: 200px; padding: 13px 16px;
-  border-radius: 14px; border: 2px solid;
+  border-radius: 14px; border: 2px solid #111111;
+  color: #111111; background: transparent;
   font-family: 'Outfit', sans-serif; font-size: 0.95rem; font-weight: 700;
+  line-height: 1.3; text-align: center;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
   cursor: pointer; transition: transform 0.14s, background 0.15s;
 }
-.tut-quiz-yes  { border-color: var(--accent-green); color: var(--accent-green); background: transparent; }
-.tut-quiz-yes:hover:not(:disabled)  { background: rgba(24,184,122,0.12); transform: translateY(-2px); }
-.tut-quiz-no   { border-color: var(--timer-danger); color: var(--timer-danger); background: transparent; }
-.tut-quiz-no:hover:not(:disabled)   { background: rgba(224,48,96,0.10);  transform: translateY(-2px); }
-.tut-quiz-same { border-color: var(--accent-blue);  color: var(--accent-blue);  background: transparent; }
-.tut-quiz-same:hover:not(:disabled) { background: rgba(58,111,216,0.10); transform: translateY(-2px); }
-.tut-quiz-diff { border-color: var(--accent-pink);  color: var(--accent-pink);  background: transparent; }
-.tut-quiz-diff:hover:not(:disabled) { background: rgba(192,64,232,0.10); transform: translateY(-2px); }
+.tut-quiz-yes:hover:not(:disabled),
+.tut-quiz-no:hover:not(:disabled),
+.tut-quiz-same:hover:not(:disabled),
+.tut-quiz-diff:hover:not(:disabled),
+.tut-quiz-neither:hover:not(:disabled) { background: rgba(0,0,0,0.06); transform: translateY(-2px); }
 .tut-quiz-yes:disabled, .tut-quiz-no:disabled,
-.tut-quiz-same:disabled, .tut-quiz-diff:disabled { opacity: 0.45; cursor: not-allowed; }
+.tut-quiz-same:disabled, .tut-quiz-diff:disabled, .tut-quiz-neither:disabled { opacity: 0.45; cursor: not-allowed; }
 
 /* 완료 화면 대문 버튼 */
 .tut-complete-home { display: flex; justify-content: center; width: 100%; }
