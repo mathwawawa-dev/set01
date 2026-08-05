@@ -304,7 +304,10 @@ function renderTutStep() {
   tutHintBtn.disabled    = false;
   tutHintBtn.textContent = '💡 힌트';
 
+  const tutInner = tutorialScreen.querySelector('.tut-inner');
+
   if (step.type === 'sequence') {
+    tutInner.classList.remove('tut-layout-quiz');
     tutSubQIdx         = 0;
     tutAnswerItems     = [];
     tutCards           = step.cards;
@@ -316,12 +319,14 @@ function renderTutStep() {
     renderTutCards(false);
     renderTutSubQ();
   } else if (step.type === 'cardpick') {
-    tutBubbleEl.innerHTML   = step.text;
+    tutInner.classList.add('tut-layout-quiz');
+    tutBubbleEl.innerHTML   = `<div class="stamp-anim">${step.text}</div>`;
     tutContextBubble.hidden = true;
     tutAnswerLog.hidden     = true;
     renderCardPickStep();
     tutNextBtn.hidden = true;
   } else if (step.id === 'intro') {
+    tutInner.classList.remove('tut-layout-quiz');
     tutBubbleEl.innerHTML      = step.text;
     tutContextBubble.hidden    = true;
     tutAnswerLog.hidden        = true;
@@ -330,6 +335,7 @@ function renderTutStep() {
     tutNextBtn.textContent     = '다음 →';
   } else {
     // training1 / training2 / training3 / final
+    tutInner.classList.remove('tut-layout-quiz');
     tutBubbleEl.innerHTML      = step.text;
     tutContextBubble.hidden    = true;
     tutAnswerLog.hidden        = true;
@@ -507,7 +513,7 @@ function renderTutSubQ() {
 
   if (q.type === 'set') {
     tutFeedbackEl.insertAdjacentHTML('beforebegin', `
-      <div class="tut-quiz-btns" id="tutQuizBtns">
+      <div class="tut-quiz-btns choices-hidden" id="tutQuizBtns">
         <button class="tut-quiz-yes" id="tutSeqYes">세 장의 카드는<br>SET입니다.</button>
         <button class="tut-quiz-no"  id="tutSeqNo">세 장의 카드는<br>SET가 아닙니다.</button>
       </div>`);
@@ -517,7 +523,7 @@ function renderTutSubQ() {
     const attrSubject = q.attrLabel || '';
     const prefix = attrSubject ? `${attrSubject}<br>` : '';
     tutFeedbackEl.insertAdjacentHTML('beforebegin', `
-      <div class="tut-quiz-btns tut-quiz-btns-3" id="tutQuizBtns">
+      <div class="tut-quiz-btns tut-quiz-btns-3 choices-hidden" id="tutQuizBtns">
         <button class="tut-quiz-same"    id="tutSeqSame">${prefix}모두 같아요</button>
         <button class="tut-quiz-diff"    id="tutSeqDiff">${prefix}모두 달라요</button>
         <button class="tut-quiz-neither" id="tutSeqNeither">${prefix}2개만 같아요</button>
@@ -526,6 +532,13 @@ function renderTutSubQ() {
     document.getElementById('tutSeqDiff'   ).addEventListener('click', () => onTutSeqAnswer('different'));
     document.getElementById('tutSeqNeither').addEventListener('click', () => onTutSeqAnswer('neither'));
   }
+
+  // stamp 애니메이션 후 선지 fade-in
+  setTimeout(() => {
+    const btns = document.getElementById('tutQuizBtns');
+    if (btns) { btns.classList.remove('choices-hidden'); btns.classList.add('choices-fadein'); }
+  }, 450);
+
   tutNextBtn.hidden = true;
 }
 
@@ -611,7 +624,17 @@ function renderCardPickStep() {
       ${givenHTML}
       <div class="tut-pick-unknown">?</div>
     </div>
-    <div class="tut-pick-choices">${choicesHTML}</div>`;
+    <div class="tut-pick-choices choices-hidden" id="tutPickChoices">${choicesHTML}</div>`;
+
+  // 버블 stamp 애니메이션 후 선지 fade-in
+  const STAMP_DELAY = 450; // stamp 0.4s + 여유
+  setTimeout(() => {
+    const choicesEl = document.getElementById('tutPickChoices');
+    if (choicesEl) {
+      choicesEl.classList.remove('choices-hidden');
+      choicesEl.classList.add('choices-fadein');
+    }
+  }, STAMP_DELAY);
 
   choices.forEach((ch, i) => {
     document.getElementById(`tut-pick-${i}`)?.addEventListener('click', () => onCardPickAnswer(ch.isCorrect, i, choices, step.explanation));

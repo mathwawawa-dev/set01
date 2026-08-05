@@ -985,6 +985,13 @@ html, body {
 .tut-bubble strong { color: #111111; font-weight: 700; }
 .tut-bubble em { font-style: normal; color: var(--accent-pink); font-weight: 600; }
 
+/* 분석: 카드→버블, 문제: 버블→카드 (flex order 활용) */
+.tut-inner {
+  display: flex; flex-direction: column; align-items: center;
+}
+.tut-layout-quiz .tut-cards-wrapper { order: 2; margin-top: 12px; }
+.tut-layout-quiz .tut-bubble        { order: 1; }
+
 .tut-context-bubble {
   background: transparent; border: 1px solid var(--border);
   border-radius: 12px; padding: 10px 18px;
@@ -1055,7 +1062,16 @@ html, body {
 /* 아래 행: 선지 4장 */
 .tut-pick-choices {
   display: flex; gap: 10px; justify-content: center; flex-wrap: nowrap;
+  width: 100%;
 }
+
+/* 선지 fade-in */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.choices-hidden { opacity: 0; pointer-events: none; }
+.choices-fadein { animation: fadeInUp 0.35s ease forwards; }
 /* 공통 카드 크기 — 주어진 카드 */
 .tut-pick-given-card {
   width: 88px; height: 110px;
@@ -1160,7 +1176,7 @@ html, body {
   animation: stamp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 
-.tut-quiz-btns { display: flex; gap: 12px; width: 100%; justify-content: center; }
+.tut-quiz-btns { display: flex; gap: 20px; width: 100%; justify-content: center; }
 .tut-quiz-yes, .tut-quiz-no, .tut-quiz-same, .tut-quiz-diff, .tut-quiz-neither {
   flex: 1; max-width: 200px; min-height: 64px; padding: 14px 16px;
   border-radius: 14px; border: 2px solid #111111;
