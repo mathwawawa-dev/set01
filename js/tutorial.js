@@ -779,7 +779,6 @@ function showTutComplete() {
   tutFeedbackEl.textContent = '';
   tutHintBtn.hidden  = true;
   tutNextBtn.hidden  = true;
-  document.getElementById('tutBackBtn').hidden = true;
   document.getElementById('tutSkipBtn').hidden = true;
   document.getElementById('tutGoHomeComplete').addEventListener('click', () => {
     tutorialScreen.hidden = true; returnToHome();
