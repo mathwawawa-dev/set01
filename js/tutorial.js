@@ -335,7 +335,7 @@ function renderTutStep() {
     tutNextBtn.textContent     = '다음 →';
   } else {
     // training1 / training2 / training3 / final
-    tutInner.classList.remove('tut-layout-quiz');
+    tutInner.classList.add('tut-layout-quiz');
     tutBubbleEl.innerHTML      = step.text;
     tutContextBubble.hidden    = true;
     tutAnswerLog.hidden        = true;
