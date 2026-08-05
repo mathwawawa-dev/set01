@@ -361,7 +361,7 @@ function renderTutStep() {
 // 1/11 단계 (intro) 순차 펼치기
 // ══════════════════════════════════════════════
 function renderIntroPhase() {
-  let html = `<div>SET는 카드 세 장을 골라서 만드는 게임이에요! 🌟</div>`;
+  let html = `<div>SET는 조건에 맞는 카드 세 장을 찾아내는 게임이에요!</div>`;
 
   if (tutIntroPhase >= 2) {
     html += `
@@ -394,8 +394,7 @@ function renderIntroPhase() {
   if (tutIntroPhase >= 6) {
     html += `
       <div class="${tutIntroPhase === 6 ? 'stamp-anim' : ''}" style="margin-top: 14px;">
-        <div>세 장 각각의 특징이</div>
-        <div><span class="txt-black">모두 </span><span class="txt-blue">같거나</span> <span class="txt-black">모두 </span><span class="txt-red">달라야</span> SET예요!</div>
+        <div>각 특징이 세 장 모두 <span class="txt-blue">같거나</span>, 모두 <span class="txt-red">다르면</span> SET 완성!</div>
       </div>`;
   }
 
