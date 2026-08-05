@@ -108,7 +108,7 @@ const JUNIOR_TUT_STEPS = [
         q: '모양, 색깔, 채움을 모두 정리해봐요!<br>세 장이 <strong>SET</strong>일까요?',
         type: 'set', correctAnswer: 'yes',
         praise: '🎉 굿굿!<br><br>세 가지 특징이 모두 규칙에 맞아요!<br>이게 바로 <strong>SET</strong>예요! 🌟',
-        wrong: '💡 다시 생각해봐요!<br>모양·채움은 다 같고, 색깔만 다 달라요!<br>→ 이럴 때도 SET가 돼요! 🎉',
+        wrong: '💡 다시 생각해봐요!<br>모양·채움은 다 같고, 색깔만 다 달라요!<br>→ 모두 같거나 모두 다르니까 SET가 돼요! 🎉',
       },
     ],
   },
