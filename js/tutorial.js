@@ -306,6 +306,7 @@ function renderTutStep() {
 
   // 이전 버튼: 첫 스텝은 숨기고 나머지는 표시
   document.getElementById('tutBackBtn').hidden = (tutStepIdx === 0);
+  document.getElementById('tutSkipBtn').hidden = false;
 
   // 완료 화면에서 돌아온 경우 카드 래퍼 복원
   const wrapper = tutCardArea.parentElement;
@@ -723,6 +724,7 @@ function showTutComplete() {
   tutHintBtn.hidden  = true;
   tutNextBtn.hidden  = true;
   document.getElementById('tutBackBtn').hidden = true;
+  document.getElementById('tutSkipBtn').hidden = true;
   document.getElementById('tutGoHomeComplete').addEventListener('click', () => {
     tutorialScreen.hidden = true; returnToHome();
   });
@@ -738,11 +740,21 @@ document.getElementById('tutHomeBtn').addEventListener('click', () => {
 });
 document.getElementById('tutBackBtn').addEventListener('click', () => {
   if (tutStepIdx <= 0) return;
-  // 완료 화면에서 돌아즌다면 카드 래퍼 복원
+  // 완료 화면에서 돌아온다면 카드 래퍼 복원
   const wrapper = tutCardArea.parentElement;
   if (wrapper) { wrapper.style.display = ''; wrapper.style.flex = ''; }
   tutCardArea.style.flex = '';
   tutStepIdx--;
+  renderTutStep();
+});
+document.getElementById('tutSkipBtn').addEventListener('click', () => {
+  document.getElementById('tutQuizBtns')?.remove();
+  tutCardArea.className = 'tut-card-area';
+  const wrapper = tutCardArea.parentElement;
+  if (wrapper) { wrapper.style.display = ''; wrapper.style.flex = ''; }
+  tutCardArea.style.flex = '';
+  tutStepIdx++;
+  if (tutStepIdx >= JUNIOR_TUT_STEPS.length) { showTutComplete(); return; }
   renderTutStep();
 });
 document.getElementById('btnModeTutorial').addEventListener('click', startTutorial);
