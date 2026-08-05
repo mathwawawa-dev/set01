@@ -1,4 +1,4 @@
-﻿// TUTORIAL MODULE — Junior SET (27종 카드)
+// TUTORIAL MODULE — Junior SET (27종 카드)
 // ══════════════════════════════════════════════
 
 // ── 분석 1 카드 ──────────────────────────────────
@@ -13,7 +13,6 @@ const TUT_Q1_GIVEN = [
   { shape: 'squiggle', color: 'green', fill: 'solid' },
   { shape: 'squiggle', color: 'red',   fill: 'solid' },
 ];
-// 이미 제시된 squiggle_green_solid(제시카드 1) 제거 -> oval_purple_outline으로 대체
 const TUT_Q1_CHOICES = [
   { isCorrect: true,  card: { shape: 'squiggle', color: 'purple', fill: 'solid'   } },
   { isCorrect: false, card: { shape: 'squiggle', color: 'purple', fill: 'outline' } },
@@ -33,7 +32,6 @@ const TUT_Q2_GIVEN = [
   { shape: 'oval',    color: 'red', fill: 'solid' },
   { shape: 'diamond', color: 'red', fill: 'solid' },
 ];
-// 이미 제시된 oval_red_solid(제시카드 1) 제거 -> diamond_purple_solid로 대체
 const TUT_Q2_CHOICES = [
   { isCorrect: true,  card: { shape: 'squiggle', color: 'red',    fill: 'solid'   } },
   { isCorrect: false, card: { shape: 'squiggle', color: 'red',    fill: 'outline' } },
@@ -48,12 +46,11 @@ const TUT_ANA3_CARDS = [
   { shape: 'squiggle', color: 'red',    fill: 'outline' },
 ];
 
-// ── 문제 3 카드 (사용자 지정: diamond_green_outline, oval_purple_striped) ──
+// ── 문제 3 카드 ──────────────────────────────────
 const TUT_Q3_GIVEN = [
   { shape: 'diamond', color: 'green',  fill: 'outline' },
   { shape: 'oval',    color: 'purple', fill: 'striped' },
 ];
-// 정답: 모양(squiggle), 색깔(red), 채움(solid) -> squiggle_red_solid
 const TUT_Q3_CHOICES = [
   { isCorrect: true,  card: { shape: 'squiggle', color: 'red',    fill: 'solid'   } },
   { isCorrect: false, card: { shape: 'squiggle', color: 'red',    fill: 'outline' } },
