@@ -274,7 +274,7 @@ const tutContextBubble = document.getElementById('tutContextBubble');
 const tutAnswerLog     = document.getElementById('tutAnswerLog');
 const tutModeScreen    = document.getElementById('modeScreen');
 
-const TUT_INTRO_TEXT = '세 가지 특징을 하나씩 확인해요!<br>모양 · 색깔 · 채움<br><span class="txt-black">모두 </span><span class="txt-blue">같거나</span> <span class="txt-black">모두 </span><span class="txt-red">달라야</span> SET예요!';
+const TUT_INTRO_TEXT = '모양 · 색깔 · 채움<br>세 가지 특징을 하나씩 확인해요!<br><br>세 장의 카드 각각의 특징이<br>모두 <span class="txt-blue">같거나</span>, 모두 <span class="txt-red">다르면</span> SET 완성!';
 
 // ══════════════════════════════════════════════
 // 진입/종료
