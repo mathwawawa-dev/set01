@@ -1429,8 +1429,8 @@ function renderTutSubQ() {
   if (q.type === 'set') {
     tutFeedbackEl.insertAdjacentHTML('beforebegin', `
       <div class="tut-quiz-btns" id="tutQuizBtns">
-        <button class="tut-quiz-yes" id="tutSeqYes">세 장의 카드는 SET입니다.</button>
-        <button class="tut-quiz-no"  id="tutSeqNo">세 장의 카드는 SET이 아닙니다.</button>
+        <button class="tut-quiz-yes" id="tutSeqYes">세 장의 카드는<br>SET입니다.</button>
+        <button class="tut-quiz-no"  id="tutSeqNo">세 장의 카드는<br>SET가 아닙니다.</button>
       </div>`);
     document.getElementById('tutSeqYes').addEventListener('click', () => onTutSeqAnswer('yes'));
     document.getElementById('tutSeqNo' ).addEventListener('click', () => onTutSeqAnswer('no'));
