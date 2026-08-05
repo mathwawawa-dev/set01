@@ -1227,6 +1227,7 @@ let tutCards    = [];
 let tutAnswer   = [];
 let tutHintCard = -1;
 let tutDone     = false;
+let tutSubQNext = false; // 다음 질문 진행용 플래그
 
 // Tutorial 누적 답변
 let tutAnswerItems = [];
@@ -1472,24 +1473,26 @@ function onTutSeqAnswer(answer) {
       renderAnswerLog();
     }
 
-    if (tutSubQIdx < step.questions.length - 1) {
-      setTimeout(() => { tutSubQIdx++; renderTutSubQ(); }, 2100);
-    } else {
-      const isLast = tutStepIdx >= JUNIOR_TUT_STEPS.length - 1;
-      tutNextBtn.hidden      = false;
-      tutNextBtn.textContent = isLast ? '완료! 🎓' : '다음 →';
-    }
+    const isLastQ = tutSubQIdx >= step.questions.length - 1;
+    const isLastStep = tutStepIdx >= JUNIOR_TUT_STEPS.length - 1;
+    tutSubQNext = !isLastQ; // 중간 질문이면 다음 질문 버튼
+    tutNextBtn.hidden      = false;
+    tutNextBtn.textContent = isLastQ
+      ? (isLastStep ? '완료! 🎓' : '다음 →')
+      : '다음 질문 →';
   } else {
     tutFeedbackEl.innerHTML = `❌ ${wrongMsg}`;
     tutFeedbackEl.className = 'tut-feedback tut-fail';
     setTimeout(() => {
-      const stillActive = !document.getElementById('tutSeqYes')?.disabled
-                       && !document.getElementById('tutSeqSame')?.disabled;
-      if (stillActive) {
+      const stillFailed = tutFeedbackEl.classList.contains('tut-fail');
+      if (stillFailed) {
         tutFeedbackEl.textContent = '';
         tutFeedbackEl.className   = 'tut-feedback';
+        ['tutSeqYes','tutSeqNo','tutSeqSame','tutSeqDiff','tutSeqNeither'].forEach(id => {
+          document.getElementById(id)?.removeAttribute('disabled');
+        });
       }
-    }, 2500);
+    }, 1200);
   }
 }
 
@@ -1592,6 +1595,13 @@ function onTutQuiz(userAnswer) {
 }
 
 function tutAdvance() {
+  // 시퀀스 내 서브퀴즈 이동
+  if (tutSubQNext) {
+    tutSubQNext = false;
+    tutSubQIdx++;
+    renderTutSubQ();
+    return;
+  }
   document.getElementById('tutQuizBtns')?.remove();
   tutStepIdx++;
   if (tutStepIdx >= JUNIOR_TUT_STEPS.length) { showTutComplete(); return; }
