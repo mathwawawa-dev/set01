@@ -1106,8 +1106,8 @@ html, body {
 }
 
 .tut-feedback { min-height: 26px; font-size: 0.95rem; font-weight: 600; text-align: center; }
-.tut-success  { color: var(--accent-green); }
-.tut-fail     { color: var(--timer-danger); }
+.tut-success  { color: #111; }
+.tut-fail     { color: #111; }
 
 .tut-actions { display: flex; gap: 12px; width: 100%; justify-content: center; }
 
