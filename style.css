@@ -989,8 +989,10 @@ html, body {
 .tut-inner {
   display: flex; flex-direction: column; align-items: center;
 }
-.tut-layout-quiz .tut-cards-wrapper { order: 2; margin-top: 12px; }
 .tut-layout-quiz .tut-bubble        { order: 1; }
+.tut-layout-quiz .tut-cards-wrapper { order: 2; margin-top: 12px; }
+.tut-layout-quiz .tut-feedback      { order: 3; }
+.tut-layout-quiz .tut-actions       { order: 4; }
 
 .tut-context-bubble {
   background: transparent; border: 1px solid var(--border);
