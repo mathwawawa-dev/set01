@@ -1003,12 +1003,12 @@ html, body {
 .tut-context-bubble[hidden] { display: none; }
 
 .tut-cards-wrapper {
-  display: flex; gap: 14px; align-items: stretch;
+  display: flex; gap: 24px; align-items: stretch;
   width: 100%; justify-content: center;
 }
 .tut-card-area {
   display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 10px; width: 100%; max-width: 300px;
+  gap: 10px; flex: 1; max-width: 300px;
 }
 .tut-card { cursor: default; }
 .tut-card img { width: 100%; height: 100%; object-fit: contain; padding: 6px; }
