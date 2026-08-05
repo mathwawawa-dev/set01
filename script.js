@@ -1421,15 +1421,16 @@ function renderTutSubQ() {
 
   document.getElementById('tutQuizBtns')?.remove();
   const KO_ORD = ['첫','두','세','네','다섯','여섯','일곱','여덟','아홉','열'];
-  tutBubbleEl.innerHTML     = `<span class="tut-sub-label">${KO_ORD[qNum-1] ?? qNum} 번째 질문 (총 ${qTot}개)</span><br>${q.q}`;
+  const labelText = (qNum === qTot) ? '마지막 질문' : `${KO_ORD[qNum-1] ?? qNum} 번째 질문`;
+  tutBubbleEl.innerHTML     = `<span class="tut-sub-label">${labelText}</span><br>${q.q}`;
   tutFeedbackEl.textContent = '';
   tutFeedbackEl.className   = 'tut-feedback';
 
   if (q.type === 'set') {
     tutFeedbackEl.insertAdjacentHTML('beforebegin', `
       <div class="tut-quiz-btns" id="tutQuizBtns">
-        <button class="tut-quiz-yes" id="tutSeqYes">✓ SET이에요!</button>
-        <button class="tut-quiz-no"  id="tutSeqNo">✗ SET가 아니에요!</button>
+        <button class="tut-quiz-yes" id="tutSeqYes">세 장의 카드는 SET입니다.</button>
+        <button class="tut-quiz-no"  id="tutSeqNo">세 장의 카드는 SET이 아닙니다.</button>
       </div>`);
     document.getElementById('tutSeqYes').addEventListener('click', () => onTutSeqAnswer('yes'));
     document.getElementById('tutSeqNo' ).addEventListener('click', () => onTutSeqAnswer('no'));
