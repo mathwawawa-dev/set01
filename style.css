@@ -1011,20 +1011,23 @@ html, body {
   background: #fffde7; border: 2px solid #f9c74f;
   border-radius: 14px; padding: 8px 10px;
   box-sizing: border-box;
+  font-family: 'Outfit', sans-serif; font-weight: 400;
   display: flex; flex-direction: column; gap: 4px;
 }
 .tut-answer-log[hidden] { display: none; }
 .tut-log-title {
-  font-size: 0.7rem; font-weight: 700; color: #92400e;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.75rem; font-weight: 400; color: #92400e;
   letter-spacing: 0.04em; border-bottom: 1px solid #f9c74f;
-  padding-bottom: 5px; margin-bottom: 2px;
+  padding-bottom: 5px; margin-bottom: 2px; text-align: center;
 }
 .tut-log-item {
-  font-size: 0.8rem; font-weight: 600; line-height: 1.35;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.82rem; font-weight: 400; line-height: 1.35;
   color: #1a1a2e;
 }
-.tut-log-item.log-ok  { color: #16a34a; }
-.tut-log-item.log-err { color: #dc2626; }
+.tut-log-item.log-ok  { color: #16a34a; font-weight: 400; }
+.tut-log-item.log-err { color: #dc2626; font-weight: 400; }
 
 /* 3번째 버튼(규칙위반) */
 .tut-quiz-btns-3 { flex-wrap: wrap; }
