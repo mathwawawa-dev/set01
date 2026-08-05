@@ -1146,15 +1146,11 @@ html, body {
 .tut-btn-hint[hidden] { display: none; }
 
 .tut-btn-next {
-  padding: 12px 36px; border-radius: 999px;
-  border: 2px solid var(--text-primary);
-  background: transparent;
-  color: var(--text-primary); font-family: 'Outfit', sans-serif; font-size: 0.9rem; font-weight: 500;
-  letter-spacing: 0.03em;
-  display: inline-flex; align-items: center; justify-content: center; text-align: center;
-  cursor: pointer; transition: opacity 0.15s, transform 0.14s;
+  background: none; border: none; font-size: 0.78rem; color: var(--text-muted);
+  cursor: pointer; font-family: 'Outfit', sans-serif;
+  padding: 4px 10px; border-radius: 8px; transition: background 0.15s;
 }
-.tut-btn-next:hover { opacity: 0.65; transform: translateY(-1px); }
+.tut-btn-next:hover { background: var(--border); }
 .tut-btn-next[hidden] { display: none; }
 
 .tut-complete-btns { display: flex; flex-direction: column; gap: 12px; width: 100%; align-items: center; }
