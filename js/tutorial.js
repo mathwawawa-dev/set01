@@ -347,12 +347,6 @@ function renderTutStep() {
     // training1 / training2 / training3 / final
     tutInner.classList.add('tut-layout-quiz');
     tutBubbleEl.innerHTML      = step.text;
-    // final 스텝만 버블 높이 고정
-    if (step.id === 'final') {
-      tutBubbleEl.classList.add('tut-bubble--fixed');
-    } else {
-      tutBubbleEl.classList.remove('tut-bubble--fixed');
-    }
     tutContextBubble.hidden    = true;
     tutAnswerLog.hidden        = true;
     setupTutChallenge(step);
@@ -507,7 +501,7 @@ function evalTutSel() {
           renderTutCards(true);
           tutFeedbackEl.textContent = '🎉 훌륭해요! 한 번 더 찾아보세요!';
           tutFeedbackEl.className = 'tut-feedback tut-success';
-          tutBubbleEl.innerHTML = '<div class="stamp-anim">SET가 되는 세 장의 카드를 <strong>한번 더</strong> 찾아보세요!</div>';
+          tutBubbleEl.innerHTML = 'SET가 되는 세 장의 카드를 <strong>한번 더</strong> 찾아보세요!';
           tutNextBtn.hidden = true;
           tutHintBtn.hidden = true;
         }, 700);
