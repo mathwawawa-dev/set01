@@ -974,13 +974,6 @@ html, body {
   padding: 4px 10px; border-radius: 8px; transition: background 0.15s;
 }
 .tut-home-btn:hover { background: var(--border); }
-.tut-back-btn {
-  background: none; border: none; font-size: 0.78rem; color: var(--text-muted);
-  cursor: pointer; font-family: 'Outfit', sans-serif;
-  padding: 4px 10px; border-radius: 8px; transition: background 0.15s;
-}
-.tut-back-btn:hover { background: var(--border); }
-.tut-back-btn[hidden] { display: none; }
 
 .tut-title { font-size: 1.35rem; font-weight: 800; color: var(--text-primary); text-align: center; }
 
