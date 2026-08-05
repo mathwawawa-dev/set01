@@ -580,7 +580,7 @@ function evalTutSel() {
       const praises = [
         '🎉 완벽해요! 세 장이 SET를 이루고 있어요!',
         '🌟 훌륭해요! 정확하게 찾았어요!',
-        '👏 대단해요! 세 속성이 모두 맞아요!',
+        '굿굿 👍',
       ];
       tutFeedbackEl.textContent = praises[Math.floor(Math.random() * praises.length)];
       tutFeedbackEl.className   = 'tut-feedback tut-success';
@@ -592,7 +592,7 @@ function evalTutSel() {
       const praises = [
         '🎉 완벽해요! 세 장이 SET를 이루고 있어요!',
         '🌟 훌륭해요! 정확하게 찾았어요!',
-        '👏 대단해요! 세 속성이 모두 맞아요!',
+        '굿굿 👍',
       ];
       tutFeedbackEl.textContent = praises[Math.floor(Math.random() * praises.length)];
       tutFeedbackEl.className   = 'tut-feedback tut-success';
