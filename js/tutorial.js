@@ -501,7 +501,7 @@ function evalTutSel() {
           renderTutCards(true);
           tutFeedbackEl.textContent = '🎉 훌륭해요! 한 번 더 찾아보세요!';
           tutFeedbackEl.className = 'tut-feedback tut-success';
-          tutBubbleEl.innerHTML = 'SET가 되는 세 장의 카드를 <strong>한번 더</strong> 찾아보세요!';
+          tutBubbleEl.innerHTML = '<div class="stamp-anim">SET가 되는 세 장의 카드를 <strong>한번 더</strong> 찾아보세요!</div>';
           tutNextBtn.hidden = true;
           tutHintBtn.hidden = true;
         }, 700);
