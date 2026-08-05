@@ -1017,17 +1017,17 @@ html, body {
 .tut-answer-log[hidden] { display: none; }
 .tut-log-title {
   font-family: 'Outfit', sans-serif;
-  font-size: 0.75rem; font-weight: 400; color: #92400e;
+  font-size: 0.75rem; font-weight: 400; color: #111111;
   letter-spacing: 0.04em; border-bottom: 1px solid #f9c74f;
   padding-bottom: 5px; margin-bottom: 2px; text-align: center;
 }
 .tut-log-item {
   font-family: 'Outfit', sans-serif;
   font-size: 0.82rem; font-weight: 400; line-height: 1.35;
-  color: #1a1a2e;
+  color: #111111;
 }
-.tut-log-item.log-ok  { color: #16a34a; font-weight: 400; }
-.tut-log-item.log-err { color: #dc2626; font-weight: 400; }
+.tut-log-item.log-ok  { color: #111111; font-weight: 400; }
+.tut-log-item.log-err { color: #111111; font-weight: 400; }
 
 /* 3번째 버튼(규칙위반) */
 .tut-quiz-btns-3 { flex-wrap: wrap; }
