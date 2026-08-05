@@ -665,6 +665,12 @@ function showTutComplete() {
   tutTitleEl.textContent      = '🏅 튜토리얼 완료!';
   tutBubbleEl.innerHTML       = 'Junior SET 규칙을 모두 익혔어요!<br>이제 모드 선택 화면으로 돌아가 도전해보세요.';
   document.getElementById('tutQuizBtns')?.remove();
+
+  // 완료 시 카드 래퍼가 남은 공간을 모두 차지해 버튼이 세로 중앙 배치되도록
+  const wrapper = tutCardArea.parentElement;
+  if (wrapper) wrapper.style.flex = '1';
+  tutCardArea.style.flex = '1';
+
   tutCardArea.innerHTML = `
     <div class="tut-complete-home">
       <button class="tut-home-big-btn" id="tutGoHomeComplete">
