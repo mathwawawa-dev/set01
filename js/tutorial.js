@@ -51,6 +51,12 @@ const TUT_CARDS_QUIZ_NO = [
 ]; // 모양: 타원·타원·물결 (2개 같음) → NOT SET ✗
 
 // 예시 2 (새로운 두 번째 예시): 모두 초록색이지만 모양 oval/oval/squiggle (2개만 같음 규칙 위반)
+// seq_c (예시 ③): 모양에서 규칙 위반 — 타원·타원·물결 (2개만 같음)
+const TUT_SEQ_C_CARDS = [
+  { shape: 'oval',     color: 'green',  fill: 'outline' },
+  { shape: 'oval',     color: 'purple', fill: 'striped' },
+  { shape: 'squiggle', color: 'red',    fill: 'solid'   },
+];
 const TUT_SEQ_B2_CARDS = [
   { shape: 'oval',     color: 'green', fill: 'outline' },
   { shape: 'oval',     color: 'green', fill: 'striped' },
@@ -192,7 +198,8 @@ const JUNIOR_TUT_STEPS = [
     id: 'cardpick', type: 'cardpick',
     title: '빠진 카드를 찾아봐요! 🔍',
     text: '아래 두 장으로 SET를 만들려면<br>나머지 한 장은 어떤 카드일까요?<br>A, B, C, D 중에서 골라봐요!',
-    givenCards: TUT_CARDPICK_GIVEN,
+    givenCards: TUT_CARDPICK_GIVEN_A,
+    choices: TUT_CARDPICK_CHOICES_RAW_A,
   },
   {
     id: 'challenge1', title: '직접 찾아봐요! 💪',
