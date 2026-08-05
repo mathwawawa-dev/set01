@@ -1486,7 +1486,7 @@ function onTutSeqAnswer(answer) {
       ? (isLastStep ? '완료! 🎓' : '다음 →')
       : '다음 질문 →';
   } else {
-    tutFeedbackEl.innerHTML = `❌<br>${wrongMsg}`;
+    tutFeedbackEl.innerHTML = `❌<br><br>${wrongMsg}`;
     tutFeedbackEl.className = 'tut-feedback tut-fail';
     // 메시지는 그대로 유지, 버튼만 즉시 재활성화 → 정답 선택 시 칭찬으로 교체
     ['tutSeqYes','tutSeqNo','tutSeqSame','tutSeqDiff','tutSeqNeither'].forEach(id => {
