@@ -1114,11 +1114,12 @@ html, body {
 .tut-btn-hint[hidden] { display: none; }
 
 .tut-btn-next {
-  padding: 10px 36px; border-radius: 999px;
+  padding: 12px 36px; border-radius: 999px;
   border: 2px solid var(--text-primary);
   background: transparent;
   color: var(--text-primary); font-family: 'Outfit', sans-serif; font-size: 0.9rem; font-weight: 500;
   letter-spacing: 0.03em;
+  display: inline-flex; align-items: center; justify-content: center; text-align: center;
   cursor: pointer; transition: opacity 0.15s, transform 0.14s;
 }
 .tut-btn-next:hover { opacity: 0.65; transform: translateY(-1px); }
@@ -1136,12 +1137,13 @@ html, body {
 }
 .tut-quiz-btns { display: flex; gap: 12px; width: 100%; justify-content: center; }
 .tut-quiz-yes, .tut-quiz-no, .tut-quiz-same, .tut-quiz-diff, .tut-quiz-neither {
-  flex: 1; max-width: 200px; padding: 13px 16px;
+  flex: 1; max-width: 200px; min-height: 64px; padding: 14px 16px;
   border-radius: 14px; border: 2px solid #111111;
   color: #111111; background: transparent;
   font-size: 0.95rem; font-weight: 400;
-  line-height: 1.3; text-align: center;
+  line-height: 1.35; text-align: center;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
+  box-sizing: border-box;
   cursor: pointer; transition: transform 0.14s, background 0.15s;
 }
 .tut-quiz-yes:hover:not(:disabled),
