@@ -43,7 +43,7 @@ const FULL_TUT_STEPS=[
 {id:'quiz2',type:'cardpick',title:'문제 2 - SET를 완성해봐요!',text:'SET가 되기 위해 필요한 카드는 무엇일까요?',givenCards:FULL_Q2_GIVEN,choices:FULL_Q2_CHOICES,explanation:'굿굿<br>모양·색깔·채움·개수 모두 달라야<br>→ 물결 빨강 가득참 3개 카드! ✅'},
 {id:'quiz3',type:'cardpick',title:'문제 3 - SET를 완성해봐요!',text:'SET가 되기 위해 필요한 카드는 무엇일까요?',givenCards:FULL_Q3_GIVEN,choices:FULL_Q3_CHOICES,explanation:'굿굿<br>모양·색깔 달라야, 채움·개수 같음<br>→ 물결 보라 가득참 2개 카드! ✅'},
 {id:'training1',title:'훈련 1 - 5장에서 찾아봐요!',text:'5장 중에서 <strong>SET가 되는 세 장</strong>을 골라봐요!<br>힌트 버튼을 눌러 도움을 받을 수 있어요.',cards:null,interactive:true,hasHint:true,challengeN:5},
-{id:'training2',title:'훈련 2 - 7장에서 찾아봐요!',text:'7장 중에서 <strong>SET가 되는 세 장</strong>을 골라봐요!<br>힌트 버튼을 눌러 도움을 받을 수 있어요.',cards:null,interactive:true,hasHint:true,challengeN:7},
+{id:'training2',title:'훈련 2 - 6장에서 찾아봐요!',text:'6장 중에서 <strong>SET가 되는 세 장</strong>을 골라봐요!<br>힌트 버튼을 눌러 도움을 받을 수 있어요.',cards:null,interactive:true,hasHint:true,challengeN:6},
 {id:'training3',title:'훈련 3 - 9장에서 찾아봐요!',text:'9장 중에서 <strong>SET가 되는 세 장</strong>을 골라봐요!<br>힌트 버튼을 눌러 도움을 받을 수 있어요.',cards:null,interactive:true,hasHint:true,challengeN:9},
 {id:'final',title:'이제 실전이에요!',text:'12장 중에서 <strong>SET를 찾아보세요.</strong>',cards:null,interactive:true,hasHint:false,challengeN:12}
 ];
