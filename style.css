@@ -1115,7 +1115,7 @@ html, body {
 .choices-fadein { animation: fadeInUp 0.35s ease forwards; }
 /* 공통 카드 크기 — 주어진 카드 */
 .tut-pick-given-card {
-  width: 88px; height: 110px;
+  width: 102px; height: 136px;
   border-radius: 14px; overflow: hidden;
   background: var(--bg-card); box-shadow: var(--shadow-card);
   flex-shrink: 0;
@@ -1126,7 +1126,7 @@ html, body {
   display: flex; align-items: center; justify-content: center;
   font-size: 1.8rem; font-weight: 700; color: var(--text-muted);
   background: var(--bg-card); border: 2px dashed var(--border);
-  border-radius: 14px; width: 88px; height: 110px; flex-shrink: 0;
+  border-radius: 14px; width: 102px; height: 136px; flex-shrink: 0;
 }
 /* 선지 버튼 */
 .tut-pick-choice {
@@ -1140,7 +1140,7 @@ html, body {
 .tut-pick-choice:disabled { cursor: not-allowed; }
 .tut-pick-label { font-size: 0.78rem; font-weight: 700; color: var(--text-muted); }
 /* 선지 카드 크기 = 주어진 카드와 동일 */
-.tut-pick-card { width: 88px; height: 110px; }
+.tut-pick-card { width: 102px; height: 136px; }
 .tut-pick-card img { width: 100%; height: 100%; object-fit: contain; padding: 5px; }
 .tut-pick-correct { border-color: #16a34a !important; background: rgba(22,163,74,0.08) !important; }
 .tut-pick-wrong   { border-color: #dc2626 !important; background: rgba(220,38,38,0.06) !important; }

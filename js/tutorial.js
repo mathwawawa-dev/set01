@@ -751,13 +751,13 @@ function renderCardPickStep() {
   const choices    = shuffle([...rawChoices]);
   const labels     = ['A', 'B', 'C', 'D'];
   const givenCards = step.givenCards;
-  const givenHTML  = givenCards
-    .map(c => `<div class="tut-pick-given-card"><img src="${imgPath(c)}" alt="" draggable="false"></div>`)
+  const givenHTML  = step.givenCards
+    .map(c => `<div class="card tut-pick-given-card"><img src="${imgPath(c)}" alt="" draggable="false"></div>`)
     .join('');
   const choicesHTML = choices.map((ch, i) => `
     <button class="tut-pick-choice" id="tut-pick-${i}">
       <span class="tut-pick-label">${labels[i]}</span>
-      <div class="tut-pick-card"><img src="${imgPath(ch.card)}" alt="" draggable="false"></div>
+      <div class="card tut-pick-card"><img src="${imgPath(ch.card)}" alt="" draggable="false"></div>
     </button>`).join('');
 
   tutCardArea.innerHTML = `

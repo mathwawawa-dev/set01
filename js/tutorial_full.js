@@ -1,6 +1,6 @@
 // TUTORIAL MODULE 정식 SET (81)
 const FULL_ANA1_CARDS=[{shape:'oval',color:'green',fill:'outline',count:1},{shape:'oval',color:'green',fill:'outline',count:2},{shape:'oval',color:'green',fill:'outline',count:3}];
-const FULL_ANA2_CARDS=[{shape:'diamond',color:'purple',fill:'striped',count:1},{shape:'diamond',color:'purple',fill:'striped',count:1},{shape:'diamond',color:'purple',fill:'striped',count:3}];
+const FULL_ANA2_CARDS=[{shape:'diamond',color:'purple',fill:'striped',count:1},{shape:'diamond',color:'red',fill:'striped',count:1},{shape:'diamond',color:'green',fill:'striped',count:3}];
 const FULL_ANA3_CARDS=[{shape:'oval',color:'green',fill:'outline',count:1},{shape:'diamond',color:'purple',fill:'striped',count:2},{shape:'squiggle',color:'red',fill:'solid',count:3}];
 const FULL_ANA4_CARDS=[{shape:'oval',color:'purple',fill:'solid',count:1},{shape:'diamond',color:'purple',fill:'striped',count:2},{shape:'squiggle',color:'purple',fill:'outline',count:3}];
 const FULL_Q1_GIVEN=[{shape:'squiggle',color:'red',fill:'solid',count:1},{shape:'squiggle',color:'red',fill:'solid',count:2}];
@@ -20,7 +20,7 @@ const FULL_TUT_STEPS=[
 ]},
 {id:'analysis2',type:'sequence',title:'분석 - 개수가 어긋나면?',cards:FULL_ANA2_CARDS,questions:[
 {q:'<strong>모양</strong>을 비교합시다!',attrLabel:'모양이',logLabel:'모양',type:'attr',correctAnswer:'same',praise:'굿굿<br>마름모 마름모 마름모<br>모두 같아요! ✔️',wrong:'세 장 모두 마름모예요! 😊'},
-{q:'<strong>색깔</strong>을 비교합시다!',attrLabel:'색깔이',logLabel:'색깔',type:'attr',correctAnswer:'same',praise:'굿굿<br>보라 보라 보라<br>모두 같아요! ✔️',wrong:'세 장 모두 보라예요! 😊'},
+{q:'<strong>색깔</strong>을 비교합시다!',attrLabel:'색깔이',logLabel:'색깔',type:'attr',correctAnswer:'different',praise:'굿굿<br>보라 빨강 초록<br>모두 달라요! ✔️',wrong:'보라 빨강 초록 — 세 개가 서로 달라요! 😊'},
 {q:'<strong>채움</strong>을 비교합시다!',attrLabel:'채움이',logLabel:'채움',type:'attr',correctAnswer:'same',praise:'굿굿<br>줄무늬 줄무늬 줄무늬<br>모두 같아요! ✔️',wrong:'세 장 모두 줄무늬예요! 😊'},
 {q:'<strong>개수</strong>를 비교합시다!',attrLabel:'개수가',logLabel:'개수',type:'attr3',correctAnswer:'neither',praise:'굿굿<br>1개 1개 3개<br>1개가 두 개예요. 2개만 같아요! 규칙 위반!',wrong_same:'1개 1개 3개 — 마지막이 3개예요! 😊',wrong_diff:'1개 1개 3개 — 1개가 두 개나 있어요! 😊'},
 {q:'그럼 이 세 장이 <strong>SET</strong>일까요?',type:'set',correctAnswer:'no',logLabel:null,praise:'굿굿<br>개수에서 규칙을 어겼으니까<br>이 세 장은 <strong>SET가 아니에요</strong>! 🙌',wrong:'개수에서 실패했어요 (1개가 두 개). 한 가지라도 규칙을 어기면 SET가 안 돼요!'}
@@ -206,8 +206,8 @@ function ftRenderAnswerLog(){ftAnswerLog.innerHTML='<div class="tut-log-title">�
 function ftRenderCardPickStep(){
   ftCardArea.innerHTML='';ftCardArea.className='tut-card-area tut-cardpick-area';
   var step=FULL_TUT_STEPS[ftStepIdx],choices=shuffle([...step.choices]),labels=['A','B','C','D'];
-  var givenHTML=step.givenCards.map(function(c){return '<div class="tut-pick-given-card">'+ftRenderCardHTML(c)+'</div>';}).join('');
-  var cHTML=choices.map(function(ch,i){return '<button class="tut-pick-choice" id="tut-pick-'+i+'"><span class="tut-pick-label">'+labels[i]+'</span><div class="tut-pick-card">'+ftRenderCardHTML(ch.card)+'</div></button>';}).join('');
+  var givenHTML=step.givenCards.map(function(c){return '<div class="card tut-pick-given-card">'+ftRenderCardHTML(c)+'</div>';}).join('');
+  var cHTML=choices.map(function(ch,i){return '<button class="tut-pick-choice" id="tut-pick-'+i+'"><span class="tut-pick-label">'+labels[i]+'</span><div class="card tut-pick-card">'+ftRenderCardHTML(ch.card)+'</div></button>';}).join('');
   ftCardArea.innerHTML='<div class="tut-pick-given">'+givenHTML+'<div class="tut-pick-unknown">?</div></div><div class="tut-pick-choices choices-hidden" id="tutPickChoices">'+cHTML+'</div>';
   setTimeout(function(){var e=document.getElementById('tutPickChoices');if(e){e.classList.remove('choices-hidden');e.classList.add('choices-fadein');}},450);
   choices.forEach(function(ch,i){var btn=document.getElementById('tut-pick-'+i);if(btn)btn.addEventListener('click',(function(ci,chx){return function(){ftOnCardPickAnswer(chx.isCorrect,ci,choices,step.explanation);};})(i,ch));});
