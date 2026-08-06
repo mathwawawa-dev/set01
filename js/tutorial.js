@@ -857,30 +857,48 @@ function showTutComplete() {
 // ══════════════════════════════════════════════
 // 이벤트 리스너
 // ══════════════════════════════════════════════
-tutNextBtn.addEventListener('click', tutAdvance);
-tutHintBtn.addEventListener('click', onTutHint);
+tutNextBtn.addEventListener('click', () => {
+  if (typeof ftActive !== 'undefined' && ftActive) ftAdvance();
+  else tutAdvance();
+});
+tutHintBtn.addEventListener('click', () => {
+  if (typeof ftActive !== 'undefined' && ftActive) ftOnHint();
+  else onTutHint();
+});
 document.getElementById('tutHomeBtn').addEventListener('click', () => {
+  if (typeof ftActive !== 'undefined') ftActive = false;
   tutorialScreen.hidden = true; returnToHome();
 });
 document.getElementById('tutBackBtn').addEventListener('click', () => {
-  if (tutStepIdx <= 0) return;
-  // 완료 화면에서 돌아온다면 카드 래퍼 복원
   const wrapper = tutCardArea.parentElement;
   if (wrapper) { wrapper.style.display = ''; wrapper.style.flex = ''; }
   tutCardArea.style.flex = '';
-  tutStepIdx--;
-  renderTutStep();
+  if (typeof ftActive !== 'undefined' && ftActive) {
+    if (ftStepIdx <= 0) return;
+    ftStepIdx--; ftRenderStep();
+  } else {
+    if (tutStepIdx <= 0) return;
+    tutStepIdx--; renderTutStep();
+  }
 });
 document.getElementById('tutSkipBtn').addEventListener('click', () => {
   document.getElementById('tutQuizBtns')?.remove();
-  tutCardArea.className = 'tut-card-area';
   const wrapper = tutCardArea.parentElement;
   if (wrapper) { wrapper.style.display = ''; wrapper.style.flex = ''; }
   tutCardArea.style.flex = '';
-  tutStepIdx++;
-  if (tutStepIdx >= JUNIOR_TUT_STEPS.length) { showTutComplete(); return; }
-  renderTutStep();
+  if (typeof ftActive !== 'undefined' && ftActive) {
+    tutCardArea.className = 'tut-card-area';
+    ftStepIdx++;
+    if (ftStepIdx >= FULL_TUT_STEPS.length) { ftShowComplete(); return; }
+    ftRenderStep();
+  } else {
+    tutCardArea.className = 'tut-card-area';
+    tutStepIdx++;
+    if (tutStepIdx >= JUNIOR_TUT_STEPS.length) { showTutComplete(); return; }
+    renderTutStep();
+  }
 });
 document.getElementById('btnModeTutorial').addEventListener('click', startTutorial);
+
 
 // ──────────────────────────────────────────────

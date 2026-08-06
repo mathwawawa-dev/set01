@@ -52,7 +52,7 @@ const ftTutorialScreen=document.getElementById('tutorialScreen'),ftProgressFill=
 const FULL_TUT_INTRO_TEXT='모양 · 색깔 · 채움 · <strong>개수</strong><br>네 가지 특징을 하나씩 확인해요!<br><br>세 장의 카드 각각의 특징이<br>모두 <span class="txt-blue">같거나</span>, 모두 <span class="txt-red">다르면</span> SET 완성!';
 function ftImgPath(c){return IMAGE_BASE+c.shape+'_'+c.color+'_'+c.fill+'.png';}
 function ftRenderCardHTML(c){var n=c.count||1,inner='<div class="card-symbols count-'+n+'">';for(var i=0;i<n;i++){inner+='<img src="'+ftImgPath(c)+'" alt="" draggable="false" class="card-symbol">';}inner+='</div>';return inner;}
-function startTutorialFull(){ftActive=true;ftStepIdx=0;ftModeScreen.hidden=true;ftTutorialScreen.hidden=false;ftRenderStep();}
+function startTutorialFull(){ftActive=true;ftStepIdx=0;ftModeScreen.hidden=true;ftTutorialScreen.classList.add('ft-tut-mode');ftTutorialScreen.hidden=false;ftRenderStep();}
 function ftRenderStep(){
   var step=FULL_TUT_STEPS[ftStepIdx],total=FULL_TUT_STEPS.length;
   document.getElementById('tutQuizBtns')&&document.getElementById('tutQuizBtns').remove();
@@ -229,22 +229,6 @@ function ftShowComplete(){
   ftCardArea.style.cssText='';ftCardArea.className='tut-card-area tut-card-area--complete';
   ftCardArea.innerHTML='<button class="tut-home-bare-btn" id="ftGoHomeComplete"><svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>대문으로</span></button>';
   ftContextBubble.hidden=true;ftAnswerLog.hidden=true;ftFeedbackEl.textContent='';ftHintBtn.hidden=true;ftNextBtn.hidden=true;document.getElementById('tutSkipBtn').hidden=true;
-  document.getElementById('ftGoHomeComplete').addEventListener('click',function(){ftActive=false;ftTutorialScreen.hidden=true;returnToHome();});
+  document.getElementById('ftGoHomeComplete').addEventListener('click',function(){ftActive=false;ftTutorialScreen.classList.remove('ft-tut-mode');ftTutorialScreen.hidden=true;returnToHome();});
 }
 document.getElementById('btnModeTutorialFull').addEventListener('click',startTutorialFull);
-(function(){
-  function repl(id,handler){var el=document.getElementById(id);if(!el)return;var cl=el.cloneNode(true);el.parentNode.replaceChild(cl,el);cl.addEventListener('click',handler);}
-  repl('tutNextBtn',function(){if(ftActive)ftAdvance();else tutAdvance();});
-  repl('tutHintBtn',function(){if(ftActive)ftOnHint();else onTutHint();});
-  repl('tutHomeBtn',function(){ftActive=false;ftTutorialScreen.hidden=true;returnToHome();});
-  repl('tutBackBtn',function(){
-    if(ftActive){if(ftStepIdx<=0)return;var w=ftCardArea.parentElement;if(w){w.style.display='';w.style.flex='';}ftCardArea.style.flex='';ftStepIdx--;ftRenderStep();}
-    else{if(tutStepIdx<=0)return;var w=ftCardArea.parentElement;if(w){w.style.display='';w.style.flex='';}ftCardArea.style.flex='';tutStepIdx--;renderTutStep();}
-  });
-  repl('tutSkipBtn',function(){
-    var oldQ=document.getElementById('tutQuizBtns');if(oldQ)oldQ.remove();
-    var w=ftCardArea.parentElement;if(w){w.style.display='';w.style.flex='';}
-    if(ftActive){ftCardArea.className='tut-card-area';ftCardArea.style.flex='';ftStepIdx++;if(ftStepIdx>=FULL_TUT_STEPS.length){ftShowComplete();return;}ftRenderStep();}
-    else{ftCardArea.className='tut-card-area';ftCardArea.style.flex='';tutStepIdx++;if(tutStepIdx>=JUNIOR_TUT_STEPS.length){showTutComplete();return;}renderTutStep();}
-  });
-})();
