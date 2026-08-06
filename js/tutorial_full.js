@@ -173,7 +173,7 @@ function ftRenderSubQ(){
   var oldQ=document.getElementById('tutQuizBtns');if(oldQ)oldQ.remove();
   var KO=['첫','두','세','네','다섯','여섯','일곱','여덟','아홉','열'];
   var lbl=qNum===qTot?'마지막 질문':(KO[qNum-1]||qNum)+' 번째 질문';
-  ftBubbleEl.innerHTML='<div class="stamp-anim"><span class="tut-sub-label">'+lbl+'</span></div><br><div class="stamp-anim" style="animation-delay:0.15s;margin-top:4px;">'+q.q+'</div>';
+  ftBubbleEl.innerHTML='<div style="display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap;"><div class="stamp-anim"><span class="tut-sub-label" style="margin: 0; white-space: nowrap;">'+lbl+'</span></div><div class="stamp-anim" style="animation-delay:0.15s;">'+q.q+'</div></div>';
   ftFeedbackEl.textContent='';ftFeedbackEl.className='tut-feedback';
   if(q.type==='set'){
     ftFeedbackEl.insertAdjacentHTML('beforebegin','<div class="tut-quiz-btns choices-hidden" id="tutQuizBtns"><button class="tut-quiz-yes" id="tutSeqYes">세 장의 카드는<br>SET입니다.</button><button class="tut-quiz-no" id="tutSeqNo">세 장의 카드는<br>SET가 아닙니다.</button></div>');

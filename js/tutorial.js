@@ -654,7 +654,7 @@ function renderTutSubQ() {
   document.getElementById('tutQuizBtns')?.remove();
   const KO_ORD = ['첫','두','세','네','다섯','여섯','일곱','여덟','아홉','열'];
   const labelText = (qNum === qTot) ? '마지막 질문' : `${KO_ORD[qNum-1] ?? qNum} 번째 질문`;
-  tutBubbleEl.innerHTML     = `<div class="stamp-anim"><span class="tut-sub-label">${labelText}</span></div><br><div class="stamp-anim" style="animation-delay: 0.15s; margin-top: 4px;">${q.q}</div>`;
+  tutBubbleEl.innerHTML     = `<div style="display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap;"><div class="stamp-anim"><span class="tut-sub-label" style="margin: 0; white-space: nowrap;">${labelText}</span></div><div class="stamp-anim" style="animation-delay: 0.15s;">${q.q}</div></div>`;
   tutFeedbackEl.textContent = '';
   tutFeedbackEl.className   = 'tut-feedback';
 
