@@ -720,10 +720,7 @@ function onTutSeqAnswer(answer) {
     const isLastQ    = tutSubQIdx >= step.questions.length - 1;
     const isLastStep = tutStepIdx >= JUNIOR_TUT_STEPS.length - 1;
     tutSubQNext = !isLastQ;
-    tutNextBtn.hidden      = false;
-    tutNextBtn.textContent = isLastQ
-      ? (isLastStep ? '완료! 🎓' : '다음 →')
-      : '다음 질문 →';
+    showTutNextBtn(isLastQ ? (isLastStep ? '완료! 🎓' : '다음 →') : '다음 질문 →');
   } else {
     tutFeedbackEl.innerHTML = `❌<br><br>${wrongMsg}`;
     tutFeedbackEl.className = 'tut-feedback tut-fail';
