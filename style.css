@@ -1157,8 +1157,13 @@ html, body {
   letter-spacing: 0.03em;
   display: inline-flex; align-items: center; justify-content: center; text-align: center;
   cursor: pointer; transition: opacity 0.15s, transform 0.14s;
+  animation: tutBtnPulse 2s infinite ease-in-out;
 }
-.tut-btn-next:hover { opacity: 0.65; transform: translateY(-1px); }
+@keyframes tutBtnPulse {
+  0%, 100% { background-color: transparent; }
+  50% { background-color: rgba(0, 0, 0, 0.06); }
+}
+.tut-btn-next:hover { opacity: 0.65; transform: translateY(-1px); animation: none; }
 .tut-btn-next[hidden] { display: none; }
 
 .tut-complete-btns { display: flex; flex-direction: column; gap: 12px; width: 100%; align-items: center; }
