@@ -983,10 +983,34 @@ html, body {
 .tut-title { font-size: 1.35rem; font-weight: 800; color: var(--text-primary); text-align: center; }
 
 .tut-bubble {
+  position: relative;
   background: var(--bg-card); border: 1.5px solid var(--border);
   border-radius: 16px; padding: 16px 22px;
   font-size: 0.95rem; line-height: 1.7; text-align: center;
   color: var(--text-primary); box-shadow: var(--shadow-card); width: 100%;
+}
+.tut-rpg-arrow {
+  position: absolute;
+  right: 12px;
+  bottom: 8px;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  animation: bounceArrow 0.8s infinite alternate;
+  padding: 4px;
+}
+@keyframes bounceArrow {
+  from { transform: translateY(0); }
+  to { transform: translateY(4px); }
+}
+.tut-rpg-hint {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 6px;
+  animation: tutNextReveal 0.4s ease;
 }
 .tut-bubble strong { color: #111111; font-weight: 700; }
 .tut-bubble em { font-style: normal; color: var(--accent-pink); font-weight: 600; }
@@ -1252,27 +1276,7 @@ html, body {
 }
 .tut-home-bare-btn:hover { color: var(--accent-blue); transform: translateY(-3px); }
 
-/* 1/11 단계 펼치기 화살표 버튼 */
-.tut-expand-arrow-btn {
-  background: rgba(0, 0, 0, 0.04);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 6px 16px;
-  font-family: 'Outfit', sans-serif;
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: var(--text-muted);
-  cursor: pointer;
-  transition: all 0.18s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-}
-.tut-expand-arrow-btn:hover {
-  background: rgba(0, 0, 0, 0.08);
-  color: var(--text-primary);
-  transform: translateY(1px);
-}
+
 .tut-goto-btn {
   width: 100%; max-width: 300px; padding: 14px 20px;
   border-radius: 14px; border: none;
