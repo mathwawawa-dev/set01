@@ -996,6 +996,7 @@ html, body {
   background: none;
   border: none;
   font-size: 1.2rem;
+  font-family: sans-serif;
   color: var(--text-muted);
   cursor: pointer;
   animation: bounceArrow 0.8s infinite alternate;
