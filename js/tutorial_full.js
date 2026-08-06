@@ -1,4 +1,4 @@
-﻿// TUTORIAL MODULE 정식 SET (81)
+// TUTORIAL MODULE 정식 SET (81)
 const FULL_ANA1_CARDS=[{shape:'oval',color:'green',fill:'outline',count:1},{shape:'oval',color:'green',fill:'outline',count:2},{shape:'oval',color:'green',fill:'outline',count:3}];
 const FULL_ANA2_CARDS=[{shape:'diamond',color:'purple',fill:'striped',count:1},{shape:'diamond',color:'purple',fill:'striped',count:1},{shape:'diamond',color:'purple',fill:'striped',count:3}];
 const FULL_ANA3_CARDS=[{shape:'oval',color:'green',fill:'outline',count:1},{shape:'diamond',color:'purple',fill:'striped',count:2},{shape:'squiggle',color:'red',fill:'solid',count:3}];
@@ -51,7 +51,7 @@ let ftStepIdx=0,ftSubQIdx=0,ftSelected=[],ftCards=[],ftAnswer=[],ftHintCard=-1,f
 const ftTutorialScreen=document.getElementById('tutorialScreen'),ftProgressFill=document.getElementById('tutProgressFill'),ftStepLabel=document.getElementById('tutStepLabel'),ftTitleEl=document.getElementById('tutTitle'),ftBubbleEl=document.getElementById('tutBubble'),ftCardArea=document.getElementById('tutCardArea'),ftFeedbackEl=document.getElementById('tutFeedback'),ftNextBtn=document.getElementById('tutNextBtn'),ftHintBtn=document.getElementById('tutHintBtn'),ftContextBubble=document.getElementById('tutContextBubble'),ftAnswerLog=document.getElementById('tutAnswerLog'),ftModeScreen=document.getElementById('modeScreen');
 const FULL_TUT_INTRO_TEXT='모양 · 색깔 · 채움 · <strong>개수</strong><br>네 가지 특징을 하나씩 확인해요!<br><br>세 장의 카드 각각의 특징이<br>모두 <span class="txt-blue">같거나</span>, 모두 <span class="txt-red">다르면</span> SET 완성!';
 function ftImgPath(c){return IMAGE_BASE+c.shape+'_'+c.color+'_'+c.fill+'.png';}
-function ftRenderCardHTML(c){var n=c.count||1,imgs='';for(var i=0;i<n;i++)imgs+='<img src="'+ftImgPath(c)+'" alt="" draggable="false" style="display:block;width:100%;">';return '<div style="display:flex;flex-direction:column;gap:3px;align-items:center;justify-content:center;height:100%;">'+imgs+'</div>';}
+function ftRenderCardHTML(c){var n=c.count||1,h=n===1?'58px':n===2?'46px':'34px',imgs='';for(var i=0;i<n;i++){imgs+='<div style="width:88%;height:'+h+';display:flex;align-items:center;justify-content:center;overflow:hidden;"><img src="'+ftImgPath(c)+'" alt="" draggable="false" style="height:'+h+';width:auto;transform:rotate(90deg);transform-origin:center;max-width:none;flex-shrink:0;"></div>';}return '<div style="display:flex;flex-direction:column;gap:4px;align-items:center;justify-content:center;height:100%;padding:4px;">'+imgs+'</div>';}
 function startTutorialFull(){ftActive=true;ftStepIdx=0;ftModeScreen.hidden=true;ftTutorialScreen.hidden=false;ftRenderStep();}
 function ftRenderStep(){
   var step=FULL_TUT_STEPS[ftStepIdx],total=FULL_TUT_STEPS.length;
