@@ -274,7 +274,7 @@ const tutContextBubble = document.getElementById('tutContextBubble');
 const tutAnswerLog     = document.getElementById('tutAnswerLog');
 const tutModeScreen    = document.getElementById('modeScreen');
 
-const TUT_INTRO_TEXT = '모양 · 색깔 · 채움<br>세 가지 특징을 하나씩 확인해요!<br><br>세 장의 카드 각각의 특징이<br>모두 <span class="txt-blue">같거나</span>, 모두 <span class="txt-red">다르면</span> SET 완성!';
+const TUT_INTRO_TEXT = '모양 · 색깔 · 채움<br>세 가지 특징을 하나씩 확인해요!<br><br>세 장의 카드 <strong>각각의 특징</strong>이<br><span class="txt-blue">모두 같거나</span>, <span class="txt-red">모두 다르면</span> SET 완성!';
 
 // ══════════════════════════════════════════════
 // 진입/종료
@@ -394,8 +394,8 @@ function renderIntroPhase() {
   if (tutIntroPhase >= 6) {
     html += `
       <div class="${tutIntroPhase === 6 ? 'stamp-anim' : ''}" style="margin-top: 14px;">
-        <div>세 장의 카드 각각의 특징이</div>
-        <div>모두 <span class="txt-blue">같거나</span>, 모두 <span class="txt-red">다르면</span> SET 완성!</div>
+        <div>세 장의 카드 <strong>각각의 특징</strong>이</div>
+        <div><span class="txt-blue">모두 같거나</span>, <span class="txt-red">모두 다르면</span> SET 완성!</div>
       </div>`;
   }
 

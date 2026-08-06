@@ -49,7 +49,7 @@ const FULL_TUT_STEPS=[
 ];
 let ftStepIdx=0,ftSubQIdx=0,ftSelected=[],ftCards=[],ftAnswer=[],ftHintCard=-1,ftDone=false,ftSubQNext=false,ftAnswerItems=[],ftFinalSetCount=0,ftIntroPhase=1,ftActive=false;
 const ftTutorialScreen=document.getElementById('tutorialScreen'),ftProgressFill=document.getElementById('tutProgressFill'),ftStepLabel=document.getElementById('tutStepLabel'),ftTitleEl=document.getElementById('tutTitle'),ftBubbleEl=document.getElementById('tutBubble'),ftCardArea=document.getElementById('tutCardArea'),ftFeedbackEl=document.getElementById('tutFeedback'),ftNextBtn=document.getElementById('tutNextBtn'),ftHintBtn=document.getElementById('tutHintBtn'),ftContextBubble=document.getElementById('tutContextBubble'),ftAnswerLog=document.getElementById('tutAnswerLog'),ftModeScreen=document.getElementById('modeScreen');
-const FULL_TUT_INTRO_TEXT='모양 · 색깔 · 채움 · <strong>개수</strong><br>네 가지 특징을 하나씩 확인해요!<br><br>세 장의 카드 각각의 특징이<br>모두 <span class="txt-blue">같거나</span>, 모두 <span class="txt-red">다르면</span> SET 완성!';
+const FULL_TUT_INTRO_TEXT='모양 · 색깔 · 채움 · <strong>개수</strong><br>네 가지 특징을 하나씩 확인해요!<br><br>세 장의 카드 <strong>각각의 특징</strong>이<br><span class="txt-blue">모두 같거나</span>, <span class="txt-red">모두 다르면</span> SET 완성!';
 function ftImgPath(c){return IMAGE_BASE+c.shape+'_'+c.color+'_'+c.fill+'.png';}
 function ftRenderCardHTML(c){var n=c.count||1,inner='<div class="card-symbols count-'+n+'">';for(var i=0;i<n;i++){inner+='<img src="'+ftImgPath(c)+'" alt="" draggable="false" class="card-symbol">';}inner+='</div>';return inner;}
 function startTutorialFull(){ftActive=true;ftStepIdx=0;ftModeScreen.hidden=true;ftTutorialScreen.classList.add('ft-tut-mode');ftTutorialScreen.hidden=false;ftRenderStep();}
@@ -94,7 +94,7 @@ function ftRenderIntroPhase(){
   if(ftIntroPhase>=3)html+='<div class="'+(ftIntroPhase===3?'stamp-anim':'')+'" style="margin-top:14px;"><div>특징이 <strong>4가지</strong>로 늘어났어요.</div></div>';
   if(ftIntroPhase>=4)html+='<div class="'+(ftIntroPhase===4?'stamp-anim':'')+'" style="margin-top:6px;"><div><strong>모양 · 색깔 · 채움</strong> (기존)</div></div>';
   if(ftIntroPhase>=5)html+='<div class="'+(ftIntroPhase===5?'stamp-anim':'')+'" style="margin-top:2px;"><div><strong>개수</strong> (1개 · 2개 · 3개) ← <span class=\"txt-blue\">새로 추가!</span></div></div>';
-  if(ftIntroPhase>=6)html+='<div class="'+(ftIntroPhase===6?'stamp-anim':'')+'" style="margin-top:14px;"><div>세 장의 카드 각각의 특징이</div><div>모두 <span class=\"txt-blue\">같거나</span>, 모두 <span class=\"txt-red\">다르면</span> SET 완성!</div></div>';
+  if(ftIntroPhase>=6)html+='<div class="'+(ftIntroPhase===6?'stamp-anim':'')+'" style="margin-top:14px;"><div>세 장의 카드 <strong>각각의 특징</strong>이</div><div><span class=\"txt-blue\">모두 같거나</span>, <span class=\"txt-red\">모두 다르면</span> SET 완성!</div></div>';
   if(ftIntroPhase<6){
     html+='<button class="tut-rpg-arrow" id="btnFullIntroExpand" title="다음">▼</button>';
     document.getElementById('tutRpgHint').hidden=false;
