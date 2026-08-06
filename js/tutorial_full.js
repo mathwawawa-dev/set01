@@ -25,7 +25,7 @@ const FULL_TUT_STEPS=[
 {q:'<strong>개수</strong>를 비교합시다!',attrLabel:'개수가',logLabel:'개수',type:'attr3',correctAnswer:'neither',praise:'굿굿<br>1개 1개 3개<br>1개가 두 개예요. 2개만 같아요! 규칙 위반!',wrong_same:'1개 1개 3개 — 마지막이 3개예요! 😊',wrong_diff:'1개 1개 3개 — 1개가 두 개나 있어요! 😊'},
 {q:'그럼 이 세 장이 <strong>SET</strong>일까요?',type:'set',correctAnswer:'no',logLabel:null,praise:'굿굿<br>개수에서 규칙을 어겼으니까<br>이 세 장은 <strong>SET가 아니에요</strong>! 🙌',wrong:'개수에서 실패했어요 (1개가 두 개). 한 가지라도 규칙을 어기면 SET가 안 돼요!'}
 ]},
-{id:'quiz1',type:'cardpick',title:'문제 1 - SET를 완성해봐요!',text:'SET가 되기 위해<br>필요한 카드는 무엇일까요?<br>A, B, C, D 중에서 골라봐요!',givenCards:FULL_Q1_GIVEN,choices:FULL_Q1_CHOICES,explanation:'굿굿<br>모양·색깔·채움 같음 개수 달라야 3개<br>→ 물결 빨강 가득참 3개 카드! ✅'},
+{id:'quiz1',type:'cardpick',title:'문제 1 - SET를 완성해봐요!',text:'SET가 되기 위해 필요한 카드는 무엇일까요?',givenCards:FULL_Q1_GIVEN,choices:FULL_Q1_CHOICES,explanation:'굿굿<br>모양·색깔·채움 같음 개수 달라야 3개<br>→ 물결 빨강 가득참 3개 카드! ✅'},
 {id:'analysis3',type:'sequence',title:'분석 - 4가지가 모두 달라도 OK!',cards:FULL_ANA3_CARDS,questions:[
 {q:'<strong>모양</strong>을 비교합시다!',attrLabel:'모양이',logLabel:'모양',type:'attr',correctAnswer:'different',praise:'굿굿<br>타원 마름모 물결<br>모두 달라요! ✔️',wrong:'타원 마름모 물결 — 세 개가 서로 달라요! 😊'},
 {q:'<strong>색깔</strong>을 비교합시다!',attrLabel:'색깔이',logLabel:'색깔',type:'attr',correctAnswer:'different',praise:'굿굿<br>초록 보라 빨강<br>모두 달라요! ✔️',wrong:'초록 보라 빨강 — 세 개가 서로 달라요! 😊'},
@@ -40,8 +40,8 @@ const FULL_TUT_STEPS=[
 {q:'<strong>개수</strong>를 비교합시다!',attrLabel:'개수가',logLabel:'개수',type:'attr',correctAnswer:'different',praise:'굿굿<br>1개 2개 3개<br>모두 달라요! ✔️',wrong:'1개 2개 3개 — 세 개가 서로 달라요! 😊'},
 {q:'색깔만 같고 나머지는 달랐어요!<br>이 세 장이 <strong>SET</strong>일까요?',type:'set',correctAnswer:'yes',praise:'굿굿<br>색깔만 같아도 나머지 특징이 모두 규칙에 맞으면 SET예요! 🌟',wrong:'각 특징마다 독립적으로 판단해요.<br>하나가 같아도 나머지가 규칙에 맞으면 SET! 🎉'}
 ]},
-{id:'quiz2',type:'cardpick',title:'문제 2 - SET를 완성해봐요!',text:'SET가 되기 위해<br>필요한 카드는 무엇일까요?<br>A, B, C, D 중에서 골라봐요!',givenCards:FULL_Q2_GIVEN,choices:FULL_Q2_CHOICES,explanation:'굿굿<br>모양·색깔·채움·개수 모두 달라야<br>→ 물결 빨강 가득참 3개 카드! ✅'},
-{id:'quiz3',type:'cardpick',title:'문제 3 - SET를 완성해봐요!',text:'SET가 되기 위해<br>필요한 카드는 무엇일까요?<br>A, B, C, D 중에서 골라봐요!',givenCards:FULL_Q3_GIVEN,choices:FULL_Q3_CHOICES,explanation:'굿굿<br>모양·색깔 달라야, 채움·개수 같음<br>→ 물결 보라 가득참 2개 카드! ✅'},
+{id:'quiz2',type:'cardpick',title:'문제 2 - SET를 완성해봐요!',text:'SET가 되기 위해 필요한 카드는 무엇일까요?',givenCards:FULL_Q2_GIVEN,choices:FULL_Q2_CHOICES,explanation:'굿굿<br>모양·색깔·채움·개수 모두 달라야<br>→ 물결 빨강 가득참 3개 카드! ✅'},
+{id:'quiz3',type:'cardpick',title:'문제 3 - SET를 완성해봐요!',text:'SET가 되기 위해 필요한 카드는 무엇일까요?',givenCards:FULL_Q3_GIVEN,choices:FULL_Q3_CHOICES,explanation:'굿굿<br>모양·색깔 달라야, 채움·개수 같음<br>→ 물결 보라 가득참 2개 카드! ✅'},
 {id:'training1',title:'훈련 1 - 5장에서 찾아봐요!',text:'5장 중에서 <strong>SET가 되는 세 장</strong>을 골라봐요!<br>힌트 버튼을 눌러 도움을 받을 수 있어요.',cards:null,interactive:true,hasHint:true,challengeN:5},
 {id:'training2',title:'훈련 2 - 7장에서 찾아봐요!',text:'7장 중에서 <strong>SET가 되는 세 장</strong>을 골라봐요!<br>힌트 버튼을 눌러 도움을 받을 수 있어요.',cards:null,interactive:true,hasHint:true,challengeN:7},
 {id:'training3',title:'훈련 3 - 9장에서 찾아봐요!',text:'9장 중에서 <strong>SET가 되는 세 장</strong>을 골라봐요!<br>힌트 버튼을 눌러 도움을 받을 수 있어요.',cards:null,interactive:true,hasHint:true,challengeN:9},
@@ -61,6 +61,7 @@ function ftRenderStep(){
   ftTitleEl.textContent=step.title;
   ftFeedbackEl.textContent='';ftFeedbackEl.className='tut-feedback';
   ftSelected=[];ftDone=false;ftFinalSetCount=0;
+  ftBubbleEl.onclick = null;ftBubbleEl.style.cursor = 'default';
   ftHintBtn.hidden=!step.interactive||!step.hasHint;ftHintBtn.disabled=false;ftHintBtn.textContent='💡 힌트';
   document.getElementById('tutBackBtn').hidden=(ftStepIdx===0);
   document.getElementById('tutSkipBtn').hidden=false;

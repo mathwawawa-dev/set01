@@ -117,7 +117,7 @@ const JUNIOR_TUT_STEPS = [
   {
     id: 'quiz1', type: 'cardpick',
     title: '문제 ① — SET를 완성해봐요!',
-    text: 'SET가 되기 위해<br>필요한 카드는 무엇일까요?<br>A, B, C, D 중에서 골라봐요!',
+    text: 'SET가 되기 위해 필요한 카드는 무엇일까요?',
     givenCards: TUT_Q1_GIVEN,
     choices: TUT_Q1_CHOICES,
     explanation: '🎉 정확해요!<br>모양 같음 · 색깔 달라야 보라 · 채움 같음<br>→ 물결 보라 가득참 카드! ✅',
@@ -164,7 +164,7 @@ const JUNIOR_TUT_STEPS = [
   {
     id: 'quiz2', type: 'cardpick',
     title: '문제 ② — SET를 완성해봐요!',
-    text: 'SET가 되기 위해<br>필요한 카드는 무엇일까요?<br>A, B, C, D 중에서 골라봐요!',
+    text: 'SET가 되기 위해 필요한 카드는 무엇일까요?',
     givenCards: TUT_Q2_GIVEN,
     choices: TUT_Q2_CHOICES,
     explanation: '🎉 정확해요!<br>모양 달라야 물결 · 색깔 같음 빨강 · 채움 같음<br>→ 물결 빨강 가득참 카드! ✅',
@@ -210,7 +210,7 @@ const JUNIOR_TUT_STEPS = [
   {
     id: 'quiz3', type: 'cardpick',
     title: '문제 ③ — SET를 완성해봐요!',
-    text: 'SET가 되기 위해<br>필요한 카드는 무엇일까요?<br>A, B, C, D 중에서 골라봐요!',
+    text: 'SET가 되기 위해 필요한 카드는 무엇일까요?',
     givenCards: TUT_Q3_GIVEN,
     choices: TUT_Q3_CHOICES,
     explanation: '🎉 정확해요!<br>모양·색깔·채움 모두 달라야<br>→ 물결 빨강 가득참 카드! ✅',
@@ -301,6 +301,9 @@ function renderTutStep() {
   tutFeedbackEl.className     = 'tut-feedback';
   tutSelected = [];
   tutDone     = false;
+
+  tutBubbleEl.onclick = null;
+  tutBubbleEl.style.cursor = 'default';
 
   tutHintBtn.hidden      = !step.interactive || !step.hasHint;
   tutHintBtn.disabled    = false;
