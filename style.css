@@ -1295,3 +1295,5 @@ html, body {
   cursor: pointer; transition: background 0.15s;
 }
 .tut-back-btn:hover { background: var(--bg-card2); }
+
+.btn-theme { width: 96px; justify-content: flex-start; }
