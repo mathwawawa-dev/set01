@@ -89,7 +89,7 @@ function ftRenderStep(){
   }
 }
 function ftRenderIntroPhase(){
-  var html='<div>Junior SET를 클리어했나요? 이제 정식 SET예요! 🎓</div>';
+  var html='<div>Junior SET를 클리어했나요? 이제 정식 SET입니다.</div>';
   if(ftIntroPhase>=2)html+='<div class="'+(ftIntroPhase===2?'stamp-anim':'')+'" style="margin-top:14px;"><div>정식 SET는 카드가 <strong>81종</strong>으로 더 많아요!</div></div>';
   if(ftIntroPhase>=3)html+='<div class="'+(ftIntroPhase===3?'stamp-anim':'')+'" style="margin-top:14px;"><div>특징이 <strong>4가지</strong>로 늘어났어요.</div></div>';
   if(ftIntroPhase>=4)html+='<div class="'+(ftIntroPhase===4?'stamp-anim':'')+'" style="margin-top:6px;"><div><strong>모양 · 색깔 · 채움</strong> (기존)</div></div>';
