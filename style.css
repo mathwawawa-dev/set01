@@ -995,9 +995,10 @@ html, body {
   bottom: 8px;
   background: none;
   border: none;
-  font-size: 0.96rem;
+  font-size: 0.8rem;
   font-family: sans-serif;
   color: var(--text-muted);
+  opacity: 0.6;
   cursor: pointer;
   animation: bounceArrow 0.8s infinite alternate;
   padding: 4px;
