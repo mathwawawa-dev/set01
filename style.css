@@ -1019,8 +1019,8 @@ html, body {
   display: flex; justify-content: center; align-items: center;
   width: 100%; max-width: 100%;
 }
-.tut-card { cursor: default; }
-.tut-card img { width: 100%; height: 100%; object-fit: contain; padding: 6px; }
+.tut-card { cursor: default; aspect-ratio: 3 / 4; overflow: hidden; }
+.tut-card > img { width: 100%; height: 100%; object-fit: contain; padding: 6px; }
 
 /* 답변 누적 패널 */
 .tut-answer-log {
