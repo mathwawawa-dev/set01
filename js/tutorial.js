@@ -405,22 +405,25 @@ function renderIntroPhase() {
       <button class="tut-rpg-arrow" id="btnIntroExpand" title="다음">▼</button>`;
     document.getElementById('tutRpgHint').hidden = false;
     tutNextBtn.hidden = true;
+    tutBubbleEl.style.cursor = 'pointer';
+    tutBubbleEl.onclick = () => {
+      if (tutIntroPhase < 6) {
+        tutIntroPhase++;
+        renderIntroPhase();
+      }
+    };
   } else {
     tutNextBtn.hidden = false;
     document.getElementById('tutRpgHint').hidden = true;
     tutNextBtn.classList.remove('tut-next-fadein');
     tutNextBtn.textContent = '다음 →';
+    tutBubbleEl.style.cursor = 'default';
+    tutBubbleEl.onclick = null;
   }
 
   tutBubbleEl.innerHTML = html;
 
-  const expandBtn = document.getElementById('btnIntroExpand');
-  if (expandBtn) {
-    expandBtn.addEventListener('click', () => {
-      tutIntroPhase++;
-      renderIntroPhase();
-    });
-  }
+
 }
 
 // ══════════════════════════════════════════════

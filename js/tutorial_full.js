@@ -95,11 +95,21 @@ function ftRenderIntroPhase(){
   if(ftIntroPhase>=4)html+='<div class="'+(ftIntroPhase===4?'stamp-anim':'')+'" style="margin-top:6px;"><div><strong>모양 · 색깔 · 채움</strong> (기존)</div></div>';
   if(ftIntroPhase>=5)html+='<div class="'+(ftIntroPhase===5?'stamp-anim':'')+'" style="margin-top:2px;"><div><strong>개수</strong> (1개 · 2개 · 3개) ← <span class=\"txt-blue\">새로 추가!</span></div></div>';
   if(ftIntroPhase>=6)html+='<div class="'+(ftIntroPhase===6?'stamp-anim':'')+'" style="margin-top:14px;"><div>세 장의 카드 각각의 특징이</div><div>모두 <span class=\"txt-blue\">같거나</span>, 모두 <span class=\"txt-red\">다르면</span> SET 완성!</div></div>';
-  if(ftIntroPhase<6){html+='<button class="tut-rpg-arrow" id="btnFullIntroExpand" title="다음">▼</button>';document.getElementById('tutRpgHint').hidden=false;ftNextBtn.hidden=true;}
-  else{ftNextBtn.hidden=false;document.getElementById('tutRpgHint').hidden=true;ftNextBtn.classList.remove('tut-next-fadein');ftNextBtn.textContent='다음 →';}
+  if(ftIntroPhase<6){
+    html+='<button class="tut-rpg-arrow" id="btnFullIntroExpand" title="다음">▼</button>';
+    document.getElementById('tutRpgHint').hidden=false;
+    ftNextBtn.hidden=true;
+    ftBubbleEl.style.cursor='pointer';
+    ftBubbleEl.onclick=function(){if(ftIntroPhase<6){ftIntroPhase++;ftRenderIntroPhase();}};
+  } else {
+    ftNextBtn.hidden=false;
+    document.getElementById('tutRpgHint').hidden=true;
+    ftNextBtn.classList.remove('tut-next-fadein');
+    ftNextBtn.textContent='다음 →';
+    ftBubbleEl.style.cursor='default';
+    ftBubbleEl.onclick=null;
+  }
   ftBubbleEl.innerHTML=html;
-  var b=document.getElementById('btnFullIntroExpand');
-  if(b)b.addEventListener('click',function(){ftIntroPhase++;ftRenderIntroPhase();});
 }
 function ftSetupChallenge(step){
   var n=step.challengeN||9,wantExact=(n<12);
