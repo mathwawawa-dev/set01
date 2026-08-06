@@ -1195,7 +1195,7 @@ html, body {
   0%, 100% { background-color: transparent; }
   50% { background-color: rgba(0, 0, 0, 0.06); }
 }
-.tut-btn-next:hover { opacity: 0.65; transform: translateY(-1px); animation: none; }
+.tut-btn-next:hover { opacity: 0.65; transform: translateY(-1px); animation-play-state: paused; }
 .tut-btn-next[hidden] { display: none; }
 @keyframes tutNextReveal {
   from { opacity: 0; transform: translateY(10px); }
