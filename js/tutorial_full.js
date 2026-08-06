@@ -102,12 +102,10 @@ function ftRenderIntroPhase(){
     ftBubbleEl.style.cursor='pointer';
     ftBubbleEl.onclick=function(){if(ftIntroPhase<6){ftIntroPhase++;ftRenderIntroPhase();}};
   } else {
-    ftNextBtn.hidden=false;
     document.getElementById('tutRpgHint').hidden=true;
-    ftNextBtn.classList.remove('tut-next-fadein');
-    ftNextBtn.textContent='다음 →';
     ftBubbleEl.style.cursor='default';
     ftBubbleEl.onclick=null;
+    ftShowNextBtn('다음 →');
   }
   ftBubbleEl.innerHTML=html;
 }

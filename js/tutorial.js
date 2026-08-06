@@ -413,12 +413,10 @@ function renderIntroPhase() {
       }
     };
   } else {
-    tutNextBtn.hidden = false;
     document.getElementById('tutRpgHint').hidden = true;
-    tutNextBtn.classList.remove('tut-next-fadein');
-    tutNextBtn.textContent = '다음 →';
     tutBubbleEl.style.cursor = 'default';
     tutBubbleEl.onclick = null;
+    showTutNextBtn('다음 →');
   }
 
   tutBubbleEl.innerHTML = html;
