@@ -96,7 +96,7 @@ function ftRenderIntroPhase(){
   if(ftIntroPhase>=5)html+='<div class="'+(ftIntroPhase===5?'stamp-anim':'')+'" style="margin-top:2px;"><div><strong>개수</strong> (1개 · 2개 · 3개) ← <span class=\"txt-blue\">새로 추가!</span></div></div>';
   if(ftIntroPhase>=6)html+='<div class="'+(ftIntroPhase===6?'stamp-anim':'')+'" style="margin-top:14px;"><div>세 장의 카드 각각의 특징이</div><div>모두 <span class=\"txt-blue\">같거나</span>, 모두 <span class=\"txt-red\">다르면</span> SET 완성!</div></div>';
   if(ftIntroPhase<6){html+='<div style="margin-top:16px;display:flex;justify-content:center;"><button class="tut-expand-arrow-btn" id="btnFullIntroExpand"><span>▼ 다음</span></button></div>';ftNextBtn.hidden=true;}
-  else{ftNextBtn.hidden=false;ftNextBtn.textContent='다음 →';}
+  else{ftNextBtn.hidden=false;ftNextBtn.classList.remove('tut-next-fadein');ftNextBtn.textContent='다음 →';}
   ftBubbleEl.innerHTML=html;
   var b=document.getElementById('btnFullIntroExpand');
   if(b)b.addEventListener('click',function(){ftIntroPhase++;ftRenderIntroPhase();});
@@ -108,6 +108,7 @@ function ftSetupChallenge(step){
 }
 function ftFindAllSets(cards){var sets=[],n=cards.length;for(var i=0;i<n-2;i++)for(var j=i+1;j<n-1;j++)for(var k=j+1;k<n;k++)if(isSetOfficial(cards[i],cards[j],cards[k]))sets.push([i,j,k]);return sets;}
 function ftHasAnySet(cards){for(var i=0;i<cards.length-2;i++)for(var j=i+1;j<cards.length-1;j++)for(var k=j+1;k<cards.length;k++)if(isSetOfficial(cards[i],cards[j],cards[k]))return true;return false;}
+function ftShowNextBtn(label){ftNextBtn.textContent=label||'다음 →';ftNextBtn.classList.remove('tut-next-fadein');void ftNextBtn.offsetWidth;ftNextBtn.hidden=false;ftNextBtn.classList.add('tut-next-fadein');}
 function ftRenderCards(interactive){
   ftCardArea.style.cssText='';ftCardArea.innerHTML='';ftCardArea.className='tut-card-area';
   if(!ftCards||!ftCards.length)return;
@@ -145,11 +146,11 @@ function ftEvalSel(){
         },700);return;
       }
       ftDone=true;var pr=['🎉 완벽해요! 세 장이 SET를 이루고 있어요!','🌟 훌륭해요! 정확하게 찾았어요!','굿굿'];
-      ftFeedbackEl.textContent=pr[Math.floor(Math.random()*pr.length)];ftFeedbackEl.className='tut-feedback tut-success';ftHintBtn.hidden=true;ftNextBtn.hidden=false;ftNextBtn.textContent='완료! 🎓';
+      ftFeedbackEl.textContent=pr[Math.floor(Math.random()*pr.length)];ftFeedbackEl.className='tut-feedback tut-success';ftHintBtn.hidden=true;ftShowNextBtn('완료! 🎓');
     }else{
       ftDone=true;var pr=['🎉 완벽해요! 세 장이 SET를 이루고 있어요!','🌟 훌륭해요! 정확하게 찾았어요!','굿굿'];
-      ftFeedbackEl.textContent=pr[Math.floor(Math.random()*pr.length)];ftFeedbackEl.className='tut-feedback tut-success';ftHintBtn.hidden=true;ftNextBtn.hidden=false;
-      ftNextBtn.textContent=ftStepIdx>=FULL_TUT_STEPS.length-1?'완료! 🎓':'다음 →';
+      ftFeedbackEl.textContent=pr[Math.floor(Math.random()*pr.length)];ftFeedbackEl.className='tut-feedback tut-success';ftHintBtn.hidden=true;
+      ftShowNextBtn(ftStepIdx>=FULL_TUT_STEPS.length-1?'완료! 🎓':'다음 →');
     }
   }else{
     ftSelected.forEach(function(idx){var el=document.getElementById('ft-card-'+idx);if(el)el.classList.add('tut-wrong');});
@@ -187,7 +188,7 @@ function ftOnSeqAnswer(answer){
     ftFeedbackEl.innerHTML=q.praise;ftFeedbackEl.className='tut-feedback tut-success';
     if(q.logLabel){var t=answer==='same'?'모두 같아요':answer==='different'?'모두 달라요':'2개만 같아요';var cls=answer==='same'?'log-same':answer==='different'?'log-diff':'log-err';ftAnswerItems.push({label:q.logLabel,text:t,cls:cls});ftRenderAnswerLog();}
     var isLastQ=ftSubQIdx>=step.questions.length-1,isLastStep=ftStepIdx>=FULL_TUT_STEPS.length-1;
-    ftSubQNext=!isLastQ;ftNextBtn.hidden=false;ftNextBtn.textContent=isLastQ?(isLastStep?'완료! 🎓':'다음 →'):'다음 질문 →';
+    ftSubQNext=!isLastQ;ftShowNextBtn(isLastQ?(isLastStep?'완료! 🎓':'다음 →'):'다음 질문 →');
   }else{
     ftFeedbackEl.innerHTML='❌<br><br>'+wrongMsg;ftFeedbackEl.className='tut-feedback tut-fail';
     ['tutSeqYes','tutSeqNo','tutSeqSame','tutSeqDiff','tutSeqNeither'].forEach(function(id){var el=document.getElementById(id);if(el)el.removeAttribute('disabled');});
@@ -208,7 +209,7 @@ function ftOnCardPickAnswer(isCorrect,clickedIdx,choices,explanation){
   if(isCorrect){
     var b=document.getElementById('tut-pick-'+clickedIdx);if(b)b.classList.add('tut-pick-correct');
     ftFeedbackEl.innerHTML=explanation||'굿굿 규칙에 맞아서 SET예요!';ftFeedbackEl.className='tut-feedback tut-success';
-    ftNextBtn.hidden=false;ftNextBtn.textContent=ftStepIdx>=FULL_TUT_STEPS.length-1?'완료! 🎓':'다음 →';
+    ftShowNextBtn(ftStepIdx>=FULL_TUT_STEPS.length-1?'완료! 🎓':'다음 →');
   }else{
     var b=document.getElementById('tut-pick-'+clickedIdx);if(b)b.classList.add('tut-pick-wrong');
     ftFeedbackEl.innerHTML='❌ 다시 확인해보세요! 개수도 꼭 확인해보세요.';ftFeedbackEl.className='tut-feedback tut-fail';

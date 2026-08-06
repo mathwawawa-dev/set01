@@ -410,6 +410,7 @@ function renderIntroPhase() {
     tutNextBtn.hidden = true;
   } else {
     tutNextBtn.hidden = false;
+    tutNextBtn.classList.remove('tut-next-fadein');
     tutNextBtn.textContent = '다음 →';
   }
 
@@ -467,6 +468,17 @@ function setupTutChallenge(step) {
             }
     }
   }
+}
+
+// ══════════════════════════════════════════════
+// 다음 버튼 fade-in 헬퍼
+// ══════════════════════════════════════════════
+function showTutNextBtn(label) {
+  tutNextBtn.textContent = label || '다음 →';
+  tutNextBtn.classList.remove('tut-next-fadein');
+  void tutNextBtn.offsetWidth; // reflow to restart animation
+  tutNextBtn.hidden = false;
+  tutNextBtn.classList.add('tut-next-fadein');
 }
 
 // ══════════════════════════════════════════════
@@ -585,8 +597,7 @@ function evalTutSel() {
       tutFeedbackEl.textContent = praises[Math.floor(Math.random() * praises.length)];
       tutFeedbackEl.className   = 'tut-feedback tut-success';
       tutHintBtn.hidden = true;
-      tutNextBtn.hidden = false;
-      tutNextBtn.textContent = '완료! 🎓';
+      showTutNextBtn('완료! 🎓');
     } else {
       tutDone = true;
       const praises = [
@@ -596,9 +607,8 @@ function evalTutSel() {
       ];
       tutFeedbackEl.textContent = praises[Math.floor(Math.random() * praises.length)];
       tutFeedbackEl.className   = 'tut-feedback tut-success';
-      tutHintBtn.hidden         = true;
-      tutNextBtn.hidden         = false;
-      tutNextBtn.textContent    = tutStepIdx >= JUNIOR_TUT_STEPS.length - 1 ? '완료! 🎓' : '다음 →';
+      tutHintBtn.hidden = true;
+      showTutNextBtn(tutStepIdx >= JUNIOR_TUT_STEPS.length - 1 ? '완료! 🎓' : '다음 →');
     }
   } else {
     tutSelected.forEach(idx => {
@@ -782,8 +792,7 @@ function onCardPickAnswer(isCorrect, clickedIdx, choices, explanation) {
     document.getElementById(`tut-pick-${clickedIdx}`)?.classList.add('tut-pick-correct');
     tutFeedbackEl.innerHTML = explanation || '🎉 정확해요! 규칙에 맞아서 <strong>SET</strong>예요!';
     tutFeedbackEl.className = 'tut-feedback tut-success';
-    tutNextBtn.hidden      = false;
-    tutNextBtn.textContent = tutStepIdx >= JUNIOR_TUT_STEPS.length - 1 ? '완료! 🎓' : '다음 →';
+    showTutNextBtn(tutStepIdx >= JUNIOR_TUT_STEPS.length - 1 ? '완료! 🎓' : '다음 →');
   } else {
     document.getElementById(`tut-pick-${clickedIdx}`)?.classList.add('tut-pick-wrong');
     tutFeedbackEl.innerHTML = '❌ 다시 확인해보세요! 각 속성을 하나씩 비교해보세요.';

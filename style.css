@@ -1166,6 +1166,13 @@ html, body {
 }
 .tut-btn-next:hover { opacity: 0.65; transform: translateY(-1px); animation: none; }
 .tut-btn-next[hidden] { display: none; }
+@keyframes tutNextReveal {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.tut-next-fadein {
+  animation: tutNextReveal 0.4s ease 0.5s both, tutBtnPulse 2s 0.9s infinite ease-in-out;
+}
 
 .tut-complete-btns { display: flex; flex-direction: column; gap: 12px; width: 100%; align-items: center; }
 
