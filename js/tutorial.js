@@ -116,7 +116,7 @@ const JUNIOR_TUT_STEPS = [
   // ── STEP 3: quiz1 ──────────────────────────
   {
     id: 'quiz1', type: 'cardpick',
-    title: '문제 ① — SET를 완성해봐요!',
+    title: '문제 1 - SET를 완성해봐요!',
     text: 'SET가 되기 위해 필요한 카드는 무엇일까요?',
     givenCards: TUT_Q1_GIVEN,
     choices: TUT_Q1_CHOICES,
@@ -163,7 +163,7 @@ const JUNIOR_TUT_STEPS = [
   // ── STEP 5: quiz2 ──────────────────────────
   {
     id: 'quiz2', type: 'cardpick',
-    title: '문제 ② — SET를 완성해봐요!',
+    title: '문제 2 - SET를 완성해봐요!',
     text: 'SET가 되기 위해 필요한 카드는 무엇일까요?',
     givenCards: TUT_Q2_GIVEN,
     choices: TUT_Q2_CHOICES,
@@ -209,7 +209,7 @@ const JUNIOR_TUT_STEPS = [
   // ── STEP 7: quiz3 ──────────────────────────
   {
     id: 'quiz3', type: 'cardpick',
-    title: '문제 ③ — SET를 완성해봐요!',
+    title: '문제 3 - SET를 완성해봐요!',
     text: 'SET가 되기 위해 필요한 카드는 무엇일까요?',
     givenCards: TUT_Q3_GIVEN,
     choices: TUT_Q3_CHOICES,
