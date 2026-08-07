@@ -17,7 +17,6 @@ const TUT_Q1_CHOICES = [
   { isCorrect: true,  card: { shape: 'squiggle', color: 'purple', fill: 'solid'   } },
   { isCorrect: false, card: { shape: 'squiggle', color: 'purple', fill: 'outline' } },
   { isCorrect: false, card: { shape: 'oval',     color: 'purple', fill: 'solid'   } },
-  { isCorrect: false, card: { shape: 'oval',     color: 'purple', fill: 'outline' } },
 ];
 
 // ── 분석 2 카드 ──────────────────────────────────
@@ -36,7 +35,6 @@ const TUT_Q2_CHOICES = [
   { isCorrect: true,  card: { shape: 'squiggle', color: 'red',    fill: 'solid'   } },
   { isCorrect: false, card: { shape: 'squiggle', color: 'red',    fill: 'outline' } },
   { isCorrect: false, card: { shape: 'squiggle', color: 'purple', fill: 'solid'   } },
-  { isCorrect: false, card: { shape: 'diamond',  color: 'purple', fill: 'solid'   } },
 ];
 
 // ── 분석 3 카드 ──────────────────────────────────
@@ -55,7 +53,6 @@ const TUT_Q3_CHOICES = [
   { isCorrect: true,  card: { shape: 'squiggle', color: 'red',    fill: 'solid'   } },
   { isCorrect: false, card: { shape: 'squiggle', color: 'red',    fill: 'outline' } },
   { isCorrect: false, card: { shape: 'squiggle', color: 'green',  fill: 'solid'   } },
-  { isCorrect: false, card: { shape: 'diamond',  color: 'red',    fill: 'solid'   } },
 ];
 
 // ── 훈련1 고정 4장 (수학적 검증 완료: 유일 SET = 인덱스 0,1,2) ──
@@ -754,7 +751,7 @@ function renderCardPickStep() {
   const step       = JUNIOR_TUT_STEPS[tutStepIdx];
   const rawChoices = step.choices;
   const choices    = shuffle([...rawChoices]);
-  const labels     = ['A', 'B', 'C', 'D'];
+  const labels     = ['A', 'B', 'C'];
   const givenCards = step.givenCards;
   const givenHTML  = step.givenCards
     .map(c => `<div class="card tut-pick-given-card"><img src="${imgPath(c)}" alt="" draggable="false"></div>`)
