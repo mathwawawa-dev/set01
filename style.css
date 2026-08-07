@@ -574,6 +574,10 @@ html, body {
 }
 .settings-overlay[hidden] { display: none; }
 
+#pracSettingsOverlay {
+  z-index: 4000;
+}
+
 .settings-box {
   background: var(--bg-card);
   border: 1.5px solid var(--border);
