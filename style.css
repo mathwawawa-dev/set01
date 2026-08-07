@@ -1634,5 +1634,10 @@ html, body {
   /* 정식 SET 튜토리얼(4줄) — junior(3줄)보다 작게 */
   .ft-tut-mode .tut-log-item {
     font-size: 0.70rem;
+    line-height: 1.15;
+  }
+  .ft-tut-mode .tut-answer-log {
+    gap: 2px;
+    padding-top: 5px;
   }
 }
