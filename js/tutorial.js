@@ -218,21 +218,21 @@ const JUNIOR_TUT_STEPS = [
 
   // ── STEP 8: training1 ──────────────────────
   {
-    id: 'training1', title: '훈련 ① — 4장에서 찾아봐요!',
+    id: 'training1', title: '훈련 1 - 4장에서 찾아봐요!',
     text: '4장 중에서 <strong>SET가 되는 세 장</strong>을 골라봐요!<br>힌트 버튼을 눌러 도움을 받을 수 있어요.',
     cards: null, interactive: true, hasHint: true, challengeN: 4,
   },
 
   // ── STEP 9: training2 ──────────────────────
   {
-    id: 'training2', title: '훈련 ② — 5장에서 찾아봐요!',
+    id: 'training2', title: '훈련 2 - 5장에서 찾아봐요!',
     text: '5장 중에서 <strong>SET가 되는 세 장</strong>을 골라봐요!<br>힌트 버튼을 눌러 도움을 받을 수 있어요.',
     cards: null, interactive: true, hasHint: true, challengeN: 5,
   },
 
   // ── STEP 10: training3 ──────────────────────
   {
-    id: 'training3', title: '훈련 ③ — 6장에서 찾아봐요!',
+    id: 'training3', title: '훈련 3 - 6장에서 찾아봐요!',
     text: '6장 중에서 <strong>SET가 되는 세 장</strong>을 골라봐요!<br>힌트 버튼을 눌러 도움을 받을 수 있어요.',
     cards: null, interactive: true, hasHint: true, challengeN: 6,
   },
