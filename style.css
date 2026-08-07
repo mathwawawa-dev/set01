@@ -1113,7 +1113,7 @@ html, body {
   .mode-card {
     max-width: none;
     width: 100%;
-    padding: 8px 16px;
+    padding: 6px 16px 8px;
     display: grid;
     grid-template-columns: max-content max-content 1fr auto;
     grid-template-rows: auto auto;
