@@ -67,6 +67,7 @@ function ftRenderStep(){
   document.getElementById('tutSkipBtn').hidden=false;
   var wrapper=ftCardArea.parentElement;if(wrapper)wrapper.style.display='';
   var tutInner=ftTutorialScreen.querySelector('.tut-inner');
+  document.getElementById('tutRpgHint').hidden=true;
   if(step.type==='sequence'){
     tutInner.classList.remove('tut-layout-quiz');ftSubQIdx=0;ftAnswerItems=[];ftCards=step.cards;
     ftBubbleEl.innerHTML='';ftContextBubble.innerHTML=FULL_TUT_INTRO_TEXT;ftContextBubble.hidden=true;

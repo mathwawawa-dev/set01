@@ -318,6 +318,7 @@ function renderTutStep() {
   if (wrapper) wrapper.style.display = '';
 
   const tutInner = tutorialScreen.querySelector('.tut-inner');
+  document.getElementById('tutRpgHint').hidden = true;
 
   tutFinalSetCount = 0; // final 스텝 SET 카운터 리셋
   if (step.type === 'sequence') {
