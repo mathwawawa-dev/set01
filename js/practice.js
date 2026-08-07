@@ -669,7 +669,7 @@ function renderPracSettingsGrid() {
   const presetRow = document.createElement('div');
   presetRow.className = 'key-preset-row';
   const presetBtn = document.createElement('button');
-  presetBtn.className = 'key-preset-btn';
+  presetBtn.className = 'btn-preset';
   presetBtn.textContent = '프리셋: 1 2 3 4 5 6';
   presetBtn.addEventListener('click', () => {
     pracKeys = ['1','2','3','4','5','6'];

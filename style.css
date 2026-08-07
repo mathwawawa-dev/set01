@@ -761,27 +761,12 @@ html, body {
 }
 .key-cell.listening .key-cell-badge {
   color: var(--accent-pink);
-  content: '??;
 }
 
 .key-preset-row {
   display: flex;
   justify-content: center;
   margin-top: 10px;
-}
-.key-preset-btn {
-  font-size: 0.8rem;
-  padding: 6px 16px;
-  border: 1.5px solid var(--border);
-  border-radius: 10px;
-  background: var(--bg-base);
-  color: var(--text-sec);
-  cursor: pointer;
-  transition: border-color 0.15s, background 0.15s;
-}
-.key-preset-btn:hover {
-  border-color: var(--accent-blue);
-  background: var(--surface-2);
 }
 
 .settings-actions {
