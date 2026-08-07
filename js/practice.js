@@ -221,35 +221,41 @@ function renderPracticeQ() {
 
 function handlePracOptionClick(selectedCard, el) {
   if (pracWaitNext) return;
-  
-  pracTotalAttempts++;
-  
-  if (isSameCard(selectedCard, pracCorrectCard)) {
-    // 정답
-    const timeTaken = Date.now() - pracQuestionStartTime;
-    pracTotalTimeMs += timeTaken;
-    pracSolvedCount++;
-    el.classList.add('correct');
-    
-    updatePracStats();
-    pracWaitNext = true;
-    
-    // burst 효과 (script.js에 있는 createBurst 재활용)
-    if (typeof createBurst === 'function') {
-      createBurst(el, 15);
+
+  // 선택 이펙트 (파란 테두리) 80ms
+  el.classList.add('selected');
+
+  setTimeout(() => {
+    el.classList.remove('selected');
+    pracTotalAttempts++;
+
+    if (isSameCard(selectedCard, pracCorrectCard)) {
+      // 정답
+      const timeTaken = Date.now() - pracQuestionStartTime;
+      pracTotalTimeMs += timeTaken;
+      pracSolvedCount++;
+      el.classList.add('correct');
+
+      updatePracStats();
+      pracWaitNext = true;
+
+      // burst 효과 (script.js에 있는 createBurst 재활용)
+      if (typeof createBurst === 'function') {
+        createBurst(el, 15);
+      }
+
+      setTimeout(() => {
+        generatePracticeQ();
+      }, 1500);
+    } else {
+      // 오답
+      el.classList.remove('wrong');
+      void el.offsetWidth; // trigger reflow
+      el.classList.add('wrong');
+
+      updatePracStats();
     }
-    
-    setTimeout(() => {
-      generatePracticeQ();
-    }, 1500);
-  } else {
-    // 오답
-    el.classList.remove('wrong');
-    void el.offsetWidth; // trigger reflow
-    el.classList.add('wrong');
-    
-    updatePracStats();
-  }
+  }, 80);
 }
 
 function updatePracStats() {

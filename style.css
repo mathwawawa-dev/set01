@@ -417,6 +417,11 @@ html, body {
   border-color: var(--error);
   animation: pracShake 0.4s ease;
 }
+.prac-option-container.selected .card-wrap {
+  border-color: #5b8dee;
+  box-shadow: var(--sel-glow);
+  transform: translateY(-3px);
+}
 
 .prac-option-label {
   font-size: 0.78rem;
