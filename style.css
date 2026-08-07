@@ -187,6 +187,10 @@ html, body {
 .mode-card-emoji.mode-card-emoji-hard:not(.icon-red) {
   filter: grayscale(1) brightness(1.3);
 }
+/* 정식 hard 🔥 — 흑백+붉은톤 + brightness(1.1) */
+.mode-card-emoji.mode-card-emoji-hard.icon-red {
+  filter: grayscale(1) sepia(0.8) hue-rotate(310deg) saturate(3) brightness(1.1);
+}
 
 .mode-card-icon.icon-gray {
   filter: grayscale(100%);
