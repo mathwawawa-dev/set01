@@ -322,14 +322,17 @@ html, body {
 }
 
 .prac-bubble {
+  position: relative;
   background: var(--bg-card);
-  border: 1px solid var(--card-border);
-  border-radius: 12px;
-  padding: 16px 20px;
-  font-size: 1.05rem;
+  border: 1.5px solid var(--border);
+  border-radius: 16px;
+  padding: 16px 22px;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  text-align: center;
   color: var(--text-primary);
-  font-weight: 600;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+  box-shadow: var(--shadow-card);
+  width: 100%;
   margin-top: 4px;
 }
 
