@@ -132,7 +132,7 @@ html, body {
 
 .mode-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 220px));
+  grid-template-columns: repeat(3, minmax(160px, 220px));
   gap: 16px;
   width: 100%;
   justify-content: center;
