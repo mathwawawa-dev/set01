@@ -177,11 +177,15 @@ html, body {
   justify-content: center;
   width: 2.4rem;
   line-height: 1;
-  filter: grayscale(1) brightness(1.3);
+  filter: grayscale(1) brightness(1.1);
 }
 /* 정식 SET — 흑백 + 빨간 톤 */
 .mode-card-emoji.icon-red {
   filter: grayscale(1) sepia(0.8) hue-rotate(310deg) saturate(3);
+}
+/* Junior hard 🔥 — 흑백 + brightness(1.3) */
+.mode-card-emoji.mode-card-emoji-hard:not(.icon-red) {
+  filter: grayscale(1) brightness(1.3);
 }
 
 .mode-card-icon.icon-gray {
