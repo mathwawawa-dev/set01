@@ -1125,6 +1125,7 @@ html, body {
   .mode-card-emoji {
     font-size: 1.7rem;
     width: 1.7rem;
+    margin-right: 6px;
   }
   .mode-cards { display: flex; flex-direction: column; gap: 12px; }
   .mode-card {
