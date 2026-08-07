@@ -131,17 +131,15 @@ html, body {
 }
 
 .mode-cards {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 220px));
   gap: 16px;
   width: 100%;
-  flex-wrap: wrap;
   justify-content: center;
 }
 
 .mode-card {
-  flex: 1;
-  min-width: 160px;
-  max-width: 220px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
