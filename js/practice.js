@@ -32,10 +32,11 @@ let pracTotalAttempts = 0;
 let pracQuestionStartTime = 0;
 let pracTotalTimeMs = 0;
 
-let pracKeys = ['1', '2', '3'];
+let pracKeys = ['1', '2', '3', '4'];
 try {
   const saved = localStorage.getItem('setGamePracKeys');
-  if (saved) pracKeys = JSON.parse(saved).slice(0, 3);
+  if (saved) pracKeys = JSON.parse(saved).slice(0, 4);
+  if (pracKeys.length < 4) pracKeys.push('4');
 } catch(e) {}
 
 let pracActiveKeyIdx = -1;
@@ -492,12 +493,12 @@ document.addEventListener('keydown', (e) => {
     return;
   }
 
-  // 게임 플레이 중 단축키 — hard 모드는 마우스 전용
+  // 게임 플레이 중 단축키 — A/B 유형 모두 지원 (hard 모드 포함)
   if (!document.getElementById('practiceScreen').hidden &&
-      document.getElementById('pracSettingsOverlay').hidden &&
-      !pracIsHard) {
+      document.getElementById('pracSettingsOverlay').hidden) {
     const key = e.key.toLowerCase();
-    const idx = pracKeys.findIndex(k => k && k.toLowerCase() === key);
+    const maxSlots = pracIsHard ? 4 : 3;
+    const idx = pracKeys.slice(0, maxSlots).findIndex(k => k && k.toLowerCase() === key);
     if (idx !== -1 && !pracWaitNext) {
       const container = document.querySelector(
         `.prac-options-area .prac-option-container:nth-child(${idx + 1})`
@@ -526,11 +527,9 @@ function closePracSettings() {
   if (!document.getElementById('practiceScreen').hidden) {
     const labels = document.querySelectorAll('.prac-option-label');
     labels.forEach((lbl, i) => {
-      if (pracPhase === 'A') {
-        lbl.textContent = pracKeys[i] ? pracKeys[i].toUpperCase() : String.fromCharCode(65 + i);
-      } else {
-        lbl.textContent = String.fromCharCode(65 + i);
-      }
+      lbl.textContent = pracIsHard
+        ? String.fromCharCode(65 + i)
+        : (pracKeys[i] ? pracKeys[i].toUpperCase() : String.fromCharCode(65 + i));
     });
   }
 }
@@ -547,8 +546,15 @@ function renderPracSettingsGrid() {
   const grid = document.getElementById('pracSettingsGrid');
   if (!grid) return;
   grid.innerHTML = '';
-  const posLabels = ['선지 A', '선지 B', '선지 C'];
-  for (let i = 0; i < 3; i++) {
+
+  const slotCount = pracIsHard ? 4 : 3;
+  const posLabels = ['선지 A', '선지 B', '선지 C', '선지 D'];
+
+  // 설정 라벨 동적 업데이트
+  const lbl = document.getElementById('pracSettingsLabel');
+  if (lbl) lbl.textContent = pracIsHard ? 'A, B, C, D 선지 단축키' : 'A, B, C 선지 단축키';
+
+  for (let i = 0; i < slotCount; i++) {
     const cell = document.createElement('div');
     const isListening = pracActiveKeyIdx === i;
     cell.className = 'key-cell' + (isListening ? ' listening' : '');
