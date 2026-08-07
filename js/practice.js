@@ -123,13 +123,42 @@ function isSameCard(c1, c2) {
   return c1.shape === c2.shape && c1.color === c2.color && c1.fill === c2.fill && (pracIsFull ? c1.number === c2.number : true);
 }
 
+function createPracCardElement(card) {
+  const wrap = document.createElement('div');
+  wrap.className = 'card-wrap';
+  
+  const el = document.createElement('div');
+  el.className = 'card';
+  
+  if (pracIsFull && card.count !== undefined) {
+    const inner = document.createElement('div');
+    inner.className = `card-symbols count-${card.count}`;
+    for (let i = 0; i < card.count; i++) {
+      const img = document.createElement('img');
+      img.src = imgPath(card);
+      img.className = 'card-symbol';
+      img.draggable = false;
+      inner.appendChild(img);
+    }
+    el.appendChild(inner);
+  } else {
+    const img = document.createElement('img');
+    img.src = imgPath(card);
+    img.draggable = false;
+    el.appendChild(img);
+  }
+  
+  wrap.appendChild(el);
+  return wrap;
+}
+
 function renderPracticeQ() {
   const qArea = document.getElementById('pracQuestionArea');
   qArea.innerHTML = '';
   
   // 주어진 카드 2장
-  const c1El = generateHTML(pracGivenCards[0]);
-  const c2El = generateHTML(pracGivenCards[1]);
+  const c1El = createPracCardElement(pracGivenCards[0]);
+  const c2El = createPracCardElement(pracGivenCards[1]);
   c1El.style.pointerEvents = 'none';
   c2El.style.pointerEvents = 'none';
   
@@ -147,7 +176,7 @@ function renderPracticeQ() {
   oArea.innerHTML = '';
   
   pracOptions.forEach((opt, idx) => {
-    const el = generateHTML(opt);
+    const el = createPracCardElement(opt);
     // 식별자 임시 부여
     el.dataset.idx = idx;
     el.addEventListener('click', () => handlePracOptionClick(opt, el));
