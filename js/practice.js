@@ -18,6 +18,14 @@ let pracTotalAttempts = 0;
 let pracQuestionStartTime = 0;
 let pracTotalTimeMs = 0;
 
+let pracKeys = ['1', '2', '3', '4'];
+try {
+  const saved = localStorage.getItem('setGamePracKeys');
+  if (saved) pracKeys = JSON.parse(saved);
+} catch(e) {}
+
+let pracActiveKeyIdx = -1;
+
 function initPracticeMode(isFull) {
   pracIsFull = isFull;
   pracCurrentDiff = 0;
@@ -200,7 +208,7 @@ function renderPracticeQ() {
     
     const label = document.createElement('div');
     label.className = 'prac-option-label';
-    label.textContent = String.fromCharCode(65 + idx); // A, B, C, D
+    label.textContent = pracKeys[idx] ? pracKeys[idx].toUpperCase() : String.fromCharCode(65 + idx);
     
     const el = createPracCardElement(opt);
     // 식별자 임시 부여
@@ -328,3 +336,82 @@ document.addEventListener('DOMContentLoaded', () => {
     initPracticeMode(true);
   });
 });
+
+// ==========================================
+// 단축키 및 설정 기능
+// ==========================================
+document.addEventListener('keydown', (e) => {
+  // 설정창이 열려있고 키 입력 대기 중일 때
+  if (!document.getElementById('pracSettingsOverlay').hidden && pracActiveKeyIdx !== -1) {
+    e.preventDefault();
+    let key = e.key.toLowerCase();
+    if (key === 'escape') {
+      pracActiveKeyIdx = -1;
+      renderPracSettingsGrid();
+      return;
+    }
+    if (key === ' ' || key === 'spacebar') key = 'space';
+    
+    // 중복 제거
+    const dupIdx = pracKeys.indexOf(key);
+    if (dupIdx !== -1 && dupIdx !== pracActiveKeyIdx) {
+      pracKeys[dupIdx] = '';
+    }
+    
+    pracKeys[pracActiveKeyIdx] = key;
+    pracActiveKeyIdx = -1;
+    localStorage.setItem('setGamePracKeys', JSON.stringify(pracKeys));
+    renderPracSettingsGrid();
+    return;
+  }
+  
+  // 게임 플레이 중 단축키
+  if (!document.getElementById('practiceScreen').hidden && document.getElementById('pracSettingsOverlay').hidden) {
+    const key = e.key.toLowerCase();
+    const idx = pracKeys.findIndex(k => k && k.toLowerCase() === key);
+    if (idx !== -1 && !pracWaitNext) {
+      const el = document.querySelector(`.prac-options-area .prac-option-container:nth-child(${idx+1}) .card`);
+      if (el) handlePracOptionClick(pracOptions[idx], el);
+    }
+  }
+});
+
+const btnPracSettings = document.getElementById('pracSettingsBtn');
+if (btnPracSettings) {
+  btnPracSettings.addEventListener('click', () => {
+    document.getElementById('pracSettingsOverlay').hidden = false;
+    renderPracSettingsGrid();
+  });
+}
+
+const btnPracSettingsClose = document.getElementById('btnPracSettingsClose');
+if (btnPracSettingsClose) {
+  btnPracSettingsClose.addEventListener('click', () => {
+    document.getElementById('pracSettingsOverlay').hidden = true;
+    pracActiveKeyIdx = -1;
+    // 라벨 업데이트
+    if (!document.getElementById('practiceScreen').hidden) {
+      const labels = document.querySelectorAll('.prac-option-label');
+      labels.forEach((lbl, i) => {
+        lbl.textContent = pracKeys[i] ? pracKeys[i].toUpperCase() : String.fromCharCode(65 + i);
+      });
+    }
+  });
+}
+
+function renderPracSettingsGrid() {
+  const grid = document.getElementById('pracSettingsGrid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  for (let i = 0; i < 4; i++) {
+    const box = document.createElement('div');
+    box.className = 'key-box' + (pracActiveKeyIdx === i ? ' active' : '');
+    box.textContent = pracKeys[i] ? pracKeys[i].toUpperCase() : '';
+    box.addEventListener('click', () => {
+      pracActiveKeyIdx = i;
+      renderPracSettingsGrid();
+    });
+    grid.appendChild(box);
+  }
+}
+

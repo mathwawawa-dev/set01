@@ -135,6 +135,7 @@
           <div class="prac-stat-item">정답률 <span id="pracAccuracy">0%</span></div>
           <div class="prac-stat-item">평균 시간 <span id="pracAvgTime">0.0초</span></div>
         </div>
+        <button class="prac-settings-btn" id="pracSettingsBtn">⚙ 설정</button>
         <button class="prac-exit-btn" id="pracExitBtn">✕ 나가기</button>
       </div>
       <h2 class="prac-title" id="pracMainTitle">문제 1 - SET를 완성해봐요!</h2>
@@ -256,6 +257,24 @@
       </div>
     </div>
   </div>
+
+  <!-- 연습 모드 단축키 설정 모달 -->
+  <div class="settings-overlay" id="pracSettingsOverlay" hidden>
+    <div class="settings-box">
+      <div class="settings-header">
+        <h2 class="settings-title">⌨️ 연습 모드 단축키 설정</h2>
+        <button class="settings-close" id="btnPracSettingsClose">✕</button>
+      </div>
+      <div class="settings-section">
+        <span class="settings-section-label">A, B, C, D 선지 단축키</span>
+        <p class="settings-desc">각 알파벳 칸을 클릭한 뒤 원하는 키를 누르세요.</p>
+      </div>
+      <div class="settings-grid" id="pracSettingsGrid" style="grid-template-columns: repeat(4, 1fr); justify-items: center; max-width: 320px; margin: 0 auto;">
+        <!-- JS에서 생성 -->
+      </div>
+    </div>
+  </div>
+
 
   <script src="js/game.js"></script>
   <script src="js/tutorial.js"></script>
