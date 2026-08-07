@@ -185,7 +185,7 @@ html, body {
 }
 /* Junior hard 🔥 — 흑백 + 약간 밝게 */
 .mode-card-emoji.mode-card-emoji-hard:not(.icon-red) {
-  filter: grayscale(1) brightness(1.5);
+  filter: grayscale(1) brightness(1.2);
 }
 
 .mode-card-icon.icon-gray {
