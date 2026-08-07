@@ -1617,4 +1617,7 @@ html, body {
     padding: 10px 10px;
     min-height: 56px;
   }
+
+  /* 모바일: 판단 결과 제목/밑줄 숨김 */
+  .tut-log-title { display: none; }
 }
