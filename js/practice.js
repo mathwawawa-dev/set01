@@ -18,10 +18,10 @@ let pracTotalAttempts = 0;
 let pracQuestionStartTime = 0;
 let pracTotalTimeMs = 0;
 
-let pracKeys = ['1', '2', '3', '4'];
+let pracKeys = ['1', '2', '3'];
 try {
   const saved = localStorage.getItem('setGamePracKeys');
-  if (saved) pracKeys = JSON.parse(saved);
+  if (saved) pracKeys = JSON.parse(saved).slice(0, 3);
 } catch(e) {}
 
 let pracActiveKeyIdx = -1;
@@ -95,7 +95,7 @@ function generatePracticeQ() {
   pracGivenCards = [foundSet[0], foundSet[1]];
   pracCorrectCard = foundSet[2];
   
-  // 2. 오답 카드 3장 고르기
+  // 2. 오답 카드 2장 고르기
   let availableForWrong = deck.filter(c => 
     !isSameCard(c, pracCorrectCard) && 
     !isSameCard(c, pracGivenCards[0]) && 
@@ -111,13 +111,13 @@ function generatePracticeQ() {
     return true;
   });
   
-  if(wrongCandidates.length < 3) {
+  if(wrongCandidates.length < 2) {
     wrongCandidates = shuffle(availableForWrong);
   } else {
     wrongCandidates = shuffle(wrongCandidates);
   }
   
-  let wrongOptions = wrongCandidates.slice(0, 3);
+  let wrongOptions = wrongCandidates.slice(0, 2);
   
   // 3. 선지 섞기
   pracOptions = shuffle([pracCorrectCard, ...wrongOptions]);
@@ -357,8 +357,8 @@ function renderPracSettingsGrid() {
   const grid = document.getElementById('pracSettingsGrid');
   if (!grid) return;
   grid.innerHTML = '';
-  const posLabels = ['선지 A', '선지 B', '선지 C', '선지 D'];
-  for (let i = 0; i < 4; i++) {
+  const posLabels = ['선지 A', '선지 B', '선지 C'];
+  for (let i = 0; i < 3; i++) {
     const cell = document.createElement('div');
     const isListening = pracActiveKeyIdx === i;
     cell.className = 'key-cell' + (isListening ? ' listening' : '');
