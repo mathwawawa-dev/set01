@@ -1168,6 +1168,23 @@ html, body {
   .overlay-box { padding: 32px 24px; }
 
   .selection-bar { font-size: 0.82rem; padding: 9px 20px; }
+
+  /* 튜토리얼 문제 카드 — 연습 모드와 동일하게 90x120 */
+  .tut-pick-given-card {
+    width: 90px;
+    height: 120px;
+  }
+  .tut-pick-unknown {
+    width: 90px;
+    height: 120px;
+    font-size: 1.4rem;
+  }
+  .tut-pick-card.card {
+    width: 90px;
+    height: 120px;
+  }
+  .tut-pick-given { gap: 8px; }
+  .tut-pick-choices { gap: 8px; }
 }
 
 
