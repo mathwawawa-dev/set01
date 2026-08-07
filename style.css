@@ -1642,6 +1642,7 @@ html, body {
   }
 
   /* 모바일: 연습 통계 — 라벨/숫자 두 줄로 */
+  .prac-stats { font-size: 0.85rem; }
   .prac-stat-item {
     white-space: nowrap;
   }
