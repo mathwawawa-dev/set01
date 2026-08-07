@@ -431,6 +431,18 @@ html, body {
   line-height: 1;
 }
 
+.prac-thumb-up {
+  font-size: 1.5rem;
+  line-height: 1;
+  text-align: center;
+  margin-top: 6px;
+  animation: pracThumbPop 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+@keyframes pracThumbPop {
+  from { transform: scale(0); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
 .prac-options-area {
   display: flex;
   gap: 10px;

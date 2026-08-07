@@ -236,6 +236,12 @@ function handlePracOptionClick(selectedCard, el) {
       pracSolvedCount++;
       el.classList.add('correct');
 
+      // 👍 칭찬 이모지 표시
+      const thumb = document.createElement('div');
+      thumb.className = 'prac-thumb-up';
+      thumb.textContent = '👍';
+      el.appendChild(thumb);
+
       updatePracStats();
       pracWaitNext = true;
 
@@ -246,7 +252,7 @@ function handlePracOptionClick(selectedCard, el) {
 
       setTimeout(() => {
         generatePracticeQ();
-      }, 1500);
+      }, 500);
     } else {
       // 오답
       el.classList.remove('wrong');
