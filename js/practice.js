@@ -27,12 +27,22 @@ function initPracticeMode(isFull) {
   document.getElementById('modeScreen').hidden = true;
   document.getElementById('practiceScreen').hidden = false;
   
+  const gameHeader = document.querySelector('.game-header');
+  if (gameHeader) gameHeader.style.display = 'none';
+  const floatMenu = document.getElementById('floatingMenu');
+  if (floatMenu) floatMenu.style.display = 'none';
+  
   generatePracticeQ();
 }
 
 function exitPracticeMode() {
   document.getElementById('practiceScreen').hidden = true;
   document.getElementById('modeScreen').hidden = false;
+  
+  const gameHeader = document.querySelector('.game-header');
+  if (gameHeader) gameHeader.style.display = '';
+  const floatMenu = document.getElementById('floatingMenu');
+  if (floatMenu) floatMenu.style.display = '';
 }
 
 function getDeck() {
@@ -176,11 +186,21 @@ function renderPracticeQ() {
   oArea.innerHTML = '';
   
   pracOptions.forEach((opt, idx) => {
+    const container = document.createElement('div');
+    container.className = 'prac-option-container';
+    
+    const label = document.createElement('div');
+    label.className = 'prac-option-label';
+    label.textContent = String.fromCharCode(65 + idx); // A, B, C, D
+    
     const el = createPracCardElement(opt);
     // 식별자 임시 부여
     el.dataset.idx = idx;
     el.addEventListener('click', () => handlePracOptionClick(opt, el));
-    oArea.appendChild(el);
+    
+    container.appendChild(label);
+    container.appendChild(el);
+    oArea.appendChild(container);
   });
 }
 

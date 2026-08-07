@@ -305,31 +305,42 @@ html, body {
   margin: 0;
 }
 
+.prac-bubble {
+  background: var(--bg-card);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 16px 20px;
+  font-size: 1.05rem;
+  color: var(--text-primary);
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+  margin-top: 4px;
+}
+
 .prac-question-area {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 16px;
-  padding: 20px;
-  background: var(--bg-main);
-  border-radius: 16px;
-  min-height: 180px;
-}
-.prac-question-area .card-wrap {
-  transform: none !important;
+  padding: 10px;
 }
 
+/* 실전/연습용 작은 카드 사이즈 */
+.prac-question-area .card-wrap, .prac-options-area .card-wrap {
+  width: 90px !important;
+  height: 130px !important;
+}
 .prac-blank-card {
-  width: var(--card-w);
-  height: var(--card-h);
-  border: 2px dashed var(--text-muted);
+  width: 90px;
+  height: 130px;
+  border: 2px dashed #b0b5c1;
   border-radius: 12px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 2rem;
-  color: var(--text-muted);
-  font-weight: 900;
+  font-size: 1.8rem;
+  color: #8c93a1;
+  font-weight: 800;
   background: rgba(0,0,0,0.02);
 }
 
@@ -349,28 +360,32 @@ html, body {
 .prac-feedback.error { color: var(--error); }
 
 .prac-hint-btn {
-  background: var(--bg-main);
-  border: 1px solid var(--card-border);
-  color: var(--text-sec);
-  padding: 6px 14px;
-  border-radius: 16px;
-  font-size: 0.9rem;
-  font-weight: 600;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  font-weight: 700;
   cursor: pointer;
-  transition: 0.2s;
+  transition: opacity 0.2s;
+  padding: 8px;
 }
 .prac-hint-btn:hover {
-  background: var(--card-border);
-  color: var(--text-main);
+  opacity: 0.7;
 }
 
-.prac-options-label {
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--text-sec);
-  margin-top: 10px;
-  text-align: left;
+.prac-option-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
 }
+.prac-option-label {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+
 
 .prac-options-area {
   display: grid;
@@ -1084,9 +1099,8 @@ html, body {
 
   .btn-theme, .btn-settings { font-size: 0.6rem; padding: 4px 6px; }
 
-  .prac-options-area { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-  .prac-question-area { gap: 10px; padding: 12px; }
-  .prac-question-area .card-wrap, .prac-blank-card { transform: scale(0.9) !important; }
+  .prac-options-area { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .prac-question-area { gap: 10px; padding: 6px; }
   .prac-inner { padding: 16px; border-radius: 16px; }
 
   .stats-row  { gap: 4px; }
