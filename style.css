@@ -1473,7 +1473,7 @@ html, body {
 }
 /* 위 행: 문제 카드 3장 */
 .tut-pick-given {
-  display: flex; gap: 12px; justify-content: center; align-items: flex-end;
+  display: flex; gap: 10px; justify-content: center; align-items: flex-end;
   flex-wrap: nowrap;
 }
 /* 아래 행: 선지 4장 */
