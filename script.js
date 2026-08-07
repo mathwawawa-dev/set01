@@ -1233,8 +1233,8 @@ const JUNIOR_TUT_STEPS = [
     cards: null, interactive: true, hasHint: true,
   },
   {
-    id: 'challenge2', title: '이제 실전이에요!',
-    text: '9장 중에서 <strong>SET를 찾아보세요.</strong><br>이번엔 힌트가 없어요!',
+    id: 'challenge2', title: '',
+    text: '[실전연습] 9장 중에서 <strong>SET를 찾아보세요.</strong><br>이번엔 힌트가 없어요!',
     cards: null, interactive: true, hasHint: false,
   },
 ];
@@ -1282,6 +1282,7 @@ function renderTutStep() {
   tutProgressFill.style.width = `${(tutStepIdx / total) * 100}%`;
   tutStepLabel.textContent    = `${tutStepIdx + 1} / ${total}`;
   tutTitleEl.textContent      = step.title;
+  tutTitleEl.style.display    = step.title ? '' : 'none';
   tutFeedbackEl.textContent   = '';
   tutFeedbackEl.className     = 'tut-feedback';
   tutSelected = [];
@@ -1634,6 +1635,7 @@ function showTutComplete() {
   tutProgressFill.style.width = '100%';
   tutStepLabel.textContent    = '완료! 🎓';
   tutTitleEl.textContent      = '🏅 튜토리얼 완료!';
+  tutTitleEl.style.display    = '';
   tutBubbleEl.innerHTML       = 'Junior SET 규칙을 모두 익혔어요!<br>이제 모드 선택 화면으로 돌아가 도전해보세요.';
   document.getElementById('tutQuizBtns')?.remove();
   tutCardArea.innerHTML = `

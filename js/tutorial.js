@@ -239,8 +239,8 @@ const JUNIOR_TUT_STEPS = [
 
   // ── STEP 11: final ──────────────────────────
   {
-    id: 'final', title: '이제 실전이에요!',
-    text: '9장 중에서 <strong>SET를 찾아보세요.</strong>',
+    id: 'final', title: '',
+    text: '[실전연습] 9장 중에서 <strong>SET를 찾아보세요.</strong>',
     cards: null, interactive: true, hasHint: false, challengeN: 9,
   },
 ];
@@ -297,6 +297,7 @@ function renderTutStep() {
   tutProgressFill.style.width = `${(tutStepIdx / total) * 100}%`;
   tutStepLabel.textContent    = `${tutStepIdx + 1} / ${total}`;
   tutTitleEl.textContent      = step.title;
+  tutTitleEl.style.display    = step.title ? '' : 'none';
   tutFeedbackEl.textContent   = '';
   tutFeedbackEl.className     = 'tut-feedback';
   tutSelected = [];

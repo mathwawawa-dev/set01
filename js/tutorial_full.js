@@ -45,7 +45,7 @@ const FULL_TUT_STEPS=[
 {id:'training1',title:'훈련 1 - 5장에서 찾아봐요!',text:'5장 중에서 <strong>SET가 되는 세 장</strong>을 골라봐요!<br>힌트 버튼을 눌러 도움을 받을 수 있어요.',cards:null,interactive:true,hasHint:true,challengeN:5},
 {id:'training2',title:'훈련 2 - 6장에서 찾아봐요!',text:'6장 중에서 <strong>SET가 되는 세 장</strong>을 골라봐요!<br>힌트 버튼을 눌러 도움을 받을 수 있어요.',cards:null,interactive:true,hasHint:true,challengeN:6},
 {id:'training3',title:'훈련 3 - 9장에서 찾아봐요!',text:'9장 중에서 <strong>SET가 되는 세 장</strong>을 골라봐요!<br>힌트 버튼을 눌러 도움을 받을 수 있어요.',cards:null,interactive:true,hasHint:true,challengeN:9},
-{id:'final',title:'이제 실전이에요!',text:'12장 중에서 <strong>SET를 찾아보세요.</strong>',cards:null,interactive:true,hasHint:false,challengeN:12}
+{id:'final',title:'',text:'[실전연습] 12장 중에서 <strong>SET를 찾아보세요.</strong>',cards:null,interactive:true,hasHint:false,challengeN:12}
 ];
 let ftStepIdx=0,ftSubQIdx=0,ftSelected=[],ftCards=[],ftAnswer=[],ftHintCard=-1,ftDone=false,ftSubQNext=false,ftAnswerItems=[],ftFinalSetCount=0,ftIntroPhase=1,ftActive=false;
 const ftTutorialScreen=document.getElementById('tutorialScreen'),ftProgressFill=document.getElementById('tutProgressFill'),ftStepLabel=document.getElementById('tutStepLabel'),ftTitleEl=document.getElementById('tutTitle'),ftBubbleEl=document.getElementById('tutBubble'),ftCardArea=document.getElementById('tutCardArea'),ftFeedbackEl=document.getElementById('tutFeedback'),ftNextBtn=document.getElementById('tutNextBtn'),ftHintBtn=document.getElementById('tutHintBtn'),ftContextBubble=document.getElementById('tutContextBubble'),ftAnswerLog=document.getElementById('tutAnswerLog'),ftModeScreen=document.getElementById('modeScreen');
@@ -59,6 +59,7 @@ function ftRenderStep(){
   ftProgressFill.style.width=(ftStepIdx/total*100)+'%';
   ftStepLabel.textContent=(ftStepIdx+1)+' / '+total;
   ftTitleEl.textContent=step.title;
+  ftTitleEl.style.display=step.title?'':'none';
   ftFeedbackEl.textContent='';ftFeedbackEl.className='tut-feedback';
   ftSelected=[];ftDone=false;ftFinalSetCount=0;
   ftBubbleEl.onclick = null;ftBubbleEl.style.cursor = 'default';
@@ -232,7 +233,7 @@ function ftAdvance(){
   ftStepIdx++;if(ftStepIdx>=FULL_TUT_STEPS.length){ftShowComplete();return;}ftRenderStep();
 }
 function ftShowComplete(){
-  ftProgressFill.style.width='100%';ftStepLabel.textContent='완료! 🎓';ftTitleEl.textContent='🏅 튜토리얼 완료!';
+  ftProgressFill.style.width='100%';ftStepLabel.textContent='완료! 🎓';ftTitleEl.textContent='🏅 튜토리얼 완료!';ftTitleEl.style.display='';
   var oldQ=document.getElementById('tutQuizBtns');if(oldQ)oldQ.remove();
   ftTutorialScreen.querySelector('.tut-inner').classList.add('tut-layout-quiz');
   ftBubbleEl.innerHTML='정식 SET 규칙을 모두 익혔어요!<br>이제 모드 선택 화면으로 돌아가 도전해보세요.';
