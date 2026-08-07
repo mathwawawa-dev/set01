@@ -170,6 +170,19 @@ html, body {
   height: 2.4rem;
   display: block;
 }
+/* 이모지 아이콘 — 인라인 공백 제거 + 흑백 필터 */
+.mode-card-emoji {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  line-height: 1;
+  filter: grayscale(1);
+}
+/* 정식 SET — 흑백 + 빨간 톤 */
+.mode-card-emoji.icon-red {
+  filter: grayscale(1) sepia(0.8) hue-rotate(310deg) saturate(3);
+}
 
 .mode-card-icon.icon-gray {
   filter: grayscale(100%);
