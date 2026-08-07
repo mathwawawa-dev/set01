@@ -455,6 +455,17 @@ html, body {
   justify-content: center;
   flex-wrap: nowrap;
 }
+/* B 유형: 4선지 — 2×2 그리드 */
+.prac-options-area.type-b {
+  flex-wrap: wrap;
+  max-width: 280px;
+  margin: 0 auto;
+  gap: 12px;
+}
+.prac-options-area.type-b .prac-option-container {
+  flex: 0 0 calc(50% - 6px);
+  align-items: center;
+}
 .prac-options-area .card-wrap {
   pointer-events: none;
   transition: transform 0.12s, border-color 0.12s;
