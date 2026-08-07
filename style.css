@@ -349,6 +349,7 @@ html, body {
 .prac-question-area .card-wrap, .prac-options-area .card-wrap {
   width: 120px !important;
   height: 160px !important;
+  border-radius: var(--radius-card);
 }
 .prac-blank-card {
   width: 120px;
