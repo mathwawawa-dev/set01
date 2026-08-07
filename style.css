@@ -1621,11 +1621,12 @@ html, body {
   /* 모바일: 판단 결과 제목/밑줄 숨김 */
   .tut-log-title { display: none; }
 
-  /* 노란박스 고정 높이 + 균등 분배 — 3줄도 4줄도 같은 크기 유지 */
+  /* 노란박스 고정 높이 — 3줄도 4줄도 같은 크기 유지, 항목은 위부터 고정 */
   .tut-answer-log {
     height: 106px;
-    justify-content: space-evenly;
-    gap: 0;
+    justify-content: flex-start;
+    gap: 4px;
+    padding-top: 8px;
   }
   .tut-log-item {
     font-size: 0.72rem;
