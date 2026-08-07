@@ -196,6 +196,10 @@ function renderPracticeQ() {
   // 선지 4장
   const oArea = document.getElementById('pracOptionsArea');
   oArea.innerHTML = '';
+
+  // 피드백 영역 초기화
+  const fb = document.getElementById('pracFeedbackArea');
+  if (fb) fb.innerHTML = '';
   
   pracOptions.forEach((opt, idx) => {
     const container = document.createElement('div');
@@ -236,11 +240,11 @@ function handlePracOptionClick(selectedCard, el) {
       pracSolvedCount++;
       el.classList.add('correct');
 
-      // 👍 칭찬 이모지 표시
-      const thumb = document.createElement('div');
-      thumb.className = 'prac-thumb-up';
-      thumb.textContent = '👍';
-      el.appendChild(thumb);
+      // 👍 칭찬 이모지 — 피드백 영역에 표시
+      const feedbackArea = document.getElementById('pracFeedbackArea');
+      if (feedbackArea) {
+        feedbackArea.innerHTML = '<span class="prac-thumb-up">👍</span>';
+      }
 
       updatePracStats();
       pracWaitNext = true;

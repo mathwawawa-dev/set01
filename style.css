@@ -432,15 +432,21 @@ html, body {
 }
 
 .prac-thumb-up {
-  font-size: 1.5rem;
+  font-size: 2rem;
   line-height: 1;
-  text-align: center;
-  margin-top: 6px;
   animation: pracThumbPop 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
 }
 @keyframes pracThumbPop {
   from { transform: scale(0); opacity: 0; }
   to   { transform: scale(1); opacity: 1; }
+}
+
+.prac-feedback-area {
+  min-height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 12px;
 }
 
 .prac-options-area {
