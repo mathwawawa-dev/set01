@@ -343,12 +343,12 @@ html, body {
 
 /* 실전/연습용 작은 카드 사이즈 */
 .prac-question-area .card-wrap, .prac-options-area .card-wrap {
-  width: 90px !important;
-  height: 130px !important;
+  width: 100px !important;
+  height: 133px !important;
 }
 .prac-blank-card {
-  width: 90px;
-  height: 130px;
+  width: 100px;
+  height: 133px;
   border: 2px dashed #b0b5c1;
   border-radius: 12px;
   display: flex;
