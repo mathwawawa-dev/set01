@@ -268,7 +268,7 @@ function generateTypeB() {
     !isSameCard(c, pracCorrectCardsB[0]) &&
     !isSameCard(c, pracCorrectCardsB[1])
   );
-  const wrongCards = shuffle(available).slice(0, 2);
+  const wrongCards = shuffle(available).slice(0, 1); // 오답 1장 → 3선지
 
   pracOptionsB = shuffle([...pracCorrectCardsB, ...wrongCards]);
   pracBSelected = [];
@@ -304,7 +304,7 @@ function renderTypeBQ() {
 
     const label = document.createElement('div');
     label.className = 'prac-option-label';
-    label.textContent = String.fromCharCode(65 + idx); // A, B, C, D
+    label.textContent = pracKeys[idx] ? pracKeys[idx].toUpperCase() : String.fromCharCode(65 + idx);
 
     const el = createPracCardElement(opt);
     el.dataset.idx = idx;
@@ -476,17 +476,18 @@ document.addEventListener('keydown', (e) => {
     return;
   }
 
-  // 게임 플레이 중 단축키 — A 유형만 지원
+  // 게임 플레이 중 단축키 — A/B 유형 모두 지원
   if (!document.getElementById('practiceScreen').hidden &&
-      document.getElementById('pracSettingsOverlay').hidden &&
-      pracPhase === 'A') {
+      document.getElementById('pracSettingsOverlay').hidden) {
     const key = e.key.toLowerCase();
     const idx = pracKeys.findIndex(k => k && k.toLowerCase() === key);
     if (idx !== -1 && !pracWaitNext) {
       const container = document.querySelector(
         `.prac-options-area .prac-option-container:nth-child(${idx + 1})`
       );
-      if (container) handleTypeAClick(pracOptions[idx], container);
+      if (!container) return;
+      if (pracPhase === 'A') handleTypeAClick(pracOptions[idx], container);
+      else handleTypeBClick(pracOptionsB[idx], container);
     }
   }
 });
