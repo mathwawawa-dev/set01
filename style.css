@@ -282,18 +282,18 @@ html, body {
 }
 
 .prac-exit-btn, .prac-settings-btn {
-  background: var(--bg-card);
-  border: 1.5px solid var(--border);
+  background: transparent;
+  border: none;
   border-radius: 8px;
-  padding: 6px 12px;
+  padding: 6px 10px;
   font-size: 0.85rem;
   font-weight: 600;
-  color: var(--text-muted);
+  color: var(--primary);
   cursor: pointer;
   transition: background 0.2s;
 }
 .prac-exit-btn:hover, .prac-settings-btn:hover {
-  background: var(--border);
+  background: rgba(59, 130, 246, 0.1);
 }
 
 .prac-settings-btn {
@@ -332,12 +332,12 @@ html, body {
 
 /* 실전/연습용 작은 카드 사이즈 */
 .prac-question-area .card-wrap, .prac-options-area .card-wrap {
-  width: 100px !important;
-  height: 133px !important;
+  width: 120px !important;
+  height: 160px !important;
 }
 .prac-blank-card {
-  width: 100px;
-  height: 133px;
+  width: 120px;
+  height: 160px;
   border: 2px dashed var(--border);
   border-radius: 14px;
   display: flex;
@@ -422,8 +422,8 @@ html, body {
   pointer-events: none;
 }
 .prac-options-area .card-wrap .card {
-  width: 100px;
-  height: 133px;
+  width: 120px;
+  height: 160px;
   background: transparent !important;
   box-shadow: none !important;
   border: none !important;
@@ -1111,7 +1111,7 @@ html, body {
     width: 2.2rem;
     height: 2.2rem;
   }
-  .mode-cards { flex-direction: column; gap: 12px; }
+  .mode-cards { display: flex; flex-direction: column; gap: 12px; }
   .mode-card {
     max-width: none;
     width: 100%;
@@ -1371,7 +1371,7 @@ html, body {
 .choices-fadein { animation: fadeInUp 0.35s ease forwards; }
 /* 공통 카드 크기 — 주어진 카드 */
 .tut-pick-given-card {
-  width: 100px; height: 133px;
+  width: 120px; height: 160px;
   border-radius: 14px; overflow: hidden;
   background: var(--bg-card); box-shadow: var(--shadow-card);
   flex-shrink: 0;
@@ -1382,7 +1382,7 @@ html, body {
   display: flex; align-items: center; justify-content: center;
   font-size: 1.8rem; font-weight: 700; color: var(--text-muted);
   background: var(--bg-card); border: 2px dashed var(--border);
-  border-radius: 14px; width: 100px; height: 133px; flex-shrink: 0;
+  border-radius: 14px; width: 120px; height: 160px; flex-shrink: 0;
 }
 /* 선지 버튼 */
 .tut-pick-choice {
@@ -1396,7 +1396,7 @@ html, body {
 .tut-pick-choice:disabled { cursor: not-allowed; }
 .tut-pick-label { font-size: 0.78rem; font-weight: 700; color: var(--text-muted); }
 /* 선지 카드 크기 = 주어진 카드와 동일 */
-.tut-pick-card.card { width: 100px; height: 133px; background: transparent; box-shadow: none; border: none; }
+.tut-pick-card.card { width: 120px; height: 160px; background: transparent; box-shadow: none; border: none; }
 .tut-pick-card > img { width: 100%; height: 100%; object-fit: contain; padding: 5px; }
 .tut-pick-correct { border-color: #16a34a !important; background: rgba(22,163,74,0.08) !important; }
 .tut-pick-wrong   { border-color: #dc2626 !important; background: rgba(220,38,38,0.06) !important; }

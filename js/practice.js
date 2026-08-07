@@ -70,11 +70,6 @@ function generatePracticeQ() {
   pracWaitNext = false;
   pracHintStep = 0;
   
-  const fb = document.getElementById('pracFeedback');
-  fb.textContent = '';
-  fb.className = 'prac-feedback';
-  document.getElementById('pracHintBtn').textContent = '💡 힌트';
-  
   const deck = getDeck();
   
   // 1. 유효한 SET 하나 찾기
@@ -142,12 +137,12 @@ function countMatchingProperties(c1, c2) {
   if(c1.shape === c2.shape) cnt++;
   if(c1.color === c2.color) cnt++;
   if(c1.fill === c2.fill) cnt++;
-  if(pracIsFull && c1.number === c2.number) cnt++;
+  if(pracIsFull && c1.count === c2.count) cnt++;
   return cnt;
 }
 
 function isSameCard(c1, c2) {
-  return c1.shape === c2.shape && c1.color === c2.color && c1.fill === c2.fill && (pracIsFull ? c1.number === c2.number : true);
+  return c1.shape === c2.shape && c1.color === c2.color && c1.fill === c2.fill && (pracIsFull ? c1.count === c2.count : true);
 }
 
 function createPracCardElement(card) {
@@ -236,10 +231,6 @@ function handlePracOptionClick(selectedCard, el) {
     pracSolvedCount++;
     el.classList.add('correct');
     
-    const fb = document.getElementById('pracFeedback');
-    fb.innerHTML = '굿굿👍<br>SET 규칙에 모두 맞아요! ✔️';
-    fb.className = 'prac-feedback success';
-    
     updatePracStats();
     pracWaitNext = true;
     
@@ -256,10 +247,6 @@ function handlePracOptionClick(selectedCard, el) {
     el.classList.remove('wrong');
     void el.offsetWidth; // trigger reflow
     el.classList.add('wrong');
-    
-    const fb = document.getElementById('pracFeedback');
-    fb.innerHTML = '다시 한 번!<br>힌트를 확인해보세요.';
-    fb.className = 'prac-feedback error';
     
     updatePracStats();
   }
