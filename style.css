@@ -884,7 +884,7 @@ html, body {
   .game-title { font-size: clamp(1rem, 5vw, 1.5rem); letter-spacing: 1px; }
   .title-sub  { display: none; }
 
-  .btn-theme  { font-size: 0.72rem; padding: 4px 10px; }
+  .btn-theme, .btn-settings { font-size: 0.6rem; padding: 4px 6px; }
 
   .stats-row  { gap: 4px; }
   .stat-card  { padding: 4px 8px; gap: 3px; }
