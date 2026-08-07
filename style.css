@@ -336,8 +336,8 @@ html, body {
 .prac-question-area {
   display: flex;
   justify-content: center;
-  align-items: center;
-  gap: 16px;
+  align-items: flex-end;
+  gap: 12px;
   padding: 10px;
 }
 
@@ -349,15 +349,16 @@ html, body {
 .prac-blank-card {
   width: 100px;
   height: 133px;
-  border: 2px dashed #b0b5c1;
-  border-radius: 12px;
+  border: 2px dashed var(--border);
+  border-radius: 14px;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 1.8rem;
-  color: #8c93a1;
-  font-weight: 800;
-  background: rgba(0,0,0,0.02);
+  color: var(--text-muted);
+  font-weight: 700;
+  background: var(--bg-card);
+  flex-shrink: 0;
 }
 
 .prac-feedback-area {
