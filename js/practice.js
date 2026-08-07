@@ -38,11 +38,13 @@ let pracTotalAttempts = 0;
 let pracQuestionStartTime = 0;
 let pracTotalTimeMs = 0;
 
-let pracKeys = ['1', '2', '3', '4'];
+let pracKeys = ['1', '2', '3', '4', '5', '6'];
 try {
   const saved = localStorage.getItem('setGamePracKeys');
-  if (saved) pracKeys = JSON.parse(saved).slice(0, 4);
-  if (pracKeys.length < 4) pracKeys.push('4');
+  if (saved) {
+    const loaded = JSON.parse(saved);
+    for (let i = 0; i < 6; i++) pracKeys[i] = loaded[i] || pracKeys[i];
+  }
 } catch(e) {}
 
 let pracActiveKeyIdx = -1;
@@ -84,9 +86,9 @@ function initPracticeMode(isFull, hardLevel) {
   if (pracIsFull) ps.classList.add('official');
   else ps.classList.remove('official');
 
-  // hardest 모드: 설정 버튼 숨기기 (키보드 단축키 미지원)
+  // hardest 모드에서도 설정 버튼 표시 (6선지 단축키 지원)
   const settingsBtn = document.getElementById('pracSettingsBtn');
-  if (settingsBtn) settingsBtn.style.display = isHardestMode() ? 'none' : '';
+  if (settingsBtn) settingsBtn.style.display = '';
 
   const gameHeader = document.querySelector('.game-header');
   if (gameHeader) gameHeader.style.display = 'none';
@@ -585,12 +587,11 @@ document.addEventListener('keydown', (e) => {
     return;
   }
 
-  // 키보드 단축키 — hardest(level 2)는 마우스 전용
+  // 키보드 단축키 — 모든 레벨 지원
   if (!document.getElementById('practiceScreen').hidden &&
-      document.getElementById('pracSettingsOverlay').hidden &&
-      pracHardLevel < 2) {
+      document.getElementById('pracSettingsOverlay').hidden) {
     const key = e.key.toLowerCase();
-    const maxSlots = pracHardLevel === 1 ? 4 : 3;
+    const maxSlots = pracHardLevel === 2 ? 6 : (pracHardLevel === 1 ? 4 : 3);
     const idx = pracKeys.slice(0, maxSlots).findIndex(k => k && k.toLowerCase() === key);
     if (idx !== -1 && !pracWaitNext) {
       const container = document.querySelector(
@@ -598,7 +599,8 @@ document.addEventListener('keydown', (e) => {
       );
       if (!container) return;
       if (pracPhase === 'A') handleTypeAClick(pracOptions[idx], container);
-      else handleTypeBClick(pracOptionsB[idx], container);
+      else if (pracPhase === 'B') handleTypeBClick(pracOptionsB[idx], container);
+      else handleTypeCClick(pracOptionsC[idx], container);
     }
   }
 });
@@ -638,11 +640,14 @@ function renderPracSettingsGrid() {
   if (!grid) return;
   grid.innerHTML = '';
 
-  const slotCount = pracHardLevel === 1 ? 4 : 3;
-  const posLabels = ['선지 A', '선지 B', '선지 C', '선지 D'];
+  const slotCount = pracHardLevel === 2 ? 6 : (pracHardLevel === 1 ? 4 : 3);
+  const posLabels = ['선지 A', '선지 B', '선지 C', '선지 D', '선지 E', '선지 F'];
 
   const lbl = document.getElementById('pracSettingsLabel');
-  if (lbl) lbl.textContent = pracHardLevel === 1 ? 'A, B, C, D 선지 단축키' : 'A, B, C 선지 단축키';
+  if (lbl) {
+    const labels = ['A, B, C', 'A, B, C, D', 'A, B, C, D, E, F'];
+    lbl.textContent = labels[pracHardLevel] + ' 선지 단축키';
+  }
 
   for (let i = 0; i < slotCount; i++) {
     const cell = document.createElement('div');

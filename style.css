@@ -487,10 +487,6 @@ html, body {
 .prac-options-area.hardest-mode .prac-option-container {
   flex: 0 0 auto;
 }
-.prac-options-area.hardest-mode .card-wrap .card {
-  width: 100px;
-  height: 134px;
-}
 .prac-options-area .card-wrap {
   pointer-events: none;
   transition: transform 0.12s, border-color 0.12s;
