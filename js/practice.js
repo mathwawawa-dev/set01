@@ -5,28 +5,34 @@ const pracAttrMap = {
 };
 
 let pracIsFull = false;
-let pracIsHard = false;      // hard 모드 (4선지)
-let pracCurrentDiff = 0; // 0: 쉬움, 1: 보통, 2: 어려움
+// 0: normal(3선지, A/B), 1: hard(4선지, A/B), 2: hardest(6선지, A/B/C)
+let pracHardLevel = 0;
+let pracCurrentDiff = 0;
 
 // 사이클 관리
-let pracPhase = 'A';         // 'A' or 'B'
-let pracPhaseRemaining = 0;  // 현재 Phase에서 남은 문제 수
+let pracPhase = 'A';        // 'A', 'B', or 'C'
+let pracPhaseRemaining = 0;
 
-// A 유형 상태 (카드 2장 주어짐 → 1장 선택)
+// A 유형: 카드 2장 주어짐 → 1장 선택
 let pracGivenCards = [];
 let pracCorrectCard = null;
 let pracOptions = [];
 
-// B 유형 상태 (카드 1장 주어짐 → 2장 선택)
+// B 유형: 카드 1장 주어짐 → 2장 선택
 let pracGivenCardB = null;
 let pracCorrectCardsB = [];
 let pracOptionsB = [];
-let pracBSelected = []; // [{card, container}]
+let pracBSelected = [];
+
+// C 유형: 주어진 카드 없음 → 3장 선택 (hardest only)
+let pracCorrectCardsC = [];
+let pracOptionsC = [];
+let pracCSelected = [];
 
 let pracHintStep = 0;
 let pracWaitNext = false;
 
-// 통계용
+// 통계
 let pracSolvedCount = 0;
 let pracTotalAttempts = 0;
 let pracQuestionStartTime = 0;
@@ -41,17 +47,32 @@ try {
 
 let pracActiveKeyIdx = -1;
 
-function initPracticeMode(isFull, isHard) {
+// ==========================================
+// 헬퍼
+// ==========================================
+function isHardestMode() { return pracHardLevel === 2; }
+
+function optionCount(type) {
+  const counts = {
+    0: { A: 3, B: 3, C: 6 },
+    1: { A: 4, B: 4, C: 6 },
+    2: { A: 6, B: 6, C: 6 }
+  };
+  return (counts[pracHardLevel] || counts[0])[type];
+}
+
+function initPracticeMode(isFull, hardLevel) {
   pracIsFull = isFull;
+  pracHardLevel = hardLevel || 0;
   pracCurrentDiff = 0;
   pracWaitNext = false;
   pracSolvedCount = 0;
   pracTotalAttempts = 0;
   pracTotalTimeMs = 0;
   pracPhase = 'A';
-  pracPhaseRemaining = Math.floor(Math.random() * 3) + 2; // 2-4
+  pracPhaseRemaining = Math.floor(Math.random() * 3) + 2;
   pracBSelected = [];
-  pracIsHard = isHard || false;
+  pracCSelected = [];
 
   document.getElementById('pracSolvedCount').textContent = '0';
   document.getElementById('pracAccuracy').textContent = '0%';
@@ -62,6 +83,10 @@ function initPracticeMode(isFull, isHard) {
   ps.hidden = false;
   if (pracIsFull) ps.classList.add('official');
   else ps.classList.remove('official');
+
+  // hardest 모드: 설정 버튼 숨기기 (키보드 단축키 미지원)
+  const settingsBtn = document.getElementById('pracSettingsBtn');
+  if (settingsBtn) settingsBtn.style.display = isHardestMode() ? 'none' : '';
 
   const gameHeader = document.querySelector('.game-header');
   if (gameHeader) gameHeader.style.display = 'none';
@@ -74,6 +99,9 @@ function initPracticeMode(isFull, isHard) {
 function exitPracticeMode() {
   document.getElementById('practiceScreen').hidden = true;
   document.getElementById('modeScreen').hidden = false;
+
+  const settingsBtn = document.getElementById('pracSettingsBtn');
+  if (settingsBtn) settingsBtn.style.display = '';
 
   const gameHeader = document.querySelector('.game-header');
   if (gameHeader) gameHeader.style.display = '';
@@ -92,32 +120,32 @@ function generatePracticeQ() {
   pracWaitNext = false;
   pracHintStep = 0;
   pracBSelected = [];
+  pracCSelected = [];
 
-  // 피드백 영역 초기화
   const fb = document.getElementById('pracFeedbackArea');
   if (fb) fb.innerHTML = '';
 
-  // Phase 전환
   if (pracPhaseRemaining <= 0) {
-    if (pracPhase === 'A') {
-      pracPhase = 'B';
-      pracPhaseRemaining = Math.floor(Math.random() * 2) + 1; // 1-2
+    if (isHardestMode()) {
+      // A → B → C → A 사이클
+      if (pracPhase === 'A')      { pracPhase = 'B'; pracPhaseRemaining = Math.floor(Math.random() * 2) + 1; }
+      else if (pracPhase === 'B') { pracPhase = 'C'; pracPhaseRemaining = Math.floor(Math.random() * 2) + 1; }
+      else                        { pracPhase = 'A'; pracPhaseRemaining = Math.floor(Math.random() * 3) + 2; }
     } else {
-      pracPhase = 'A';
-      pracPhaseRemaining = Math.floor(Math.random() * 3) + 2; // 2-4
+      // A → B → A 사이클
+      if (pracPhase === 'A') { pracPhase = 'B'; pracPhaseRemaining = Math.floor(Math.random() * 2) + 1; }
+      else                   { pracPhase = 'A'; pracPhaseRemaining = Math.floor(Math.random() * 3) + 2; }
     }
   }
   pracPhaseRemaining--;
 
-  if (pracPhase === 'A') {
-    generateTypeA();
-  } else {
-    generateTypeB();
-  }
+  if (pracPhase === 'A')      generateTypeA();
+  else if (pracPhase === 'B') generateTypeB();
+  else                        generateTypeC();
 }
 
 // ==========================================
-// A 유형: 카드 2장 주어짐 → 1장 선택 (3선지)
+// A 유형: 카드 2장 주어짐 → 1장 선택
 // ==========================================
 function generateTypeA() {
   const deck = getDeck();
@@ -155,59 +183,32 @@ function generateTypeA() {
     return true;
   });
 
-  if (wrongCandidates.length < 2) wrongCandidates = shuffle(availableForWrong);
+  const wrongCount = optionCount('A') - 1;
+  if (wrongCandidates.length < wrongCount) wrongCandidates = shuffle(availableForWrong);
   else wrongCandidates = shuffle(wrongCandidates);
 
-  const wrongCount = pracIsHard ? 3 : 2;
   pracOptions = shuffle([pracCorrectCard, ...wrongCandidates.slice(0, wrongCount)]);
 
   if (pracIsFull) pracCurrentDiff = (pracCurrentDiff + 1) % 3;
   else pracCurrentDiff = (pracCurrentDiff + 1) % 2;
 
-  renderTypeAQ();
-}
-
-function renderTypeAQ() {
   const bubble = document.getElementById('pracBubble');
   if (bubble) bubble.textContent = 'SET가 되기 위해 필요한 카드는?';
 
   const qArea = document.getElementById('pracQuestionArea');
   qArea.innerHTML = '';
-
   const c1El = createPracCardElement(pracGivenCards[0]);
   const c2El = createPracCardElement(pracGivenCards[1]);
   c1El.style.pointerEvents = 'none';
   c2El.style.pointerEvents = 'none';
   qArea.appendChild(c1El);
   qArea.appendChild(c2El);
-
   const blank = document.createElement('div');
   blank.className = 'prac-blank-card';
   blank.textContent = '?';
   qArea.appendChild(blank);
 
-  const oArea = document.getElementById('pracOptionsArea');
-  oArea.innerHTML = '';
-  oArea.classList.remove('type-b');
-  if (pracIsHard) oArea.classList.add('hard-mode'); else oArea.classList.remove('hard-mode');
-
-  pracOptions.forEach((opt, idx) => {
-    const container = document.createElement('div');
-    container.className = 'prac-option-container';
-
-    const label = document.createElement('div');
-    label.className = 'prac-option-label';
-    label.textContent = String.fromCharCode(65 + idx); // 항상 A, B, C[, D]
-
-    const el = createPracCardElement(opt);
-    el.dataset.idx = idx;
-
-    container.appendChild(label);
-    container.appendChild(el);
-    container.addEventListener('click', () => handleTypeAClick(opt, container));
-    oArea.appendChild(container);
-  });
-
+  renderOptionsArea(pracOptions, 'A');
   pracQuestionStartTime = Date.now();
 }
 
@@ -215,7 +216,6 @@ function handleTypeAClick(selectedCard, el) {
   if (pracWaitNext) return;
 
   el.classList.add('selected');
-
   setTimeout(() => {
     el.classList.remove('selected');
     pracTotalAttempts++;
@@ -226,12 +226,11 @@ function handleTypeAClick(selectedCard, el) {
       pracSolvedCount++;
       el.classList.add('correct');
 
-      const feedbackArea = document.getElementById('pracFeedbackArea');
-      if (feedbackArea) feedbackArea.innerHTML = '<span class="prac-thumb-up">👍</span>';
+      const fb = document.getElementById('pracFeedbackArea');
+      if (fb) fb.innerHTML = '<span class="prac-thumb-up">👍</span>';
 
       updatePracStats();
       pracWaitNext = true;
-
       if (typeof createBurst === 'function') createBurst(el, 15);
       setTimeout(() => generatePracticeQ(), 500);
     } else {
@@ -244,7 +243,7 @@ function handleTypeAClick(selectedCard, el) {
 }
 
 // ==========================================
-// B 유형: 카드 1장 주어짐 → 2장 선택 (4선지)
+// B 유형: 카드 1장 주어짐 → 2장 선택
 // ==========================================
 function generateTypeB() {
   const deck = getDeck();
@@ -273,26 +272,19 @@ function generateTypeB() {
     !isSameCard(c, pracCorrectCardsB[0]) &&
     !isSameCard(c, pracCorrectCardsB[1])
   );
-  const wrongCount = pracIsHard ? 2 : 1;
-  const wrongCards = shuffle(available).slice(0, wrongCount); // hard: 오답 2장, normal: 1장
-
+  const wrongCount = optionCount('B') - 2;
+  const wrongCards = shuffle(available).slice(0, wrongCount);
   pracOptionsB = shuffle([...pracCorrectCardsB, ...wrongCards]);
   pracBSelected = [];
 
-  renderTypeBQ();
-}
-
-function renderTypeBQ() {
   const bubble = document.getElementById('pracBubble');
   if (bubble) bubble.textContent = 'SET가 되기 위해 필요한 카드 2장은?';
 
   const qArea = document.getElementById('pracQuestionArea');
   qArea.innerHTML = '';
-
   const givenEl = createPracCardElement(pracGivenCardB);
   givenEl.style.pointerEvents = 'none';
   qArea.appendChild(givenEl);
-
   for (let i = 0; i < 2; i++) {
     const blank = document.createElement('div');
     blank.className = 'prac-blank-card';
@@ -300,49 +292,24 @@ function renderTypeBQ() {
     qArea.appendChild(blank);
   }
 
-  const oArea = document.getElementById('pracOptionsArea');
-  oArea.innerHTML = '';
-  oArea.classList.add('type-b');
-  if (pracIsHard) oArea.classList.add('hard-mode'); else oArea.classList.remove('hard-mode');
-
-  pracOptionsB.forEach((opt, idx) => {
-    const container = document.createElement('div');
-    container.className = 'prac-option-container';
-
-    const label = document.createElement('div');
-    label.className = 'prac-option-label';
-    label.textContent = String.fromCharCode(65 + idx); // 항상 A, B, C[, D]
-
-    const el = createPracCardElement(opt);
-    el.dataset.idx = idx;
-
-    container.appendChild(label);
-    container.appendChild(el);
-    container.addEventListener('click', () => handleTypeBClick(opt, container));
-    oArea.appendChild(container);
-  });
-
+  renderOptionsArea(pracOptionsB, 'B');
   pracQuestionStartTime = Date.now();
 }
 
 function handleTypeBClick(card, container) {
   if (pracWaitNext) return;
 
-  // 이미 선택된 카드면 해제
   const alreadyIdx = pracBSelected.findIndex(s => isSameCard(s.card, card));
   if (alreadyIdx >= 0) {
     pracBSelected.splice(alreadyIdx, 1);
     container.classList.remove('selected');
     return;
   }
-
-  // 이미 2장 선택됨 → 무시
   if (pracBSelected.length >= 2) return;
 
   pracBSelected.push({ card, container });
   container.classList.add('selected');
 
-  // 2장 선택되면 자동 채점
   if (pracBSelected.length === 2) {
     pracWaitNext = true;
     setTimeout(() => checkTypeBAnswer(), 100);
@@ -353,25 +320,19 @@ function checkTypeBAnswer() {
   const sel = pracBSelected;
   pracTotalAttempts++;
 
-  const bothCorrect = pracCorrectCardsB.every(cc =>
-    sel.some(s => isSameCard(s.card, cc))
-  );
-
+  const bothCorrect = pracCorrectCardsB.every(cc => sel.some(s => isSameCard(s.card, cc)));
   sel.forEach(s => s.container.classList.remove('selected'));
 
   if (bothCorrect) {
     const timeTaken = Date.now() - pracQuestionStartTime;
     pracTotalTimeMs += timeTaken;
     pracSolvedCount++;
-
     sel.forEach(s => {
       s.container.classList.add('correct');
       if (typeof createBurst === 'function') createBurst(s.container, 10);
     });
-
     const fb = document.getElementById('pracFeedbackArea');
     if (fb) fb.innerHTML = '<span class="prac-thumb-up">👍</span>';
-
     updatePracStats();
     setTimeout(() => generatePracticeQ(), 500);
   } else {
@@ -384,6 +345,148 @@ function checkTypeBAnswer() {
     });
     updatePracStats();
   }
+}
+
+// ==========================================
+// C 유형: 주어진 카드 없음 → 3장 선택
+// ==========================================
+function generateTypeC() {
+  const deck = getDeck();
+  let shuffled = shuffle([...deck]);
+  let foundSet = null;
+
+  for (let i = 0; i < shuffled.length - 2; i++) {
+    for (let j = i + 1; j < shuffled.length - 1; j++) {
+      for (let k = j + 1; k < shuffled.length; k++) {
+        const valid = pracIsFull
+          ? isSetOfficial(shuffled[i], shuffled[j], shuffled[k])
+          : isSet(shuffled[i], shuffled[j], shuffled[k]);
+        if (valid) { foundSet = [shuffled[i], shuffled[j], shuffled[k]]; break; }
+      }
+      if (foundSet) break;
+    }
+    if (foundSet) break;
+  }
+
+  pracCorrectCardsC = shuffle(foundSet);
+
+  let available = deck.filter(c =>
+    !isSameCard(c, pracCorrectCardsC[0]) &&
+    !isSameCard(c, pracCorrectCardsC[1]) &&
+    !isSameCard(c, pracCorrectCardsC[2])
+  );
+  const wrongCards = shuffle(available).slice(0, 3);
+  pracOptionsC = shuffle([...pracCorrectCardsC, ...wrongCards]);
+  pracCSelected = [];
+
+  const bubble = document.getElementById('pracBubble');
+  if (bubble) bubble.textContent = 'SET가 되는 카드 3장을 고르세요!';
+
+  const qArea = document.getElementById('pracQuestionArea');
+  qArea.innerHTML = '';
+  for (let i = 0; i < 3; i++) {
+    const blank = document.createElement('div');
+    blank.className = 'prac-blank-card';
+    blank.textContent = '?';
+    qArea.appendChild(blank);
+  }
+
+  renderOptionsArea(pracOptionsC, 'C');
+  pracQuestionStartTime = Date.now();
+}
+
+function handleTypeCClick(card, container) {
+  if (pracWaitNext) return;
+
+  const alreadyIdx = pracCSelected.findIndex(s => isSameCard(s.card, card));
+  if (alreadyIdx >= 0) {
+    pracCSelected.splice(alreadyIdx, 1);
+    container.classList.remove('selected');
+    return;
+  }
+  if (pracCSelected.length >= 3) return;
+
+  pracCSelected.push({ card, container });
+  container.classList.add('selected');
+
+  if (pracCSelected.length === 3) {
+    pracWaitNext = true;
+    setTimeout(() => checkTypeCAnswer(), 100);
+  }
+}
+
+function checkTypeCAnswer() {
+  const sel = pracCSelected;
+  pracTotalAttempts++;
+
+  // 선택한 3장이 SET이면 정답 (어떤 조합이든)
+  const isValidSet = pracIsFull
+    ? isSetOfficial(sel[0].card, sel[1].card, sel[2].card)
+    : isSet(sel[0].card, sel[1].card, sel[2].card);
+
+  sel.forEach(s => s.container.classList.remove('selected'));
+
+  if (isValidSet) {
+    const timeTaken = Date.now() - pracQuestionStartTime;
+    pracTotalTimeMs += timeTaken;
+    pracSolvedCount++;
+    sel.forEach(s => {
+      s.container.classList.add('correct');
+      if (typeof createBurst === 'function') createBurst(s.container, 10);
+    });
+    const fb = document.getElementById('pracFeedbackArea');
+    if (fb) fb.innerHTML = '<span class="prac-thumb-up">👍</span>';
+    updatePracStats();
+    setTimeout(() => generatePracticeQ(), 500);
+  } else {
+    pracWaitNext = false;
+    pracCSelected = [];
+    sel.forEach(s => {
+      s.container.classList.remove('wrong');
+      void s.container.offsetWidth;
+      s.container.classList.add('wrong');
+    });
+    updatePracStats();
+  }
+}
+
+// ==========================================
+// 선지 영역 공통 렌더
+// ==========================================
+function renderOptionsArea(options, type) {
+  const oArea = document.getElementById('pracOptionsArea');
+  oArea.innerHTML = '';
+  oArea.className = 'prac-options-area';
+
+  const total = options.length;
+  if (total >= 5) {
+    oArea.classList.add('hardest-mode'); // 6선지: 2행 3열
+  } else if (total === 4) {
+    oArea.classList.add('hard-mode');    // 4선지: 1행
+  } else if (type === 'B') {
+    oArea.classList.add('type-b');       // 3선지 B유형
+  }
+
+  options.forEach((opt, idx) => {
+    const container = document.createElement('div');
+    container.className = 'prac-option-container';
+
+    const label = document.createElement('div');
+    label.className = 'prac-option-label';
+    label.textContent = String.fromCharCode(65 + idx);
+
+    const el = createPracCardElement(opt);
+    el.dataset.idx = idx;
+
+    container.appendChild(label);
+    container.appendChild(el);
+
+    if (type === 'A') container.addEventListener('click', () => handleTypeAClick(opt, container));
+    else if (type === 'B') container.addEventListener('click', () => handleTypeBClick(opt, container));
+    else container.addEventListener('click', () => handleTypeCClick(opt, container));
+
+    oArea.appendChild(container);
+  });
 }
 
 // ==========================================
@@ -450,25 +553,18 @@ function getAttrKorean(prop, val) {
 document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('pracExitBtn').addEventListener('click', exitPracticeMode);
 
-  document.getElementById('btnModePractice').addEventListener('click', () => {
-    initPracticeMode(false, false);
-  });
-  document.getElementById('btnModePracticeHard').addEventListener('click', () => {
-    initPracticeMode(false, true);
-  });
-  document.getElementById('btnModePracticeFull').addEventListener('click', () => {
-    initPracticeMode(true, false);
-  });
-  document.getElementById('btnModePracticeFullHard').addEventListener('click', () => {
-    initPracticeMode(true, true);
-  });
+  document.getElementById('btnModePractice').addEventListener('click', () => initPracticeMode(false, 0));
+  document.getElementById('btnModePracticeHard').addEventListener('click', () => initPracticeMode(false, 1));
+  document.getElementById('btnModePractice3').addEventListener('click', () => initPracticeMode(false, 2));
+  document.getElementById('btnModePracticeFull').addEventListener('click', () => initPracticeMode(true, 0));
+  document.getElementById('btnModePracticeFullHard').addEventListener('click', () => initPracticeMode(true, 1));
+  document.getElementById('btnModePracticeFull3').addEventListener('click', () => initPracticeMode(true, 2));
 });
 
 // ==========================================
 // 단축키 및 설정 기능
 // ==========================================
 document.addEventListener('keydown', (e) => {
-  // 설정창이 열려있고 키 입력 대기 중일 때
   if (!document.getElementById('pracSettingsOverlay').hidden && pracActiveKeyIdx !== -1) {
     e.preventDefault();
     let key = e.key.toLowerCase();
@@ -489,11 +585,12 @@ document.addEventListener('keydown', (e) => {
     return;
   }
 
-  // 게임 플레이 중 단축키 — A/B 유형 모두 지원 (hard 모드 포함)
+  // 키보드 단축키 — hardest(level 2)는 마우스 전용
   if (!document.getElementById('practiceScreen').hidden &&
-      document.getElementById('pracSettingsOverlay').hidden) {
+      document.getElementById('pracSettingsOverlay').hidden &&
+      pracHardLevel < 2) {
     const key = e.key.toLowerCase();
-    const maxSlots = pracIsHard ? 4 : 3;
+    const maxSlots = pracHardLevel === 1 ? 4 : 3;
     const idx = pracKeys.slice(0, maxSlots).findIndex(k => k && k.toLowerCase() === key);
     if (idx !== -1 && !pracWaitNext) {
       const container = document.querySelector(
@@ -523,7 +620,7 @@ function closePracSettings() {
   if (!document.getElementById('practiceScreen').hidden) {
     const labels = document.querySelectorAll('.prac-option-label');
     labels.forEach((lbl, i) => {
-      lbl.textContent = String.fromCharCode(65 + i); // 항상 A, B, C[, D]
+      lbl.textContent = String.fromCharCode(65 + i);
     });
   }
 }
@@ -541,12 +638,11 @@ function renderPracSettingsGrid() {
   if (!grid) return;
   grid.innerHTML = '';
 
-  const slotCount = pracIsHard ? 4 : 3;
+  const slotCount = pracHardLevel === 1 ? 4 : 3;
   const posLabels = ['선지 A', '선지 B', '선지 C', '선지 D'];
 
-  // 설정 라벨 동적 업데이트
   const lbl = document.getElementById('pracSettingsLabel');
-  if (lbl) lbl.textContent = pracIsHard ? 'A, B, C, D 선지 단축키' : 'A, B, C 선지 단축키';
+  if (lbl) lbl.textContent = pracHardLevel === 1 ? 'A, B, C, D 선지 단축키' : 'A, B, C 선지 단축키';
 
   for (let i = 0; i < slotCount; i++) {
     const cell = document.createElement('div');

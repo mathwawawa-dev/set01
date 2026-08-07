@@ -476,6 +476,21 @@ html, body {
 .prac-options-area.hard-mode .prac-option-container {
   flex: 0 0 auto;
 }
+/* Hardest 모드 — 6선지 2행 3열 */
+.prac-options-area.hardest-mode {
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  max-width: 420px;
+  margin: 0 auto;
+}
+.prac-options-area.hardest-mode .prac-option-container {
+  flex: 0 0 auto;
+}
+.prac-options-area.hardest-mode .card-wrap .card {
+  width: 100px;
+  height: 134px;
+}
 .prac-options-area .card-wrap {
   pointer-events: none;
   transition: transform 0.12s, border-color 0.12s;
