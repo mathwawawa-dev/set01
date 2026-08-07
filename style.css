@@ -1640,4 +1640,13 @@ html, body {
     gap: 2px;
     padding-top: 5px;
   }
+
+  /* 모바일: 연습 통계 — 라벨/숫자 두 줄로 */
+  .prac-stat-item {
+    white-space: nowrap;
+  }
+  .prac-stat-item span {
+    display: block;
+    margin-left: 0;
+  }
 }
