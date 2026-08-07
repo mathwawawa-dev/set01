@@ -38,7 +38,7 @@ let pracTotalAttempts = 0;
 let pracQuestionStartTime = 0;
 let pracTotalTimeMs = 0;
 
-let pracKeys = ['1', '2', '3', '4', '5', '6'];
+let pracKeys = ['4', '5', '6', '1', '2', '3'];
 try {
   const saved = localStorage.getItem('setGamePracKeys');
   if (saved) {
@@ -664,4 +664,19 @@ function renderPracSettingsGrid() {
     });
     grid.appendChild(cell);
   }
+
+  // 프리셋 버튼
+  const presetRow = document.createElement('div');
+  presetRow.className = 'key-preset-row';
+  const presetBtn = document.createElement('button');
+  presetBtn.className = 'key-preset-btn';
+  presetBtn.textContent = '프리셋: 1 2 3 4 5 6';
+  presetBtn.addEventListener('click', () => {
+    pracKeys = ['1','2','3','4','5','6'];
+    localStorage.setItem('setGamePracKeys', JSON.stringify(pracKeys));
+    pracActiveKeyIdx = -1;
+    renderPracSettingsGrid();
+  });
+  presetRow.appendChild(presetBtn);
+  grid.appendChild(presetRow);
 }
