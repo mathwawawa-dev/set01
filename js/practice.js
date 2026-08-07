@@ -25,7 +25,10 @@ function initPracticeMode(isFull) {
   document.getElementById('pracAccuracy').textContent = '0%';
   
   document.getElementById('modeScreen').hidden = true;
-  document.getElementById('practiceScreen').hidden = false;
+  const ps = document.getElementById('practiceScreen');
+  ps.hidden = false;
+  if (pracIsFull) ps.classList.add('official');
+  else ps.classList.remove('official');
   
   const gameHeader = document.querySelector('.game-header');
   if (gameHeader) gameHeader.style.display = 'none';

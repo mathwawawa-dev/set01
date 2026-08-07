@@ -875,7 +875,8 @@ html, body {
 
 /* 81???뚯쟾: card-symbols 90째 ?뚯쟾 (scale ?놁씠 overflow:hidden???대━?? */
 .card-grid.official.rotated .card-symbols,
-.ft-tut-mode .card-symbols {
+.ft-tut-mode .card-symbols,
+.practice-screen.official .card-symbols {
   transform: rotate(90deg) scale(calc(4/3));
   transition: transform 0.35s ease;
 }
