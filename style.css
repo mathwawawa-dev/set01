@@ -183,10 +183,7 @@ html, body {
 .mode-card-emoji.icon-red {
   filter: grayscale(1) sepia(0.8) hue-rotate(310deg) saturate(3);
 }
-/* 하드 모드 — 필터 없이 원색 유지 */
-.mode-card-emoji-hard {
-  filter: none !important;
-}
+/* 하드 모드 — 필터는 일반 모드와 동일 (grayscale / red-tint) */
 
 .mode-card-icon.icon-gray {
   filter: grayscale(100%);
