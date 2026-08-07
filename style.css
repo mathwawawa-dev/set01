@@ -1132,13 +1132,28 @@ html, body {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 10px;
+    gap: 8px;
   }
   .prac-option-container {
-    width: 120px;
+    width: 90px;
     flex-shrink: 0;
   }
-  .prac-question-area { gap: 10px; padding: 6px; }
+  /* 모바일 카드 크기 통일: 주어진 카드, 빈칸, 선지 카드 모두 동일 */
+  .prac-question-area .card-wrap,
+  .prac-options-area .card-wrap {
+    width: 90px !important;
+    height: 120px !important;
+  }
+  .prac-options-area .card-wrap .card {
+    width: 90px;
+    height: 120px;
+  }
+  .prac-blank-card {
+    width: 90px;
+    height: 120px;
+    font-size: 1.4rem;
+  }
+  .prac-question-area { gap: 8px; padding: 6px; }
   .prac-inner { padding: 16px; border-radius: 16px; }
 
   .stats-row  { gap: 4px; }
