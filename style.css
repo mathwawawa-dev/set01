@@ -896,7 +896,7 @@ html, body {
     grid-template-rows: auto auto;
     column-gap: 10px;
     row-gap: 6px;
-    align-items: center;
+    align-items: baseline;
   }
   .mode-card-name { grid-column: 1 / 2; grid-row: 1 / 2; text-align: left; }
   .mode-card-tag { grid-column: 2 / 3; grid-row: 1 / 2; margin-top: 0; padding: 3px 8px; font-size: 0.7rem; }
