@@ -394,23 +394,22 @@ html, body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 5px;
+  padding: 8px;
+  border-radius: 12px;
+  border: 2px solid var(--border);
   background: var(--bg-card);
-  border: 1.5px solid var(--border);
-  border-radius: var(--radius-card);
-  box-shadow: var(--shadow-card);
-  padding-top: 12px;
-  width: 105px;
-  height: 150px;
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  transition: transform 0.12s, border-color 0.12s;
+  flex-shrink: 0;
 }
 .prac-option-container:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 16px var(--shadow-color);
+  transform: translateY(-3px);
+  border-color: var(--accent-blue);
 }
 .prac-option-container.correct {
   border-color: var(--success);
-  box-shadow: 0 0 0 3px var(--success);
+  box-shadow: 0 0 0 2px var(--success);
 }
 .prac-option-container.wrong {
   border-color: var(--error);
@@ -418,28 +417,29 @@ html, body {
 }
 
 .prac-option-label {
-  font-size: 1rem;
+  font-size: 0.78rem;
   font-weight: 700;
   color: var(--text-muted);
   line-height: 1;
 }
 
 .prac-options-area {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-  justify-items: center;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: nowrap;
 }
 .prac-options-area .card-wrap {
-  width: 100% !important;
-  height: 100% !important;
   pointer-events: none;
 }
-.prac-options-area .card {
-  border: none !important;
-  box-shadow: none !important;
+.prac-options-area .card-wrap .card {
+  width: 100px;
+  height: 133px;
   background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
   pointer-events: none;
+  cursor: default;
 }
 
 @keyframes pracShake {
