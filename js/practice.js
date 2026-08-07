@@ -197,9 +197,7 @@ function renderTypeAQ() {
 
     const label = document.createElement('div');
     label.className = 'prac-option-label';
-    label.textContent = pracIsHard
-      ? String.fromCharCode(65 + idx)
-      : (pracKeys[idx] ? pracKeys[idx].toUpperCase() : String.fromCharCode(65 + idx));
+    label.textContent = String.fromCharCode(65 + idx); // 항상 A, B, C[, D]
 
     const el = createPracCardElement(opt);
     el.dataset.idx = idx;
@@ -313,9 +311,7 @@ function renderTypeBQ() {
 
     const label = document.createElement('div');
     label.className = 'prac-option-label';
-    label.textContent = pracIsHard
-      ? String.fromCharCode(65 + idx)
-      : (pracKeys[idx] ? pracKeys[idx].toUpperCase() : String.fromCharCode(65 + idx));
+    label.textContent = String.fromCharCode(65 + idx); // 항상 A, B, C[, D]
 
     const el = createPracCardElement(opt);
     el.dataset.idx = idx;
@@ -527,9 +523,7 @@ function closePracSettings() {
   if (!document.getElementById('practiceScreen').hidden) {
     const labels = document.querySelectorAll('.prac-option-label');
     labels.forEach((lbl, i) => {
-      lbl.textContent = pracIsHard
-        ? String.fromCharCode(65 + i)
-        : (pracKeys[i] ? pracKeys[i].toUpperCase() : String.fromCharCode(65 + i));
+      lbl.textContent = String.fromCharCode(65 + i); // 항상 A, B, C[, D]
     });
   }
 }
