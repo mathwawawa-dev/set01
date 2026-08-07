@@ -385,31 +385,29 @@ html, body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 5px;
-  padding: 8px;
-  border-radius: 12px;
-  border: 2px solid var(--border);
-  background: var(--bg-card);
+  gap: 6px;
   cursor: pointer;
-  transition: transform 0.12s, border-color 0.12s;
   flex-shrink: 0;
+  background: transparent;
+  border: none;
+  padding: 0;
 }
-.prac-option-container:hover {
+.prac-option-container:hover .card-wrap {
   transform: translateY(-3px);
   border-color: var(--accent-blue);
 }
-.prac-option-container.correct {
+.prac-option-container.correct .card-wrap {
   border-color: var(--success);
   box-shadow: 0 0 0 2px var(--success);
 }
-.prac-option-container.wrong {
+.prac-option-container.wrong .card-wrap {
   border-color: var(--error);
   animation: pracShake 0.4s ease;
 }
 
 .prac-option-label {
   font-size: 0.78rem;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--text-muted);
   line-height: 1;
 }
@@ -422,13 +420,11 @@ html, body {
 }
 .prac-options-area .card-wrap {
   pointer-events: none;
+  transition: transform 0.12s, border-color 0.12s;
 }
 .prac-options-area .card-wrap .card {
   width: 120px;
   height: 160px;
-  background: transparent !important;
-  box-shadow: none !important;
-  border: none !important;
   pointer-events: none;
   cursor: default;
 }
