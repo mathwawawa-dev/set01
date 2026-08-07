@@ -349,7 +349,7 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  gap: 12px;
+  gap: 10px;
   padding: 10px;
 }
 
