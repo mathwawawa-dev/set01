@@ -271,7 +271,7 @@ html, body {
 .prac-stats {
   display: flex;
   gap: 16px;
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   font-weight: 400;
   color: var(--text-sec);
 }
@@ -1642,7 +1642,6 @@ html, body {
   }
 
   /* 모바일: 연습 통계 — 라벨/숫자 두 줄로 */
-  .prac-stats { font-size: 0.85rem; }
   .prac-stat-item {
     white-space: nowrap;
   }
