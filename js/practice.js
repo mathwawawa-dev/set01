@@ -5,6 +5,7 @@ const pracAttrMap = {
 };
 
 let pracIsFull = false;
+let pracIsHard = false;      // hard 모드 (4선지)
 let pracCurrentDiff = 0; // 0: 쉬움, 1: 보통, 2: 어려움
 
 // 사이클 관리
@@ -39,7 +40,7 @@ try {
 
 let pracActiveKeyIdx = -1;
 
-function initPracticeMode(isFull) {
+function initPracticeMode(isFull, isHard) {
   pracIsFull = isFull;
   pracCurrentDiff = 0;
   pracWaitNext = false;
@@ -49,6 +50,7 @@ function initPracticeMode(isFull) {
   pracPhase = 'A';
   pracPhaseRemaining = Math.floor(Math.random() * 3) + 2; // 2-4
   pracBSelected = [];
+  pracIsHard = isHard || false;
 
   document.getElementById('pracSolvedCount').textContent = '0';
   document.getElementById('pracAccuracy').textContent = '0%';
@@ -155,7 +157,8 @@ function generateTypeA() {
   if (wrongCandidates.length < 2) wrongCandidates = shuffle(availableForWrong);
   else wrongCandidates = shuffle(wrongCandidates);
 
-  pracOptions = shuffle([pracCorrectCard, ...wrongCandidates.slice(0, 2)]);
+  const wrongCount = pracIsHard ? 3 : 2;
+  pracOptions = shuffle([pracCorrectCard, ...wrongCandidates.slice(0, wrongCount)]);
 
   if (pracIsFull) pracCurrentDiff = (pracCurrentDiff + 1) % 3;
   else pracCurrentDiff = (pracCurrentDiff + 1) % 2;
@@ -185,6 +188,7 @@ function renderTypeAQ() {
   const oArea = document.getElementById('pracOptionsArea');
   oArea.innerHTML = '';
   oArea.classList.remove('type-b');
+  if (pracIsHard) oArea.classList.add('hard-mode'); else oArea.classList.remove('hard-mode');
 
   pracOptions.forEach((opt, idx) => {
     const container = document.createElement('div');
@@ -192,7 +196,9 @@ function renderTypeAQ() {
 
     const label = document.createElement('div');
     label.className = 'prac-option-label';
-    label.textContent = pracKeys[idx] ? pracKeys[idx].toUpperCase() : String.fromCharCode(65 + idx);
+    label.textContent = pracIsHard
+      ? String.fromCharCode(65 + idx)
+      : (pracKeys[idx] ? pracKeys[idx].toUpperCase() : String.fromCharCode(65 + idx));
 
     const el = createPracCardElement(opt);
     el.dataset.idx = idx;
@@ -268,7 +274,8 @@ function generateTypeB() {
     !isSameCard(c, pracCorrectCardsB[0]) &&
     !isSameCard(c, pracCorrectCardsB[1])
   );
-  const wrongCards = shuffle(available).slice(0, 1); // 오답 1장 → 3선지
+  const wrongCount = pracIsHard ? 2 : 1;
+  const wrongCards = shuffle(available).slice(0, wrongCount); // hard: 오답 2장, normal: 1장
 
   pracOptionsB = shuffle([...pracCorrectCardsB, ...wrongCards]);
   pracBSelected = [];
@@ -297,6 +304,7 @@ function renderTypeBQ() {
   const oArea = document.getElementById('pracOptionsArea');
   oArea.innerHTML = '';
   oArea.classList.add('type-b');
+  if (pracIsHard) oArea.classList.add('hard-mode'); else oArea.classList.remove('hard-mode');
 
   pracOptionsB.forEach((opt, idx) => {
     const container = document.createElement('div');
@@ -304,7 +312,9 @@ function renderTypeBQ() {
 
     const label = document.createElement('div');
     label.className = 'prac-option-label';
-    label.textContent = pracKeys[idx] ? pracKeys[idx].toUpperCase() : String.fromCharCode(65 + idx);
+    label.textContent = pracIsHard
+      ? String.fromCharCode(65 + idx)
+      : (pracKeys[idx] ? pracKeys[idx].toUpperCase() : String.fromCharCode(65 + idx));
 
     const el = createPracCardElement(opt);
     el.dataset.idx = idx;
@@ -444,10 +454,16 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('pracExitBtn').addEventListener('click', exitPracticeMode);
 
   document.getElementById('btnModePractice').addEventListener('click', () => {
-    initPracticeMode(false);
+    initPracticeMode(false, false);
+  });
+  document.getElementById('btnModePracticeHard').addEventListener('click', () => {
+    initPracticeMode(false, true);
   });
   document.getElementById('btnModePracticeFull').addEventListener('click', () => {
-    initPracticeMode(true);
+    initPracticeMode(true, false);
+  });
+  document.getElementById('btnModePracticeFullHard').addEventListener('click', () => {
+    initPracticeMode(true, true);
   });
 });
 
@@ -476,9 +492,10 @@ document.addEventListener('keydown', (e) => {
     return;
   }
 
-  // 게임 플레이 중 단축키 — A/B 유형 모두 지원
+  // 게임 플레이 중 단축키 — hard 모드는 마우스 전용
   if (!document.getElementById('practiceScreen').hidden &&
-      document.getElementById('pracSettingsOverlay').hidden) {
+      document.getElementById('pracSettingsOverlay').hidden &&
+      !pracIsHard) {
     const key = e.key.toLowerCase();
     const idx = pracKeys.findIndex(k => k && k.toLowerCase() === key);
     if (idx !== -1 && !pracWaitNext) {
