@@ -1011,12 +1011,16 @@ html, body {
   0%, 100% { opacity: 0.4; }
   50% { opacity: 1; }
 }
+@keyframes hintFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 .tut-rpg-hint {
   text-align: center;
   font-size: 0.85rem;
   color: var(--text-muted);
   margin-top: 6px;
-  animation: tutNextReveal 0.4s ease, hintPulse 2.5s ease-in-out 0.4s infinite;
+  animation: hintFadeIn 0.4s ease, hintPulse 2.5s ease-in-out 0.4s infinite;
 }
 .tut-bubble strong { color: #111111; font-weight: 700; }
 .tut-bubble em { font-style: normal; color: var(--accent-pink); font-weight: 600; }
