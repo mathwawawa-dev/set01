@@ -29,6 +29,14 @@
           <span class="mode-card-desc">SET가 처음이라면!<br>규칙을 익혀요.</span>
           <span class="mode-card-tag">단계별 가이드</span>
         </button>
+        <button class="mode-card" id="btnModePractice">
+          <span class="mode-card-icon">
+            <img src="asset/tutorial.svg" alt="practice icon" draggable="false">
+          </span>
+          <span class="mode-card-name">SET 완성 연습</span>
+          <span class="mode-card-desc">시간 제한 없이<br>SET 찾는 감각 기르기</span>
+          <span class="mode-card-tag">무한 반복 연습</span>
+        </button>
         <button class="mode-card" id="btnModeCountdown">
           <span class="mode-card-icon">
             <img src="asset/countdown.svg" alt="countdown icon" draggable="false">
@@ -57,6 +65,14 @@
           <span class="mode-card-desc">81종 카드가 처음이라면!<br>규칙을 익혀요.</span>
           <span class="mode-card-tag">단계별 가이드</span>
         </button>
+        <button class="mode-card" id="btnModePracticeFull">
+          <span class="mode-card-icon icon-red">
+            <img src="asset/tutorial-red.svg" alt="practice icon" draggable="false">
+          </span>
+          <span class="mode-card-name">SET 완성 연습</span>
+          <span class="mode-card-desc">시간 제한 없이<br>SET 찾는 감각 기르기</span>
+          <span class="mode-card-tag">무한 반복 연습</span>
+        </button>
         <button class="mode-card" id="btnModeOfficial">
           <span class="mode-card-icon icon-red">
             <img src="asset/countdown-red.svg" alt="countdown icon" draggable="false">
@@ -74,7 +90,7 @@
           <span class="mode-card-tag">카운트업</span>
         </button>
       </div>
-      <div class="mode-version">v2.89_20260807_1706_fix_praise_exclamation</div>
+      <div class="mode-version">v2.90_20260807_1723_practice_mode_added</div>
     </div>
   </div>
 
@@ -106,6 +122,36 @@
       <div class="tut-actions">
         <button class="tut-btn-hint" id="tutHintBtn" hidden>💡 힌트</button>
         <button class="tut-btn-next" id="tutNextBtn">다음 →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 연습 모드 화면 -->
+  <div id="practiceScreen" class="practice-screen" hidden>
+    <div class="prac-inner">
+      <div class="prac-header">
+        <div class="prac-stats">
+          <div class="prac-stat-item">푼 문제 <span id="pracSolvedCount">0</span></div>
+          <div class="prac-stat-item">정답률 <span id="pracAccuracy">0%</span></div>
+        </div>
+        <button class="prac-exit-btn" id="pracExitBtn">✕ 나가기</button>
+      </div>
+      <h2 class="prac-title">SET가 되기 위해 필요한 카드는?</h2>
+      
+      <!-- 문제 (주어진 카드 2장 + 빈칸 1장) -->
+      <div class="prac-question-area" id="pracQuestionArea">
+        <!-- 카드가 동적으로 삽입됨 -->
+      </div>
+      
+      <div class="prac-feedback-area">
+        <div class="prac-feedback" id="pracFeedback"></div>
+        <button class="prac-hint-btn" id="pracHintBtn">💡 힌트</button>
+      </div>
+      
+      <div class="prac-options-label">아래에서 정답을 고르세요:</div>
+      <!-- 선지 (4지선다) -->
+      <div class="prac-options-area" id="pracOptionsArea">
+        <!-- 선지 카드가 동적으로 삽입됨 -->
       </div>
     </div>
   </div>
@@ -213,6 +259,7 @@
   <script src="js/game.js"></script>
   <script src="js/tutorial.js"></script>
   <script src="js/tutorial_full.js"></script>
+  <script src="js/practice.js"></script>
   <script src="js/init.js"></script>
 </body>
 </html>

@@ -234,7 +234,176 @@ html, body {
   100% { transform: translateY(-110vh) scale(0.6); opacity: 0; }
 }
 
-/* ---------- ?ㅻ뜑 ---------- */
+/* ---------- 연습 모드 (Practice Screen) ---------- */
+.practice-screen {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background: var(--bg-main);
+  z-index: 3000;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 4vh 20px;
+  overflow-y: auto;
+}
+.practice-screen[hidden] {
+  display: none !important;
+}
+
+.prac-inner {
+  width: 100%;
+  max-width: 600px;
+  background: var(--card-bg);
+  border-radius: 24px;
+  padding: 30px;
+  box-shadow: 0 16px 40px var(--shadow-color);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  text-align: center;
+  border: 1px solid var(--card-border);
+}
+
+.prac-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.prac-stats {
+  display: flex;
+  gap: 16px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-sec);
+}
+.prac-stat-item span {
+  color: var(--primary);
+  font-weight: 800;
+  margin-left: 4px;
+}
+
+.prac-exit-btn {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.prac-exit-btn:hover {
+  background: #ef4444;
+  color: #fff;
+}
+
+.prac-title {
+  font-size: 1.4rem;
+  color: var(--text-main);
+  font-weight: 800;
+  margin: 0;
+}
+
+.prac-question-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  background: var(--bg-main);
+  border-radius: 16px;
+  min-height: 180px;
+}
+.prac-question-area .card-wrap {
+  transform: none !important;
+}
+
+.prac-blank-card {
+  width: var(--card-w);
+  height: var(--card-h);
+  border: 2px dashed var(--text-muted);
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  color: var(--text-muted);
+  font-weight: 900;
+  background: rgba(0,0,0,0.02);
+}
+
+.prac-feedback-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  min-height: 60px;
+}
+.prac-feedback {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+.prac-feedback.success { color: var(--success); }
+.prac-feedback.error { color: var(--error); }
+
+.prac-hint-btn {
+  background: var(--bg-main);
+  border: 1px solid var(--card-border);
+  color: var(--text-sec);
+  padding: 6px 14px;
+  border-radius: 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.prac-hint-btn:hover {
+  background: var(--card-border);
+  color: var(--text-main);
+}
+
+.prac-options-label {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-sec);
+  margin-top: 10px;
+  text-align: left;
+}
+
+.prac-options-area {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  justify-items: center;
+}
+.prac-options-area .card-wrap {
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.prac-options-area .card-wrap:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px var(--shadow-color);
+}
+.prac-options-area .card-wrap.correct {
+  border-color: var(--success);
+  box-shadow: 0 0 0 3px var(--success);
+}
+.prac-options-area .card-wrap.wrong {
+  border-color: var(--error);
+  animation: pracShake 0.4s ease;
+}
+
+@keyframes pracShake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  50% { transform: translateX(6px); }
+  75% { transform: translateX(-6px); }
+  100% { transform: translateX(0); }
+}
+
+/* ---------- 반응형 ---------- */
 .game-header {
   position: sticky;
   top: 0;
@@ -914,6 +1083,11 @@ html, body {
   .mode-card-desc br { display: none; }
 
   .btn-theme, .btn-settings { font-size: 0.6rem; padding: 4px 6px; }
+
+  .prac-options-area { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .prac-question-area { gap: 10px; padding: 12px; }
+  .prac-question-area .card-wrap, .prac-blank-card { transform: scale(0.9) !important; }
+  .prac-inner { padding: 16px; border-radius: 16px; }
 
   .stats-row  { gap: 4px; }
   .stat-card  { padding: 4px 8px; gap: 3px; }
