@@ -5,24 +5,30 @@ const pracAttrMap = {
 };
 
 let pracIsFull = false;
-let pracCurrentDiff = 0; // 0: 쉬움, 1: 보통, 2: 어려움
-let pracSolvedCount = 0;
-let pracTotalAttempts = 0;
-
 let pracGivenCards = [];
 let pracCorrectCard = null;
 let pracOptions = [];
 let pracHintStep = 0;
 let pracWaitNext = false;
+let pracCurrentDiff = 0; // 0: 쉬움, 1: 보통, 2: 어려움
+
+// 통계용
+let pracSolvedCount = 0;
+let pracTotalAttempts = 0;
+let pracQuestionStartTime = 0;
+let pracTotalTimeMs = 0;
 
 function initPracticeMode(isFull) {
   pracIsFull = isFull;
   pracCurrentDiff = 0;
+  pracWaitNext = false;
   pracSolvedCount = 0;
   pracTotalAttempts = 0;
+  pracTotalTimeMs = 0;
   
   document.getElementById('pracSolvedCount').textContent = '0';
   document.getElementById('pracAccuracy').textContent = '0%';
+  document.getElementById('pracAvgTime').textContent = '0.0초';
   
   document.getElementById('modeScreen').hidden = true;
   const ps = document.getElementById('practiceScreen');
@@ -205,6 +211,8 @@ function renderPracticeQ() {
     container.appendChild(el);
     oArea.appendChild(container);
   });
+  
+  pracQuestionStartTime = Date.now();
 }
 
 function handlePracOptionClick(selectedCard, el) {
@@ -214,6 +222,8 @@ function handlePracOptionClick(selectedCard, el) {
   
   if (isSameCard(selectedCard, pracCorrectCard)) {
     // 정답
+    const timeTaken = Date.now() - pracQuestionStartTime;
+    pracTotalTimeMs += timeTaken;
     pracSolvedCount++;
     el.classList.add('correct');
     
@@ -248,8 +258,11 @@ function handlePracOptionClick(selectedCard, el) {
 
 function updatePracStats() {
   document.getElementById('pracSolvedCount').textContent = pracSolvedCount;
-  let acc = Math.round((pracSolvedCount / pracTotalAttempts) * 100) || 0;
+  const acc = pracTotalAttempts === 0 ? 0 : Math.round((pracSolvedCount / pracTotalAttempts) * 100);
   document.getElementById('pracAccuracy').textContent = acc + '%';
+  
+  const avg = pracSolvedCount === 0 ? 0 : (pracTotalTimeMs / pracSolvedCount) / 1000;
+  document.getElementById('pracAvgTime').textContent = avg.toFixed(1) + '초';
 }
 
 function getAttrKorean(prop, val) {
