@@ -274,44 +274,32 @@ html, body {
   display: flex;
   gap: 16px;
   font-size: 0.95rem;
-  font-weight: 600;
+  font-weight: 400;
   color: var(--text-sec);
 }
 .prac-stat-item span {
   color: var(--primary);
-  font-weight: 800;
+  font-weight: 400;
   margin-left: 4px;
 }
 
-.prac-exit-btn {
-  background: rgba(239, 68, 68, 0.1);
-  color: #ef4444;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 12px;
-  font-weight: 700;
+.prac-exit-btn, .prac-settings-btn {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
   cursor: pointer;
-  transition: 0.2s;
+  transition: background 0.2s;
 }
-.prac-exit-btn:hover {
-  background: #ef4444;
-  color: #fff;
+.prac-exit-btn:hover, .prac-settings-btn:hover {
+  background: var(--border);
 }
 
 .prac-settings-btn {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 8px 16px;
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  cursor: pointer;
-  transition: 0.2s;
   margin-right: 8px;
-}
-.prac-settings-btn:hover {
-  background: var(--border);
 }
 
 .prac-title {

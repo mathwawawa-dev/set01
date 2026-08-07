@@ -278,57 +278,11 @@ function getAttrKorean(prop, val) {
   return pracAttrMap[prop][val] || val;
 }
 
-function showPracHint() {
-  const fb = document.getElementById('pracFeedback');
-  fb.className = 'prac-feedback';
-  
-  let hints = [];
-  
-  // 모양
-  if (pracGivenCards[0].shape === pracGivenCards[1].shape) {
-    hints.push(`모양이 모두 ${getAttrKorean('shape', pracGivenCards[0].shape)} → 정답도 ${getAttrKorean('shape', pracGivenCards[0].shape)}`);
-  } else {
-    hints.push(`모양이 서로 다름 → 정답은 나머지 하나`);
-  }
-  
-  // 색깔
-  if (pracGivenCards[0].color === pracGivenCards[1].color) {
-    hints.push(`색깔이 모두 ${getAttrKorean('color', pracGivenCards[0].color)} → 정답도 ${getAttrKorean('color', pracGivenCards[0].color)}`);
-  } else {
-    hints.push(`색깔이 서로 다름 → 정답은 나머지 하나`);
-  }
-  
-  // 채움
-  if (pracGivenCards[0].fill === pracGivenCards[1].fill) {
-    hints.push(`채움이 모두 ${getAttrKorean('fill', pracGivenCards[0].fill)} → 정답도 ${getAttrKorean('fill', pracGivenCards[0].fill)}`);
-  } else {
-    hints.push(`채움이 서로 다름 → 정답은 나머지 하나`);
-  }
-  
-  // 개수 (정식 모드)
-  if (pracIsFull) {
-    if (pracGivenCards[0].number === pracGivenCards[1].number) {
-      hints.push(`개수가 모두 ${pracGivenCards[0].number}개 → 정답도 ${pracGivenCards[0].number}개`);
-    } else {
-      hints.push(`개수가 서로 다름 → 정답은 나머지 하나`);
-    }
-  }
-  
-  if (pracHintStep < hints.length) {
-    fb.textContent = `💡 힌트: ${hints[pracHintStep]}`;
-    pracHintStep++;
-  } else {
-    let ansStr = `${getAttrKorean('shape', pracCorrectCard.shape)}, ${getAttrKorean('color', pracCorrectCard.color)}, ${getAttrKorean('fill', pracCorrectCard.fill)}`;
-    if (pracIsFull) ansStr += `, ${pracCorrectCard.number}개`;
-    
-    fb.textContent = `💡 최종 힌트: 정답은 [ ${ansStr} ] 입니다!`;
-  }
-}
 
 // 이벤트 리스너 연결
 document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('pracExitBtn').addEventListener('click', exitPracticeMode);
-  document.getElementById('pracHintBtn').addEventListener('click', showPracHint);
+
   
   document.getElementById('btnModePractice').addEventListener('click', () => {
     initPracticeMode(false);
@@ -386,16 +340,28 @@ if (btnPracSettings) {
 }
 
 const btnPracSettingsClose = document.getElementById('btnPracSettingsClose');
+const pracSettingsOverlay = document.getElementById('pracSettingsOverlay');
+
+function closePracSettings() {
+  pracSettingsOverlay.hidden = true;
+  pracActiveKeyIdx = -1;
+  // 라벨 업데이트
+  if (!document.getElementById('practiceScreen').hidden) {
+    const labels = document.querySelectorAll('.prac-option-label');
+    labels.forEach((lbl, i) => {
+      lbl.textContent = pracKeys[i] ? pracKeys[i].toUpperCase() : String.fromCharCode(65 + i);
+    });
+  }
+}
+
 if (btnPracSettingsClose) {
-  btnPracSettingsClose.addEventListener('click', () => {
-    document.getElementById('pracSettingsOverlay').hidden = true;
-    pracActiveKeyIdx = -1;
-    // 라벨 업데이트
-    if (!document.getElementById('practiceScreen').hidden) {
-      const labels = document.querySelectorAll('.prac-option-label');
-      labels.forEach((lbl, i) => {
-        lbl.textContent = pracKeys[i] ? pracKeys[i].toUpperCase() : String.fromCharCode(65 + i);
-      });
+  btnPracSettingsClose.addEventListener('click', closePracSettings);
+}
+
+if (pracSettingsOverlay) {
+  pracSettingsOverlay.addEventListener('click', (e) => {
+    if (e.target === pracSettingsOverlay) {
+      closePracSettings();
     }
   });
 }
