@@ -1145,7 +1145,7 @@ const JUNIOR_TUT_STEPS = [
         wrong: '빈 것 · 줄무늬 · 가득 참<br>— 세 개가 다 다른 채움이에요! 😊',
       },
       {
-        q: '모양, 색깔, 채움을 모두 정리해봐요!<br>세 장이 <strong>SET</strong>일까요?',
+        q: '세 장의 카드는 <strong>SET</strong>일까요?',
         type: 'set', correctAnswer: 'yes',
         praise: '🎉 굿굿!<br><br>세 가지 특징이 모두 규칙에 맞아요!<br>이게 바로 <strong>SET</strong>예요! 🌟',
         wrong: '💡 다시 생각해봐요!<br>모양·색깔·채움이 모두<br>"다 달라요" 규칙에 맞았어요!<br>→ 이럴 때도 SET가 돼요! 🎉',
@@ -1179,7 +1179,7 @@ const JUNIOR_TUT_STEPS = [
         wrong: '빈 것 · 줄무늬 · 가득 참<br>— 세 개가 다 다른 채움이에요! 😊',
       },
       {
-        q: '모양, 색깔, 채움을 모두 정리해봐요!<br>세 장이 <strong>SET</strong>일까요?',
+        q: '세 장의 카드는 <strong>SET</strong>일까요?',
         type: 'set', correctAnswer: 'yes',
         praise: '🎉 굿굿!<br><br>모양·색깔은 다 같고, 채움만 다 달라요!<br>이게 바로 <strong>SET</strong>예요! 🌟',
         wrong: '💡 다시 생각해봐요!<br>모양·색깔·채움이 모두<br>각 특징이 규칙에 맞으면 SET가 돼요! 🎉',
@@ -1214,7 +1214,7 @@ const JUNIOR_TUT_STEPS = [
         wrong: '빈 것 · 줄무늬 · 가득 참<br>— 세 개가 다 다른 채움이에요! 😊',
       },
       {
-        q: '모양, 색깔, 채움을 모두 정리해봐요!<br>그럼 이 세 장이 <strong>SET</strong>일까요?',
+        q: '세 장의 카드는 <strong>SET</strong>일까요?',
         type: 'set', correctAnswer: 'no', logLabel: null,
         praise: '🎉 굿굿!<br><br>모양에서 규칙을 어겼으니까<br>이 세 장은 <strong>SET가 아니에요</strong>! 🙌',
         wrong: '💡 다시 생각해봐요!<br>모양에서 실패했어요 (타원이 두 개).<br>한 가지라도 규칙을 어기면<br>SET가 안 돼요!',

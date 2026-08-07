@@ -11,34 +11,34 @@ const FULL_Q3_GIVEN=[{shape:'oval',color:'red',fill:'solid',count:2},{shape:'dia
 const FULL_Q3_CHOICES=[{isCorrect:true,card:{shape:'squiggle',color:'purple',fill:'solid',count:2}},{isCorrect:false,card:{shape:'squiggle',color:'purple',fill:'solid',count:3}},{isCorrect:false,card:{shape:'squiggle',color:'purple',fill:'outline',count:2}},{isCorrect:false,card:{shape:'oval',color:'purple',fill:'solid',count:2}}];
 const FULL_TUT_STEPS=[
 {id:'intro',title:'정식 SET가 뭐예요?',cards:null,interactive:false},
-{id:'analysis1',type:'sequence',title:'분석 - 개수를 익혀봐요!',cards:FULL_ANA1_CARDS,questions:[
+{id:'analysis1',type:'sequence',title:'분석 1단계',cards:FULL_ANA1_CARDS,questions:[
 {q:'<strong>모양</strong>을 비교합시다!',attrLabel:'모양이',logLabel:'모양',type:'attr',correctAnswer:'same',praise:'굿굿<br><br>타원 타원 타원<br>모두 같아요! ✔️',wrong:'세 장 모두 타원 모양이에요! 😊'},
 {q:'<strong>색깔</strong>을 비교합시다!',attrLabel:'색깔이',logLabel:'색깔',type:'attr',correctAnswer:'same',praise:'굿굿<br><br>초록 초록 초록<br>모두 같아요! ✔️',wrong:'세 장 모두 초록이에요! 😊'},
 {q:'<strong>채움</strong>을 비교합시다!',attrLabel:'채움이',logLabel:'채움',type:'attr',correctAnswer:'same',praise:'굿굿<br><br>빈 것 빈 것 빈 것<br>모두 같아요! ✔️',wrong:'세 장 모두 빈 것이에요! 😊'},
 {q:'<strong>개수</strong>를 비교합시다!',attrLabel:'개수가',logLabel:'개수',type:'attr',correctAnswer:'different',praise:'굿굿<br><br>1개 2개 3개<br>개수가 <strong>모두 달라요</strong>! ✔️',wrong:'1개 2개 3개 — 세 개가 다 다른 개수예요! 😊'},
-{q:'모양, 색깔, 채움, 개수를 모두 정리해봐요!<br>세 장이 <strong>SET</strong>일까요?',type:'set',correctAnswer:'yes',praise:'굿굿<br><br>네 가지 특징이 모두 규칙에 맞아요!<br>이게 바로 <strong>SET</strong>예요! 🌟',wrong:'모양·색깔·채움은 다 같고, 개수만 다 달라요!<br>→ SET예요! 🎉'}
+{q:'세 장의 카드는 <strong>SET</strong>일까요?',type:'set',correctAnswer:'yes',praise:'굿굿<br><br>네 가지 특징이 모두 규칙에 맞아요!<br>이게 바로 <strong>SET</strong>예요! 🌟',wrong:'모양·색깔·채움은 다 같고, 개수만 다 달라요!<br>→ SET예요! 🎉'}
 ]},
-{id:'analysis2',type:'sequence',title:'분석 - 개수가 어긋나면?',cards:FULL_ANA2_CARDS,questions:[
+{id:'analysis2',type:'sequence',title:'분석 2단계',cards:FULL_ANA2_CARDS,questions:[
 {q:'<strong>모양</strong>을 비교합시다!',attrLabel:'모양이',logLabel:'모양',type:'attr',correctAnswer:'same',praise:'굿굿<br>마름모 마름모 마름모<br>모두 같아요! ✔️',wrong:'세 장 모두 마름모예요! 😊'},
 {q:'<strong>색깔</strong>을 비교합시다!',attrLabel:'색깔이',logLabel:'색깔',type:'attr',correctAnswer:'different',praise:'굿굿<br>보라 빨강 초록<br>모두 달라요! ✔️',wrong:'보라 빨강 초록 — 세 개가 서로 달라요! 😊'},
 {q:'<strong>채움</strong>을 비교합시다!',attrLabel:'채움이',logLabel:'채움',type:'attr',correctAnswer:'same',praise:'굿굿<br>줄무늬 줄무늬 줄무늬<br>모두 같아요! ✔️',wrong:'세 장 모두 줄무늬예요! 😊'},
-{q:'<strong>개수</strong>를 비교합시다!',attrLabel:'개수가',logLabel:'개수',type:'attr3',correctAnswer:'neither',praise:'굿굿<br>1개 1개 3개<br>1개가 두 개예요. 2개만 같아요! 규칙 위반!',wrong_same:'1개 1개 3개 — 마지막이 3개예요! 😊',wrong_diff:'1개 1개 3개 — 1개가 두 개나 있어요! 😊'},
-{q:'그럼 이 세 장이 <strong>SET</strong>일까요?',type:'set',correctAnswer:'no',logLabel:null,praise:'굿굿<br>개수에서 규칙을 어겼으니까<br>이 세 장은 <strong>SET가 아니에요</strong>! 🙌',wrong:'개수에서 실패했어요 (1개가 두 개). 한 가지라도 규칙을 어기면 SET가 안 돼요!'}
+{q:'<strong>개수</strong>를 비교합시다!',attrLabel:'개수가',logLabel:'개수',type:'attr3',correctAnswer:'neither',praise:'굿굿<br>1개 1개 3개<br>개수가 1개인 카드가 두 개입니다. 규칙 위반!',wrong_same:'1개 1개 3개 — 마지막이 3개예요! 😊',wrong_diff:'1개 1개 3개 — 1개가 두 개나 있어요! 😊'},
+{q:'세 장의 카드는 <strong>SET</strong>일까요?',type:'set',correctAnswer:'no',logLabel:null,praise:'굿굿<br>개수에서 규칙을 어겼으니까<br>이 세 장은 <strong>SET가 아니에요</strong>! 🙌',wrong:'개수에서 실패했어요 (1개가 두 개). 한 가지라도 규칙을 어기면 SET가 안 돼요!'}
 ]},
 {id:'quiz1',type:'cardpick',title:'문제 1 - SET를 완성해봐요!',text:'SET가 되기 위해 필요한 카드는 무엇일까요?',givenCards:FULL_Q1_GIVEN,choices:FULL_Q1_CHOICES,explanation:'굿굿<br>모양·색깔·채움 같음 개수 달라야 3개<br>→ 물결 빨강 가득참 3개 카드! ✅'},
-{id:'analysis3',type:'sequence',title:'분석 - 4가지가 모두 달라도 OK!',cards:FULL_ANA3_CARDS,questions:[
+{id:'analysis3',type:'sequence',title:'분석 3단계',cards:FULL_ANA3_CARDS,questions:[
 {q:'<strong>모양</strong>을 비교합시다!',attrLabel:'모양이',logLabel:'모양',type:'attr',correctAnswer:'different',praise:'굿굿<br>타원 마름모 물결<br>모두 달라요! ✔️',wrong:'타원 마름모 물결 — 세 개가 서로 달라요! 😊'},
 {q:'<strong>색깔</strong>을 비교합시다!',attrLabel:'색깔이',logLabel:'색깔',type:'attr',correctAnswer:'different',praise:'굿굿<br>초록 보라 빨강<br>모두 달라요! ✔️',wrong:'초록 보라 빨강 — 세 개가 서로 달라요! 😊'},
 {q:'<strong>채움</strong>을 비교합시다!',attrLabel:'채움이',logLabel:'채움',type:'attr',correctAnswer:'different',praise:'굿굿<br>빈 것 줄무늬 가득참<br>모두 달라요! ✔️',wrong:'빈 것 줄무늬 가득참 — 세 개가 서로 달라요! 😊'},
 {q:'<strong>개수</strong>를 비교합시다!',attrLabel:'개수가',logLabel:'개수',type:'attr',correctAnswer:'different',praise:'굿굿<br>1개 2개 3개<br>모두 달라요! ✔️',wrong:'1개 2개 3개 — 세 개가 서로 달라요! 😊'},
 {q:'모양, 색깔, 채움, 개수 모두 정리했어요!<br>이 세 장이 <strong>SET</strong>일까요?',type:'set',correctAnswer:'yes',praise:'굿굿<br>네 가지 특징이 전부 다 달라서<br>이게 바로 <strong>SET</strong>예요! 🌟',wrong:'모양·색깔·채움·개수가 모두 다 달라요!<br>→ 이럴 때도 SET가 돼요! 🎉'}
 ]},
-{id:'analysis4',type:'sequence',title:'분석 - 같음과 다름이 섞여도 OK!',cards:FULL_ANA4_CARDS,questions:[
+{id:'analysis4',type:'sequence',title:'분석 4단계',cards:FULL_ANA4_CARDS,questions:[
 {q:'<strong>모양</strong>을 비교합시다!',attrLabel:'모양이',logLabel:'모양',type:'attr',correctAnswer:'different',praise:'굿굿<br>타원 마름모 물결<br>모두 달라요! ✔️',wrong:'타원 마름모 물결 — 세 개가 서로 달라요! 😊'},
 {q:'<strong>색깔</strong>을 비교합시다!',attrLabel:'색깔이',logLabel:'색깔',type:'attr',correctAnswer:'same',praise:'굿굿<br>보라 보라 보라<br>색깔은 모두 같아요! ✔️ 특징마다 독립적으로 판단해요!',wrong:'세 장 모두 보라예요! 다 같지 않나요? 😊'},
 {q:'<strong>채움</strong>을 비교합시다!',attrLabel:'채움이',logLabel:'채움',type:'attr',correctAnswer:'different',praise:'굿굿<br>가득참 줄무늬 빈 것<br>모두 달라요! ✔️',wrong:'가득참 줄무늬 빈 것 — 세 개가 서로 달라요! 😊'},
 {q:'<strong>개수</strong>를 비교합시다!',attrLabel:'개수가',logLabel:'개수',type:'attr',correctAnswer:'different',praise:'굿굿<br>1개 2개 3개<br>모두 달라요! ✔️',wrong:'1개 2개 3개 — 세 개가 서로 달라요! 😊'},
-{q:'색깔만 같고 나머지는 달랐어요!<br>이 세 장이 <strong>SET</strong>일까요?',type:'set',correctAnswer:'yes',praise:'굿굿<br>색깔만 같아도 나머지 특징이 모두 규칙에 맞으면 SET예요! 🌟',wrong:'각 특징마다 독립적으로 판단해요.<br>하나가 같아도 나머지가 규칙에 맞으면 SET! 🎉'}
+{q:'세 장의 카드는 <strong>SET</strong>일까요?',type:'set',correctAnswer:'yes',praise:'굿굿<br>색깔만 같아도 나머지 특징이 모두 규칙에 맞으면 SET예요! 🌟',wrong:'각 특징마다 독립적으로 판단해요.<br>하나가 같아도 나머지가 규칙에 맞으면 SET! 🎉'}
 ]},
 {id:'quiz2',type:'cardpick',title:'문제 2 - SET를 완성해봐요!',text:'SET가 되기 위해 필요한 카드는 무엇일까요?',givenCards:FULL_Q2_GIVEN,choices:FULL_Q2_CHOICES,explanation:'굿굿<br>모양·색깔·채움·개수 모두 달라야<br>→ 물결 빨강 가득참 3개 카드! ✅'},
 {id:'quiz3',type:'cardpick',title:'문제 3 - SET를 완성해봐요!',text:'SET가 되기 위해 필요한 카드는 무엇일까요?',givenCards:FULL_Q3_GIVEN,choices:FULL_Q3_CHOICES,explanation:'굿굿<br>모양·색깔 달라야, 채움·개수 같음<br>→ 물결 보라 가득참 2개 카드! ✅'},
@@ -69,7 +69,7 @@ function ftRenderStep(){
   var tutInner=ftTutorialScreen.querySelector('.tut-inner');
   if(step.type==='sequence'){
     tutInner.classList.remove('tut-layout-quiz');ftSubQIdx=0;ftAnswerItems=[];ftCards=step.cards;
-    ftBubbleEl.innerHTML='';ftContextBubble.innerHTML=FULL_TUT_INTRO_TEXT;ftContextBubble.hidden=false;
+    ftBubbleEl.innerHTML='';ftContextBubble.innerHTML=FULL_TUT_INTRO_TEXT;ftContextBubble.hidden=true;
     ftAnswerLog.hidden=true;ftAnswerLog.innerHTML='<div class="tut-log-title">판단 결과</div>';
     ftRenderCards(false);ftRenderSubQ();
   }else if(step.type==='cardpick'){

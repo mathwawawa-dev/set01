@@ -1061,7 +1061,7 @@ html, body {
   border-radius: 14px; padding: 8px 10px;
   box-sizing: border-box;
   font-family: 'Outfit', sans-serif; font-weight: 400;
-  display: flex; flex-direction: column; justify-content: flex-start; gap: 4px;
+  display: flex; flex-direction: column; justify-content: flex-start; gap: 2px;
 }
 .tut-answer-log[hidden] { display: none; }
 .tut-log-title {
@@ -1072,7 +1072,7 @@ html, body {
 }
 .tut-log-item {
   font-family: 'Outfit', sans-serif;
-  font-size: 0.82rem; font-weight: 400; line-height: 1.35;
+  font-size: 0.8rem; font-weight: 400; line-height: 1.25;
   color: #111111;
 }
 .tut-log-item .log-label { color: #111111; font-weight: 400; }
@@ -1198,8 +1198,9 @@ html, body {
 .tut-btn-next:hover { opacity: 0.65; transform: translateY(-1px); animation-play-state: paused; }
 .tut-btn-next[hidden] { display: none; }
 @keyframes tutNextReveal {
-  from { opacity: 0; transform: translateY(10px); }
-  to   { opacity: 1; transform: translateY(0); }
+  0%   { opacity: 0; transform: translateY(10px); pointer-events: none; }
+  99%  { pointer-events: none; }
+  100% { opacity: 1; transform: translateY(0); pointer-events: auto; }
 }
 .tut-next-fadein {
   animation: tutNextReveal 0.4s ease 0.5s both, tutBtnPulse 2s 0.9s infinite ease-in-out;
