@@ -239,7 +239,11 @@ function handleTypeAClick(selectedCard, el) {
     el.classList.remove('selected');
     pracTotalAttempts++;
 
-    if (isSameCard(selectedCard, pracCorrectCard)) {
+    const isValidSet = pracIsFull
+      ? isSetOfficial(pracGivenCards[0], pracGivenCards[1], selectedCard)
+      : isSet(pracGivenCards[0], pracGivenCards[1], selectedCard);
+
+    if (isValidSet) {
       const timeTaken = Date.now() - pracQuestionStartTime;
       pracTotalTimeMs += timeTaken;
       pracSolvedCount++;
@@ -339,10 +343,14 @@ function checkTypeBAnswer() {
   const sel = pracBSelected;
   pracTotalAttempts++;
 
-  const bothCorrect = pracCorrectCardsB.every(cc => sel.some(s => isSameCard(s.card, cc)));
+  // 주어진 카드 + 선택한 2장이 유효한 SET이면 정답
+  const isValidSet = pracIsFull
+    ? isSetOfficial(pracGivenCardB, sel[0].card, sel[1].card)
+    : isSet(pracGivenCardB, sel[0].card, sel[1].card);
+
   sel.forEach(s => s.container.classList.remove('selected'));
 
-  if (bothCorrect) {
+  if (isValidSet) {
     const timeTaken = Date.now() - pracQuestionStartTime;
     pracTotalTimeMs += timeTaken;
     pracSolvedCount++;
