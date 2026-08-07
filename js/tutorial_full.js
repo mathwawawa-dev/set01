@@ -151,7 +151,7 @@ function ftEvalSel(){
           if(!placed){var nc=pool.slice(0,3);idxs.forEach(function(bi,ni){ftCards[bi]=nc[ni];});}
           ftSelected=[];ftDone=false;ftRenderCards(true);
           ftFeedbackEl.textContent='🎉 훌륭해요! 한 번 더 찾아보세요!';ftFeedbackEl.className='tut-feedback tut-success';
-          ftBubbleEl.innerHTML='SET가 되는 세 장의 카드를 <strong>한번 더</strong> 찾아보세요!';
+          ftBubbleEl.innerHTML='SET가 되는 세 장의 카드를 <strong>한 번 더</strong> 찾아보세요!';
           ftNextBtn.hidden=true;ftHintBtn.hidden=true;
         },700);return;
       }
