@@ -213,10 +213,11 @@ function renderPracticeQ() {
     const el = createPracCardElement(opt);
     // 식별자 임시 부여
     el.dataset.idx = idx;
-    el.addEventListener('click', () => handlePracOptionClick(opt, el));
     
     container.appendChild(label);
     container.appendChild(el);
+    
+    container.addEventListener('click', () => handlePracOptionClick(opt, container));
     oArea.appendChild(container);
   });
   
@@ -370,8 +371,8 @@ document.addEventListener('keydown', (e) => {
     const key = e.key.toLowerCase();
     const idx = pracKeys.findIndex(k => k && k.toLowerCase() === key);
     if (idx !== -1 && !pracWaitNext) {
-      const el = document.querySelector(`.prac-options-area .prac-option-container:nth-child(${idx+1}) .card`);
-      if (el) handlePracOptionClick(pracOptions[idx], el);
+      const container = document.querySelector(`.prac-options-area .prac-option-container:nth-child(${idx+1})`);
+      if (container) handlePracOptionClick(pracOptions[idx], container);
     }
   }
 });
