@@ -87,27 +87,27 @@ const JUNIOR_TUT_STEPS = [
         q: '<strong>모양</strong>을 비교합시다!',
         attrLabel: '모양이', logLabel: '모양',
         type: 'attr', correctAnswer: 'same',
-        praise: '🎉 굿굿!<br><br>마름모 · 마름모 · 마름모<br>— 세 장 모두 마름모! <strong>모두 같아요</strong>! ✔️',
+        praise: '🎉 굿굿👍!<br><br>마름모 · 마름모 · 마름모<br>— 세 장 모두 마름모! <strong>모두 같아요</strong>! ✔️',
         wrong: '세 장 모두 마름모 모양이에요!<br>— 다 같지 않나요? 😊',
       },
       {
         q: '<strong>색깔</strong>을 비교합시다!',
         attrLabel: '색깔이', logLabel: '색깔',
         type: 'attr', correctAnswer: 'different',
-        praise: '🎉 굿굿!<br><br>초록 · 보라 · 빨강<br>— 세 색깔이 <strong>모두 달라요</strong>! ✔️',
+        praise: '🎉 굿굿👍!<br><br>초록 · 보라 · 빨강<br>— 세 색깔이 <strong>모두 달라요</strong>! ✔️',
         wrong: '초록 · 보라 · 빨강<br>— 세 개가 다 다른 색깔이에요! 😊',
       },
       {
         q: '<strong>채움</strong>을 비교합시다!',
         attrLabel: '채움이', logLabel: '채움',
         type: 'attr', correctAnswer: 'same',
-        praise: '🎉 굿굿!<br><br>빈 것 · 빈 것 · 빈 것<br>— 채움 <strong>모두 같아요</strong>! ✔️',
+        praise: '🎉 굿굿👍!<br><br>빈 것 · 빈 것 · 빈 것<br>— 채움 <strong>모두 같아요</strong>! ✔️',
         wrong: '세 장 모두 빈 것(outline)이에요!<br>— 다 같지 않나요? 😊',
       },
       {
         q: '세 장의 카드는 <strong>SET</strong>일까요?',
         type: 'set', correctAnswer: 'yes',
-        praise: '🎉 굿굿!<br><br>세 가지 특징이 모두 규칙에 맞아요!<br>이게 바로 <strong>SET</strong>예요! 🌟',
+        praise: '🎉 굿굿👍!<br><br>세 가지 특징이 모두 규칙에 맞아요!<br>이게 바로 <strong>SET</strong>예요! 🌟',
         wrong: '💡 다시 생각해봐요!<br>모양·채움은 다 같고, 색깔만 다 달라요!<br>→ 모두 같거나 모두 다르니까 SET가 돼요! 🎉',
       },
     ],
@@ -133,28 +133,28 @@ const JUNIOR_TUT_STEPS = [
         q: '<strong>모양</strong>을 비교합시다!',
         attrLabel: '모양이', logLabel: '모양',
         type: 'attr', correctAnswer: 'different',
-        praise: '🎉 굿굿!<br><br>타원 · 물결 · 마름모<br>— 세 모양이 <strong>모두 달라요</strong>! ✔️',
+        praise: '🎉 굿굿👍!<br><br>타원 · 물결 · 마름모<br>— 세 모양이 <strong>모두 달라요</strong>! ✔️',
         wrong: '타원 · 물결 · 마름모<br>— 세 개가 서로 달라요! 😊',
       },
       {
         q: '<strong>색깔</strong>을 비교합시다!',
         attrLabel: '색깔이', logLabel: '색깔',
         type: 'attr', correctAnswer: 'different',
-        praise: '🎉 굿굿!<br><br>초록 · 보라 · 빨강<br>— 색깔도 <strong>모두 달라요</strong>! ✔️',
+        praise: '🎉 굿굿👍!<br><br>초록 · 보라 · 빨강<br>— 색깔도 <strong>모두 달라요</strong>! ✔️',
         wrong: '초록 · 보라 · 빨강<br>— 세 개가 다 다른 색깔이에요! 😊',
       },
       {
         q: '<strong>채움</strong>을 비교합시다!',
         attrLabel: '채움이', logLabel: '채움',
         type: 'attr3', correctAnswer: 'neither',
-        praise: '🎉 굿굿!<br><br>줄무늬 · 줄무늬 · 빈 것<br>— 줄무늬가 두 개예요.<br>⚠️ <strong>2개만 같아요</strong> — 규칙 위반이에요!',
+        praise: '🎉 굿굿👍!<br><br>줄무늬 · 줄무늬 · 빈 것<br>— 줄무늬가 두 개예요.<br>⚠️ <strong>2개만 같아요</strong> — 규칙 위반이에요!',
         wrong_same: '줄무늬 · 줄무늬 · 빈 것<br>— 마지막이 빈 것이에요!<br>모두 같지는 않아요. 😊',
         wrong_diff: '줄무늬 · 줄무늬 · 빈 것<br>— 줄무늬가 두 개나 있어요!<br>모두 다른 것도 아니에요. 😊',
       },
       {
         q: '세 장의 카드는 <strong>SET</strong>일까요?',
         type: 'set', correctAnswer: 'no', logLabel: null,
-        praise: '🎉 굿굿!<br><br>채움에서 규칙을 어겼으니까<br>이 세 장은 <strong>SET가 아니에요</strong>! 🙌',
+        praise: '🎉 굿굿👍!<br><br>채움에서 규칙을 어겼으니까<br>이 세 장은 <strong>SET가 아니에요</strong>! 🙌',
         wrong: '💡 다시 생각해봐요!<br>채움에서 실패했어요 (줄무늬가 두 개).<br>한 가지라도 규칙을 어기면<br>SET가 안 돼요!',
       },
     ],
@@ -180,27 +180,27 @@ const JUNIOR_TUT_STEPS = [
         q: '<strong>모양</strong>을 비교합시다!',
         attrLabel: '모양이', logLabel: '모양',
         type: 'attr', correctAnswer: 'different',
-        praise: '🎉 굿굿!<br><br>마름모 · 타원 · 물결<br>— 세 모양이 <strong>모두 달라요</strong>! ✔️',
+        praise: '🎉 굿굿👍!<br><br>마름모 · 타원 · 물결<br>— 세 모양이 <strong>모두 달라요</strong>! ✔️',
         wrong: '마름모 · 타원 · 물결<br>— 세 개가 서로 달라요! 😊',
       },
       {
         q: '<strong>색깔</strong>을 비교합시다!',
         attrLabel: '색깔이', logLabel: '색깔',
         type: 'attr', correctAnswer: 'different',
-        praise: '🎉 굿굿!<br><br>초록 · 보라 · 빨강<br>— 색깔도 <strong>모두 달라요</strong>! ✔️',
+        praise: '🎉 굿굿👍!<br><br>초록 · 보라 · 빨강<br>— 색깔도 <strong>모두 달라요</strong>! ✔️',
         wrong: '초록 · 보라 · 빨강<br>— 세 개가 다 다른 색깔이에요! 😊',
       },
       {
         q: '<strong>채움</strong>을 비교합시다!',
         attrLabel: '채움이', logLabel: '채움',
         type: 'attr', correctAnswer: 'different',
-        praise: '🎉 굿굿!<br><br>줄무늬 · 가득 참 · 빈 것<br>— 채움도 <strong>모두 달라요</strong>! ✔️',
+        praise: '🎉 굿굿👍!<br><br>줄무늬 · 가득 참 · 빈 것<br>— 채움도 <strong>모두 달라요</strong>! ✔️',
         wrong: '줄무늬 · 가득 참 · 빈 것<br>— 세 개가 다 다른 채움이에요! 😊',
       },
       {
         q: '세 장의 카드는 <strong>SET</strong>일까요?',
         type: 'set', correctAnswer: 'yes',
-        praise: '🎉 굿굿!<br><br>세 가지 특징이 모두 다 달라서<br>이게 바로 <strong>SET</strong>예요! 🌟',
+        praise: '🎉 굿굿👍!<br><br>세 가지 특징이 모두 다 달라서<br>이게 바로 <strong>SET</strong>예요! 🌟',
         wrong: '💡 다시 생각해봐요!<br>모양·색깔·채움이 모두 다 달라요!<br>→ 이럴 때도 SET가 돼요! 🎉',
       },
     ],
@@ -595,7 +595,7 @@ function evalTutSel() {
       const praises = [
         '🎉 완벽해요! 세 장이 SET를 이루고 있어요!',
         '🌟 훌륭해요! 정확하게 찾았어요!',
-        '굿굿 👍',
+        '굿굿👍',
       ];
       tutFeedbackEl.textContent = praises[Math.floor(Math.random() * praises.length)];
       tutFeedbackEl.className   = 'tut-feedback tut-success';
@@ -606,7 +606,7 @@ function evalTutSel() {
       const praises = [
         '🎉 완벽해요! 세 장이 SET를 이루고 있어요!',
         '🌟 훌륭해요! 정확하게 찾았어요!',
-        '굿굿 👍',
+        '굿굿👍',
       ];
       tutFeedbackEl.textContent = praises[Math.floor(Math.random() * praises.length)];
       tutFeedbackEl.className   = 'tut-feedback tut-success';
@@ -790,7 +790,7 @@ function onCardPickAnswer(isCorrect, clickedIdx, choices, explanation) {
   choices.forEach((_, i) => document.getElementById(`tut-pick-${i}`)?.setAttribute('disabled', ''));
   if (isCorrect) {
     document.getElementById(`tut-pick-${clickedIdx}`)?.classList.add('tut-pick-correct');
-    tutFeedbackEl.innerHTML = explanation || '🎉 정확해요! 규칙에 맞아서 <strong>SET</strong>예요!';
+    tutFeedbackEl.innerHTML = explanation || '굿굿👍 규칙에 맞아서 <strong>SET</strong>예요!';
     tutFeedbackEl.className = 'tut-feedback tut-success';
     showTutNextBtn(tutStepIdx >= JUNIOR_TUT_STEPS.length - 1 ? '완료! 🎓' : '다음 →');
   } else {
