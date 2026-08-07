@@ -404,15 +404,20 @@ function renderPracSettingsGrid() {
   const grid = document.getElementById('pracSettingsGrid');
   if (!grid) return;
   grid.innerHTML = '';
+  const posLabels = ['선지 A', '선지 B', '선지 C', '선지 D'];
   for (let i = 0; i < 4; i++) {
-    const box = document.createElement('div');
-    box.className = 'key-box' + (pracActiveKeyIdx === i ? ' active' : '');
-    box.textContent = pracKeys[i] ? pracKeys[i].toUpperCase() : '';
-    box.addEventListener('click', () => {
+    const cell = document.createElement('div');
+    const isListening = pracActiveKeyIdx === i;
+    cell.className = 'key-cell' + (isListening ? ' listening' : '');
+    cell.dataset.idx = i;
+    cell.innerHTML = `
+      <span class="key-cell-pos">${posLabels[i]}</span>
+      <span class="key-cell-badge">${isListening ? '…' : (pracKeys[i] ? pracKeys[i].toUpperCase() : '—')}</span>
+    `;
+    cell.addEventListener('click', () => {
       pracActiveKeyIdx = i;
       renderPracSettingsGrid();
     });
-    grid.appendChild(box);
+    grid.appendChild(cell);
   }
 }
-
