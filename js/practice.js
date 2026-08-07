@@ -38,14 +38,30 @@ let pracTotalAttempts = 0;
 let pracQuestionStartTime = 0;
 let pracTotalTimeMs = 0;
 
-let pracKeys = ['4', '5', '6', '1', '2', '3'];
-try {
-  const saved = localStorage.getItem('setGamePracKeys');
-  if (saved) {
-    const loaded = JSON.parse(saved);
-    for (let i = 0; i < 6; i++) pracKeys[i] = loaded[i] || pracKeys[i];
-  }
-} catch(e) {}
+// 레벨별 기본 단축키
+const PRAC_KEY_DEFAULTS = [
+  ['1','2','3','4','5','6'],      // level 0 (3선지)
+  ['1','2','3','4','5','6'],      // level 1 (4선지)
+  ['4','5','6','1','2','3']       // level 2 (6선지)
+];
+
+let pracKeys = [...PRAC_KEY_DEFAULTS[0]];
+
+function loadPracKeys() {
+  const storageKey = `setGamePracKeys_${pracHardLevel}`;
+  pracKeys = [...PRAC_KEY_DEFAULTS[pracHardLevel]];
+  try {
+    const saved = localStorage.getItem(storageKey);
+    if (saved) {
+      const loaded = JSON.parse(saved);
+      for (let i = 0; i < 6; i++) if (loaded[i]) pracKeys[i] = loaded[i];
+    }
+  } catch(e) {}
+}
+
+function savePracKeys() {
+  localStorage.setItem(`setGamePracKeys_${pracHardLevel}`, JSON.stringify(pracKeys));
+}
 
 let pracActiveKeyIdx = -1;
 
@@ -66,6 +82,7 @@ function optionCount(type) {
 function initPracticeMode(isFull, hardLevel) {
   pracIsFull = isFull;
   pracHardLevel = hardLevel || 0;
+  loadPracKeys();  // 레벨별 단축키 로드
   pracCurrentDiff = 0;
   pracWaitNext = false;
   pracSolvedCount = 0;
@@ -582,7 +599,7 @@ document.addEventListener('keydown', (e) => {
 
     pracKeys[pracActiveKeyIdx] = key;
     pracActiveKeyIdx = -1;
-    localStorage.setItem('setGamePracKeys', JSON.stringify(pracKeys));
+    savePracKeys();
     renderPracSettingsGrid();
     return;
   }
@@ -670,10 +687,11 @@ function renderPracSettingsGrid() {
   presetRow.className = 'key-preset-row';
   const presetBtn = document.createElement('button');
   presetBtn.className = 'btn-preset';
-  presetBtn.textContent = '프리셋: 1 2 3 4 5 6';
+  const slotCountForLabel = pracHardLevel === 2 ? 6 : (pracHardLevel === 1 ? 4 : 3);
+  presetBtn.textContent = '프리셋: ' + PRAC_KEY_DEFAULTS[pracHardLevel].slice(0, slotCountForLabel).join(' ');
   presetBtn.addEventListener('click', () => {
-    pracKeys = ['1','2','3','4','5','6'];
-    localStorage.setItem('setGamePracKeys', JSON.stringify(pracKeys));
+    pracKeys = [...PRAC_KEY_DEFAULTS[pracHardLevel]];
+    savePracKeys();
     pracActiveKeyIdx = -1;
     renderPracSettingsGrid();
   });
