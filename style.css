@@ -1591,3 +1591,22 @@ html, body {
 .tut-back-btn:hover { background: var(--bg-card2); }
 
 .btn-theme { width: 96px; justify-content: flex-start; }
+
+/* ── 튜토리얼 문제 카드 모바일 — 파일 최하단 배치로 기본 스타일 확실히 덮어씀 ── */
+@media (max-width: 700px) {
+  .tut-pick-given-card {
+    width: 90px !important;
+    height: 120px !important;
+  }
+  .tut-pick-unknown {
+    width: 90px !important;
+    height: 120px !important;
+    font-size: 1.4rem;
+  }
+  .tut-pick-card.card {
+    width: 90px !important;
+    height: 120px !important;
+  }
+  .tut-pick-given { gap: 8px; }
+  .tut-pick-choices { gap: 8px; }
+}
