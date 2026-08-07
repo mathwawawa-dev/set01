@@ -1609,4 +1609,12 @@ html, body {
   }
   .tut-pick-given { gap: 8px; }
   .tut-pick-choices { gap: 8px; }
+
+  /* 분석 단계 선지 버튼 — 글씨 줄여서 2줄로 */
+  .tut-quiz-yes, .tut-quiz-no,
+  .tut-quiz-same, .tut-quiz-diff, .tut-quiz-neither {
+    font-size: 0.78rem;
+    padding: 10px 10px;
+    min-height: 56px;
+  }
 }
