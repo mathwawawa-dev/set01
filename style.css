@@ -1631,4 +1631,8 @@ html, body {
     font-size: 0.82rem;
     line-height: 1.25;
   }
+  /* 정식 SET 튜토리얼(4줄) — junior(3줄)보다 작게 */
+  .ft-tut-mode .tut-log-item {
+    font-size: 0.70rem;
+  }
 }
