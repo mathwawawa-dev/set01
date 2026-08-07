@@ -111,6 +111,8 @@ function initPracticeMode(isFull, hardLevel) {
   if (gameHeader) gameHeader.style.display = 'none';
   const floatMenu = document.getElementById('floatingMenu');
   if (floatMenu) floatMenu.style.display = 'none';
+  const selBar = document.getElementById('selectionBar');
+  if (selBar) selBar.style.display = 'none';
 
   generatePracticeQ();
 }
@@ -126,6 +128,8 @@ function exitPracticeMode() {
   if (gameHeader) gameHeader.style.display = '';
   const floatMenu = document.getElementById('floatingMenu');
   if (floatMenu) floatMenu.style.display = '';
+  const selBar = document.getElementById('selectionBar');
+  if (selBar) selBar.style.display = '';
 }
 
 function getDeck() {
