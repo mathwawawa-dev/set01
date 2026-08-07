@@ -1234,7 +1234,7 @@ const JUNIOR_TUT_STEPS = [
   },
   {
     id: 'challenge2', title: '',
-    text: '[실전연습] 9장 중에서 <strong>SET를 찾아보세요.</strong><br>이번엔 힌트가 없어요!',
+    text: '<div style="display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap;"><div><span class="tut-sub-label" style="margin: 0; white-space: nowrap;">실전연습</span></div><div>9장 중에서 <strong>SET를 찾아보세요.</strong><br>이번엔 힌트가 없어요!</div></div>',
     cards: null, interactive: true, hasHint: false,
   },
 ];
