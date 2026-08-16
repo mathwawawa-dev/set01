@@ -55,11 +55,11 @@ const TUT_Q3_CHOICES = [
   { isCorrect: false, card: { shape: 'squiggle', color: 'green',  fill: 'solid'   } },
 ];
 
-// ── 훈련1 고정 4장 (수학적 검증 완료: 유일 SET = 인덱스 0,1,2) ──
+// ── 훈련1 고정 4장 (문제 3과 동일한 세 카드 + 미끼 1장, 유일 SET = 인덱스 0,1,2) ──
 const TUT_TRAIN1_BASE = [
-  { shape: 'oval',     color: 'green',  fill: 'outline' }, // 정답 A
-  { shape: 'diamond',  color: 'purple', fill: 'striped' }, // 정답 B
-  { shape: 'squiggle', color: 'red',    fill: 'solid'   }, // 정답 C
+  { shape: 'diamond',  color: 'green',  fill: 'outline' }, // 정답 (문제 3 주어진 카드 1)
+  { shape: 'oval',     color: 'purple', fill: 'striped' }, // 정답 (문제 3 주어진 카드 2)
+  { shape: 'squiggle', color: 'red',    fill: 'solid'   }, // 정답 (문제 3 정답 카드)
   { shape: 'oval',     color: 'purple', fill: 'solid'   }, // 미끼
 ];
 
