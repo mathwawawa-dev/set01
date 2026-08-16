@@ -207,6 +207,17 @@ html, body {
   margin-top: 4px;
 }
 
+/* 튜토리얼 카드 아이콘 90% 축소 (2.4rem → 2.16rem) 및 아래 여백 4px 축소 (12px → 8px) */
+#btnModeTutorial .mode-card-icon img,
+#btnModeTutorialFull .mode-card-icon img {
+  width: 2.16rem;
+  height: 2.16rem;
+}
+#btnModeTutorial .mode-card-name,
+#btnModeTutorialFull .mode-card-name {
+  margin-top: 0px;
+}
+
 .mode-card-desc {
   font-size: 0.85rem;
   color: var(--text-muted);
@@ -1172,6 +1183,11 @@ html, body {
   .mode-card-icon img {
     width: 2.2rem;
     height: 2.2rem;
+  }
+  #btnModeTutorial .mode-card-icon img,
+  #btnModeTutorialFull .mode-card-icon img {
+    width: 1.98rem;
+    height: 1.98rem;
   }
   .mode-card-emoji {
     font-size: 1.7rem;
