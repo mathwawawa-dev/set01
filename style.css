@@ -1418,8 +1418,10 @@ html, body {
 .tut-context-bubble[hidden] { display: none; }
 
 .tut-cards-wrapper {
-  display: flex; gap: 24px; align-items: stretch;
-  width: 100%; justify-content: center;
+  position: relative;
+  width: 380px;
+  max-width: 100%;
+  flex-shrink: 0;
 }
 .tut-card-area {
   display: grid;
@@ -1448,9 +1450,13 @@ html, body {
   object-fit: contain;
 }
 
-/* 답변 누적 패널 */
+/* 답변 누적 패널 — 카드 우측에 절대 배치하여 카드 위치 유지 */
 .tut-answer-log {
-  flex: 0 0 auto; min-width: 120px;
+  position: absolute;
+  top: 0;
+  left: calc(100% + 12px);
+  width: 120px;
+  min-width: 100px;
   background: #fffde7; border: 2px solid #f9c74f;
   border-radius: 14px; padding: 6px 8px;
   box-sizing: border-box;
