@@ -724,6 +724,17 @@ function returnToHome() {
 btnRestart.addEventListener('click', returnToHome);
 
 // 플로팅 액션 버튼
+document.getElementById('btnFloatSettings').addEventListener('click', () => {
+  const pracScreen = document.getElementById('practiceScreen');
+  if (pracScreen && !pracScreen.hidden) {
+    document.getElementById('pracSettingsOverlay').hidden = false;
+    if (typeof renderPracSettingsGrid === 'function') {
+      renderPracSettingsGrid();
+    }
+    return;
+  }
+  openSettings();
+});
 document.getElementById('btnFloatRestart').addEventListener('click', () => {
   const pracScreen = document.getElementById('practiceScreen');
   if (pracScreen && !pracScreen.hidden) {
@@ -983,7 +994,8 @@ document.getElementById('chkLayout').addEventListener('change', (e) => {
   }
 });
 
-document.getElementById('btnSettings').addEventListener('click', openSettings);
+const btnSettings = document.getElementById('btnSettings');
+if (btnSettings) btnSettings.addEventListener('click', openSettings);
 document.getElementById('btnSettingsClose').addEventListener('click', closeSettings);
 settingsOverlay.addEventListener('click', (e) => { if (e.target === settingsOverlay) closeSettings(); });
 
