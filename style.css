@@ -748,6 +748,7 @@ html, body {
   display: flex;
   justify-content: center;
   margin-top: 10px;
+  grid-column: 1;
 }
 .key-preset-row .btn-preset {
   padding: 6px 8px;
