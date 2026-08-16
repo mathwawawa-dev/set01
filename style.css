@@ -162,7 +162,7 @@ html, body {
 }
 
 .mode-card-icon {
-  font-size: 2.4rem;
+  font-size: 1.95rem;
   line-height: 1;
 }
 .mode-card-icon img {
@@ -175,7 +175,9 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 2.4rem;
+  width: 1.95rem;
+  height: 1.95rem;
+  font-size: 1.95rem;
   line-height: 1;
   filter: grayscale(1) brightness(1.1);
 }
