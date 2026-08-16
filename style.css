@@ -1622,19 +1622,24 @@ html, body {
   animation: stamp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 
-.tut-quiz-btns { display: flex; gap: 20px; width: 100%; justify-content: center; }
+.tut-quiz-btns {
+  display: flex;
+  gap: 10px;
+  width: 380px;
+  max-width: 100%;
+  box-sizing: border-box;
+  justify-content: center;
+}
 .tut-quiz-yes, .tut-quiz-no, .tut-quiz-same, .tut-quiz-diff, .tut-quiz-neither {
-  flex: 1; min-height: 64px; padding: 14px 16px;
+  flex: 1; min-height: 64px; padding: 14px 10px;
   border-radius: 14px; border: 1.8px solid #111111;
   color: #111111; background: transparent;
-  font-size: 0.95rem; font-weight: 400;
+  font-size: 0.9rem; font-weight: 400;
   line-height: 1.35; text-align: center;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   box-sizing: border-box;
   cursor: pointer; transition: transform 0.14s, background 0.15s;
 }
-/* 3지선다는 너무 넓어지지 않도록 개별 제한 */
-.tut-quiz-same, .tut-quiz-diff, .tut-quiz-neither { max-width: 200px; }
 .tut-quiz-yes:hover:not(:disabled),
 .tut-quiz-no:hover:not(:disabled),
 .tut-quiz-same:hover:not(:disabled),
@@ -1716,10 +1721,14 @@ html, body {
   .tut-pick-choices { gap: 8px; }
 
   /* 분석 단계 선지 버튼 — 글씨 줄여서 2줄로 */
+  .tut-quiz-btns {
+    width: 286px !important;
+    gap: 8px !important;
+  }
   .tut-quiz-yes, .tut-quiz-no,
   .tut-quiz-same, .tut-quiz-diff, .tut-quiz-neither {
     font-size: 0.78rem;
-    padding: 10px 10px;
+    padding: 10px 6px;
     min-height: 56px;
   }
 
