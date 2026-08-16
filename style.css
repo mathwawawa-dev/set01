@@ -1419,16 +1419,31 @@ html, body {
   width: 100%; justify-content: center;
 }
 .tut-card-area {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 10px; flex: 1; max-width: 320px;
+  display: grid;
+  grid-template-columns: repeat(3, 120px);
+  gap: 10px;
+  justify-content: center;
+  width: 380px;
+  max-width: 100%;
 }
 /* 완료 화면: 대문으로 버튼 중앙 배치, 버블 폭에 맞춤 */
 .tut-card-area--complete {
   display: flex; justify-content: center; align-items: center;
   width: 100%; max-width: 100%;
 }
-.tut-card { cursor: default; aspect-ratio: 3 / 4; overflow: hidden; }
-.tut-card > img { width: 100%; height: 100%; object-fit: contain; padding: 6px; }
+.tut-card {
+  width: 120px;
+  height: 160px;
+  cursor: default;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  border-radius: 14px;
+}
+.tut-card > img {
+  width: 75%;
+  height: 75%;
+  object-fit: contain;
+}
 
 /* 답변 누적 패널 */
 .tut-answer-log {
@@ -1740,5 +1755,15 @@ html, body {
   .tut-layout-quiz .tut-bubble,
   .prac-bubble {
     width: 286px !important;
+  }
+
+  .tut-card-area {
+    grid-template-columns: repeat(3, 90px) !important;
+    gap: 8px !important;
+    width: 286px !important;
+  }
+  .tut-card {
+    width: 90px !important;
+    height: 120px !important;
   }
 }
