@@ -492,14 +492,14 @@ html, body {
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   border-bottom: 1px solid var(--border);
-  padding: 8px 16px;
+  padding: 8px 8px;
   transition: background 0.35s ease;
 }
 
 .header-inner {
   width: 100%;
   max-width: 100%;
-  padding: 0 12px;
+  padding: 0 4px;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -1151,9 +1151,9 @@ html, body {
 
 /* ---------- 諛섏쓳??---------- */
 @media (max-width: 700px) {
-  .game-header { padding: 6px 12px; }
+  .game-header { padding: 6px 4px; }
 
-  .header-inner { gap: 6px; }
+  .header-inner { gap: 4px; padding: 0 2px; }
 
   .game-title { font-size: clamp(1rem, 5vw, 1.5rem); letter-spacing: 1px; }
   .title-sub  { display: none; }
