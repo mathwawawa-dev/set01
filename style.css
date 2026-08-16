@@ -1365,14 +1365,14 @@ html, body {
 /* RPG 진행 화살표 — 버블 내부 우측 하단 */
 .tut-rpg-arrow {
   position: absolute;
-  right: 5px;
-  bottom: 5px;
+  right: 2px;
+  bottom: 5.5px;
   background: none;
   border: none;
   font-size: 0.65rem;
   font-family: sans-serif;
   color: var(--text-primary);
-  opacity: 0.75;
+  opacity: 0.7;
   cursor: pointer;
   animation: bounceArrow 0.8s infinite alternate;
   padding: 2px 4px;
