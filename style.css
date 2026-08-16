@@ -1355,18 +1355,18 @@ html, body {
 .tut-bubble {
   position: relative;
   background: var(--bg-card); border: 1.5px solid var(--border);
-  border-radius: 16px; padding: 16px 22px 28px;
+  border-radius: 16px; padding: 16px 22px 18px;
   font-size: 0.95rem; line-height: 1.7; text-align: center;
   color: var(--text-primary); box-shadow: var(--shadow-card);
   width: 380px;
   max-width: 100%;
   box-sizing: border-box;
 }
-/* RPG 진행 화살표 — 버블 내부 우측 하단에 고정, 항상 텍스트 아래 */
+/* RPG 진행 화살표 — 버블 내부 우측 하단 */
 .tut-rpg-arrow {
   position: absolute;
-  right: 14px;
-  bottom: 8px;
+  right: 8px;
+  bottom: 6px;
   background: none;
   border: none;
   font-size: 0.75rem;
