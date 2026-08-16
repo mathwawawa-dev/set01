@@ -725,10 +725,26 @@ btnRestart.addEventListener('click', returnToHome);
 
 // 플로팅 액션 버튼
 document.getElementById('btnFloatRestart').addEventListener('click', () => {
+  const pracScreen = document.getElementById('practiceScreen');
+  if (pracScreen && !pracScreen.hidden) {
+    if (typeof initPracticeMode === 'function') {
+      initPracticeMode(pracIsFull, pracHardLevel);
+    }
+    return;
+  }
   if (!gameOver) clearInterval(timerID);
   startGame();
 });
-document.getElementById('btnFloatHome').addEventListener('click', returnToHome);
+document.getElementById('btnFloatHome').addEventListener('click', () => {
+  const pracScreen = document.getElementById('practiceScreen');
+  if (pracScreen && !pracScreen.hidden) {
+    if (typeof exitPracticeMode === 'function') {
+      exitPracticeMode();
+    }
+    return;
+  }
+  returnToHome();
+});
 
 // 모드 선택
 document.getElementById('btnModeCountdown').addEventListener('click', () => {

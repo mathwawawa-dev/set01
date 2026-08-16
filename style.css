@@ -256,71 +256,52 @@ html, body {
 /* ---------- 연습 모드 (Practice Screen) ---------- */
 .practice-screen {
   position: fixed;
-  top: 0; left: 0; width: 100vw; height: 100vh;
-  background: var(--bg-main);
-  z-index: 3000;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background: var(--bg-base);
+  z-index: 300;
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 4vh 20px;
+  flex-direction: column;
+  align-items: stretch;
   overflow-y: auto;
 }
 .practice-screen[hidden] {
   display: none !important;
 }
 
+.prac-game-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+}
+.prac-game-header .header-center {
+  gap: 16px;
+}
+
+.prac-main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 24px 20px 60px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
 .prac-inner {
   width: 100%;
   max-width: 600px;
-  background: var(--card-bg);
+  background: var(--bg-card);
   border-radius: 24px;
-  padding: 30px;
-  box-shadow: 0 16px 40px var(--shadow-color);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-card);
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
   text-align: center;
-  border: 1px solid var(--card-border);
-}
-
-.prac-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.prac-stats {
-  display: flex;
-  gap: 16px;
-  font-size: 0.85rem;
-  font-weight: 400;
-  color: var(--text-sec);
-}
-.prac-stat-item span {
-  color: var(--primary);
-  font-weight: 400;
-  margin-left: 4px;
-}
-
-.prac-exit-btn, .prac-settings-btn {
-  background: transparent;
-  border: none;
-  border-radius: 8px;
-  padding: 6px 10px;
-  font-size: 0.85rem;
-  font-weight: 400;
-  color: var(--primary);
-  cursor: pointer;
-  transition: background 0.2s;
-}
-.prac-exit-btn:hover, .prac-settings-btn:hover {
-  background: rgba(59, 130, 246, 0.1);
-}
-
-.prac-btn-group {
-  display: flex;
-  gap: 4px;
-  align-items: center;
+  border: 1.5px solid var(--border);
 }
 
 .prac-title {
@@ -1212,6 +1193,8 @@ html, body {
   .mode-card-desc br { display: none; }
 
   .btn-theme, .btn-settings { font-size: 0.6rem; padding: 4px 6px; }
+  .prac-game-header .header-center { gap: 6px; }
+  .prac-main { padding: 12px 10px 48px; }
 
   .prac-options-area {
     display: flex;
@@ -1288,7 +1271,7 @@ html, body {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  z-index: 100;
+  z-index: 500;
 }
 
 .floating-menu[hidden] {

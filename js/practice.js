@@ -103,14 +103,19 @@ function initPracticeMode(isFull, hardLevel) {
   if (pracIsFull) ps.classList.add('official');
   else ps.classList.remove('official');
 
-  // hardest 모드에서도 설정 버튼 표시 (6선지 단축키 지원)
-  const settingsBtn = document.getElementById('pracSettingsBtn');
-  if (settingsBtn) settingsBtn.style.display = '';
+  // 테마 아이콘/라벨 동기화
+  const isDark = document.body.classList.contains('dark');
+  const themeIconPrac = document.getElementById('themeIconPrac');
+  const themeLabelPrac = document.getElementById('themeLabelPrac');
+  if (themeIconPrac) themeIconPrac.textContent = isDark ? '☀️' : '🌙';
+  if (themeLabelPrac) themeLabelPrac.textContent = isDark ? '라이트 모드' : '다크 모드';
 
-  const gameHeader = document.querySelector('.game-header');
-  if (gameHeader) gameHeader.style.display = 'none';
+  // 플로팅 메뉴 표시
   const floatMenu = document.getElementById('floatingMenu');
-  if (floatMenu) floatMenu.style.display = 'none';
+  if (floatMenu) {
+    floatMenu.hidden = false;
+    floatMenu.style.display = 'flex';
+  }
   const selBar = document.getElementById('selectionBar');
   if (selBar) selBar.style.display = 'none';
 
@@ -121,13 +126,11 @@ function exitPracticeMode() {
   document.getElementById('practiceScreen').hidden = true;
   document.getElementById('modeScreen').hidden = false;
 
-  const settingsBtn = document.getElementById('pracSettingsBtn');
-  if (settingsBtn) settingsBtn.style.display = '';
-
-  const gameHeader = document.querySelector('.game-header');
-  if (gameHeader) gameHeader.style.display = '';
   const floatMenu = document.getElementById('floatingMenu');
-  if (floatMenu) floatMenu.style.display = '';
+  if (floatMenu) {
+    floatMenu.hidden = true;
+    floatMenu.style.display = '';
+  }
   const selBar = document.getElementById('selectionBar');
   if (selBar) selBar.style.display = '';
 }
@@ -582,7 +585,8 @@ function getAttrKorean(prop, val) {
 
 // 이벤트 리스너 연결
 document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('pracExitBtn').addEventListener('click', exitPracticeMode);
+  const exitBtn = document.getElementById('pracExitBtn');
+  if (exitBtn) exitBtn.addEventListener('click', exitPracticeMode);
 
   document.getElementById('btnModePractice').addEventListener('click', () => initPracticeMode(false, 0));
   document.getElementById('btnModePracticeHard').addEventListener('click', () => initPracticeMode(false, 1));

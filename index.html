@@ -110,7 +110,7 @@
           <span class="mode-card-tag">최고난이도</span>
         </button>
       </div>
-      <div class="mode-version">v2.184_20260816_2218_preset_btn_break</div>
+      <div class="mode-version">v2.185_20260816_2225_prac_header_floating</div>
     </div>
   </div>
 
@@ -148,34 +148,51 @@
 
   <!-- 연습 모드 화면 -->
   <div id="practiceScreen" class="practice-screen" hidden>
-    <div class="prac-inner">
-      <div class="prac-header">
-        <div class="prac-stats">
-          <div class="prac-stat-item">푼 문제 <span id="pracSolvedCount">0</span></div>
-          <div class="prac-stat-item">정답률 <span id="pracAccuracy">0%</span></div>
-          <div class="prac-stat-item">평균 시간 <span id="pracAvgTime">0.0초</span></div>
+    <header class="game-header prac-game-header">
+      <div class="header-inner">
+        <div class="header-left">
+          <button class="btn-theme" id="btnThemePrac" title="테마 전환">
+            <span id="themeIconPrac">🌙</span>
+            <span id="themeLabelPrac">다크 모드</span>
+          </button>
+          <button class="btn-settings" id="pracSettingsBtn" title="단축키 설정"><span style="font-size: 1.25em; line-height: 1; transform: translateY(1px); display: inline-block;">⚙</span> 설정</button>
         </div>
-        <div class="prac-btn-group">
-          <button class="prac-settings-btn" id="pracSettingsBtn">⚙ 설정</button>
-          <button class="prac-exit-btn" id="pracExitBtn">✕ 종료</button>
+        <div class="header-center">
+          <div class="stat-card" id="statPracSolved">
+            <span class="stat-label">푼 문제</span>
+            <span class="stat-value" id="pracSolvedCount">0</span>
+          </div>
+          <div class="stat-card" id="statPracAccuracy">
+            <span class="stat-label">정답률</span>
+            <span class="stat-value" id="pracAccuracy">0%</span>
+          </div>
+        </div>
+        <div class="header-right">
+          <div class="stat-card" id="statPracAvgTime">
+            <span class="stat-label">평균 시간</span>
+            <span class="stat-value" id="pracAvgTime">0.0초</span>
+          </div>
         </div>
       </div>
+    </header>
 
-      <div class="prac-bubble" id="pracBubble">SET가 되기 위해 필요한 카드는?</div>
-      
-      <!-- 문제 (주어진 카드 2장 + 빈칸 1장) -->
-      <div class="prac-question-area" id="pracQuestionArea">
-        <!-- 카드가 동적으로 삽입됨 -->
-      </div>
-      
-      <!-- 선지 (4지선다) -->
-      <div class="prac-options-area" id="pracOptionsArea">
-        <!-- 선지 컨테이너가 동적으로 삽입됨 -->
-      </div>
+    <div class="prac-main">
+      <div class="prac-inner">
+        <div class="prac-bubble" id="pracBubble">SET가 되기 위해 필요한 카드는?</div>
+        
+        <!-- 문제 (주어진 카드 2장 + 빈칸 1장) -->
+        <div class="prac-question-area" id="pracQuestionArea">
+          <!-- 카드가 동적으로 삽입됨 -->
+        </div>
+        
+        <!-- 선지 (4지선다) -->
+        <div class="prac-options-area" id="pracOptionsArea">
+          <!-- 선지 컨테이너가 동적으로 삽입됨 -->
+        </div>
 
-      <!-- 정답 피드백 -->
-      <div class="prac-feedback-area" id="pracFeedbackArea"></div>
-      
+        <!-- 정답 피드백 -->
+        <div class="prac-feedback-area" id="pracFeedbackArea"></div>
+      </div>
     </div>
   </div>
 
