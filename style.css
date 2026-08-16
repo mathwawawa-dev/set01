@@ -166,8 +166,8 @@ html, body {
   line-height: 1;
 }
 .mode-card-icon img {
-  width: 2.4rem;
-  height: 2.4rem;
+  width: 2.16rem;
+  height: 2.16rem;
   display: block;
 }
 /* 이모지 아이콘 — 인라인 공백 제거 + 흑백 필터 */
@@ -204,18 +204,7 @@ html, body {
 .mode-card-name {
   font-size: 1.15rem;
   font-weight: 700;
-  margin-top: 4px;
-}
-
-/* 튜토리얼 카드 아이콘 90% 축소 (2.4rem → 2.16rem) 및 아래 여백 4px 축소 (12px → 8px) */
-#btnModeTutorial .mode-card-icon img,
-#btnModeTutorialFull .mode-card-icon img {
-  width: 2.16rem;
-  height: 2.16rem;
-}
-#btnModeTutorial .mode-card-name,
-#btnModeTutorialFull .mode-card-name {
-  margin-top: 0px;
+  margin-top: -2px; /* 카드 gap(8px) + (-2px) = 아래 여백 6px */
 }
 
 .mode-card-desc {
@@ -1181,11 +1170,6 @@ html, body {
     justify-self: end;
   }
   .mode-card-icon img {
-    width: 2.2rem;
-    height: 2.2rem;
-  }
-  #btnModeTutorial .mode-card-icon img,
-  #btnModeTutorialFull .mode-card-icon img {
     width: 1.98rem;
     height: 1.98rem;
   }
