@@ -1350,7 +1350,10 @@ html, body {
   background: var(--bg-card); border: 1.5px solid var(--border);
   border-radius: 16px; padding: 16px 22px;
   font-size: 0.95rem; line-height: 1.7; text-align: center;
-  color: var(--text-primary); box-shadow: var(--shadow-card); width: 100%;
+  color: var(--text-primary); box-shadow: var(--shadow-card);
+  width: 380px;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 .tut-rpg-arrow {
   position: absolute;
@@ -1752,7 +1755,7 @@ html, body {
     margin-left: 0;
   }
 
-  .tut-layout-quiz .tut-bubble,
+  .tut-bubble,
   .prac-bubble {
     width: 286px !important;
   }
