@@ -318,7 +318,9 @@ html, body {
   text-align: center;
   color: var(--text-primary);
   box-shadow: var(--shadow-card);
-  width: 100%;
+  width: 380px;
+  max-width: 100%;
+  box-sizing: border-box;
   margin-top: 4px;
 }
 
@@ -1390,7 +1392,12 @@ html, body {
 .tut-inner {
   display: flex; flex-direction: column; align-items: center;
 }
-.tut-layout-quiz .tut-bubble        { order: 1; }
+.tut-layout-quiz .tut-bubble {
+  order: 1;
+  width: 380px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
 .tut-layout-quiz .tut-cards-wrapper { order: 2; margin-top: 12px; }
 .tut-layout-quiz .tut-feedback      { order: 3; }
 .tut-layout-quiz .tut-actions       { order: 4; }
@@ -1728,5 +1735,10 @@ html, body {
   .prac-stat-item span {
     display: block;
     margin-left: 0;
+  }
+
+  .tut-layout-quiz .tut-bubble,
+  .prac-bubble {
+    width: 286px !important;
   }
 }
