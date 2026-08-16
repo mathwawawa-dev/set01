@@ -768,6 +768,12 @@ html, body {
   justify-content: center;
   margin-top: 10px;
 }
+.key-preset-row .btn-preset {
+  padding: 6px 8px;
+  font-size: 0.8rem;
+  line-height: 1.35;
+  text-align: center;
+}
 
 .settings-actions {
   display: flex;

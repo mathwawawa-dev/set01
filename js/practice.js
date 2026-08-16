@@ -700,7 +700,7 @@ function renderPracSettingsGrid() {
   const presetBtn = document.createElement('button');
   presetBtn.className = 'btn-preset';
   const slotCountForLabel = pracHardLevel === 2 ? 6 : (pracHardLevel === 1 ? 4 : 3);
-  presetBtn.textContent = '프리셋: ' + PRAC_KEY_DEFAULTS[pracHardLevel].slice(0, slotCountForLabel).join(' ');
+  presetBtn.innerHTML = '프리셋:<br>' + PRAC_KEY_DEFAULTS[pracHardLevel].slice(0, slotCountForLabel).join(' ');
   presetBtn.addEventListener('click', () => {
     pracKeys = [...PRAC_KEY_DEFAULTS[pracHardLevel]];
     savePracKeys();
